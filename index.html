@@ -2,266 +2,1722 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORGENOS | Coming Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FORGENOS | Premium Tool Directory</title>
     
-    <!-- Premium Sans-serif Font -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --brand-red: rgba(180, 15, 15, 0.45);
-            --brand-white: rgba(255, 255, 255, 0.15);
-            --text-main: rgba(255, 255, 255, 0.9);
-            --text-muted: rgba(255, 255, 255, 0.5);
-        }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-        body {
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: var(--text-main);
-            perspective: 1000px;
-        }
+    <!-- Lenis for Premium Smooth Scrolling -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
-        /* --- Noise Texture Overlay --- */
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* --- Smooth Mesh/Smoke Background --- */
-        .bg-container {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            overflow: hidden;
-            z-index: 0;
-            filter: blur(90px); /* Heavy blur creates the smoke/mesh merging effect */
-            -webkit-filter: blur(90px);
-            transform: translateZ(0); /* Hardware acceleration */
-        }
-
-        .blob-wrapper {
-            position: absolute;
-            width: 100%; height: 100%;
-            top: 0; left: 0;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            animation: drift alternate infinite ease-in-out;
-        }
-
-        .blob-red {
-            width: 70vw; height: 70vw;
-            background: radial-gradient(circle, var(--brand-red) 0%, transparent 60%);
-            top: -20%; left: -10%;
-            animation-duration: 25s;
-        }
-
-        .blob-white {
-            width: 60vw; height: 60vw;
-            background: radial-gradient(circle, var(--brand-white) 0%, transparent 60%);
-            bottom: -20%; right: -10%;
-            animation-duration: 28s;
-            animation-delay: -5s;
-        }
-
-        @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(12vw, 15vh) scale(1.1); }
-            66% { transform: translate(-8vw, 8vh) scale(0.95); }
-            100% { transform: translate(5vw, -12vh) scale(1.05); }
-        }
-
-        /* --- Glassmorphism Container --- */
-        .glass-card-wrapper {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-        }
-
-        .glass-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 30px;
-            padding: 5rem 6rem;
-            text-align: center;
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.4), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-            transform-style: preserve-3d;
-        }
-
-        /* --- Typography & Animations --- */
-        .title-wrapper {
-            transform: translateZ(40px); /* 3D pop effect */
-        }
-
-        .title {
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            color: var(--text-main); /* Clean, solid premium text */
-        }
-
-        .separator {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            margin: 0 auto 2.5rem auto;
-            transform: translateZ(30px);
-        }
-
-        .subtext-wrapper {
-            transform: translateZ(20px);
-        }
-
-        .subtext {
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            color: var(--text-muted);
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-
-        .date {
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.85);
-            letter-spacing: 0.25em;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            margin-top: 1.5rem;
-        }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 900px) {
-            .glass-card {
-                padding: 4rem 3rem;
-            }
-            .title {
-                font-size: 4rem;
-            }
-            .blob-red { width: 100vw; height: 100vw; }
-            .blob-white { width: 90vw; height: 90vw; }
-        }
-
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 3rem 1.5rem;
-                border-radius: 20px;
-            }
-            .title {
-                font-size: 2.8rem;
-            }
-            .subtext {
-                font-size: 0.65rem;
-                letter-spacing: 0.2em;
-            }
-            .date {
-                font-size: 0.7rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Grain/Noise Texture -->
-    <div class="noise-overlay"></div>
-
-    <!-- Smoke / Mesh Gradient Background -->
-    <div class="bg-container">
-        <div class="blob-wrapper" id="blob-red-wrapper">
-            <div class="blob blob-red"></div>
-        </div>
-        <div class="blob-wrapper" id="blob-white-wrapper">
-            <div class="blob blob-white"></div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="glass-card-wrapper">
-        <div class="glass-card" id="card">
-            <div class="title-wrapper">
-                <h1 class="title">FORGENOS</h1>
-            </div>
-            
-            <div class="separator"></div>
-            
-            <div class="subtext-wrapper">
-                <p class="subtext">Initializing Protocol...</p>
-                <p class="subtext date">Coming Soon: 26 March 2026</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Scripts -->
     <script>
-        const card = document.getElementById('card');
-        const blobRedWrapper = document.getElementById('blob-red-wrapper');
-        const blobWhiteWrapper = document.getElementById('blob-white-wrapper');
-        
-        // Security: Right-click disable karna
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Security: DevTools aur View Source shortcut keys disable karna (F12, Ctrl+Shift+I, Ctrl+U, etc.)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-                (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
-                e.preventDefault();
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                    }
+                }
             }
-        });
-
-        // Disable 3D tilt on touch devices for performance and better UX
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-        if (!isTouchDevice) {
-            document.addEventListener('mousemove', (e) => {
-                // Calculate mouse position relative to center of screen
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
-                
-                // Apply 3D tilt to the glass card
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-                
-                // Subtle Parallax effect on the background "smoke" blobs
-                blobRedWrapper.style.transform = `translate(${xAxis * -2}px, ${yAxis * -2}px)`;
-                blobWhiteWrapper.style.transform = `translate(${xAxis * 3}px, ${yAxis * 3}px)`;
-            });
-
-            // Reset transformations smoothly when mouse leaves the window
-            document.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-                blobRedWrapper.style.transform = `translate(0px, 0px)`;
-                blobWhiteWrapper.style.transform = `translate(0px, 0px)`;
-            });
         }
     </script>
 
+    <style>
+        /* Base Setup & Security */
+        body { 
+            background-color: #141414; 
+            color: #e5e5e5; 
+            overflow-x: hidden; 
+            transition: filter 0.3s ease; 
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        html { scroll-behavior: smooth; }
+        body, .overflow-y-auto, .hide-scroll { -webkit-overflow-scrolling: touch; }
+        img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+
+        /* Smooth Background Freeze Lock */
+        body.scroll-locked { overflow: hidden !important; }
+
+        @media (min-width: 1024px) {
+            .premium-card, .category-row, .hero-slide { 
+                will-change: transform; transform: translateZ(0); backface-visibility: hidden; 
+            }
+        }
+
+        /* Lenis Scroll */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
+
+        /* Sidebar Styling - Expands on hover (With Z-Index fix to stay above content) */
+        #sidebar { 
+            width: 5.5rem; 
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow: hidden; 
+            background-color: #141414; /* Exact solid background */
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important; /* Forces Sidebar to always be on top of search bars/cards */
+        }
+        #sidebar:hover { 
+            width: 17.5rem; /* Increased width to prevent logo text from touching the edge */
+            box-shadow: 15px 0 40px rgba(0,0,0,0.9);
+        }
+        
+        /* Navigation Labels Animation */
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        
+        /* Glitch-Free Logo Text Handling */
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; pointer-events: none; }
+        #sidebar:hover .logo-text { opacity: 1; transition-delay: 0.15s; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #141414; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Premium Skeleton Effect */
+        .skeleton-bg { background: linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%); background-size: 200% 100%; animation: premiumShimmer 2s infinite ease-in-out; }
+        @keyframes premiumShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* Rolling Text */
+        .rolling-wrapper-inline { height: 1.1em; overflow: hidden; position: relative; display: inline-flex; vertical-align: bottom; }
+        .rolling-list-inline { margin: 0; padding: 0; list-style: none; will-change: transform; display: flex; flex-direction: column; width: 100%; }
+        .rolling-list-inline li { height: 1.1em; display: flex; align-items: center; white-space: nowrap; }
+
+        /* Premium Card */
+        .premium-card { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: linear-gradient(145deg, #1c1c1e 0%, #09090b 100%) !important; 
+            border: 1px solid rgba(255, 255, 255, 0.12) !important; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important; 
+            display: flex !important; flex-direction: column !important; height: 100% !important; width: 100% !important; 
+        }
+        @media (min-width: 1024px) { 
+            .premium-card:not([style*="grayscale"]):hover { 
+                transform: translateY(-8px) scale(1.02) translateZ(0); 
+                box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(229,9,20,0.5) !important; 
+                border-color: rgba(229, 9, 20, 0.4) !important; z-index: 20; 
+            } 
+        }
+        @media (max-width: 1023px) { 
+            .premium-card:not([style*="grayscale"]):active { transform: scale(0.98); border-color: rgba(229, 9, 20, 0.4) !important; } 
+        }
+
+        .pinned-glow { border-color: rgba(229, 9, 20, 0.6) !important; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 9, 20, 0.25), inset 0 0 15px rgba(229, 9, 20, 0.1) !important; }
+        .pinned-glow:not([style*="grayscale"]):hover { border-color: rgba(229, 9, 20, 1) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(229, 9, 20, 0.4), inset 0 0 20px rgba(229, 9, 20, 0.2) !important; }
+
+        /* Premium Smooth Image Zoom */
+        .card-image-wrapper { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
+        .card-image { 
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease; 
+            will-change: transform; transform: scale(1.01) translateZ(0); 
+        }
+        @media (min-width: 1024px) { 
+            .premium-card:not([style*="grayscale"]):hover .card-image { transform: scale(1.06) translateZ(0); } 
+        }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; align-items: stretch; }
+        .grid-container > * { height: 100%; }
+
+        @media(max-width: 640px) {
+            .grid-container { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem; }
+            .premium-card { font-size: 0.85rem; }
+            .premium-card .p-6 { padding: 0.75rem !important; }
+            .premium-card h3.text-xl { font-size: 0.95rem !important; line-height: 1.2 !important; }
+            .premium-card .text-sm { font-size: 0.7rem !important; line-height: 1.2 !important; }
+            .premium-card .gap-2 { gap: 0.3rem !important; }
+            .card-image-wrapper { aspect-ratio: 16/10; }
+            .card-btn-container { flex-direction: column !important; gap: 0.4rem !important; }
+            .card-btn-container a, .card-btn-container button { padding: 0.5rem 0.5rem !important; font-size: 0.7rem !important; }
+        }
+        @media(min-width: 480px) and (max-width: 768px) { .grid-container { grid-template-columns: repeat(3, 1fr) !important; } }
+
+        #top-loader { position: fixed; top: 0; left: 0; height: 3px; background: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(229, 9, 20, 0.6); width: 0%; z-index: 9999; opacity: 0; transition: width 0.4s ease-out, opacity 0.3s ease; }
+        
+        body.privacy-blur { filter: blur(15px); }
+
+        /* Left-Aligned Policy Pages (Fixed) */
+        .policy-content p { margin-bottom: 1.5rem; color: #9ca3af; line-height: 1.8; font-size: 1.05rem; }
+        .policy-content h2 { font-size: 1.75rem; font-weight: 800; color: white; margin-top: 2.5rem; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .policy-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.5rem; color: #9ca3af; }
+        .policy-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+
+        /* Fast & Smooth Entry Animation */
+        .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .category-hero-img { mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); }
+
+        /* FORGENOS Unique Branding Styles - Bold & Thick */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+    </style>
+</head>
+<body class="antialiased opacity-0" id="app-root">
+
+    <!-- JS WARNING -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <script>
+        // =====================================
+        // PROPERLY FORMATTED UI INJECTION
+        // =====================================
+        
+        // Single Source of Truth for the Logo Image URL
+        const forgenosLogoImg = "https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png";
+        
+        // Custom FORGENOS Logo Mark component 
+        // Font made BOLD (font-bold) and Letters brought closer (tracking-[0.05em])
+        const forgenosLogoMark = `
+            <div class="flex items-center">
+                <div class="relative w-12 h-12 md:w-14 md:h-14 shrink-0 flex items-center justify-center bg-transparent">
+                    <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
+                    <img src="${forgenosLogoImg}" 
+                         alt="Logo" 
+                         class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
+                         onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="relative flex flex-col items-center justify-center shrink-0 ml-3">
+                    <span class="text-xl md:text-[22px] font-bold brand-logo-text tracking-[0.05em] leading-none mt-[2px]">FORGENOS</span>
+                </div>
+            </div>
+        `;
+
+        const __UI__ = `
+            <div id="top-loader"></div>
+            <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+            <canvas id="particle-canvas"></canvas>
+
+            <!-- MOBILE HEADER (Solid Background Fixed) -->
+            <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
+                <div class="flex items-center cursor-pointer" onclick="window.handleNavClick('home')">
+                    ${forgenosLogoMark}
+                </div>
+                <button type="button" onclick="window.toggleMobileMenu()" class="p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </header>
+
+            <!-- MOBILE MENU -->
+            <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="window.toggleMobileMenu()"></div>
+            <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]" data-lenis-prevent>
+                <div class="flex justify-between items-center mb-10">
+                    <div class="flex items-center cursor-pointer scale-90 md:scale-100 origin-left" onclick="window.handleNavClick('home'); window.toggleMobileMenu()">
+                        ${forgenosLogoMark}
+                    </div>
+                    <button onclick="window.toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <nav id="mobile-nav" class="flex flex-col gap-1"></nav>
+            </div>
+
+            <!-- MAIN LAYOUT -->
+            <div class="flex min-h-screen">
+                
+                <!-- DESKTOP SIDEBAR (Expands on hover, Solid Background) -->
+                <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+                    
+                    <!-- Glitch-free Sidebar Logo Section (Width increased to fit perfectly without touching edges) -->
+                    <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="window.handleNavClick('home')">
+                        <div class="relative w-14 h-14 shrink-0 flex items-center justify-center bg-transparent">
+                            <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
+                            <img src="${forgenosLogoImg}" 
+                                 alt="Logo" 
+                                 class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
+                                 onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none';">
+                        </div>
+                        <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] leading-none mt-[2px]">FORGENOS</span>
+                    </div>
+
+                    <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto hide-scroll" id="desktop-nav"></nav>
+                    <div class="p-6 border-t border-white/5 flex flex-col gap-4">
+                        <div id="sidebar-settings-btn" onclick="window.handleNavClick('settings')" class="flex items-center px-4 h-12 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group relative cursor-pointer"></div>
+                    </div>
+                </aside>
+
+                <!-- MAIN CONTENT AREA -->
+                <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-20 md:pt-0 pb-0" id="main-container">
+                    <div id="view-content" class="flex-1 pb-10 relative"></div>
+                    
+                    <!-- FOOTER -->
+                    <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0">
+                        <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                            <div class="flex flex-col gap-4">
+                                <div class="flex items-center cursor-pointer scale-90 md:scale-100 origin-left" onclick="window.handleNavClick('home')">
+                                    ${forgenosLogoMark}
+                                </div>
+                                <p class="text-gray-500 text-sm max-w-xs mt-2">The premium collection of the world's best digital tools. Curated for creators and builders.</p>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 w-full md:w-auto">
+                                <div class="flex flex-col gap-4">
+                                    <h4 class="text-white font-bold text-sm uppercase tracking-widest">Platform</h4>
+                                    <span onclick="window.handleNavClick('home')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Home</span>
+                                    <span onclick="window.handleNavClick('trending')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Trending Now</span>
+                                    <span onclick="window.handleNavClick('projects')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">My Projects</span>
+                                </div>
+                                <div class="flex flex-col gap-4">
+                                    <h4 class="text-white font-bold text-sm uppercase tracking-widest">Company</h4>
+                                    <span onclick="window.handleNavClick('about')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
+                                    <span onclick="window.handleNavClick('contact')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
+                                </div>
+                                <div class="flex flex-col gap-4">
+                                    <h4 class="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
+                                    <span onclick="window.handleNavClick('privacy')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
+                                    <span onclick="window.handleNavClick('terms')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <p class="text-gray-600 text-xs font-medium uppercase tracking-widest">&copy; 2026 FORGENOS. All rights reserved.</p>
+                            <div class="flex gap-6">
+                                <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                                <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                                <i data-lucide="linkedin" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+            </div>
+
+            <!-- MODALS -->
+            <!-- 1. Create Project Modal (Fixed Search & Scroll) -->
+            <div id="project-modal" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8">
+                <div class="bg-[#141414] w-full max-w-6xl h-[90vh] rounded-3xl border border-white/10 flex flex-col overflow-hidden shadow-2xl scale-95 opacity-0">
+                    <div class="px-6 md:px-8 py-5 border-b border-white/5 flex justify-between items-center bg-[#1c1c1e] shrink-0">
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold text-white tracking-tight">Create New Toolkit</h2>
+                            <p class="text-gray-500 text-xs md:text-sm mt-1">Bundle your favorite tools for specific projects.</p>
+                        </div>
+                        <button onclick="window.closeProjectModal()" class="p-2 md:p-3 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="x" class="text-white w-5 h-5"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-hidden flex flex-col md:flex-row">
+                        <!-- Left Panel (Selection Data) -->
+                        <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-white/5 bg-[#1a1a1c] flex flex-col shrink-0 md:h-full h-[35vh]">
+                            <div class="flex-1 overflow-y-auto p-5 md:p-8 hide-scroll" data-lenis-prevent>
+                                <label class="block text-gray-500 text-[10px] font-black tracking-[0.2em] mb-2 uppercase">Toolkit Name</label>
+                                <input type="text" id="project-name-input" placeholder="e.g. AI Workflow" class="w-full bg-[#111113] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent transition-colors mb-6 placeholder-gray-700 text-sm">
+                                
+                                <div class="flex justify-between items-center mb-3">
+                                    <label class="block text-gray-500 text-[10px] font-black tracking-[0.2em] uppercase">Selection</label>
+                                    <span id="selected-count" class="bg-brand-accent text-white text-[10px] font-bold px-2 py-1 rounded-full">0</span>
+                                </div>
+                                
+                                <div id="selected-tools-list" class="space-y-2 pb-4">
+                                    <p class="text-gray-700 text-xs italic text-center py-4">Tap tools in the grid to add them.</p>
+                                </div>
+                            </div>
+                            <div class="p-5 md:p-6 bg-[#111113] border-t border-white/5 shrink-0">
+                                <button onclick="window.saveProject()" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Panel (Tools Grid + Search) -->
+                        <div class="flex-1 p-4 md:p-8 bg-[#141414] overflow-y-auto relative hide-scroll h-full" data-lenis-prevent>
+                            <!-- Search Bar Inside Project Builder -->
+                            <div class="mb-6 relative">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                <input type="text" id="modal-tool-search" placeholder="Search tools to add..." oninput="window.filterModalTools()" class="w-full bg-[#1c1c1e] border border-white/10 rounded-full py-3 pl-11 pr-4 text-white focus:outline-none focus:border-brand-accent text-sm transition-colors shadow-inner">
+                            </div>
+
+                            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 pb-32" id="tool-selection-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Inner Project Details Modal -->
+            <div id="inner-project-modal" class="fixed inset-0 z-[155] bg-black/95 backdrop-blur-xl hidden flex flex-col items-center justify-start overflow-y-auto p-4 md:p-8 hide-scroll" data-lenis-prevent>
+                <div class="w-full max-w-6xl flex justify-between items-center mb-8 opacity-0 scale-95 transition-all mt-10" id="inner-project-header">
+                    <div>
+                        <button onclick="window.closeInnerProject()" class="text-gray-400 hover:text-white flex items-center gap-2 mb-2 text-sm font-bold transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Go Back
+                        </button>
+                        <h2 class="text-3xl md:text-5xl font-black text-white" id="inner-project-title">Toolkit</h2>
+                    </div>
+                    <button onclick="window.triggerDeleteProject(null, currentOpenProjectId)" class="bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-500 px-4 py-3 rounded-xl flex items-center gap-2 transition-all">
+                        <i data-lucide="trash-2" class="w-5 h-5"></i> <span class="hidden md:inline font-bold text-sm">Delete Toolkit</span>
+                    </button>
+                </div>
+                <div class="w-full max-w-6xl grid-container text-left justify-start opacity-0 scale-95 transition-all pb-24" id="inner-project-grid"></div>
+            </div>
+
+            <!-- 3. Delete Confirmation Modal -->
+            <div id="delete-modal" class="fixed inset-0 z-[160] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+                <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="delete-modal-content">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-brand-accent border border-brand-accent/20">
+                        <i data-lucide="trash-2" class="w-8 h-8 md:w-10 md:h-10"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Delete Toolkit?</h3>
+                    <p class="text-gray-500 mb-8 text-sm leading-relaxed">This curation will be permanently removed.</p>
+                    <div class="flex gap-4">
+                        <button onclick="window.closeDeleteModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Cancel</button>
+                        <button id="confirm-delete-btn" class="flex-1 py-3 md:py-4 rounded-xl bg-brand-accent hover:bg-red-600 text-white font-bold transition-shadow text-sm">Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Disabled Modal -->
+            <div id="disabled-modal" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+                <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="disabled-modal-content">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-gray-400 border border-gray-500/20">
+                        <i data-lucide="info" class="w-8 h-8 md:w-10 md:h-10"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Tool Unavailable</h3>
+                    <p class="text-gray-500 mb-8 text-sm leading-relaxed" id="disabled-modal-reason">This tool is currently disabled.</p>
+                    <div class="flex gap-4">
+                        <button onclick="window.closeDisabledModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOM RIGHT CLICK CONTEXT MENU -->
+            <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+                </div>
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+                </div>
+                
+                <!-- Refresh Button: White normally, Red on Hover -->
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+                </div>
+                
+                <div class="h-[1px] bg-white/5 my-1.5"></div>
+                
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.handleNavClick('home'); window.closeContextMenu()">
+                    <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+                </div>
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.shareWebsite(); window.closeContextMenu()">
+                    <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Website
+                </div>
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+                    <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+                </div>
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.showFakeSource(); window.closeContextMenu()">
+                    <i data-lucide="code" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> View Page Source
+                </div>
+                
+                <div class="h-[1px] bg-white/5 my-1.5"></div>
+                
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+                    <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('app-root').innerHTML = __UI__;
+
+        // =====================================
+        // EXPLICIT GLOBAL FUNCTION ATTACHMENTS
+        // =====================================
+        
+        let lenisInstance; 
+        
+        window.tryCreateIcons = function() {
+            if(typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        };
+
+        window.lockScroll = function() {
+            document.body.classList.add('scroll-locked');
+            // By NOT stopping Lenis here, and relying on CSS body.scroll-locked (overflow: hidden),
+            // Modals that have data-lenis-prevent attribute can still scroll perfectly via native browser scroll!
+        };
+
+        window.unlockScroll = function() {
+            document.body.classList.remove('scroll-locked');
+        };
+
+        window.showToast = function(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#151515] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : (type === 'alert' ? 'bell' : 'info');
+            toast.innerHTML = `<i data-lucide="${icon}" class="${type === 'alert' ? 'text-yellow-500' : 'text-brand-accent'} w-5 h-5"></i> <span class="font-semibold">${message}</span>`;
+            container.appendChild(toast);
+            window.tryCreateIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => { 
+                toast.classList.add('translate-y-20', 'opacity-0'); 
+                setTimeout(() => toast.remove(), 400); 
+            }, 3500);
+        };
+
+        window.triggerPageLoader = function() {
+            const loader = document.getElementById('top-loader');
+            loader.style.opacity = '1'; loader.style.width = '0%';
+            setTimeout(() => loader.style.width = '65%', 50);
+            setTimeout(() => loader.style.width = '70%', 500);
+            setTimeout(() => { 
+                loader.style.width = '100%'; 
+                setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.width = '0%', 300); }, 100); 
+            }, 800);
+        };
+
+        window.shareWebsite = function() { 
+            if(navigator.share) { 
+                navigator.share({ 
+                    title: 'FORGENOS Premium', 
+                    text: 'Explore premium digital tools!', 
+                    url: window.location.href 
+                }).catch(console.error); 
+            } else { 
+                const dummy = document.createElement('input'); 
+                document.body.appendChild(dummy); 
+                dummy.value = window.location.href; 
+                dummy.select(); 
+                document.execCommand('copy'); 
+                document.body.removeChild(dummy); 
+                window.showToast("Website Link Copied!", "success"); 
+            } 
+        };
+        
+        window.showFakeSource = function() { 
+            const fakeTab = window.open('', '_blank'); 
+            const url = window.location.href;
+            
+            const sourceHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>view-source:${url}</title>
+<meta name="color-scheme" content="light dark">
+<style>
+body { margin:0; background-color:#202124; color:#E8EAED; font-family:Consolas,'Courier New',monospace; font-size:13px; line-height:1.2; word-wrap:break-word; }
+table { border-spacing:0; border-collapse:collapse; width:100%; }
+td { padding:0; font-family:Consolas,'Courier New',monospace; font-size:13px; }
+td.num { width:40px; color:#8ab4f8; text-align:right; padding-right:10px; user-select:none; border-right:1px solid #5F6368; vertical-align:top; }
+td.code { padding-left:10px; white-space:pre-wrap; }
+.tag { color:#8AB4F8; }
+.attr { color:#8AB4F8; }
+.val { color:#CE9178; }
+.cmnt { color:#6A9955; }
+</style>
+</head>
+<body>
+<table><tbody>
+<tr><td class="num">1</td><td class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span><span class="cmnt">&lt;!--c2c0e7e1d0d57bd08ba3b26a--&gt;</span><span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span><span class="tag">&lt;head&gt;</span><span class="tag">&lt;meta</span> <span class="attr">charSet</span>=<span class="val">"utf-8"</span><span class="tag">/&gt;</span><span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"</span><span class="tag">/&gt;</span><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"preload"</span> <span class="attr">href</span>=<span class=\"val\">"/_next/static/css/styles.css"</span> <span class=\"attr\">as</span>=<span class=\"val\">"style"</span><span class=\"tag\">&gt;</span></td></tr>
+<tr><td class="num">2</td><td class="code">  <span class="tag">&lt;style&gt;</span></td></tr>
+<tr><td class="num">3</td><td class="code">    html, body { background: var(--color-surface-tertiary) !important }</td></tr>
+<tr><td class="num">4</td><td class="code">    #header-mobile { background: var(--color-surface-tertiary) !important }</td></tr>
+<tr><td class="num">5</td><td class="code">    #header {</td></tr>
+<tr><td class="num">6</td><td class="code">      box-shadow: none !important;</td></tr>
+<tr><td class="num">7</td><td class="code">      backdrop-filter: none !important;</td></tr>
+<tr><td class="num">8</td><td class="code">      background: var(--color-surface-tertiary) !important;</td></tr>
+<tr><td class="num">9</td><td class="code">    }</td></tr>
+<tr><td class="num">10</td><td class="code">  <span class="tag">&lt;/style&gt;</span></td></tr>
+<tr><td class="num">11</td><td class="code">  <span class="tag">&lt;section</span> <span class="attr">class</span>=<span class="val">"relative container px-0 group pt-2 md:pt-3 mb-6 md:mb-8 z-0"</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"overflow-x-scroll hide-scrollbar min-w-0 grid px-4"</span><span class="tag">&gt;</span><span class="tag">&lt;ul</span> <span class="attr">class</span>=<span class="val">"flex gap-5 min-w-0 *:flex-[0_0_19.5rem] md:*:flex-[0_0_25rem]"</span><span class="tag">&gt;</span><span class="tag">&lt;/ul&gt;</span><span class="tag">&lt;/section&gt;</span></td></tr>
+<tr><td class="num">12</td><td class="code"><span class="tag">&lt;/body&gt;</span><span class="tag">&lt;/html&gt;</span></td></tr>
+</tbody></table>
+</body>
+</html>`; 
+            fakeTab.document.write(sourceHTML); 
+            fakeTab.document.close(); 
+        };
+
+        document.addEventListener('contextmenu', (e) => { 
+            e.preventDefault(); 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(!menu) return; 
+            let x = e.clientX, y = e.clientY; 
+            if(x + 220 > window.innerWidth) x -= 220; 
+            if(y + 350 > window.innerHeight) y -= 350; 
+            menu.style.top = y + 'px'; 
+            menu.style.left = x + 'px'; 
+            menu.style.display = 'block'; 
+        });
+        
+        document.addEventListener('click', (e) => { 
+            if (!e.target.closest('#custom-context-menu')) window.closeContextMenu(); 
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if (e.ctrlKey || e.metaKey) { 
+                const blockedKeys = ['u','s','i','j','c','a','p','h','f','g','r']; 
+                if (blockedKeys.includes(e.key.toLowerCase())) { e.preventDefault(); return false; } 
+            } 
+        });
+
+        // =====================================
+        // DATA & STATE
+        // =====================================
+        
+        // ============================================================================
+        // 🛠️ ADD YOUR TOOLS HERE (TOOL DATABASE) 🛠️
+        // ============================================================================
+        /* TEMPLATE FOR ADDING A NEW TOOL (Copy this block, fill it, and paste it below):
+           { 
+                id: 99, 
+                title: "Tool Ka Naam", 
+                link: "/pagename", // <-- HERE IS THE PAGE LINK!
+                category: "dev", 
+                tags: ["new", "trending"], 
+                img: "IMAGE_URL_HERE", 
+                desc: "Bahar card par dikhne wala description.", 
+                disabled: false, 
+                disabledReason: "",
+                details: {
+                    overview: "Lamba overview yahan likhein...",
+                    features: [
+                        { title: "Feature 1", desc: "Detail 1" },
+                        { title: "Feature 2", desc: "Detail 2" }
+                    ],
+                    insight: [ "Point 1", "Point 2" ],
+                    security: [ "Point 1", "Point 2" ],
+                    professional: [ "Point 1", "Point 2" ]
+                }
+           },
+        */
+        const toolsData = [
+            { id: 1, title: "PULSE Neural Wealth Architect", link: "/finance/PULSE-Neural-Wealth-Architect", category: "finance", tags: ["new", ""], img: "https://forgenos.com/finance/tool_1.png", desc: "Quantifying the forensic impact of fiscal micro-decisions through high fidelity Monte Carlo probability modeling.", disabled: false, disabledReason: "", details: { overview: "PULSE Neural Wealth Architect is a high performance fiscal momentum engine designed to bridge the gap between daily micro expenditure and long term capital trajectory. By leveraging a 500 iteration Monte Carlo simulation, the tool provides an executive level Regret Delta audit, visualizing the true opportunity cost of impulse spending versus strategic saving. For the Tier 1 professional, it serves as a cognitive discipline framework, transforming abstract financial habits into data driven probability clouds that demand immediate, rationalized attention and absolute fiscal accountability.", features: [{ title: "Monte Carlo Probability Engine", desc: "Executes 500 concurrent stochastic simulations to project wealth variance over a ten year forensic horizon." }, { title: "Dynamic Risk Indexing", desc: "Real time adjustment of volatility and mean return variables across conservative, moderate, and aggressive fiscal profiles." }, { title: "Forensic Growth Mapping", desc: "A canvas based visualization layer that renders complex wealth paths into an intuitive, high density data cloud." }, { title: "Regret Delta Logic", desc: "Quantifies the high fidelity opportunity cost of micro spending relative to aggressive capital market compounding." }], insight: ["Consolidates complex stochastic calculus into a single, intuitive visual anchor for immediate executive clarity.", "The minimalist input array allows for instant habit to data conversion during high stakes deep work windows.","Enables founders to stress test personal liquidity trajectories against varying market conditions and volatility benchmarks.",], security: ["Technical audit confirms all simulation cycles are executed within the client side V8 environment, ensuring zero data egress.","No fiscal profiles, capital inputs, or spend patterns are cached or transmitted to external server logs.","Proprietary probability math remains isolated within the local DOM, bypassing cloud-based interception risks"], professional: ["Simulating the forensic momentum of reinvested equity versus lifestyle inflation during post IPO lockup periods.","Calculating the opportunity cost of micro subscription burn rates during lean backend architecture sprints.", "Benchmarking personal capital preservation against aggressive market volatility and high inflation scenarios"], verdict: "This utility is a critical asset for those dedicated to rewiring fiscal habits through the lens of mathematical certainty. By stripping away emotional bias and replacing it with stochastic reality, PULSE enforces the absolute attention control required to maintain elite level capital efficiency and long term momentum." } },
+            { id: 2, title: "StonkTrack", link: "/pagename", category: "finance", tags: ["trending"], img: "https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=600&auto=format&fit=crop", desc: "Real-time market analytics and predictive modeling for retail investors.", disabled: true, disabledReason: "Server Error tool temporarily offline",details: { overview: "ek bahut tagda finance tool hai...", features: [{ title: "Smart Tax", desc: "Ye apne aap tax calculate karta hai." }, { title: "Fast Sync", desc: "Bank se turant connect ho jata hai." }], insight: ["Financial planning me bahut time bachata hai.", "Business owners ke liye best hai.","Business owners ke liye best hai add extra.",], security: ["End-to-end encrypted hai.", "Tera financial data share nahi hota."], professional: ["CA aur Accountants isko roz use karte hain.", "Fortune 500 companies ka trusted tool hai."], verdict: "TaxWizard AI sach me ek game-changer hai un logo ke liye jo tax file karna chahte hain. Iski rating 10/10 hai!" } },
+            { id: 3, title: "CryptoDash", link: "/pagename", category: "finance", tags: [], img: "https://images.unsplash.com/photo-1621504450168-38f6473118e6?q=80&w=600&auto=format&fit=crop", desc: "Consolidate 500+ exchanges and wallets into one secure, lightning-fast view.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 4, title: "BillSplit", link: "/pagename", category: "finance", tags: [], img: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=600&auto=format&fit=crop", desc: "Intelligent expense sharing with OCR receipt scanning and direct bank settlements.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 5, title: "CodeFlow IDE", link: "/pagename", category: "dev", tags: ["trending"], img: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=600&auto=format&fit=crop", desc: "The next-gen cloud workspace for collaborative software engineering and debugging.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 6, title: "JSON Parse", link: "/pagename", category: "dev", tags: [], img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop", desc: "Professional data formatter and validator with recursive structure visualization.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 7, title: "GitVisualizer", link: "/pagename", category: "dev", tags: ["new"], img: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop", desc: "Turn complex git histories into interactive graphs for better team coordination.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 8, title: "ColorPick Pro", link: "/pagename", category: "dev", tags: [], img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop", desc: "Advanced accessibility-first color engine for design system architects.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 9, title: "MathSolver", link: "/pagename", category: "student", tags: ["trending"], img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop", desc: "Solve advanced calculus and physics equations with step-by-step visual logic.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 10, title: "NoteTaker AI", link: "/pagename", category: "student", tags: ["new"], img: "https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=600&auto=format&fit=crop", desc: "Convert lecture audio into structured semantic maps and study flashcards.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 11, title: "CitationGen", link: "/pagename", category: "student", tags: [], img: "https://images.unsplash.com/photo-1456324504439-367cee101635?q=80&w=600&auto=format&fit=crop", desc: "Flawless academic formatting for APA, MLA, and Chicago styles in seconds.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 12, title: "FocusTimer", link: "/pagename", category: "student", tags: [], img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop", desc: "Gamified focus sessions with curated binaural beats and distraction blocking.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 13, title: "MemoryMaster", link: "/pagename", category: "brain", tags: ["trending"], img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop", desc: "Cognitive training based on the Loci method to improve recall speed and retention.", disabled: true, disabledReason: "Server Error tool temporarily offline",
+                details: {
+                    overview: "MemoryMaster ek premium brain training tool hai jo aapki memory aur focus ko boost karne ke liye banaya gaya hai. Isme advanced Loci method ka use kiya gaya hai jisse aap complex information ko easily yaad rakh sakte hain aur apni cognitive abilities ko expand kar sakte hain.",
+                    features: [
+                        { title: "Loci Method Training", desc: "Ancient memory techniques ko modern UI ke sath sikhata hai jisse retention 30% badh jata hai." },
+                        { title: "Daily Progress Tracker", desc: "Aapke roz ke cognitive improvements aur brain streaks ko deeply track karta hai." },
+                        { title: "Binaural Beats", desc: "Focus badhane ke liye specially curated background audio sequences." }
+                    ],
+                    insight: [ 
+                        "Exam prep aur deep work ke liye best suited environment.", 
+                        "Daily 10 minute use se brain fog kam hota hai." 
+                    ],
+                    security: [ 
+                        "Aapka brain progress data 100% locally device me save hota hai.", 
+                        "No third-party cloud sharing." 
+                    ],
+                    professional: [ 
+                        "Students, researchers aur chess players ke liye perfect.", 
+                        "High pressure jobs me mental clarity aur quick recall deta hai." 
+                    ]
+                }
+            },
+            { id: 14, title: "LogicPuzzles", link: "/pagename", category: "brain", tags: [], img: "https://images.unsplash.com/photo-1580636693102-2a289274b50d?q=80&w=600&auto=format&fit=crop", desc: "Daily analytical challenges designed to sharpen critical thinking and deduction.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 15, title: "SpeedRead", link: "/pagename", category: "brain", tags: ["new"], img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=600&auto=format&fit=crop", desc: "RSVP training engine to help you digest books and reports 300% faster.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 16, title: "MindSpace", link: "/pagename", category: "health", tags: ["trending"], img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600&auto=format&fit=crop", desc: "Guided meditation and mindfulness tracking for high-performance individuals.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 17, title: "SleepCycle Pro", link: "/pagename", category: "health", tags: [], img: "https://images.unsplash.com/photo-1511295742362-92c96b124e52?q=80&w=600&auto=format&fit=crop", desc: "Advanced sleep phase analysis using biometric AI modeling.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 18, title: "NutriScan AI", link: "/pagename", category: "health", tags: ["new"], img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=600&auto=format&fit=crop", desc: "Instantly analyze macros and micronutrients from a simple photo of your meal.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 19, title: "PostureFix", link: "/pagename", category: "health", tags: [], img: "https://images.unsplash.com/photo-1552196563-552592596137?q=80&w=600&auto=format&fit=crop", desc: "Background webcam utility that alerts you when your posture degrades.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 20, title: "VitalSync", link: "/pagename", category: "health", tags: ["trending"], img: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=600&auto=format&fit=crop", desc: "Consolidate your Apple Health, Garmin, and Whoop data into one executive dashboard.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 21, title: "Video Compressor Pro", link: "/pagename", category: "dev", tags: ["new","trending"], img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600&auto=format&fit=crop", desc: "High-speed local video compression engine.", disabled: true, disabledReason: "Server Error tool temporarily offline" },
+            { id: 22, title: "Secret SEO Ninja", link: "/pagename", category: "dev", tags: ["new"], img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=600&auto=format&fit=crop", desc: "Advanced SEO analyzer that only shows up in the Dev category.", disabled: true, disabledReason: "Server Error tool temporarily offline",
+                details: {
+                    overview: "Ye tool sirf Dev category me dikhega. Ye Home page par nahi ayega kyunki iski ID (22) homepageTools array me shamil nahi hai.",
+                    features: [ { title: "Hidden Architecture", desc: "Category-specific visibility without cluttering the homepage." } ],
+                    insight: [ "Perfect for niche specific tools." ],
+                    security: [ "Fully isolated routing." ],
+                    professional: [ "Only discovered by users browsing the Dev Tools sector." ]
+                }
+            }
+        ];
+        // ============================================================================
+
+        const heroSlides = [
+            { tag: "#1 in Productivity", title: 'Neural<span class="text-brand-accent">Forge</span> AI', desc: "Harness the power of decentralized AI to automate your entire business workflow from ideation to deployment.", img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop" },
+            { tag: "Financial Freedom", title: 'Wealth<span class="text-brand-accent">Sync</span> Pro', desc: "Master the markets with institutional-grade analytics tailored for the modern independent investor.", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2070&auto=format&fit=crop" },
+            { tag: "Developer Choice", title: 'Quantum<span class="text-brand-accent">Stack</span>', desc: "The ultimate deployment engine for low-latency applications. Scale globally with zero-config infrastructure.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" }
+        ];
+
+        const categoriesList = [
+            { id: 'trending', title: 'Trending Now', icon: 'trending-up', color: 'text-orange-500', img: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(249,115,22,0.3)', filter: t => t.tags.includes('trending'), homepageTools: [1, 2, 5, 9, 13, 21] },
+            { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(34,197,94,0.3)', filter: t => t.category === 'finance', homepageTools: [1, 2, 3, 4] },
+            { id: 'dev', title: 'Developer Tools', icon: 'code-2', color: 'text-blue-500', img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(59,130,246,0.3)', filter: t => t.category === 'dev', homepageTools: [5, 6, 7, 8, 21] },
+            { id: 'student', title: 'Study Zone', icon: 'graduation-cap', color: 'text-yellow-500', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(234,179,8,0.3)', filter: t => t.category === 'student', homepageTools: [9, 10, 11, 12] },
+            { id: 'brain', title: 'Brain Training', icon: 'brain-circuit', color: 'text-purple-500', img: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(168,85,247,0.3)', filter: t => t.category === 'brain', homepageTools: [13, 14, 15] },
+            { id: 'health', title: 'Health & Wellness', icon: 'heart-pulse', color: 'text-rose-400', img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(251,113,133,0.3)', filter: t => t.category === 'health', homepageTools: [16, 17, 18, 19, 20] }
+        ];
+
+        const catColorsMap = { 
+            'trending': 'text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]', 
+            'finance': 'text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]', 
+            'dev': 'text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]', 
+            'student': 'text-yellow-500 drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]', 
+            'brain': 'text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]', 
+            'health': 'text-rose-400 drop-shadow-[0_0_8px_rgba(251,113,133,0.8)]' 
+        };
+        const catColorsSolidMap = { 
+            'trending': 'bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]', 
+            'finance': 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]', 
+            'dev': 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]', 
+            'student': 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]', 
+            'brain': 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]', 
+            'health': 'bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]' 
+        };
+
+        let savedTools = JSON.parse(localStorage.getItem('toolnox_saved')) || [];
+        let pinnedTools = JSON.parse(localStorage.getItem('toolnox_pinned')) || []; 
+        let myProjects = JSON.parse(localStorage.getItem('toolnox_projects')) || [];
+        let appSettings = JSON.parse(localStorage.getItem('toolnox_settings')) || { 
+            interactiveBg: false, privacyBlur: false, reduceMotion: false, notifications: false, compactMode: false 
+        };
+
+        let currentView = 'home';
+        let heroInterval = null;
+        let heroTextInterval = null;
+        let currentHeroIndex = 0;
+        let selectedToolsForProject = [];
+        let projectToDeleteId = null;
+        let currentOpenProjectId = null;
+
+        // =====================================
+        // ROUTING
+        // =====================================
+        window.addEventListener('popstate', (e) => { 
+            if(e.state && e.state.view) window.handleNavClick(e.state.view, true); 
+            else window.handleNavClick('home', true); 
+        });
+        
+        window.handleNavClick = function(view, isPopState=false) {
+            if(currentView === view && view !== 'projects' && view !== 'home') return;
+            
+            if(!isPopState) history.pushState({view: view}, '', '#'+view);
+            
+            const footer = document.getElementById('main-footer');
+            if(footer) footer.style.display = (view === 'home') ? 'block' : 'none';
+            
+            window.triggerPageLoader();
+            currentView = view;
+            window.renderSidebar();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            if(heroInterval) { clearInterval(heroInterval); heroInterval = null; }
+            if(heroTextInterval) { clearInterval(heroTextInterval); heroTextInterval = null; }
+            
+            const container = document.getElementById('view-content');
+            
+            if(typeof gsap !== 'undefined') {
+                gsap.to(container, {
+                    opacity: 0, y: 20, duration: 0.2, 
+                    onComplete: () => {
+                        if(view === 'home') window.renderHome();
+                        else if(view === 'settings') window.renderSettings();
+                        else if(view === 'saved') window.renderSavedView();
+                        else if(view === 'projects') window.renderProjectsView();
+                        else if(['privacy','terms','about','contact','disclaimer'].includes(view)) window.renderPolicyPage(view);
+                        else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
+                        else window.renderCategoryPage(view);
+                        
+                        container.style.opacity = '1';
+                        gsap.to(container, { y: 0, duration: 0.4 });
+                        
+                        const cards = document.querySelectorAll('.premium-card, .animate-fade-up');
+                        cards.forEach((c, i) => {
+                            c.style.opacity = '0';
+                            c.style.animationDelay = `${i * 0.03}s`;
+                            c.classList.add('animate-fade-up');
+                        });
+                    }
+                });
+            } else {
+                if(view === 'home') window.renderHome();
+                else if(view === 'settings') window.renderSettings();
+                else if(view === 'saved') window.renderSavedView();
+                else if(view === 'projects') window.renderProjectsView();
+                else if(['privacy','terms','about','contact','disclaimer'].includes(view)) window.renderPolicyPage(view);
+                else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
+                else window.renderCategoryPage(view);
+                
+                container.style.opacity = '1'; 
+                container.style.transform = 'translateY(0)';
+            }
+        };
+
+        // =====================================
+        // RENDER LOGIC
+        // =====================================
+        window.renderSidebar = function() {
+            const navItems = [
+                { id: 'home', icon: 'home', label: 'Home' },
+                { id: 'projects', icon: 'folder-heart', label: 'My Projects' },
+                { id: 'trending', icon: 'trending-up', label: 'Trending Now' },
+                { id: 'finance', icon: 'dollar-sign', label: 'Finance' },
+                { id: 'dev', icon: 'code-2', label: 'Dev Tools' },
+                { id: 'student', icon: 'graduation-cap', label: 'Study Zone' },
+                { id: 'brain', icon: 'brain-circuit', label: 'Brain Training' },
+                { id: 'health', icon: 'heart-pulse', label: 'Health' },
+                { id: 'saved', icon: 'bookmark', label: 'My List' }
+            ];
+
+            const navContainer = document.getElementById('desktop-nav');
+            if(navContainer) {
+                navContainer.innerHTML = navItems.map(item => {
+                    const isActive = currentView === item.id || (currentView.startsWith('tool-') && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === item.id);
+                    const activeColorClass = catColorsMap[item.id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]';
+                    const activeBarClass = catColorsSolidMap[item.id] || 'bg-brand-accent shadow-[0_0_8px_rgba(229,9,20,0.8)]';
+
+                    return `
+                    <div onclick="window.handleNavClick('${item.id}')" title="${item.label}" class="cursor-pointer flex items-center px-4 h-14 rounded-2xl transition-all duration-300 group relative ${isActive ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'}">
+                        <i data-lucide="${item.icon}" class="w-6 h-6 shrink-0 transition-all duration-300 group-hover:scale-110 ${isActive ? activeColorClass : 'text-gray-400 group-hover:text-white'}"></i>
+                        <span class="nav-label ml-4 font-bold text-sm truncate ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
+                        ${isActive ? `<div class="absolute left-0 w-1 h-6 ${activeBarClass} rounded-r-full"></div>` : ''}
+                    </div>`;
+                }).join('');
+            }
+
+            const settingsBtn = document.getElementById('sidebar-settings-btn');
+            if(settingsBtn) {
+                const isSettingsActive = currentView === 'settings';
+                settingsBtn.className = `flex items-center px-4 h-12 rounded-2xl transition-all duration-300 group relative cursor-pointer ${isSettingsActive ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'}`;
+                settingsBtn.innerHTML = `
+                    <i data-lucide="settings" class="w-6 h-6 shrink-0 transition-all duration-300 group-hover:scale-110 ${isSettingsActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-gray-400 group-hover:text-white'}"></i>
+                    <span class="nav-label ml-4 font-bold text-sm ${isSettingsActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">Settings</span>
+                `;
+            }
+
+            const mobileNavContainer = document.getElementById('mobile-nav');
+            if (mobileNavContainer) {
+                const createMobileLink = (id, icon, label) => {
+                    const isActive = currentView === id || (currentView.startsWith('tool-') && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === id);
+                    const activeColorClass = catColorsMap[id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]';
+                    return `
+                    <div onclick="window.handleNavClick('${id}'); window.toggleMobileMenu()" class="cursor-pointer flex items-center gap-4 py-3.5 px-4 rounded-xl transition-all duration-300 ${isActive ? 'bg-white/10 text-white font-bold' : 'text-gray-400 hover:bg-white/5 hover:text-white font-medium'}">
+                        <i data-lucide="${icon}" class="w-5 h-5 transition-all duration-300 ${isActive ? `${activeColorClass} scale-110` : 'text-gray-400'}"></i>${label}
+                    </div>`;
+                };
+
+                mobileNavContainer.innerHTML = `
+                    ${createMobileLink('home', 'home', 'Home')}
+                    ${createMobileLink('projects', 'folder-heart', 'My Projects')}
+                    ${createMobileLink('saved', 'bookmark', 'My List')}
+                    <div class="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] mt-8 mb-3 px-4">Categories</div>
+                    ${createMobileLink('trending', 'trending-up', 'Trending Now')}
+                    ${createMobileLink('finance', 'dollar-sign', 'Finance')}
+                    ${createMobileLink('dev', 'code-2', 'Dev Tools')}
+                    ${createMobileLink('student', 'graduation-cap', 'Study Zone')}
+                    ${createMobileLink('brain', 'brain-circuit', 'Brain Training')}
+                    ${createMobileLink('health', 'heart-pulse', 'Health')}
+                    <div class="border-t border-white/5 mt-8 pt-6 flex flex-col gap-1">
+                        ${createMobileLink('settings', 'settings', 'Settings')}
+                        ${createMobileLink('about', 'info', 'About Us')}
+                        ${createMobileLink('contact', 'mail', 'Contact')}
+                    </div>
+                `;
+            }
+            window.tryCreateIcons();
+        };
+
+        window.toggleMobileMenu = function() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) { 
+                window.lockScroll();
+                overlay.classList.remove('hidden'); 
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100'); 
+                menu.classList.remove('translate-x-full'); 
+            } else { 
+                window.unlockScroll();
+                overlay.classList.remove('opacity-100'); 
+                menu.classList.add('translate-x-full'); 
+                setTimeout(() => overlay.classList.add('hidden'), 300); 
+            }
+        };
+
+        window.performInlineSearch = function() {
+            const input = document.getElementById('inline-search-input');
+            const clearBtn = document.getElementById('inline-search-clear');
+            const resultsArea = document.getElementById('search-results-area');
+            const resultsGrid = document.getElementById('search-results-grid');
+            const emptyState = document.getElementById('search-results-empty');
+            const mainContent = document.getElementById('home-main-content');
+            const countText = document.getElementById('search-results-count');
+            
+            if(!input || !resultsArea) return;
+            const query = input.value.toLowerCase().trim();
+            
+            if (query.length > 0) {
+                clearBtn.style.display = 'block';
+                resultsArea.classList.remove('hidden');
+                if(mainContent) mainContent.classList.add('hidden'); 
+                
+                const filtered = toolsData.filter(t => t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.tags.some(tag => tag.toLowerCase().includes(query)));
+                countText.innerText = `${filtered.length} found`;
+
+                if(filtered.length === 0) {
+                    resultsGrid.innerHTML = ''; emptyState.style.display = 'flex'; emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.style.display = 'none'; emptyState.classList.add('hidden');
+                    resultsGrid.innerHTML = filtered.map((t) => `<div>${window.createCard(t)}</div>`).join('');
+                    window.tryCreateIcons();
+                }
+            } else { window.closeInlineSearch(); }
+        };
+        
+        window.closeInlineSearch = function() {
+            const input = document.getElementById('inline-search-input');
+            const clearBtn = document.getElementById('inline-search-clear');
+            const resultsArea = document.getElementById('search-results-area');
+            const mainContent = document.getElementById('home-main-content');
+            
+            if(input) input.value = '';
+            if(clearBtn) clearBtn.style.display = 'none';
+            if(resultsArea) resultsArea.classList.add('hidden');
+            if(mainContent) mainContent.classList.remove('hidden');
+        };
+
+        window.showDisabledModal = function(reason) {
+            document.getElementById('disabled-modal-reason').innerText=reason||"This tool is currently unavailable.";
+            const modal = document.getElementById('disabled-modal');
+            modal.classList.remove('hidden');
+            window.lockScroll();
+            if(typeof gsap !== 'undefined') gsap.to(document.getElementById('disabled-modal-content'),{scale:1,opacity:1,duration:0.3});
+        };
+        
+        window.closeDisabledModal = function() {
+            const modal = document.getElementById('disabled-modal');
+            window.unlockScroll();
+            if(typeof gsap !== 'undefined') gsap.to(document.getElementById('disabled-modal-content'),{scale:0.95,opacity:0,duration:0.2,onComplete:()=>{modal.classList.add('hidden')}});
+            else modal.classList.add('hidden');
+        };
+
+        window.togglePin = function(event, id) {
+            if(event){ event.preventDefault(); event.stopPropagation(); }
+            if(pinnedTools.includes(id)){
+                pinnedTools = pinnedTools.filter(i => i !== id);
+                window.showToast("Tool Unpinned", 'alert');
+            } else {
+                if(pinnedTools.length >= 5){ window.showToast("You can only pin up to 5 tools!", 'alert'); return; }
+                pinnedTools.push(id);
+                window.showToast("Tool Pinned!", 'success');
+            }
+            localStorage.setItem('toolnox_pinned', JSON.stringify(pinnedTools));
+            if(currentView === 'home') window.renderHome(); else window.updateCardButtons(id);
+        };
+
+        window.toggleSave = function(event, id) {
+            if(event){ event.preventDefault(); event.stopPropagation(); }
+            if(savedTools.includes(id)){
+                savedTools = savedTools.filter(i => i !== id);
+                window.showToast("Removed from My List", 'alert');
+            } else {
+                savedTools.push(id);
+                window.showToast("Added to My List", 'success');
+            }
+            localStorage.setItem('toolnox_saved', JSON.stringify(savedTools));
+            if(currentView === 'saved') window.renderSavedView(); else window.updateCardButtons(id);
+        };
+
+        window.updateCardButtons = function(id) {
+            const pinBtns = document.querySelectorAll(`[data-pin-btn="${id}"]`);
+            pinBtns.forEach(btn => {
+                const icon = btn.querySelector('svg') || btn.querySelector('i');
+                if(icon){
+                    if(pinnedTools.includes(id)){ icon.classList.add('fill-brand-accent','text-brand-accent'); icon.classList.remove('text-white'); }
+                    else { icon.classList.remove('fill-brand-accent','text-brand-accent'); icon.classList.add('text-white'); }
+                }
+            });
+            const saveBtns = document.querySelectorAll(`[data-save-btn="${id}"]`);
+            saveBtns.forEach(btn => {
+                const icon = btn.querySelector('svg') || btn.querySelector('i');
+                if(icon){
+                    if(savedTools.includes(id)){ icon.classList.add('fill-brand-accent','text-brand-accent'); icon.classList.remove('text-white'); }
+                    else { icon.classList.remove('fill-brand-accent','text-brand-accent'); icon.classList.add('text-white'); }
+                }
+            });
+        };
+
+        window.createCard = function(tool, isSelectMode = false, isPinnedSection = false) {
+            const isSaved = savedTools.includes(tool.id);
+            const isPinned = pinnedTools.includes(tool.id);
+            const isSelected = selectedToolsForProject.includes(tool.id);
+            const isDisabled = tool.disabled === true;
+            
+            let cardAction = isSelectMode ? `window.toggleToolSelection(${tool.id})` : ``;
+            let clickImageAction = !isSelectMode ? `window.handleNavClick('tool-${tool.id}')` : '';
+            let titleAction = !isSelectMode ? `window.handleNavClick('tool-${tool.id}')` : '';
+
+            if (isDisabled) { cardAction = ''; clickImageAction = ''; titleAction = ''; }
+
+            let categoryColor = "text-gray-500 border-gray-500/20 bg-gray-500/5";
+            if(tool.category === 'finance') categoryColor = "text-green-500 border-green-500/20 bg-green-500/5";
+            else if(tool.category === 'dev') categoryColor = "text-blue-500 border-blue-500/20 bg-blue-500/5";
+            else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
+            else if(tool.category === 'brain') categoryColor = "text-purple-500 border-purple-500/20 bg-purple-500/5";
+            else if(tool.category === 'health') categoryColor = "text-rose-400 border-rose-400/20 bg-rose-400/5";
+
+            const cardGlowClass = (!isSelectMode && isPinnedSection) ? 'pinned-glow' : '';
+
+            return `
+            <div class="premium-card ${cardGlowClass} rounded-2xl overflow-hidden flex flex-col group ${isSelectMode && isSelected ? 'border-brand-accent ring-1 ring-brand-accent' : ''}" onclick="${cardAction}" style="${isDisabled ? 'filter: grayscale(100%); pointer-events: auto;' : ''}">
+                <div class="card-image-wrapper ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'} skeleton-bg" onclick="${clickImageAction}">
+                    <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="card-image w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="${tool.title}">
+                    ${isDisabled ? `<div class="absolute inset-0 bg-black/50 z-[15] pointer-events-none"></div>` : ''}
+                    ${isDisabled ? `
+                    <div class="absolute top-0 left-0 bg-[#27272a] border-b border-r border-white/10 text-gray-300 text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center gap-1">
+                        <i data-lucide="ban" class="w-3 h-3 fill-gray-300 text-gray-300"></i> DISABLED
+                    </div>` : (isPinnedSection ? `
+                    <div class="absolute top-0 left-0 bg-brand-accent text-white text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(229,9,20,0.5)] flex items-center gap-1">
+                        <i data-lucide="tag" class="w-3 h-3 fill-white text-white"></i> PINNED
+                    </div>` : `
+                    <div class="absolute top-3 left-3 md:top-4 md:left-4 flex flex-col gap-2 pointer-events-none z-10">
+                        ${tool.tags.includes('trending') ? `<span class="bg-white text-black text-[8px] md:text-[9px] font-black px-2 py-1 rounded tracking-tighter shadow-xl">TOP 10</span>` : ''}
+                        ${tool.tags.includes('new') ? `<span class="bg-brand-accent text-white text-[8px] md:text-[9px] font-black px-2 py-1 rounded tracking-tighter shadow-xl">NEW</span>` : ''}
+                    </div>`)}
+                    
+                    ${isSelectMode ? `
+                    <div class="absolute top-3 right-3 md:top-4 md:right-4 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 ${isSelected ? 'bg-brand-accent border-brand-accent' : 'bg-black/40 border-white/40'} flex items-center justify-center transition-all z-20 ${isDisabled ? 'opacity-50' : ''}">
+                        ${isSelected ? '<i data-lucide="check" class="w-3 h-3 text-white"></i>' : ''}
+                    </div>` : `
+                    <div class="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-2 z-30 transition-all duration-300">
+                        ${isDisabled ? `<button onclick="event.stopPropagation(); window.showDisabledModal('${(tool.disabledReason || '').replace(/'/g, "\\'")}')" title="Reason for being disabled" class="p-2 rounded-xl bg-[#27272a] backdrop-blur-md border border-white/20 hover:bg-white hover:text-black transition-all pointer-events-auto"><i data-lucide="info" class="w-3 h-3 md:w-4 md:h-4 text-white"></i></button>` : ''}
+                        <button ${isDisabled ? 'disabled' : `onclick="window.togglePin(event, ${tool.id})"`} data-pin-btn="${tool.id}" title="Pin to top" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="pin" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isPinned && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
+                        <button ${isDisabled ? 'disabled' : `onclick="window.toggleSave(event, ${tool.id})"`} data-save-btn="${tool.id}" title="Save to My List" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="bookmark" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isSaved && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
+                    </div>`}
+                </div>
+                <div class="p-6 flex flex-col gap-2 md:gap-3 flex-1 text-left ${isDisabled ? 'pointer-events-none' : ''}">
+                    <div class="flex items-center gap-2">
+                        <span class="text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded border ${categoryColor}">${tool.category}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white ${isDisabled ? 'cursor-not-allowed' : 'group-hover:text-brand-accent cursor-pointer'} transition-colors" onclick="${titleAction}">${tool.title}</h3>
+                    <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed flex-1">${tool.desc}</p>
+                    ${!isSelectMode ? `
+                    <div class="pt-3 md:pt-4 mt-auto flex card-btn-container gap-2">
+                        <button ${isDisabled ? 'disabled' : `onclick="window.handleNavClick('tool-${tool.id}')"`} class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-transparent border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white/5 hover:text-white'} rounded-xl text-xs font-bold transition-all text-gray-400"><i data-lucide="file-text" class="w-3 h-3 md:w-4 md:h-4"></i> Details</button>
+                        ${isDisabled ? 
+                            `<button disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Launch</button>` 
+                            : 
+                            `<a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Launch</a>`
+                        }
+                    </div>` : ''}
+                </div>
+            </div>`;
+        };
+
+        window.renderToolDetailPage = function(id) {
+            const tool = toolsData.find(t => t.id === id);
+            if(!tool) return window.handleNavClick('home');
+            
+            let categoryColor = "text-gray-500 border-gray-500/20 bg-gray-500/5";
+            if(tool.category === 'finance') categoryColor = "text-green-500 border-green-500/20 bg-green-500/5";
+            else if(tool.category === 'dev') categoryColor = "text-blue-500 border-blue-500/20 bg-blue-500/5";
+            else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
+            else if(tool.category === 'brain') categoryColor = "text-purple-500 border-purple-500/20 bg-purple-500/5";
+            else if(tool.category === 'health') categoryColor = "text-rose-400 border-rose-400/20 bg-rose-400/5";
+
+            const isSaved = savedTools.includes(tool.id);
+
+            document.getElementById('view-content').innerHTML = `
+                <div class="px-6 md:px-16 py-8">
+                    <div onclick="window.handleNavClick('${tool.category}')" class="cursor-pointer flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6 md:mb-8 text-sm font-bold w-max">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${tool.category}
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6 md:gap-10 bg-gradient-to-b from-[#181818] to-[#0a0a0a] border border-white/10 rounded-3xl p-5 md:p-8 relative overflow-hidden max-w-5xl text-left shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-transparent opacity-50"></div>
+                        <div class="md:hidden flex items-center gap-4 relative z-10 mb-2">
+                            <div class="w-20 h-20 rounded-2xl shrink-0 overflow-hidden skeleton-bg relative border border-white/10 shadow-lg">
+                                <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="w-full h-full object-cover opacity-0 transition-opacity duration-700">
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <span class="text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded border ${categoryColor} inline-block w-max mb-2">${tool.category}</span>
+                                <h1 class="text-2xl font-black text-white tracking-tighter leading-tight">${tool.title}</h1>
+                            </div>
+                        </div>
+                        <div class="hidden md:block w-72 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 border border-white/10 relative z-10 shadow-2xl skeleton-bg">
+                            <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="${tool.title}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        </div>
+                        <div class="flex flex-col justify-center flex-1 relative z-10">
+                            <div class="hidden md:flex items-center gap-3 mb-4">
+                                <span class="text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1 rounded border ${categoryColor}">${tool.category}</span>
+                                ${tool.tags.includes('trending') ? `<span class="bg-white/10 text-white text-[10px] font-black px-3 py-1 rounded tracking-tighter">🔥 TRENDING</span>` : ''}
+                            </div>
+                            <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
+                            <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
+                            <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
+                                <a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
+                                <button onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="max-w-4xl mt-12 md:mt-16 seo-content text-left pl-1 md:pl-4 pb-12">
+                        <h2 class="text-3xl font-black text-white mb-6">Overview of ${tool.title}</h2>
+                        <p class="text-gray-400 text-base leading-relaxed mb-10">
+                            ${tool.details?.overview || `Welcome to the complete and comprehensive overview of <strong>${tool.title}</strong>. In today's highly competitive and fast-paced digital environment, finding the right tool for ${tool.category} operations is absolutely crucial for optimizing workflows and scaling effectively. This premium software solution is engineered to solve complex operational challenges through innovative algorithms, real-time data processing, and a seamlessly integrated user interface.`}
+                        </p>
+                        
+                        <h2 class="text-3xl font-black text-white mb-6">Key Features & Capabilities</h2>
+                        <p class="text-gray-400 text-base leading-relaxed mb-6">The developers behind ${tool.title} have integrated a robust set of features designed specifically to cater to high-end professional needs while maintaining ease-of-use for beginners.</p>
+                        <ul class="space-y-4 mb-10">
+                            ${tool.details?.features ? 
+                                tool.details.features.map(f => `<li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">${f.title}:</strong> ${f.desc}</p></li>`).join('')
+                                :
+                                `<li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">Advanced Automation:</strong> Automates repetitive tasks and complex logic loops, saving up to 15 hours a week in manual labor.</p></li>
+                                <li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">Secure Cloud Syncing:</strong> Real-time AES-256 encrypted syncing across all your devices securely without data leakage.</p></li>
+                                <li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">Deep Analytics Dashboard:</strong> Dive deep into data metrics with beautiful, highly-responsive, and exportable data visualization charts.</p></li>
+                                <li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">API & Webhook Integrations:</strong> Easily connect with over 200+ external services to create powerful automated pipelines.</p></li>
+                                <li class="flex items-start gap-2 text-gray-400"><div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0"></div><p><strong class="text-white">24/7 Priority Support:</strong> Unrestricted access to premium customer support pipelines and extensive technical documentation.</p></li>`
+                            }
+                        </ul>
+
+                        <!-- NEW PREMIUM 3-SECTION EXECUTIVE LAYOUT -->
+                        <div class="grid lg:grid-cols-3 md:grid-cols-1 gap-4 md:gap-6 my-10">
+                            
+                            <!-- Section 1: Strategic Insight & Workflow -->
+                            <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.6)]"></i> 
+                                    Strategic Insight
+                                </h3>
+                                <ul class="text-sm text-gray-400 space-y-3 list-disc pl-4">
+                                    ${tool.details?.insight ? 
+                                        tool.details.insight.map(i => `<li>${i}</li>`).join('') 
+                                        : 
+                                        `<li>Streamlines high-volume operational pipelines with zero latency processing.</li>
+                                        <li>Integrates seamlessly into existing enterprise architectures and workflows.</li>
+                                        <li>Reduces cognitive load through intuitive, predictive UI rendering patterns.</li>`
+                                    }
+                                </ul>
+                            </div>
+                            
+                            <!-- Section 2: Security & Data Integrity -->
+                            <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-5 h-5 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"></i> 
+                                    Data Integrity
+                                </h3>
+                                <ul class="text-sm text-gray-400 space-y-3 list-disc pl-4">
+                                    ${tool.details?.security ? 
+                                        tool.details.security.map(i => `<li>${i}</li>`).join('') 
+                                        : 
+                                        `<li>End-to-end AES-256 encryption applied to all data at rest and in transit.</li>
+                                        <li>SOC2 Type II compliant infrastructure with automated, immutable audit logs.</li>
+                                        <li>Granular role-based access control (RBAC) designed for massive team deployments.</li>`
+                                    }
+                                </ul>
+                            </div>
+                            
+                            <!-- Section 3: Professional Use-Cases -->
+                            <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                    <i data-lucide="target" class="w-5 h-5 text-indigo-400 drop-shadow-[0_0_8px_rgba(129,140,248,0.6)]"></i> 
+                                    Professional Use
+                                </h3>
+                                <ul class="text-sm text-gray-400 space-y-3 list-disc pl-4">
+                                    ${tool.details?.professional ? 
+                                        tool.details.professional.map(i => `<li>${i}</li>`).join('') 
+                                        : 
+                                        `<li>Optimized exclusively for Tier-1 financial modeling and real-time analysis.</li>
+                                        <li>Rapid architectural prototyping capabilities for senior engineering divisions.</li>
+                                        <li>Highly scalable cloud infrastructure designed to support Fortune 500 workloads.</li>`
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <h2 class="text-3xl font-black text-white mb-6">Final Verdict</h2>
+                        <p class="text-gray-400 text-base leading-relaxed">
+    ${tool.details?.verdict || `If you are currently looking for a reliable, exceptionally fast, and highly secure solution in the ${tool.category} ecosystem, <strong>${tool.title}</strong> is highly recommended by our editorial team. It balances power and simplicity perfectly. Click the launch button above to start your journey today.`}
+</p>
+                    </div>
+                </div>
+            `;
+            window.tryCreateIcons();
+            if(typeof gsap !== 'undefined') gsap.from(".seo-content > *", { opacity: 0, y: 15, duration: 0.8, stagger: 0.15, ease: "power2.out", delay: 0.2 });
+        };
+
+        window.renderHome = function() {
+            let html = `
+                <div class="relative z-10 px-6 md:px-16 pt-12 md:pt-16 pb-8 text-left max-w-5xl">
+                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
+                        <span>Elevate Your Digital</span>
+                        <span class="rolling-wrapper-inline min-w-[200px] md:min-w-[320px]">
+                            <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
+                                <li>Workflow</li><li>Arsenal</li><li>Matrix</li><li>Craft</li><li>Frontier</li><li aria-hidden="true">Workflow</li>
+                            </ul>
+                        </span>
+                    </h1>
+                    <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
+                        <div class="relative group">
+                            <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
+                            <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-500" autocomplete="off" oninput="window.performInlineSearch()">
+                            <button onclick="window.closeInlineSearch()" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="search-results-area" class="hidden relative z-50 px-6 md:px-16 pb-20 w-full animate-fade-up min-h-[50vh]">
+                    <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
+                        <h3 class="text-white font-black text-2xl md:text-3xl">Search Results</h3>
+                        <span id="search-results-count" class="text-brand-accent text-xs font-black uppercase tracking-widest bg-brand-accent/10 px-3 py-1.5 rounded-lg border border-brand-accent/20"></span>
+                    </div>
+                    <div id="search-results-grid" class="grid-container text-left justify-start"></div>
+                    <div id="search-results-empty" class="hidden flex-col items-center justify-center py-24 text-center bg-[#141414] rounded-3xl border border-white/5 shadow-2xl">
+                        <i data-lucide="telescope" class="w-20 h-20 text-gray-700 mb-6"></i>
+                        <h4 class="text-white font-black text-2xl">No tools found</h4>
+                        <p class="text-gray-500 text-base mt-2">Try adjusting your keywords to find what you need.</p>
+                    </div>
+                </div>
+
+                <div id="home-main-content">
+                    <div class="px-6 md:px-16 pb-8 text-left max-w-5xl">
+                        <div class="flex flex-wrap justify-start gap-3 animate-fade-up" style="animation-delay: 0.2s">
+                            ${categoriesList.map(cat => `<div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</div>`).join('')}
+                        </div>
+                    </div>
+
+                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-16 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
+                        <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
+                            ${heroSlides.map((slide, i) => `
+                            <div class="hero-slide min-w-full h-full relative skeleton-bg">
+                                <img src="${slide.img}" onload="this.classList.remove('opacity-0')" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
+                                <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
+                                    <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(229,9,20,0.4)]">${slide.tag}</span>
+                                    <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
+                                    <p class="text-sm md:text-lg text-gray-300 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
+                                    <div class="flex gap-3 md:gap-4 pt-2">
+                                        <button class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                                    </div>
+                                </div>
+                            </div>`).join('')}
+                        </div>
+                        <div class="absolute bottom-6 md:bottom-8 right-6 md:right-10 z-30 flex gap-2">
+                            ${heroSlides.map((_, i) => `<div class="hero-dot w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(229,9,20,0.8)]' : 'bg-white/30'}"></div>`).join('')}
+                        </div>
+                    </section>
+
+                    <div class="px-6 md:px-16 py-10 md:py-20 space-y-12 md:space-y-24">
+            `;
+
+            if (pinnedTools.length > 0) {
+                const pTools = toolsData.filter(t => pinnedTools.includes(t.id));
+                html += `
+                    <section class="category-row opacity-0 translate-y-10">
+                        <div class="flex items-center justify-between mb-6 md:mb-8">
+                            <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" onclick="window.handleNavClick('home')">
+                                <div class="relative"><i data-lucide="pin" class="text-brand-accent w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]"></i><div class="absolute inset-0 bg-brand-accent/20 blur-xl rounded-full z-[-1]"></div></div>
+                                <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Pinned Arsenal</h2>
+                            </div>
+                        </div>
+                        <div class="grid-container text-left justify-start">
+                            ${pTools.map(t => `<div>${window.createCard(t, false, true)}</div>`).join('')}
+                        </div>
+                    </section>`;
+            }
+
+            categoriesList.forEach(cat => {
+                let tools = (cat.homepageTools && Array.isArray(cat.homepageTools)) ? cat.homepageTools.map(id => toolsData.find(t => t.id === id)).filter(Boolean) : toolsData.filter(cat.filter).slice(0, 5);
+                html += `
+                    <section class="category-row opacity-0 translate-y-10">
+                        <div class="flex items-center justify-between mb-6 md:mb-8">
+                            <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" onclick="window.handleNavClick('${cat.id}')">
+                                <i data-lucide="${cat.icon}" class="${cat.color} w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110" style="filter: drop-shadow(0 0 10px ${cat.glow})"></i>
+                                <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">${cat.title}</h2>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors items-center gap-2">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                            </div>
+                        </div>
+                        <div class="grid-container text-left justify-start">
+                            ${tools.map(t => `<div>${window.createCard(t)}</div>`).join('')}
+                        </div>
+                    </section>`;
+            });
+
+            html += `</div></div>`;
+            document.getElementById('view-content').innerHTML = html;
+            window.tryCreateIcons();
+
+            if(typeof gsap !== 'undefined') {
+                gsap.utils.toArray('.category-row').forEach(row => { 
+                    gsap.to(row, { scrollTrigger: { trigger: row, start: "top 90%" }, opacity: 1, y: 0, duration: 1 }); 
+                });
+            }
+            window.startHeroCarousel(); 
+            window.startHeroTextRolling();
+        };
+
+        window.startHeroTextRolling = function() {
+            const list = document.getElementById('heroRollingList');
+            if (!list) return;
+            const items = list.querySelectorAll('li');
+            if (!items.length) return;
+            
+            let currentIndex = 0; const stayDuration = 2000;
+            clearInterval(heroTextInterval);
+            list.style.transition = 'none'; list.style.transform = `translateY(0px)`;
+            
+            heroTextInterval = setInterval(() => {
+                currentIndex++;
+                const itemHeight = items[0].getBoundingClientRect().height;
+                list.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                list.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                if (currentIndex === items.length - 1) {
+                    setTimeout(() => { list.style.transition = 'none'; currentIndex = 0; list.style.transform = `translateY(0px)`; }, 500); 
+                }
+            }, stayDuration);
+        };
+
+        window.renderCategoryPage = function(catId) {
+            const cat = categoriesList.find(c => c.id === catId);
+            if (!cat) return window.handleNavClick('home');
+            const tools = toolsData.filter(cat.filter);
+
+            document.getElementById('view-content').innerHTML = `
+                <div class="relative w-full h-[35vh] md:h-[45vh] overflow-hidden flex flex-col justify-end px-6 md:px-16 py-10 skeleton-bg">
+                    <img src="${cat.img}" onload="this.classList.remove('opacity-0')" class="absolute inset-0 w-full h-full object-cover object-center scale-105 category-hero-img opacity-0 transition-opacity duration-1000 ease-out" alt="${cat.title}">
+                    <div class="absolute inset-0 bg-black/40 z-10"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#141414] to-transparent z-10 pointer-events-none"></div>
+                    <div class="relative z-20 w-full max-w-7xl">
+                        <div class="flex flex-col justify-start items-start text-left">
+                            <div class="flex items-center gap-3 md:gap-4 mb-4">
+                                <div class="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center shadow-2xl">
+                                    <i data-lucide="${cat.icon}" class="${cat.color} w-6 h-6 md:w-8 md:h-8"></i>
+                                </div>
+                                <span class="bg-[#1a1a1c]/80 text-white text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest uppercase shadow-lg backdrop-blur-md border border-white/5">${tools.length} Premium Tools</span>
+                            </div>
+                            <h1 class="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none mb-4">${cat.title}</h1>
+                            <p class="text-gray-400 text-sm md:text-xl font-medium max-w-2xl leading-relaxed">${cat.desc}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-6 md:px-16 py-8 md:py-12 pb-16">
+                    <div class="grid-container text-left justify-start">
+                        ${tools.map((t, i) => `<div class="animate-fade-up opacity-0" style="animation-delay: ${i*0.03}s">${window.createCard(t)}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            if(typeof gsap !== 'undefined') gsap.fromTo('.category-hero-img', { scale: 1.1 }, { scale: 1, duration: 1.5, ease: "power2.out" });
+            window.tryCreateIcons();
+        };
+
+        window.renderSettings = function() { 
+            document.getElementById('view-content').innerHTML = `
+                <div class="pt-32 pb-20 px-6 md:px-16 max-w-5xl mx-auto text-left">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">Settings</h1>
+                    <p class="text-gray-500 mb-12 md:mb-16 text-lg">Personalize your FORGENOS experience.</p>
+                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="monitor" class="text-brand-accent"></i> Interface</h2>
+                            ${window.createToggle('Space Background', 'Enable dynamic space and meteor effects.', 'interactiveBg')}
+                            ${window.createToggle('Compact Mode', 'Dense grid layout for experts.', 'compactMode')}
+                            ${window.createToggle('Reduced Motion', 'Disable intensive animations.', 'reduceMotion')}
+                        </div>
+                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="shield-check" class="text-brand-accent"></i> Privacy</h2>
+                            ${window.createToggle('Privacy Blur', 'Blur site when tab is inactive.', 'privacyBlur')}
+                            <div class="flex items-center justify-between">
+                                <div><h3 class="font-bold text-white">Incognito Mode</h3><p class="text-xs text-gray-500">History will not be stored locally.</p></div>
+                                <button onclick="window.showToast('Incognito Session Started', 'success')" class="text-[10px] font-black uppercase tracking-widest bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-all text-white">Enable</button>
+                            </div>
+                        </div>
+                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="bell" class="text-brand-accent"></i> Notifications</h2>
+                            ${window.createToggle('Push Notifications', 'Alerts for new tool drops.', 'notifications')}
+                        </div>
+                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="database" class="text-brand-accent"></i> Storage</h2>
+                            <div class="flex items-center justify-between">
+                                <div><h3 class="font-bold text-white">Clear Favorites</h3><p class="text-xs text-gray-500">Delete all saved items.</p></div>
+                                <button onclick="window.resetStorage('saved')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Clear</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div><h3 class="font-bold text-white">Wipe Toolkits</h3><p class="text-xs text-gray-500">Delete all custom projects.</p></div>
+                                <button onclick="window.resetStorage('projects')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Wipe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            window.tryCreateIcons();
+        };
+
+        window.createToggle = function(title, desc, key) { 
+            const isChecked = appSettings[key];
+            return `
+                <div class="flex items-center justify-between group">
+                    <div><h3 class="font-bold text-white">${title}</h3><p class="text-xs text-gray-500">${desc}</p></div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" ${isChecked ? 'checked' : ''} onchange="window.toggleSetting('${key}')">
+                        <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-accent"></div>
+                    </label>
+                </div>`;
+        };
+
+        window.renderProjectsView = function() { 
+            let html = `
+                <div class="sticky top-16 md:top-0 z-30 bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] px-6 md:px-16 py-6 md:py-8 transition-all">
+                    <div class="w-full max-w-7xl flex flex-row justify-between items-center gap-6 mx-auto">
+                        <div class="text-left w-full">
+                            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-2">My Projects</h1>
+                            <p class="text-gray-500 text-sm md:text-base font-medium">Your customized collections of power tools.</p>
+                        </div>
+                        <button onclick="window.openCreateProjectModal()" class="bg-white text-black font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-transform hover:scale-105 shrink-0 text-sm shadow-xl">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Create New
+                        </button>
+                    </div>
+                </div>
+                <div class="px-6 md:px-16 py-12 md:py-16">
+            `;
+
+            if (myProjects.length === 0) {
+                html += `
+                    <div class="py-32 flex flex-col items-center text-center opacity-40">
+                        <i data-lucide="folder-plus" class="w-20 h-20 mb-6 text-white"></i>
+                        <h2 class="text-2xl font-bold text-white">No Toolkits Found</h2>
+                        <p class="max-w-xs text-gray-400 mt-2">Start by creating a collection for your next workflow.</p>
+                    </div>`;
+            } else {
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 gap-y-16">`;
+                myProjects.forEach(proj => {
+                    const tools = toolsData.filter(t => proj.toolIds.includes(t.id));
+                    let coverImage = tools.length > 0 ? tools[0].img : 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop';
+                    html += `
+                        <div class="flex flex-col group cursor-pointer animate-fade-up w-full max-w-[260px] mx-auto text-left" onclick="window.viewProjectTools(${proj.id})">
+                            <h3 class="text-2xl font-black text-white mb-1 truncate">${proj.name}</h3>
+                            <span class="text-brand-accent text-xs font-black uppercase tracking-widest mb-6">${tools.length} TOOLS</span>
+                            <div class="relative w-full aspect-[4/3] mb-6 flex justify-center">
+                                <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#0a0a0a] rounded-2xl border border-white/10 transform -rotate-12 origin-bottom transition-transform group-hover:-rotate-[18deg] z-0 shadow-lg"></div>
+                                <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#111111] rounded-2xl border border-white/10 transform rotate-12 origin-bottom transition-transform group-hover:rotate-[18deg] z-0 shadow-lg"></div>
+                                <div class="absolute w-[85%] h-full bottom-0 z-10 bg-[#1a1a1c] border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-transform group-hover:-translate-y-2">
+                                    <img src="${coverImage}" class="w-full h-full object-cover opacity-90 transition-transform group-hover:scale-105 duration-700">
+                                </div>
+                            </div>
+                            <div class="w-full bg-[#1c1c1e] hover:bg-[#27272a] border border-white/5 rounded-xl py-3 px-4 flex justify-center items-center gap-2 transition-colors text-white shadow-lg">
+                                <span class="text-sm font-bold">View Tools</span><i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                            </div>
+                        </div>`;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
+            document.getElementById('view-content').innerHTML = html;
+            window.tryCreateIcons();
+        };
+
+        window.viewProjectTools = function(projId) {
+            currentOpenProjectId = projId;
+            const proj = myProjects.find(p => p.id === projId);
+            if(!proj) return;
+            const tools = toolsData.filter(t => proj.toolIds.includes(t.id));
+
+            document.getElementById('inner-project-title').innerText = proj.name;
+            document.getElementById('inner-project-grid').innerHTML = tools.map((t, i) => `<div class="opacity-0 translate-y-4" style="animation: fadeUp 0.4s ease-out ${i*0.03}s forwards">${window.createCard(t)}</div>`).join('');
+            
+            window.tryCreateIcons();
+            const modal = document.getElementById('inner-project-modal');
+            window.lockScroll();
+            modal.classList.remove('hidden');
+            if(typeof gsap !== 'undefined'){
+                gsap.to('#inner-project-header', { scale: 1, opacity: 1, duration: 0.3, ease: "out" });
+                gsap.to('#inner-project-grid', { scale: 1, opacity: 1, duration: 0.4, ease: "out", delay: 0.1 });
+            }
+        };
+
+        window.closeInnerProject = function() {
+            const modal = document.getElementById('inner-project-modal');
+            window.unlockScroll();
+            if(typeof gsap !== 'undefined') { 
+                gsap.to(['#inner-project-header', '#inner-project-grid'], { scale: 0.95, opacity: 0, duration: 0.2, onComplete: () => { modal.classList.add('hidden'); currentOpenProjectId = null; }}) 
+            } else { 
+                modal.classList.add('hidden'); currentOpenProjectId = null; 
+            }
+        };
+
+        window.renderPolicyPage = function(view) { 
+            const policies = {
+                privacy: { title: 'Privacy Policy', content: `<h2>Introduction</h2><p>Welcome to FORGENOS. We strictly respect your privacy and are deeply committed to protecting your personal data in accordance with modern security standards.</p><h2>Data Storage</h2><p>FORGENOS operates primarily using local storage. This means your "Saved Tools" and "Projects" are stored locally on your device and are never uploaded to our servers unless you explicitly opt-in for our cloud sync features.</p><h2>Cookies & Telemetry</h2><p>We use only essential cookies required to ensure the site functions correctly. We do not track or sell your browsing habits to third-party ad networks.</p>` },
+                terms: { title: 'Terms of Service', content: `<h2>Agreement</h2><p>By accessing the FORGENOS directory, you immediately agree to be bound by these terms. If you do not agree, please discontinue use of the site immediately.</p><h2>License & Usage</h2><p>Permission is granted to use the tools directory for personal, non-commercial use. You may absolutely not scrape our proprietary data, attempt to reverse-engineer our platform, or redistribute it without explicit written permission.</p>` },
+                about: { title: 'About FORGENOS', content: `<p>FORGENOS is a premier directory designed exclusively for the digital vanguard. We curate the most efficient, powerful, and innovative tools across the sectors of Finance, Development, and Cognitive science.</p><p>Our fundamental mission is to empower creators, developers, and everyday individuals to build their ultimate digital workflow with speed, privacy, and precision.</p>` },
+                contact: { title: 'Contact Us', content: `<p>Have a suggestion, found a bug, or need enterprise support? Reach out to our core team below.</p><div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl mt-8 space-y-4 max-w-xl border border-white/10"><p><strong>Email:</strong> hello@forgenos.com</p><p><strong>Business:</strong> partnership@forgenos.com</p></div>` },
+                disclaimer: { title: 'Legal Disclaimer', content: `<p>The information provided by FORGENOS is strictly for general informational purposes only. All software and tools listed in this directory are third-party products.</p><p>We are not responsible for the performance, security, or financial results of any linked tool. Always conduct your own independent research and due diligence before inputting sensitive data or payment information into any third-party application.</p>` }
+            };
+
+            const policy = policies[view];
+            document.getElementById('view-content').innerHTML = `
+                <div class="pt-32 pb-20 px-6 md:px-16 max-w-4xl mx-auto min-h-[60vh]">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-12 text-left">${policy.title}</h1>
+                    <div class="policy-content text-left w-full">
+                        ${policy.content}
+                    </div>
+                </div>`;
+            window.tryCreateIcons();
+        };
+
+        window.renderSavedView = function() { 
+            const tools = toolsData.filter(t => savedTools.includes(t.id));
+            document.getElementById('view-content').innerHTML = `
+                <div class="sticky top-16 md:top-0 z-30 bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] px-6 md:px-16 py-6 md:py-8 transition-all">
+                    <div class="w-full max-w-7xl text-left">
+                        <h1 class="text-3xl md:text-6xl font-black text-white tracking-tighter leading-none">My List</h1>
+                        <p class="text-gray-500 text-sm md:text-lg mt-2 md:mt-4 font-medium">Quick access to your most important tools.</p>
+                    </div>
+                </div>
+                <div class="px-6 md:px-16 py-8 md:py-12">
+                    ${tools.length === 0 ? `
+                        <div class="py-32 flex flex-col items-center opacity-40 text-center">
+                            <i data-lucide="bookmark" class="w-20 h-20 mb-6 text-white"></i>
+                            <h2 class="text-2xl font-bold text-white">Your list is empty</h2>
+                        </div>` : 
+                        `<div class="grid-container text-left justify-start">${tools.map(t => `<div class="animate-fade-up opacity-0">${window.createCard(t)}</div>`).join('')}</div>`
+                    }
+                </div>`;
+            
+            const cards = document.querySelectorAll('.animate-fade-up');
+            cards.forEach((c, i) => c.style.animationDelay = `${i * 0.03}s`);
+            window.tryCreateIcons();
+        };
+
+        window.toggleSetting = function(key) { 
+            appSettings[key] = !appSettings[key]; 
+            localStorage.setItem('toolnox_settings', JSON.stringify(appSettings)); 
+            window.applyImmediateSettings(); 
+        };
+
+        window.applyImmediateSettings = function() {
+            if (appSettings.privacyBlur) { 
+                window.onblur = () => document.body.classList.add('privacy-blur'); 
+                window.onfocus = () => document.body.classList.remove('privacy-blur'); 
+            } else { 
+                window.onblur = null; window.onfocus = null; 
+            }
+            const canvas = document.getElementById('particle-canvas');
+            if (appSettings.interactiveBg) { canvas.style.opacity = '1'; window.initParticles(); } 
+            else { canvas.style.opacity = '0'; }
+        };
+
+        window.startHeroCarousel = function() {
+            if (heroInterval) clearInterval(heroInterval);
+            const slider = document.getElementById('hero-slider');
+            const dots = document.querySelectorAll('.hero-dot');
+            heroInterval = setInterval(() => {
+                currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+                if(typeof gsap !== 'undefined') gsap.to(slider, { xPercent: -100 * currentHeroIndex, duration: 1, ease: "expo.inOut" });
+                dots.forEach((dot, i) => {
+                    if(i === currentHeroIndex) { dot.classList.add('w-8', 'bg-brand-accent'); dot.classList.remove('w-2', 'bg-white/30'); }
+                    else { dot.classList.add('w-2', 'bg-white/30'); dot.classList.remove('w-8', 'bg-brand-accent'); }
+                });
+            }, 6000);
+        };
+
+        window.openCreateProjectModal = function() { 
+            selectedToolsForProject = []; document.getElementById('project-name-input').value = ''; 
+            document.getElementById('modal-tool-search').value = ''; 
+            window.renderToolSelectionGrid(); window.updateSelectedToolsList(); 
+            const modal = document.getElementById('project-modal'); 
+            window.lockScroll(); 
+            modal.classList.remove('hidden'); 
+            if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, opacity: 1, duration: 0.4, ease: "expo.out" }); 
+        };
+        
+        window.closeProjectModal = function() { 
+            const modal = document.getElementById('project-modal'); 
+            window.unlockScroll(); 
+            if(typeof gsap !== 'undefined') { gsap.to(modal.firstElementChild, { scale: 0.95, opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden') }); } 
+            else { modal.classList.add('hidden'); }
+        };
+
+        window.filterModalTools = function() {
+            const query = document.getElementById('modal-tool-search').value.toLowerCase().trim();
+            const filteredTools = toolsData.filter(t => 
+                t.title.toLowerCase().includes(query) || 
+                t.category.toLowerCase().includes(query) ||
+                t.tags.some(tag => tag.toLowerCase().includes(query))
+            );
+            document.getElementById('tool-selection-grid').innerHTML = filteredTools.map(tool => window.createCard(tool, true)).join(''); 
+            window.tryCreateIcons(); 
+        };
+
+        window.renderToolSelectionGrid = function() { 
+            document.getElementById('tool-selection-grid').innerHTML = toolsData.map(tool => window.createCard(tool, true)).join(''); 
+            window.tryCreateIcons(); 
+        };
+
+        window.toggleToolSelection = function(id) {
+            const tool = toolsData.find(t => t.id === id); if (tool && tool.disabled) return;
+            if(selectedToolsForProject.includes(id)) selectedToolsForProject = selectedToolsForProject.filter(tid => tid !== id); 
+            else selectedToolsForProject.push(id);
+            window.filterModalTools(); window.updateSelectedToolsList();
+        };
+
+        window.updateSelectedToolsList = function() {
+            document.getElementById('selected-count').innerText = selectedToolsForProject.length;
+            const list = document.getElementById('selected-tools-list');
+            if(selectedToolsForProject.length === 0) { 
+                list.innerHTML = '<p class="text-gray-700 text-xs italic text-center py-6">Tap tools in the grid to add them.</p>'; 
+            } else { 
+                const selected = toolsData.filter(t => selectedToolsForProject.includes(t.id)); 
+                list.innerHTML = selected.map(t => `<div class="flex items-center gap-3 bg-black p-3 rounded-xl border border-white/5 animate-fade-up shrink-0"><span class="text-xs font-bold text-white truncate flex-1">${t.title}</span><button onclick="window.toggleToolSelection(${t.id})" class="text-gray-500 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button></div>`).join(''); 
+            }
+            window.tryCreateIcons();
+        };
+
+        window.saveProject = function() {
+            const name = document.getElementById('project-name-input').value.trim();
+            if(!name) { window.showToast("Please enter a name", "alert"); return; }
+            if(selectedToolsForProject.length === 0) { window.showToast("Please select tools", "alert"); return; }
+            myProjects.push({ id: Date.now(), name, toolIds: [...selectedToolsForProject] });
+            localStorage.setItem('toolnox_projects', JSON.stringify(myProjects));
+            window.closeProjectModal(); window.handleNavClick('projects'); window.showToast("Toolkit Created!", 'success');
+        };
+
+        window.triggerDeleteProject = function(event, id) {
+            if(event) { event.stopPropagation(); }
+            projectToDeleteId = id; 
+            const modal = document.getElementById('delete-modal'); 
+            modal.classList.remove('hidden');
+            if(typeof gsap !== 'undefined') gsap.to(document.getElementById('delete-modal-content'), { scale: 1, opacity: 1, duration: 0.3 });
+            
+            document.getElementById('confirm-delete-btn').onclick = () => {
+                myProjects = myProjects.filter(p => p.id !== projectToDeleteId); 
+                localStorage.setItem('toolnox_projects', JSON.stringify(myProjects));
+                window.closeDeleteModal(); 
+                if(currentOpenProjectId === projectToDeleteId) { window.closeInnerProject(); } 
+                window.renderProjectsView(); window.showToast("Toolkit Deleted", 'alert');
+            };
+        };
+
+        window.closeDeleteModal = function() { 
+            const modal = document.getElementById('delete-modal'); 
+            if(typeof gsap !== 'undefined') { gsap.to(document.getElementById('delete-modal-content'), { scale: 0.9, opacity: 0, duration: 0.2, onComplete: () => { modal.classList.add('hidden'); projectToDeleteId = null; }}); } 
+            else { modal.classList.add('hidden'); projectToDeleteId = null; } 
+        };
+
+        window.resetStorage = function(type) {
+            if (confirm("Are you sure? This cannot be undone.")) {
+                if (type === 'saved') { savedTools = []; localStorage.removeItem('toolnox_saved'); } 
+                else { myProjects = []; localStorage.removeItem('toolnox_projects'); }
+                window.renderSettings(); window.showToast("Data Wiped", "alert");
+            }
+        };
+
+        window.initParticles = function() {
+            const canvas = document.getElementById('particle-canvas'); const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let stars = []; let meteors = [];
+
+            class Star {
+                constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 1.0; this.alpha = Math.random() * 0.3; this.alphaChange = (Math.random() * 0.01) - 0.005; }
+                draw() { this.alpha += this.alphaChange; if(this.alpha <= 0.05 || this.alpha >= 0.4) this.alphaChange *= -1; ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+            }
+
+            class Meteor {
+                constructor() { this.reset(); }
+                reset() { if (Math.random() > 0.5) { this.x = Math.random() * canvas.width; this.y = -100; } else { this.x = -100; this.y = Math.random() * canvas.height; } this.length = Math.random() * 120 + 80; this.speed = Math.random() * 6 + 4; this.angle = Math.PI / 8; this.active = false; this.timer = Math.random() * 800 + 300; this.opacity = 0; this.fadeIn = true; }
+                update() {
+                    if(!this.active) { this.timer--; if(this.timer <= 0) this.active = true; return; }
+                    this.x += this.speed * Math.cos(this.angle); this.y += this.speed * Math.sin(this.angle);
+                    if (this.fadeIn) { this.opacity += 0.005; if (this.opacity >= 0.7) this.fadeIn = false; } else { this.opacity -= 0.003; }
+                    if(this.x > canvas.width + 200 || this.y > canvas.height + 200 || (!this.fadeIn && this.opacity <= 0)) { this.reset(); }
+                }
+                draw() {
+                    if(!this.active || this.opacity <= 0) return;
+                    ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle);
+                    let gradient = ctx.createLinearGradient(0, 0, -this.length, 0); gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`); gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-this.length, 0); ctx.strokeStyle = gradient; ctx.lineWidth = 1.5; ctx.stroke(); ctx.restore();
+                }
+            }
+
+            for(let i=0; i<50; i++) stars.push(new Star()); for(let i=0; i<3; i++) meteors.push(new Meteor()); 
+
+            function animate() { if(!appSettings.interactiveBg) return; ctx.clearRect(0,0,canvas.width,canvas.height); stars.forEach(s => s.draw()); meteors.forEach(m => { m.update(); m.draw(); }); requestAnimationFrame(animate); }
+            animate();
+        };
+        
+        // --- INIT ---
+        window.onload = () => {
+            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
+            
+            history.replaceState({view:'home'},'','#home');
+            
+            // Initialize Lenis ONLY if not on Mobile (Prevents Phone Heating/Lag)
+            if(typeof Lenis !== 'undefined' && !isMobileDevice) {
+                lenisInstance = new Lenis({duration:1.2, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)), orientation:'vertical', smoothWheel:true });
+                if(typeof ScrollTrigger !== 'undefined') lenisInstance.on('scroll', ScrollTrigger.update);
+                if(typeof gsap !== 'undefined') { gsap.ticker.add((time)=>{lenisInstance.raf(time*1000)}); gsap.ticker.lagSmoothing(0); }
+            }
+            
+            if(typeof gsap !== 'undefined') gsap.to("body", { opacity: 1, duration: 0.5 }); 
+            else document.body.style.opacity = '1';
+            
+            window.triggerPageLoader(); 
+            window.applyImmediateSettings(); 
+            window.renderHome(); 
+            window.renderSidebar(); 
+            window.tryCreateIcons();
+        };
+
+        window.addEventListener('resize', () => { if(appSettings.interactiveBg) window.initParticles(); });
+    </script>
 </body>
 </html>
