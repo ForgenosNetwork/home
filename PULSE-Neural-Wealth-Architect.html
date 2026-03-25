@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>PULSE Neural Architect | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'orb-glow': 'orbGlow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        orbGlow: {
+                            '0%': { boxShadow: '0 0 20px rgba(229, 9, 20, 0.2), inset 0 0 20px rgba(229, 9, 20, 0.2)' },
+                            '100%': { boxShadow: '0 0 60px rgba(229, 9, 20, 0.6), inset 0 0 40px rgba(229, 9, 20, 0.8)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #E50914;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        .quantum-orb {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-tight uppercase">PULSE: Neural Architect</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Forensic Fiscal Momentum & Probability Engine. Visualize the long-term compound impact of daily micro-spending.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-transparent">
+                    
+                    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+                        
+                        <!-- LEFT PANEL: Fiscal Profile -->
+                        <div class="col-span-1 lg:col-span-4 flex flex-col gap-6 w-full">
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 backdrop-blur-md w-full relative overflow-hidden group hover:border-white/20 transition-colors">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+                                        <i data-lucide="user" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-white font-bold text-lg uppercase tracking-wide">Fiscal Profile</h3>
+                                </div>
+                                
+                                <!-- Age Input -->
+                                <div class="mb-5">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Current Age</label>
+                                        <span id="ageVal" class="text-brand-accent font-mono font-bold text-sm">30</span>
+                                    </div>
+                                    <input type="range" id="ageSlider" min="18" max="75" value="30" oninput="updateHUD()">
+                                </div>
+
+                                <!-- Current Wealth Input -->
+                                <div class="mb-5">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Current Capital</label>
+                                        <span class="text-brand-accent font-mono font-bold text-sm">$<span id="wealthVal">10,000</span></span>
+                                    </div>
+                                    <input type="range" id="wealthSlider" min="0" max="500000" step="1000" value="10000" oninput="updateHUD()">
+                                </div>
+
+                                <!-- Risk Tolerance Input -->
+                                <div class="mb-2">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Risk Index</label>
+                                        <span id="riskValText" class="text-brand-accent font-mono font-bold text-sm">Aggressive</span>
+                                    </div>
+                                    <input type="range" id="riskSlider" min="1" max="3" step="1" value="3" oninput="updateHUD()">
+                                    <div class="flex justify-between text-[10px] text-gray-600 font-mono mt-1">
+                                        <span>LOW</span>
+                                        <span>MED</span>
+                                        <span>HIGH</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CENTER PANEL: Quantum Orb & Main Action -->
+                        <div class="col-span-1 lg:col-span-4 flex flex-col items-center justify-center w-full min-h-[300px] relative">
+                            <!-- Background Grid -->
+                            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] rounded-3xl pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)] opacity-30"></div>
+                            
+                            <!-- The Orb -->
+                            <div class="relative w-48 h-48 flex items-center justify-center mb-10">
+                                <div id="quantumOrb" class="absolute w-32 h-32 rounded-full bg-brand-accent/10 border-2 border-brand-accent/50 quantum-orb animate-orb-glow flex items-center justify-center backdrop-blur-sm z-10">
+                                    <i data-lucide="zap" class="w-10 h-10 text-brand-accent animate-pulse-slow"></i>
+                                </div>
+                                <div class="absolute w-48 h-48 border border-white/5 rounded-full border-dashed animate-[spin_20s_linear_infinite]"></div>
+                                <div class="absolute w-40 h-40 border border-brand-accent/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                            </div>
+
+                            <button onclick="runProbabilityScan()" class="group relative w-full sm:w-auto px-10 py-5 bg-brand-accent hover:bg-[#ff0f1b] text-white font-black uppercase tracking-[0.2em] text-sm rounded-xl overflow-hidden transition-all shadow-[0_0_20px_rgba(229,9,20,0.4)] hover:shadow-[0_0_40px_rgba(229,9,20,0.6)] hover:scale-[1.02] active:scale-[0.98] z-20">
+                                <div class="absolute inset-0 bg-white/20 w-full h-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmerSweep_1s_ease-in-out]"></div>
+                                <span class="relative flex items-center justify-center gap-3">
+                                    <i data-lucide="activity" class="w-5 h-5"></i> Execute Probability Scan
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- RIGHT PANEL: Momentum Ingestion -->
+                        <div class="col-span-1 lg:col-span-4 flex flex-col gap-6 w-full">
+                            <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 lg:p-8 w-full relative overflow-hidden group hover:border-white/20 transition-colors h-full flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400">
+                                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                                        </div>
+                                        <h3 class="text-white font-bold text-lg uppercase tracking-wide">Momentum Ingestion</h3>
+                                    </div>
+                                    <p class="text-gray-500 text-xs font-mono leading-relaxed mb-6">Input a daily micro-spend amount (e.g. coffee, subscriptions) to simulate its compounding effect over a 10-year forensic horizon.</p>
+                                    
+                                    <div class="relative mb-8 group-focus-within:border-brand-accent border border-white/10 rounded-xl overflow-hidden transition-colors bg-[#141414]">
+                                        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-mono font-bold">$</div>
+                                        <input type="number" id="dailyAmount" value="5" min="0" step="1" class="w-full bg-transparent text-white font-mono text-xl py-4 pl-8 pr-4 outline-none focus:outline-none placeholder-gray-700" placeholder="0.00">
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-3 w-full">
+                                    <button onclick="adjustMomentum('impulse')" class="flex-1 py-3 px-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-gray-500 rounded-lg text-gray-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                        <i data-lucide="trending-down" class="w-4 h-4 text-red-400"></i> - Impulse
+                                    </button>
+                                    <button onclick="adjustMomentum('save')" class="flex-1 py-3 px-4 bg-brand-accent/10 hover:bg-brand-accent/20 border border-brand-accent/30 hover:border-brand-accent/80 rounded-lg text-brand-accent font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                        <i data-lucide="trending-up" class="w-4 h-4"></i> + Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RESULTS DASHBOARD (Hidden initially) -->
+                    <div id="resultsDashboard" class="w-full mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 hidden opacity-0 transition-opacity duration-1000 ease-in-out relative z-10">
+                        
+                        <div class="col-span-1 lg:col-span-8 bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 relative overflow-hidden flex flex-col">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="database" class="w-4 h-4 text-gray-500"></i> 10-Year Monte Carlo Cloud
+                                </h3>
+                                <span class="text-[10px] text-brand-accent font-mono border border-brand-accent/30 px-2 py-1 rounded bg-brand-accent/10">500 ITERATIONS</span>
+                            </div>
+                            <!-- Canvas Container -->
+                            <div class="flex-1 w-full min-h-[300px] relative">
+                                <canvas id="monteCarloCanvas" class="w-full h-full absolute inset-0"></canvas>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-gray-600 font-mono mt-4 px-2 border-t border-white/5 pt-3">
+                                <span>YEAR 0</span>
+                                <span>YEAR 5</span>
+                                <span>YEAR 10</span>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1 lg:col-span-4 flex flex-col gap-6">
+                            
+                            <!-- Regret Delta Widget -->
+                            <div class="bg-brand-accent/5 border border-brand-accent/20 rounded-2xl p-6 relative overflow-hidden">
+                                <div class="absolute -right-4 -top-4 text-brand-accent/10">
+                                    <i data-lucide="target" class="w-32 h-32"></i>
+                                </div>
+                                <h4 class="text-brand-accent font-bold text-xs uppercase tracking-widest mb-1 relative z-10">Forensic Audit Result</h4>
+                                <h2 class="text-white text-3xl font-black mb-2 relative z-10">Regret Delta</h2>
+                                <p class="text-gray-400 text-sm font-medium mb-4 relative z-10">The true long-term cost of this daily habit.</p>
+                                
+                                <div class="bg-black/40 border border-brand-accent/30 rounded-xl p-4 relative z-10">
+                                    <div class="text-xs text-gray-500 font-mono mb-1">PROJECTED 10Y LOSS</div>
+                                    <div id="regretAmount" class="text-brand-accent text-3xl font-mono font-bold tracking-tight">$-.--</div>
+                                </div>
+                            </div>
+
+                            <!-- Probability Widget -->
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-center justify-between">
+                                <div>
+                                    <div class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-1">Probability</div>
+                                    <div class="text-white text-sm font-medium">Reaching $100k+ Target</div>
+                                </div>
+                                <div class="relative w-16 h-16 flex items-center justify-center">
+                                    <svg class="w-16 h-16 transform -rotate-90">
+                                        <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="6" fill="transparent" class="text-white/10" />
+                                        <circle id="probCircle" cx="32" cy="32" r="28" stroke="currentColor" stroke-width="6" fill="transparent" class="text-brand-accent" stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round" style="transition: stroke-dashoffset 1.5s ease-in-out;" />
+                                    </svg>
+                                    <span id="probText" class="absolute text-white font-mono font-bold text-sm">--%</span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex gap-3">
+                                <button onclick="exportAudit()" class="flex-1 py-3 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="download" class="w-4 h-4"></i> Export
+                                </button>
+                                <button onclick="regeneratePath()" class="flex-1 py-3 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); // Unconditionally block native browser menu
+
+            // If mobile/tablet (width < 1024), do nothing (keep blocked, no custom menu)
+            if (window.innerWidth < 1024) {
+                return false;
+            }
+
+            // Show custom menu for PC ONLY
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                // Adjust if menu goes off screen
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        // Hide custom menu on click
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts (F12, Ctrl+U, Ctrl+Shift+I/J/C)
+        document.onkeydown = function(e) { 
+            // Block F12
+            if (e.key === 'F12' || e.keyCode === 123) { 
+                e.preventDefault(); 
+                return false; 
+            } 
+            
+            // Block Ctrl+U, Ctrl+S, Ctrl+P
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+
+            // Block Ctrl+Shift+I, J, C (DevTools)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic (Fixed Background Freeze)
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; // Freeze background scrolling
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; // Trigger reflow
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; // Unfreeze background
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            if(!stepsArray || stepsArray.length === 0) {
+                stepsArray = ['Processing request...'];
+            }
+
+            let listHTML = '';
+            stepsArray.forEach(step => {
+                listHTML += `<li class="shimmer-text">${step}</li>`;
+            });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+        
+        // 1. Config & State
+        const FORENSIC_CONFIG = {
+            iterations: 500,
+            years: 10,
+            inflation: 0.03, // 3%
+            riskProfiles: {
+                1: { name: 'Conservative', mean: 0.05, vol: 0.06 },
+                2: { name: 'Moderate', mean: 0.08, vol: 0.12 },
+                3: { name: 'Aggressive', mean: 0.11, vol: 0.18 }
+            }
+        };
+
+        let currentMomentumState = 'neutral';
+        let orbScale = 1.0;
+
+        // 2. Formatters
+        const currencyFormatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0
+        });
+
+        // 3. UI Update (HUD)
+        function updateHUD() {
+            const age = document.getElementById('ageSlider').value;
+            const wealth = document.getElementById('wealthSlider').value;
+            const risk = document.getElementById('riskSlider').value;
+
+            document.getElementById('ageVal').innerText = age;
+            document.getElementById('wealthVal').innerText = parseInt(wealth).toLocaleString();
+            document.getElementById('riskValText').innerText = FORENSIC_CONFIG.riskProfiles[risk].name;
+            
+            // Hide dashboard on change to force rescan
+            const dashboard = document.getElementById('resultsDashboard');
+            if(!dashboard.classList.contains('hidden')) {
+                dashboard.classList.add('opacity-0');
+                setTimeout(() => dashboard.classList.add('hidden'), 500);
+            }
+        }
+
+        // 4. Interaction (Orb Momentum)
+        function adjustMomentum(type) {
+            const orb = document.getElementById('quantumOrb');
+            const input = document.getElementById('dailyAmount');
+            if(!input.value || input.value <= 0) return showToast('Please enter a valid daily amount', 'normal');
+
+            if(type === 'save') {
+                orbScale = Math.min(orbScale + 0.1, 1.3);
+                orb.style.transform = `scale(${orbScale})`;
+                orb.style.boxShadow = '0 0 60px rgba(229, 9, 20, 0.8), inset 0 0 40px rgba(229, 9, 20, 0.9)';
+                showToast(`+ Momentum Engaged: Saving $${input.value}/day`, 'success');
+                currentMomentumState = 'save';
+            } else {
+                orbScale = Math.max(orbScale - 0.1, 0.7);
+                orb.style.transform = `scale(${orbScale})`;
+                orb.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1)';
+                orb.querySelector('i').classList.replace('text-brand-accent', 'text-gray-500');
+                showToast(`- Impulse Recorded: Spending $${input.value}/day`, 'normal');
+                currentMomentumState = 'impulse';
+            }
+            
+            setTimeout(() => {
+                orb.style.transform = 'scale(1)';
+                orb.style.boxShadow = ''; // Reset to class default
+                orb.querySelector('i').classList.replace('text-gray-500', 'text-brand-accent');
+            }, 500);
+        }
+
+        // 5. Math Engine (Box-Muller Transform)
+        function getGaussian(mean, stdDev) {
+            let u = 1 - Math.random();
+            let v = Math.random();
+            let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            return z * stdDev + mean;
+        }
+
+        // 6. Primary Action Sequence
+        function runProbabilityScan() {
+            const amount = parseFloat(document.getElementById('dailyAmount').value) || 0;
+            if (amount <= 0) {
+                showToast('Initialize daily amount first.', 'normal');
+                return;
+            }
+
+            // Trigger Global Loading via Template System
+            showToolLoading([
+                'Synchronizing Neural Spend-Patterns...', 
+                `Running ${FORENSIC_CONFIG.iterations} Monte Carlo Iterations...`, 
+                'Calculating Regret Delta...', 
+                'Generating Forensic Growth Map...'
+            ], 1000);
+
+            // Simulate Heavy Processing Delay
+            setTimeout(() => {
+                hideToolLoading();
+                executeMonteCarlo();
+                revealDashboard();
+                showToast('Scan Complete. Audit Ready.', 'success');
+            }, 4000);
+        }
+
+        function revealDashboard() {
+            const dashboard = document.getElementById('resultsDashboard');
+            dashboard.classList.remove('hidden');
+            // Allow display block to render before changing opacity for transition
+            requestAnimationFrame(() => {
+                dashboard.classList.remove('opacity-0');
+                dashboard.classList.add('opacity-100');
+            });
+        }
+
+        // 7. Core Logic & Rendering
+        function executeMonteCarlo() {
+            const initialWealth = parseFloat(document.getElementById('wealthSlider').value);
+            const dailyAmount = parseFloat(document.getElementById('dailyAmount').value);
+            const riskLevel = document.getElementById('riskSlider').value;
+            const profile = FORENSIC_CONFIG.riskProfiles[riskLevel];
+            
+            const months = FORENSIC_CONFIG.years * 12;
+            const monthlyContribution = currentMomentumState === 'save' ? dailyAmount * 30 : -(dailyAmount * 30);
+            
+            let paths = [];
+            let finalValues = [];
+            
+            // Calculate Baseline "Regret Delta" (What would happen if you invested the daily amount at fixed mean rate instead of spending)
+            let regretDeltaValue = 0;
+            if (currentMomentumState === 'impulse') {
+                const monthlyFixedRate = profile.mean / 12;
+                const monthlyImpulse = dailyAmount * 30;
+                // Future Value of Annuity formula
+                regretDeltaValue = monthlyImpulse * ((Math.pow(1 + monthlyFixedRate, months) - 1) / monthlyFixedRate);
+            }
+
+            // Run Iterations
+            for (let i = 0; i < FORENSIC_CONFIG.iterations; i++) {
+                let currentVal = initialWealth;
+                let path = [currentVal];
+                
+                for (let m = 0; m < months; m++) {
+                    // Generate monthly return based on annual mean/volatility
+                    let monthlyReturn = getGaussian(profile.mean / 12, profile.vol / Math.sqrt(12));
+                    
+                    // Apply return and add/subtract contribution
+                    currentVal = currentVal * (1 + monthlyReturn) + monthlyContribution;
+                    // Can't go below 0 wealth structurally in this simple model
+                    if(currentVal < 0) currentVal = 0; 
+                    
+                    path.push(currentVal);
+                }
+                paths.push(path);
+                finalValues.push(currentVal);
+            }
+
+            // Calculate Metrics
+            finalValues.sort((a, b) => a - b);
+            const medianFinal = finalValues[Math.floor(FORENSIC_CONFIG.iterations / 2)];
+            
+            // Probability of hitting $100k target (Arbitrary dynamic target for visual)
+            const target = 100000;
+            const successCount = finalValues.filter(v => v >= target).length;
+            const probability = Math.round((successCount / FORENSIC_CONFIG.iterations) * 100);
+
+            // Update UI
+            if (currentMomentumState === 'impulse') {
+                document.getElementById('regretAmount').innerText = currencyFormatter.format(regretDeltaValue);
+                document.getElementById('regretAmount').classList.add('text-brand-accent');
+                document.getElementById('regretAmount').classList.remove('text-green-500');
+            } else {
+                document.getElementById('regretAmount').innerText = '+' + currencyFormatter.format(medianFinal - initialWealth);
+                document.getElementById('regretAmount').classList.remove('text-brand-accent');
+                document.getElementById('regretAmount').classList.add('text-green-500');
+            }
+
+            // Update Gauge
+            const circle = document.getElementById('probCircle');
+            const circumference = 2 * Math.PI * 28; // r=28
+            const offset = circumference - (probability / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+            document.getElementById('probText').innerText = `${probability}%`;
+
+            // Draw Canvas
+            drawChart(paths, medianFinal);
+        }
+
+        function drawChart(paths, medianFinal) {
+            const canvas = document.getElementById('monteCarloCanvas');
+            const ctx = canvas.getContext('2d');
+            const parent = canvas.parentElement;
+            
+            // Handle Retina/High DPI
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = parent.clientWidth * dpr;
+            canvas.height = parent.clientHeight * dpr;
+            ctx.scale(dpr, dpr);
+            
+            const w = parent.clientWidth;
+            const h = parent.clientHeight;
+            
+            ctx.clearRect(0, 0, w, h);
+
+            // Find global max to scale Y axis
+            let maxVal = 0;
+            paths.forEach(path => {
+                path.forEach(val => { if(val > maxVal) maxVal = val; });
+            });
+            // Buffer top
+            maxVal = maxVal * 1.1;
+            if(maxVal === 0) maxVal = 1000;
+
+            const steps = paths[0].length;
+            const xStep = w / (steps - 1);
+
+            // Draw Cloud (All Paths)
+            ctx.lineWidth = 1;
+            paths.forEach((path, idx) => {
+                ctx.beginPath();
+                ctx.moveTo(0, h - (path[0] / maxVal) * h);
+                for (let i = 1; i < steps; i++) {
+                    ctx.lineTo(i * xStep, h - (path[i] / maxVal) * h);
+                }
+                // Deep red low opacity for cloud
+                ctx.strokeStyle = 'rgba(229, 9, 20, 0.03)';
+                ctx.stroke();
+            });
+
+            // Find and Draw Median Path
+            let medianPath = paths.reduce((prev, curr) => {
+                return Math.abs(curr[steps-1] - medianFinal) < Math.abs(prev[steps-1] - medianFinal) ? curr : prev;
+            });
+
+            ctx.beginPath();
+            ctx.moveTo(0, h - (medianPath[0] / maxVal) * h);
+            for (let i = 1; i < steps; i++) {
+                ctx.lineTo(i * xStep, h - (medianPath[i] / maxVal) * h);
+            }
+            // Glowing accent for median
+            ctx.strokeStyle = '#E50914';
+            ctx.lineWidth = 3;
+            ctx.shadowColor = '#E50914';
+            ctx.shadowBlur = 10;
+            ctx.stroke();
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
+        }
+
+        function exportAudit() {
+            showToast('Audit Report Exported to Local Storage.', 'success');
+        }
+
+        function regeneratePath() {
+            document.getElementById('dailyAmount').value = 5;
+            document.getElementById('wealthSlider').value = 10000;
+            updateHUD();
+            showToast('Metrics Reset. Awaiting Input.', 'normal');
+        }
+
+        // Handle Window Resize for Canvas
+        window.addEventListener('resize', () => {
+            const dashboard = document.getElementById('resultsDashboard');
+            if(!dashboard.classList.contains('hidden')) {
+                // Debounce resize slightly
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(executeMonteCarlo, 250);
+            }
+        });
+
+    </script>
+</body>
+</html>
