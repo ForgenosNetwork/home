@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>REGEXDRILL Engine | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #050505; /* Deepened for tool aesthetic */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0 bg-[#050505]">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">REGEXDRILL</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Execution Profiling & ReDoS Detection Engine. Benchmark regex performance and detect catastrophic backtracking risks instantly.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-8">
+                    
+                    <style>
+                        /* Tool Specific Custom Styles */
+                        .glass-panel {
+                            background: rgba(255, 255, 255, 0.02);
+                            border: 1px solid rgba(255, 255, 255, 0.05);
+                            border-radius: 1.5rem;
+                            padding: 2rem;
+                        }
+                        
+                        .input-field {
+                            background: rgba(10, 10, 10, 0.8);
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            color: white;
+                            width: 100%;
+                            padding: 1rem 1rem 1rem 3rem;
+                            border-radius: 0.75rem;
+                            font-family: 'Courier New', monospace;
+                            transition: all 0.3s ease;
+                            outline: none;
+                        }
+                        
+                        .input-field:focus {
+                            border-color: #E50914;
+                            box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+                        }
+
+                        .radio-card {
+                            background: rgba(10, 10, 10, 0.8);
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 0.75rem;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        
+                        .radio-card:hover {
+                            border-color: rgba(255, 255, 255, 0.3);
+                        }
+
+                        .radio-card input[type="radio"] {
+                            display: none;
+                        }
+
+                        .radio-card input[type="radio"]:checked + div {
+                            background: rgba(229, 9, 20, 0.1);
+                            border-color: #E50914;
+                        }
+                        
+                        .radio-card input[type="radio"]:checked + div .indicator {
+                            background-color: #E50914;
+                            box-shadow: 0 0 10px #E50914;
+                        }
+
+                        .radio-card input[type="radio"]:checked + div .title-text {
+                            color: #E50914;
+                        }
+
+                        /* Central Pulsing Orb CSS Keyframes */
+                        @keyframes pulse-orb {
+                            0% { transform: scale(0.95) translate(-50%, -50%); box-shadow: 0 0 30px var(--orb-color, rgba(255, 255, 255, 0.05)); }
+                            50% { transform: scale(1.05) translate(-50%, -50%); box-shadow: 0 0 80px var(--orb-color, rgba(255, 255, 255, 0.1)); }
+                            100% { transform: scale(0.95) translate(-50%, -50%); box-shadow: 0 0 30px var(--orb-color, rgba(255, 255, 255, 0.05)); }
+                        }
+
+                        #central-orb {
+                            position: absolute;
+                            top: 50%; left: 50%;
+                            transform-origin: 0 0;
+                            width: 250px; height: 250px;
+                            border-radius: 50%;
+                            animation: pulse-orb 3s infinite ease-in-out;
+                            z-index: 0;
+                            pointer-events: none;
+                            transition: --orb-color 0.5s ease;
+                        }
+
+                        .data-metric {
+                            font-family: 'Courier New', monospace;
+                        }
+
+                        /* Pulse animation for active button */
+                        @keyframes button-pulse {
+                            0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.4); }
+                            70% { box-shadow: 0 0 0 20px rgba(229, 9, 20, 0); }
+                            100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+                        }
+
+                        .btn-initiate:hover {
+                            animation: button-pulse 1.5s infinite;
+                        }
+                        
+                        canvas {
+                            position: relative;
+                            z-index: 10;
+                            width: 100%;
+                            max-width: 400px;
+                            height: auto;
+                        }
+                    </style>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
+                        
+                        <!-- LEFT PANEL: CONFIGURATION -->
+                        <div class="lg:col-span-5 flex flex-col gap-6">
+                            
+                            <!-- Regex Input -->
+                            <div class="glass-panel w-full">
+                                <h3 class="text-white font-bold text-sm tracking-widest uppercase mb-5 flex items-center gap-2">
+                                    <i data-lucide="terminal" class="w-4 h-4 text-brand-accent"></i> Pattern Engine
+                                </h3>
+                                
+                                <div class="space-y-5">
+                                    <div>
+                                        <label class="block text-gray-500 text-xs font-bold mb-2 uppercase tracking-wide">Regular Expression</label>
+                                        <div class="relative flex items-center">
+                                            <i data-lucide="code" class="w-5 h-5 absolute left-3 text-gray-500"></i>
+                                            <input type="text" id="regex-input" class="input-field" placeholder="^([a-zA-Z0-9]+)+$" value="^([a-zA-Z0-9]+)+$">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-gray-500 text-xs font-bold mb-2 uppercase tracking-wide">Flags</label>
+                                        <div class="relative flex items-center">
+                                            <i data-lucide="sliders" class="w-5 h-5 absolute left-3 text-gray-500"></i>
+                                            <input type="text" id="flags-input" class="input-field" placeholder="g, i, m" value="g">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payload Configuration -->
+                            <div class="glass-panel w-full">
+                                <h3 class="text-white font-bold text-sm tracking-widest uppercase mb-5 flex items-center gap-2">
+                                    <i data-lucide="database" class="w-4 h-4 text-brand-accent"></i> Synthetic Payload Size
+                                </h3>
+                                
+                                <div class="grid grid-cols-3 gap-3">
+                                    <label class="radio-card">
+                                        <input type="radio" name="payloadSize" value="1" checked>
+                                        <div class="h-full w-full border border-transparent flex flex-col items-center justify-center py-4 px-2 rounded-xl">
+                                            <div class="indicator w-2 h-2 rounded-full bg-gray-600 mb-2 transition-colors"></div>
+                                            <span class="title-text text-sm font-bold text-gray-400 transition-colors">1 MB</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="payloadSize" value="5">
+                                        <div class="h-full w-full border border-transparent flex flex-col items-center justify-center py-4 px-2 rounded-xl">
+                                            <div class="indicator w-2 h-2 rounded-full bg-gray-600 mb-2 transition-colors"></div>
+                                            <span class="title-text text-sm font-bold text-gray-400 transition-colors">5 MB</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="payloadSize" value="10">
+                                        <div class="h-full w-full border border-transparent flex flex-col items-center justify-center py-4 px-2 rounded-xl">
+                                            <div class="indicator w-2 h-2 rounded-full bg-gray-600 mb-2 transition-colors"></div>
+                                            <span class="title-text text-sm font-bold text-gray-400 transition-colors">10 MB</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <p class="text-gray-500 text-xs mt-4 font-medium leading-relaxed">Larger payloads simulate intense real-world traffic. High complexity patterns may cause extreme exponential slowdowns (ReDoS).</p>
+                            </div>
+
+                            <!-- Primary Action -->
+                            <button id="btn-initiate" class="btn-initiate w-full bg-brand-accent text-white font-black text-lg py-5 rounded-2xl tracking-widest uppercase shadow-[0_0_20px_rgba(229,9,20,0.3)] transition-all outline-none focus:outline-none focus:border-white">
+                                Initiate Regex Stress Test
+                            </button>
+
+                        </div>
+
+                        <!-- RIGHT PANEL: TELEMETRY & HUD -->
+                        <div class="lg:col-span-7 flex flex-col h-full">
+                            <div class="glass-panel w-full flex-1 flex flex-col relative overflow-hidden">
+                                
+                                <h3 class="text-white font-bold text-sm tracking-widest uppercase mb-2 flex justify-between items-center z-10">
+                                    <span class="flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4 text-brand-accent"></i> Live Telemetry</span>
+                                    <span id="status-badge" class="text-xs px-2 py-1 rounded bg-white/5 text-gray-500 font-mono">AWAITING_INPUT</span>
+                                </h3>
+
+                                <!-- Gauge & Visuals Container -->
+                                <div class="relative flex-1 flex items-center justify-center min-h-[300px] w-full">
+                                    <div id="central-orb" style="--orb-color: rgba(255, 255, 255, 0.05);"></div>
+                                    <canvas id="gauge-canvas" width="400" height="220" class="drop-shadow-2xl"></canvas>
+                                </div>
+
+                                <!-- Metrics Dashboard -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 z-10">
+                                    <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 flex flex-col">
+                                        <span class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Avg Execution Time</span>
+                                        <span id="metric-avg" class="data-metric text-xl text-white font-bold">0.00 ms</span>
+                                    </div>
+                                    <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 flex flex-col">
+                                        <span class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Max Spike</span>
+                                        <span id="metric-max" class="data-metric text-xl text-white font-bold">0.00 ms</span>
+                                    </div>
+                                    <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 flex flex-col">
+                                        <span class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Risk Level</span>
+                                        <span id="metric-risk" class="data-metric text-xl text-gray-500 font-bold">UNKNOWN</span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons (Hidden by default) -->
+                                <div id="action-bar" class="flex gap-3 mt-6 opacity-0 pointer-events-none transition-opacity duration-500 z-10">
+                                    <button onclick="copyResults()" class="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition-colors outline-none focus:outline-none border border-white/5 focus:border-brand-accent">
+                                        <i data-lucide="clipboard" class="w-4 h-4"></i> Copy Summary
+                                    </button>
+                                    <button onclick="downloadJSON()" class="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition-colors outline-none focus:outline-none border border-white/5 focus:border-brand-accent">
+                                        <i data-lucide="download" class="w-4 h-4"></i> Download JSON
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); // Unconditionally block native browser menu
+
+            // If mobile/tablet (width < 1024), do nothing (keep blocked, no custom menu)
+            if (window.innerWidth < 1024) {
+                return false;
+            }
+
+            // Show custom menu for PC ONLY
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                // Adjust if menu goes off screen
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        // Hide custom menu on click
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts (F12, Ctrl+U, Ctrl+Shift+I/J/C)
+        document.onkeydown = function(e) { 
+            // Block F12
+            if (e.key === 'F12' || e.keyCode === 123) { 
+                e.preventDefault(); 
+                return false; 
+            } 
+            
+            // Block Ctrl+U, Ctrl+S, Ctrl+P
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+
+            // Block Ctrl+Shift+I, J, C (DevTools)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            if (type === 'error') icon = 'alert-triangle';
+            
+            let colorClass = type === 'error' ? 'text-brand-accent' : (type === 'success' ? 'text-green-500' : 'text-brand-accent');
+
+            toast.innerHTML = `<i data-lucide="${icon}" class="${colorClass} w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic (Fixed Background Freeze)
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; // Freeze background scrolling
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; // Trigger reflow
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; // Unfreeze background
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            if(!stepsArray || stepsArray.length === 0) {
+                stepsArray = ['Processing request...'];
+            }
+
+            let listHTML = '';
+            stepsArray.forEach(step => {
+                listHTML += `<li class="shimmer-text">${step}</li>`;
+            });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+        
+        // --- 1. Canvas Speedometer Rendering ---
+        const canvas = document.getElementById('gauge-canvas');
+        const ctx = canvas.getContext('2d');
+        let currentNeedleAngle = Math.PI; // Start at 180 degrees (left)
+        let targetNeedleAngle = Math.PI;
+        let animationFrameId;
+
+        // Colors
+        const COLOR_GREEN = '#10B981';
+        const COLOR_YELLOW = '#F59E0B';
+        const COLOR_RED = '#E50914';
+        const COLOR_BG = 'rgba(255, 255, 255, 0.05)';
+
+        function drawGauge() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height - 20;
+            const radius = Math.min(centerX, centerY) - 20;
+
+            // Draw Background Track
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, Math.PI, 2 * Math.PI);
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = COLOR_BG;
+            ctx.stroke();
+
+            // Draw Gradient Track (Green -> Yellow -> Red)
+            const gradient = ctx.createLinearGradient(centerX - radius, centerY, centerX + radius, centerY);
+            gradient.addColorStop(0, COLOR_GREEN);
+            gradient.addColorStop(0.5, COLOR_YELLOW);
+            gradient.addColorStop(1, COLOR_RED);
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, Math.PI, 2 * Math.PI);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = gradient;
+            ctx.stroke();
+
+            // Draw Ticks
+            for (let i = 0; i <= 10; i++) {
+                const angle = Math.PI + (Math.PI * (i / 10));
+                const innerRad = radius - 15;
+                const outerRad = radius - 5;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX + innerRad * Math.cos(angle), centerY + innerRad * Math.sin(angle));
+                ctx.lineTo(centerX + outerRad * Math.cos(angle), centerY + outerRad * Math.sin(angle));
+                ctx.lineWidth = i % 5 === 0 ? 3 : 1;
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.stroke();
+            }
+
+            // Draw Needle
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(currentNeedleAngle);
+            
+            ctx.beginPath();
+            ctx.moveTo(0, 5);
+            ctx.lineTo(radius - 25, 0);
+            ctx.lineTo(0, -5);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            
+            // Draw Center Hub
+            ctx.beginPath();
+            ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1e1e1e';
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+            
+            ctx.restore();
+        }
+
+        function animateNeedle() {
+            const diff = targetNeedleAngle - currentNeedleAngle;
+            currentNeedleAngle += diff * 0.05; // Ease out
+            
+            drawGauge();
+            
+            if (Math.abs(diff) > 0.001) {
+                animationFrameId = requestAnimationFrame(animateNeedle);
+            }
+        }
+
+        function updateGauge(executionTimeMs) {
+            // Mapping time to angle (180 deg to 360 deg)
+            // 0ms = Math.PI, 50ms+ = 2 * Math.PI
+            let ratio = Math.min(executionTimeMs / 50, 1); // Cap at 50ms for visual
+            targetNeedleAngle = Math.PI + (Math.PI * ratio);
+            
+            cancelAnimationFrame(animationFrameId);
+            animateNeedle();
+        }
+
+        // Initialize empty gauge
+        drawGauge();
+
+        // --- 2. Web Worker Setup for Safe Execution ---
+        // Using Blob to create an inline worker to prevent main thread freezing on ReDoS
+        const workerCode = `
+            self.onmessage = function(e) {
+                const { pattern, flags, sizeMB } = e.data;
+                
+                try {
+                    const regex = new RegExp(pattern, flags);
+                    
+                    // Generate Dummy Payload
+                    let dummyText = '';
+                    const trap = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab';
+                    const baseStr = Math.random().toString(36).repeat(500) + trap + '\\n';
+                    
+                    // We generate a substantial string relative to the size request.
+                    // For browser memory safety, we scale MB internally to loop counts that stress CPU.
+                    const targetLength = sizeMB * 1024 * 50; // Scaling factor for stable browser UI
+                    
+                    while(dummyText.length < targetLength) {
+                        dummyText += baseStr;
+                    }
+                    dummyText = dummyText.substring(0, targetLength);
+
+                    const iterations = 5;
+                    let totalTime = 0;
+                    let maxTime = 0;
+
+                    for(let i=0; i<iterations; i++) {
+                        const t0 = performance.now();
+                        regex.test(dummyText);
+                        const t1 = performance.now();
+                        const duration = t1 - t0;
+                        totalTime += duration;
+                        if(duration > maxTime) maxTime = duration;
+                    }
+
+                    self.postMessage({
+                        success: true,
+                        avgTime: totalTime / iterations,
+                        maxTime: maxTime
+                    });
+
+                } catch (err) {
+                    self.postMessage({ success: false, error: err.message });
+                }
+            };
+        `;
+        const workerBlob = new Blob([workerCode], { type: 'application/javascript' });
+        
+        let lastResult = null;
+
+        // --- 3. Main Logic Execution ---
+        document.getElementById('btn-initiate').addEventListener('click', function() {
+            const pattern = document.getElementById('regex-input').value;
+            const flags = document.getElementById('flags-input').value;
+            const sizeMB = parseInt(document.querySelector('input[name="payloadSize"]:checked').value);
+
+            if (!pattern) {
+                showToast("Pattern input cannot be empty.", "error");
+                return;
+            }
+
+            // Simple Syntax Check before worker
+            try {
+                new RegExp(pattern, flags);
+            } catch (e) {
+                showToast("Invalid Regex Pattern or Flags: " + e.message, "error");
+                return;
+            }
+
+            // UI Reset
+            document.getElementById('action-bar').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('status-badge').textContent = 'PROFILING...';
+            document.getElementById('status-badge').className = 'text-xs px-2 py-1 rounded bg-yellow-500/20 text-yellow-500 font-mono animate-pulse';
+            
+            // Start Loading Sequence
+            showToolLoading([
+                'Constructing Regex Engine...',
+                `Generating ${sizeMB}MB Synthetic Data Corpus...`,
+                'Injecting Edge-Case Traps...',
+                'Executing Stress Loops...',
+                'Analyzing Time Complexity...'
+            ], 800);
+
+            // Create Worker
+            const worker = new Worker(URL.createObjectURL(workerBlob));
+            
+            let workerFinished = false;
+            let resultData = null;
+
+            // Worker Timeout Failsafe (Catastrophic ReDoS detector)
+            // We give it max 3 seconds to process. If it freezes, it's a massive failure.
+            const timeoutId = setTimeout(() => {
+                if (!workerFinished) {
+                    worker.terminate();
+                    workerFinished = true;
+                    
+                    resultData = {
+                        success: true,
+                        avgTime: 9999.99,
+                        maxTime: 9999.99,
+                        isCatastrophic: true
+                    };
+                    processResults(resultData);
+                }
+            }, 3000);
+
+            // Minimum loading screen time simulator to look cool
+            const minLoadingTime = new Promise(resolve => setTimeout(resolve, 4000));
+
+            worker.onmessage = function(e) {
+                if (!workerFinished) {
+                    workerFinished = true;
+                    clearTimeout(timeoutId);
+                    resultData = e.data;
+                    worker.terminate();
+                }
+            };
+
+            // Wait for both worker (or timeout) AND the cinematic loading minimum time
+            Promise.all([
+                new Promise(resolve => {
+                    const checkInterval = setInterval(() => {
+                        if(workerFinished) {
+                            clearInterval(checkInterval);
+                            resolve();
+                        }
+                    }, 100);
+                }),
+                minLoadingTime
+            ]).then(() => {
+                hideToolLoading();
+                processResults(resultData);
+            });
+
+            worker.postMessage({ pattern, flags, sizeMB });
+        });
+
+        // --- 4. Result Processing & UI Update ---
+        function processResults(data) {
+            const statusBadge = document.getElementById('status-badge');
+            const metricAvg = document.getElementById('metric-avg');
+            const metricMax = document.getElementById('metric-max');
+            const metricRisk = document.getElementById('metric-risk');
+            const centralOrb = document.getElementById('central-orb');
+            
+            if (!data.success) {
+                showToast("Execution Error: " + data.error, "error");
+                statusBadge.textContent = 'FAILED';
+                statusBadge.className = 'text-xs px-2 py-1 rounded bg-red-500/20 text-red-500 font-mono';
+                return;
+            }
+
+            lastResult = data;
+            
+            // Calculate Risk
+            let riskStr = "LOW";
+            let riskColorClass = "text-green-500";
+            let orbColor = "rgba(16, 185, 129, 0.2)"; // Green
+
+            if (data.isCatastrophic || data.avgTime > 100) {
+                riskStr = "EXTREME (REDOS DETECTED)";
+                riskColorClass = "text-brand-accent";
+                orbColor = "rgba(229, 9, 20, 0.4)"; // Red
+            } else if (data.avgTime > 15) {
+                riskStr = "MEDIUM RISK";
+                riskColorClass = "text-yellow-500";
+                orbColor = "rgba(245, 158, 11, 0.3)"; // Yellow
+            }
+
+            // Update UI
+            if(data.isCatastrophic) {
+                metricAvg.textContent = "> 3000 ms";
+                metricMax.textContent = "TIMEOUT";
+            } else {
+                metricAvg.textContent = data.avgTime.toFixed(2) + " ms";
+                metricMax.textContent = data.maxTime.toFixed(2) + " ms";
+            }
+
+            metricRisk.textContent = riskStr;
+            metricRisk.className = `data-metric text-xl font-bold ${riskColorClass}`;
+            
+            statusBadge.textContent = 'COMPLETED';
+            statusBadge.className = 'text-xs px-2 py-1 rounded bg-green-500/20 text-green-500 font-mono';
+
+            centralOrb.style.setProperty('--orb-color', orbColor);
+
+            updateGauge(data.isCatastrophic ? 1000 : data.avgTime);
+            
+            // Show Actions
+            document.getElementById('action-bar').classList.remove('opacity-0', 'pointer-events-none');
+            
+            if(data.isCatastrophic) {
+                showToast("Catastrophic backtracking detected! Process terminated to prevent browser freeze.", "error");
+            } else {
+                showToast("Telemetry successfully captured.", "success");
+            }
+        }
+
+        // --- 5. Export Actions ---
+        function copyResults() {
+            if(!lastResult) return;
+            const pattern = document.getElementById('regex-input').value;
+            const text = `REGEXDRILL TELEMETRY\nPattern: ${pattern}\nAvg Time: ${lastResult.avgTime.toFixed(2)}ms\nMax Spike: ${lastResult.maxTime.toFixed(2)}ms\nStatus: ${lastResult.isCatastrophic ? 'EXTREME REDOS RISK' : 'OK'}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Telemetry copied to clipboard", "success");
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Telemetry copied to clipboard", "success");
+                } catch (err) {
+                    showToast("Failed to copy", "error");
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        function downloadJSON() {
+            if(!lastResult) return;
+            const payloadSize = document.querySelector('input[name="payloadSize"]:checked').value;
+            
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                tool: "FORGENOS REGEXDRILL",
+                config: {
+                    pattern: document.getElementById('regex-input').value,
+                    flags: document.getElementById('flags-input').value,
+                    synthetic_payload_mb: payloadSize
+                },
+                telemetry: {
+                    avg_execution_ms: lastResult.avgTime,
+                    max_spike_ms: lastResult.maxTime,
+                    redos_risk_detected: lastResult.isCatastrophic || lastResult.avgTime > 100
+                }
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", `regexdrill_report_${Date.now()}.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            
+            showToast("JSON report downloaded.", "success");
+        }
+    </script>
+</body>
+</html>

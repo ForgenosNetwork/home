@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>SCHEMASYNTH | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* SchemaSynth Specific Styles */
+        .canvas-grid {
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .json-string { color: #86efac; } /* Green */
+        .json-number { color: #fcd34d; } /* Yellow */
+        .json-boolean { color: #93c5fd; } /* Blue */
+        .json-null { color: #fca5a5; } /* Red */
+        .json-key { color: #e2e8f0; font-weight: 600; } /* White/Gray */
+
+        /* The Pulsing Orb */
+        .schema-orb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #E50914;
+            box-shadow: 0 0 var(--orb-glow, 10px) var(--orb-glow, 2px) rgba(229, 9, 20, 0.8);
+            transform: scale(var(--orb-scale, 1));
+            animation: pulseOrb 1.5s infinite alternate ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes pulseOrb {
+            0% { opacity: 0.7; transform: scale(calc(var(--orb-scale, 1) * 0.9)); }
+            100% { opacity: 1; transform: scale(calc(var(--orb-scale, 1) * 1.1)); box-shadow: 0 0 calc(var(--orb-glow, 15px) * 1.5) calc(var(--orb-glow, 5px) * 1.2) rgba(229, 9, 20, 0.9); }
+        }
+
+        .node-card.active {
+            border-color: #E50914;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">SCHEMASYNTH</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Relational JSON Fabrication Engine. Visually construct relational data schemas and instantly generate deeply nested mock JSON datasets.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-transparent">
+                    
+                    <!-- Tool Toolbar -->
+                    <div class="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <div class="flex gap-3">
+                            <button id="btn-add-node" class="flex items-center gap-2 bg-[#0f0f0f] border border-white/10 hover:border-brand-accent px-4 py-2.5 rounded-xl text-sm font-bold transition-all group focus:outline-none focus:border-brand-accent">
+                                <i data-lucide="box" class="w-4 h-4 text-gray-400 group-hover:text-brand-accent"></i> Add Node
+                            </button>
+                            <button id="btn-reset-schema" class="flex items-center gap-2 bg-[#0f0f0f] border border-white/10 hover:border-white/30 px-4 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white focus:outline-none">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2 text-xs font-mono text-gray-500">
+                                <div class="schema-orb"></div>
+                                <span class="tracking-widest uppercase">Engine Core Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Builder Area -->
+                    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[500px]">
+                        
+                        <!-- Left Panel: Node Canvas -->
+                        <div class="lg:col-span-8 w-full border border-white/5 rounded-2xl bg-[#0a0a0a] overflow-hidden flex flex-col relative">
+                            <div class="px-5 py-4 border-b border-white/5 flex justify-between items-center bg-[#0d0d0d]">
+                                <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                                    <i data-lucide="share-2" class="w-4 h-4"></i> Schema Graph
+                                </h3>
+                                <span id="node-count-badge" class="bg-white/10 text-xs px-2 py-1 rounded-md text-gray-400 font-mono">0 Nodes</span>
+                            </div>
+                            <!-- Canvas Grid -->
+                            <div id="schema-canvas" class="flex-1 canvas-grid p-6 overflow-y-auto flex flex-wrap content-start gap-6 relative">
+                                <!-- Nodes injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Inspector -->
+                        <div class="lg:col-span-4 w-full border border-white/5 rounded-2xl bg-[#0a0a0a] flex flex-col">
+                            <div class="px-5 py-4 border-b border-white/5 bg-[#0d0d0d]">
+                                <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                                    <i data-lucide="sliders" class="w-4 h-4"></i> Node Inspector
+                                </h3>
+                            </div>
+                            <div id="inspector-panel" class="p-5 overflow-y-auto flex-1 text-sm">
+                                <div class="text-center text-gray-600 mt-20 flex flex-col items-center">
+                                    <i data-lucide="mouse-pointer-click" class="w-8 h-8 mb-3 opacity-50"></i>
+                                    <p>Select a node on the canvas to inspect and edit its properties.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synthesis Action Area -->
+                    <div class="w-full mt-6 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-white mb-1">Ready for Compilation</h4>
+                            <p class="text-gray-500 text-sm">Fabricate relational datasets based on the defined schema graph.</p>
+                        </div>
+                        <button id="btn-synthesize" class="w-full sm:w-auto bg-brand-accent hover:bg-red-700 text-white font-black uppercase tracking-wider py-4 px-10 rounded-xl shadow-[0_0_20px_rgba(229,9,20,0.2)] hover:shadow-[0_0_40px_rgba(229,9,20,0.5)] transition-all flex items-center justify-center gap-3 focus:outline-none">
+                            <i data-lucide="zap" class="w-5 h-5"></i> Synthesize Relational Data
+                        </button>
+                    </div>
+
+                    <!-- Results Dashboard (Hidden Initially) -->
+                    <div id="results-dashboard" class="w-full mt-8 hidden flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold flex items-center gap-3 text-white">
+                                <i data-lucide="terminal" class="w-6 h-6 text-brand-accent"></i> Output Console
+                            </h3>
+                            <div class="flex gap-3">
+                                <button id="btn-copy-json" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all focus:outline-none">
+                                    <i data-lucide="clipboard" class="w-4 h-4 text-gray-400"></i> Copy JSON
+                                </button>
+                                <button id="btn-download-json" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-lg text-xs font-bold transition-all focus:outline-none">
+                                    <i data-lucide="download" class="w-4 h-4 text-gray-400"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-full bg-[#050505] border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
+                            <!-- Window Controls Mockup -->
+                            <div class="h-8 bg-[#111] border-b border-white/5 flex items-center px-4 gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                                <span class="ml-4 text-[10px] text-gray-600 font-mono">schemasynth_output.json</span>
+                            </div>
+                            <pre id="json-output-display" class="p-6 overflow-x-auto text-sm font-mono leading-relaxed h-[500px] overflow-y-auto text-gray-300 select-all"></pre>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            if(type === 'error') icon = 'alert-triangle';
+            toast.innerHTML = `<i data-lucide="${icon}" class="${type === 'error' ? 'text-red-500' : 'text-brand-accent'} w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic (Fixed Background Freeze)
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC (SCHEMASYNTH)
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. State Management ---
+            let schema = [];
+            let activeNodeId = null;
+            let finalJsonData = null;
+
+            const DEFAULT_SCHEMA = [
+                {
+                    id: 'node_' + crypto.randomUUID().substring(0,8),
+                    name: 'Users',
+                    count: 3,
+                    fields: [
+                        { id: 'f_1', name: 'id', type: 'uuid' },
+                        { id: 'f_2', name: 'fullName', type: 'fullName' },
+                        { id: 'f_3', name: 'email', type: 'email' },
+                        { id: 'f_4', name: 'isActive', type: 'boolean' }
+                    ],
+                    relations: []
+                }
+            ];
+
+            const FIELD_TYPES = [
+                { val: 'uuid', label: 'UUID String' },
+                { val: 'fullName', label: 'Full Name' },
+                { val: 'email', label: 'Email Address' },
+                { val: 'number', label: 'Random Number' },
+                { val: 'boolean', label: 'Boolean (T/F)' },
+                { val: 'date', label: 'Past Date ISO' },
+                { val: 'company', label: 'Company Name' },
+                { val: 'word', label: 'Random Word' }
+            ];
+
+            // Load from LocalStorage or use default
+            const savedSchema = localStorage.getItem('forgenos_schemasynth_data');
+            if (savedSchema) {
+                try { schema = JSON.parse(savedSchema); } catch(e) { schema = JSON.parse(JSON.stringify(DEFAULT_SCHEMA)); }
+            } else {
+                schema = JSON.parse(JSON.stringify(DEFAULT_SCHEMA));
+            }
+
+            // --- DOM Elements ---
+            const canvasEl = document.getElementById('schema-canvas');
+            const inspectorEl = document.getElementById('inspector-panel');
+            const countBadge = document.getElementById('node-count-badge');
+            const orb = document.querySelector('.schema-orb');
+
+            // --- 2. Fakers / Generators ---
+            const fakers = {
+                uuid: () => crypto.randomUUID(),
+                fullName: () => { 
+                    const first = ["James","Mary","John","Patricia","Robert","Jennifer","Michael","Linda","William","Elizabeth","David","Barbara","Richard","Susan","Joseph","Jessica"];
+                    const last = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Hernandez","Lopez","Gonzalez","Wilson","Anderson"];
+                    return first[Math.floor(Math.random()*first.length)] + " " + last[Math.floor(Math.random()*last.length)]; 
+                },
+                email: (nameStr) => {
+                    const base = nameStr ? nameStr.replace(/\s+/g, '.').toLowerCase() : 'user';
+                    const domains = ["example.com", "test.io", "demo.net", "mail.org"];
+                    return `${base}${Math.floor(Math.random()*1000)}@${domains[Math.floor(Math.random()*domains.length)]}`;
+                },
+                number: () => Math.floor(Math.random() * 10000),
+                boolean: () => Math.random() > 0.5,
+                date: () => new Date(Date.now() - Math.floor(Math.random() * 31536000000 * 5)).toISOString(), // up to 5 yrs ago
+                company: () => {
+                    const pre = ["Tech","Global","Alpha","Nova","Cyber","Quantum","Prime","Omni"];
+                    const post = ["Corp","Solutions","Dynamics","Systems","Network","Labs","Group"];
+                    return pre[Math.floor(Math.random()*pre.length)] + " " + post[Math.floor(Math.random()*post.length)];
+                },
+                word: () => {
+                    const words = ["lorem","ipsum","dolor","sit","amet","consectetur","adipiscing","elit","sed","do","eiusmod","tempor","incididunt"];
+                    return words[Math.floor(Math.random()*words.length)];
+                }
+            };
+
+            // --- 3. Core Engine Functions ---
+
+            function saveState() {
+                localStorage.setItem('forgenos_schemasynth_data', JSON.stringify(schema));
+                updateOrbPhysics();
+            }
+
+            function updateOrbPhysics() {
+                // Wealth-momentum variable concept: More complex schema = more intense orb
+                let momentum = schema.length;
+                schema.forEach(n => { momentum += n.fields.length * 0.5 + n.relations.length * 1.5; });
+                
+                const scale = Math.min(1 + (momentum * 0.05), 1.8);
+                const glow = Math.min(10 + (momentum * 2), 30);
+                
+                document.documentElement.style.setProperty('--orb-scale', scale);
+                document.documentElement.style.setProperty('--orb-glow', glow + 'px');
+            }
+
+            function renderCanvas() {
+                canvasEl.innerHTML = '';
+                countBadge.innerText = `${schema.length} Nodes`;
+
+                if(schema.length === 0) {
+                    canvasEl.innerHTML = `<div class="absolute inset-0 flex items-center justify-center text-gray-600 font-medium">Canvas is empty. Add a node to begin.</div>`;
+                }
+
+                schema.forEach(node => {
+                    const card = document.createElement('div');
+                    card.className = `node-card w-[280px] bg-[#111] border ${activeNodeId === node.id ? 'border-brand-accent shadow-[0_0_20px_rgba(229,9,20,0.15)]' : 'border-white/10'} rounded-xl overflow-hidden cursor-pointer transition-all hover:border-white/30 shrink-0`;
+                    card.onclick = (e) => {
+                        if(e.target.closest('button')) return; // ignore if clicking buttons inside
+                        activeNodeId = node.id;
+                        renderCanvas();
+                        renderInspector();
+                    };
+
+                    // Card Header
+                    let html = `
+                        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="database" class="w-4 h-4 text-brand-accent"></i>
+                                <span class="font-bold text-white text-sm">${escapeHTML(node.name)}</span>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-gray-400">x${node.count}</span>
+                        </div>
+                        <div class="p-4 flex flex-col gap-3">
+                    `;
+
+                    // Fields preview (max 3)
+                    html += `<div class="flex flex-col gap-1.5">`;
+                    const displayFields = node.fields.slice(0, 3);
+                    displayFields.forEach(f => {
+                        html += `
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-gray-300 font-mono">${escapeHTML(f.name)}</span>
+                                <span class="text-gray-600">${f.type}</span>
+                            </div>
+                        `;
+                    });
+                    if(node.fields.length > 3) html += `<div class="text-xs text-gray-600 italic">+${node.fields.length - 3} more fields</div>`;
+                    if(node.fields.length === 0) html += `<div class="text-xs text-gray-600 italic">No fields defined</div>`;
+                    html += `</div>`;
+
+                    // Relations preview
+                    if(node.relations.length > 0) {
+                        html += `<div class="mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5">`;
+                        node.relations.forEach(r => {
+                            const targetNode = schema.find(n => n.id === r.targetId);
+                            const tName = targetNode ? targetNode.name : 'Unknown';
+                            html += `
+                                <div class="flex items-center gap-2 text-xs text-gray-400">
+                                    <i data-lucide="git-merge" class="w-3 h-3 text-brand-accent"></i>
+                                    <span>${r.type} <i data-lucide="arrow-right" class="w-3 h-3 inline opacity-50"></i> ${escapeHTML(tName)}</span>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
+                    card.innerHTML = html;
+                    canvasEl.appendChild(card);
+                });
+
+                lucide.createIcons();
+                updateOrbPhysics();
+            }
+
+            function renderInspector() {
+                if(!activeNodeId) {
+                    inspectorEl.innerHTML = `
+                        <div class="text-center text-gray-600 mt-20 flex flex-col items-center">
+                            <i data-lucide="mouse-pointer-click" class="w-8 h-8 mb-3 opacity-50"></i>
+                            <p>Select a node on the canvas to inspect and edit its properties.</p>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+
+                const node = schema.find(n => n.id === activeNodeId);
+                if(!node) return;
+
+                let html = `
+                    <div class="flex flex-col gap-6">
+                        <!-- Node Config -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex justify-between items-center">
+                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Node Configuration</label>
+                                <button onclick="deleteNode('${node.id}')" class="text-xs text-red-500 hover:text-red-400 flex items-center gap-1"><i data-lucide="trash-2" class="w-3 h-3"></i> Delete Node</button>
+                            </div>
+                            
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs text-gray-400">Entity Name</label>
+                                <input type="text" id="ins-node-name" value="${escapeHTML(node.name)}" class="w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors" onchange="updateNodeProp('${node.id}', 'name', this.value)">
+                            </div>
+                            
+                            <div class="flex flex-col gap-1">
+                                <label class="text-xs text-gray-400">Generation Count (Instances)</label>
+                                <input type="number" min="1" max="100" id="ins-node-count" value="${node.count}" class="w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors" onchange="updateNodeProp('${node.id}', 'count', parseInt(this.value)||1)">
+                            </div>
+                        </div>
+
+                        <!-- Fields Config -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex justify-between items-center">
+                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Data Fields</label>
+                                <button onclick="addField('${node.id}')" class="text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors"><i data-lucide="plus" class="w-3 h-3"></i> Add Field</button>
+                            </div>
+                            
+                            <div class="flex flex-col gap-2">
+                `;
+
+                node.fields.forEach(f => {
+                    let typeOptions = FIELD_TYPES.map(t => `<option value="${t.val}" ${f.type === t.val ? 'selected' : ''}>${t.label}</option>`).join('');
+                    
+                    html += `
+                        <div class="flex items-center gap-2 bg-[#111] p-2 rounded-lg border border-white/5">
+                            <input type="text" value="${escapeHTML(f.name)}" placeholder="key_name" class="w-1/2 bg-transparent border-none text-sm text-white font-mono focus:outline-none placeholder-gray-600" onchange="updateFieldProp('${node.id}', '${f.id}', 'name', this.value)">
+                            <div class="w-[1px] h-4 bg-white/10"></div>
+                            <select class="w-1/2 bg-transparent border-none text-xs text-gray-400 focus:outline-none appearance-none cursor-pointer" onchange="updateFieldProp('${node.id}', '${f.id}', 'type', this.value)">
+                                ${typeOptions}
+                            </select>
+                            <button onclick="deleteField('${node.id}', '${f.id}')" class="text-gray-600 hover:text-red-500 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
+                        </div>
+                    `;
+                });
+
+                if(node.fields.length === 0) html += `<p class="text-xs text-gray-600 italic">No fields added yet.</p>`;
+
+                html += `
+                            </div>
+                        </div>
+
+                        <!-- Relations Config -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex justify-between items-center">
+                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Relationships</label>
+                                <button onclick="addRelation('${node.id}')" class="text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors"><i data-lucide="git-merge" class="w-3 h-3"></i> Connect</button>
+                            </div>
+                            
+                            <div class="flex flex-col gap-2">
+                `;
+
+                const availableNodes = schema.filter(n => n.id !== node.id);
+
+                node.relations.forEach(r => {
+                    let targetOptions = `<option value="" disabled ${!r.targetId ? 'selected' : ''}>Select Target...</option>`;
+                    availableNodes.forEach(an => {
+                        targetOptions += `<option value="${an.id}" ${r.targetId === an.id ? 'selected' : ''}>${escapeHTML(an.name)}</option>`;
+                    });
+
+                    let typeOptions = `
+                        <option value="1:1" ${r.type === '1:1' ? 'selected' : ''}>1:1 (Object)</option>
+                        <option value="1:N" ${r.type === '1:N' ? 'selected' : ''}>1:N (Array)</option>
+                    `;
+
+                    html += `
+                        <div class="flex flex-col gap-2 bg-[#111] p-3 rounded-lg border border-white/5">
+                            <div class="flex justify-between items-center mb-1">
+                                <input type="text" value="${escapeHTML(r.name)}" placeholder="relation_key" class="bg-transparent border-b border-white/10 text-sm text-white font-mono focus:outline-none focus:border-brand-accent pb-1 w-2/3" onchange="updateRelationProp('${node.id}', '${r.id}', 'name', this.value)">
+                                <button onclick="deleteRelation('${node.id}', '${r.id}')" class="text-gray-600 hover:text-red-500 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
+                            </div>
+                            <div class="flex gap-2">
+                                <select class="w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none" onchange="updateRelationProp('${node.id}', '${r.id}', 'type', this.value)">
+                                    ${typeOptions}
+                                </select>
+                                <select class="w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none" onchange="updateRelationProp('${node.id}', '${r.id}', 'targetId', this.value)">
+                                    ${targetOptions}
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if(node.relations.length === 0) {
+                    if(availableNodes.length === 0) {
+                         html += `<p class="text-xs text-gray-600 italic">Create another node to establish relationships.</p>`;
+                    } else {
+                         html += `<p class="text-xs text-gray-600 italic">No relations defined.</p>`;
+                    }
+                }
+
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                inspectorEl.innerHTML = html;
+                lucide.createIcons();
+            }
+
+            // --- 4. Mutators (Attached to Window for onclick handlers) ---
+
+            window.updateNodeProp = (id, prop, val) => {
+                const node = schema.find(n => n.id === id);
+                if(node) { node[prop] = val; saveState(); renderCanvas(); }
+            };
+
+            window.updateFieldProp = (nodeId, fieldId, prop, val) => {
+                const node = schema.find(n => n.id === nodeId);
+                if(node) {
+                    const field = node.fields.find(f => f.id === fieldId);
+                    if(field) { field[prop] = val; saveState(); renderCanvas(); }
+                }
+            };
+
+            window.updateRelationProp = (nodeId, relId, prop, val) => {
+                const node = schema.find(n => n.id === nodeId);
+                if(node) {
+                    const rel = node.relations.find(r => r.id === relId);
+                    if(rel) { rel[prop] = val; saveState(); renderCanvas(); }
+                }
+            };
+
+            window.deleteNode = (id) => {
+                schema = schema.filter(n => n.id !== id);
+                // cascade delete relations targeting this node
+                schema.forEach(n => {
+                    n.relations = n.relations.filter(r => r.targetId !== id);
+                });
+                activeNodeId = null;
+                saveState(); renderCanvas(); renderInspector();
+                showToast('Node deleted successfully', 'success');
+            };
+
+            window.addField = (nodeId) => {
+                const node = schema.find(n => n.id === nodeId);
+                if(node) {
+                    node.fields.push({ id: 'f_' + crypto.randomUUID().substring(0,6), name: 'newField', type: 'word' });
+                    saveState(); renderCanvas(); renderInspector();
+                }
+            };
+
+            window.deleteField = (nodeId, fieldId) => {
+                const node = schema.find(n => n.id === nodeId);
+                if(node) {
+                    node.fields = node.fields.filter(f => f.id !== fieldId);
+                    saveState(); renderCanvas(); renderInspector();
+                }
+            };
+
+            window.addRelation = (nodeId) => {
+                const node = schema.find(n => n.id === nodeId);
+                const availableNodes = schema.filter(n => n.id !== nodeId);
+                if(node && availableNodes.length > 0) {
+                    node.relations.push({ 
+                        id: 'r_' + crypto.randomUUID().substring(0,6), 
+                        name: 'relationKey', 
+                        type: '1:N', 
+                        targetId: availableNodes[0].id 
+                    });
+                    saveState(); renderCanvas(); renderInspector();
+                } else if (availableNodes.length === 0) {
+                    showToast('Create another node first to establish a relation.', 'error');
+                }
+            };
+
+            window.deleteRelation = (nodeId, relId) => {
+                const node = schema.find(n => n.id === nodeId);
+                if(node) {
+                    node.relations = node.relations.filter(r => r.id !== relId);
+                    saveState(); renderCanvas(); renderInspector();
+                }
+            };
+
+            // Helpers
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
+            }
+
+            // Init Canvas Events
+            document.getElementById('btn-add-node').addEventListener('click', () => {
+                const newNode = {
+                    id: 'node_' + crypto.randomUUID().substring(0,8),
+                    name: 'NewEntity',
+                    count: 1,
+                    fields: [ { id: 'f_1', name: 'id', type: 'uuid' } ],
+                    relations: []
+                };
+                schema.push(newNode);
+                activeNodeId = newNode.id;
+                saveState(); renderCanvas(); renderInspector();
+            });
+
+            document.getElementById('btn-reset-schema').addEventListener('click', () => {
+                if(confirm("Are you sure you want to reset the schema graph to defaults?")) {
+                    schema = JSON.parse(JSON.stringify(DEFAULT_SCHEMA));
+                    activeNodeId = null;
+                    document.getElementById('results-dashboard').classList.add('hidden');
+                    saveState(); renderCanvas(); renderInspector();
+                    showToast('Schema reset to defaults.');
+                }
+            });
+
+            // --- 5. Data Synthesis Logic ---
+            
+            function generateMockData(nodeId, depth = 0) {
+                // Prevent infinite recursive loops if users make circular 1:1 or 1:N dependencies.
+                if(depth > 5) return null; 
+
+                const node = schema.find(n => n.id === nodeId);
+                if(!node) return null;
+
+                let instances = [];
+                // If it's a nested relation, generate random 1-5 children. Root is fixed count.
+                const count = depth === 0 ? node.count : (Math.floor(Math.random() * 5) + 1);
+
+                for(let i=0; i<count; i++) {
+                    let item = {};
+                    let cacheName = ''; // To link email to name
+
+                    // Generate primitive fields
+                    node.fields.forEach(f => {
+                        let val = fakers[f.type] ? fakers[f.type]() : 'undefined';
+                        if(f.type === 'fullName') cacheName = val;
+                        if(f.type === 'email' && cacheName) val = fakers.email(cacheName);
+                        item[f.name] = val;
+                    });
+
+                    // Handle Relational Nesting
+                    node.relations.forEach(r => {
+                        if(!r.targetId) return;
+                        if(r.type === '1:1') {
+                            const childData = generateMockData(r.targetId, depth + 1);
+                            item[r.name] = childData && childData.length > 0 ? childData[0] : null;
+                        } else if(r.type === '1:N') {
+                            item[r.name] = generateMockData(r.targetId, depth + 1) || [];
+                        }
+                    });
+
+                    instances.push(item);
+                }
+
+                return instances;
+            }
+
+            document.getElementById('btn-synthesize').addEventListener('click', () => {
+                if(schema.length === 0) {
+                    showToast('Schema is empty. Please add nodes.', 'error');
+                    return;
+                }
+
+                showToolLoading([
+                    'Parsing schema graph...', 
+                    'Resolving relational dependencies...', 
+                    'Allocating memory chunks...',
+                    'Generating deeply nested data structures...', 
+                    'Compiling synthetic JSON output...'
+                ], 800);
+
+                setTimeout(() => {
+                    // Actual generation
+                    try {
+                        let result = {};
+                        // Find "Root" nodes (nodes that are not solely targeted by other nodes, or just generate everything at root level for visibility)
+                        // For simplicity in this tool, we will mount ALL nodes at the root of the JSON object as arrays.
+                        schema.forEach(node => {
+                            // Convert node name to camelCase or lowercase plural key
+                            const key = node.name.toLowerCase().replace(/\s+/g, '_') + '_list';
+                            result[key] = generateMockData(node.id, 0);
+                        });
+
+                        finalJsonData = JSON.stringify(result, null, 4);
+                        displayHighlightedJSON(finalJsonData);
+
+                        document.getElementById('results-dashboard').classList.remove('hidden');
+                        document.getElementById('results-dashboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        hideToolLoading();
+                        showToast('Relational dataset generated successfully.', 'success');
+
+                    } catch(err) {
+                        hideToolLoading();
+                        showToast('Error generating data. Check circular dependencies.', 'error');
+                        console.error(err);
+                    }
+
+                }, 4000); // 4 seconds dramatic delay
+            });
+
+            // JSON Syntax Highlighter
+            function displayHighlightedJSON(jsonString) {
+                let html = escapeHTML(jsonString);
+                
+                // Regex for basic syntax highlighting
+                html = html.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    let cls = 'json-number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'json-key';
+                            // remove colon from styling
+                            return `<span class="${cls}">${match.substring(0, match.length-1)}</span>:`;
+                        } else {
+                            cls = 'json-string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'json-boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'json-null';
+                    }
+                    return `<span class="${cls}">${match}</span>`;
+                });
+
+                document.getElementById('json-output-display').innerHTML = html;
+            }
+
+            // Export Actions
+            document.getElementById('btn-copy-json').addEventListener('click', () => {
+                if(!finalJsonData) return;
+                try {
+                    // Fallback for iframe copy
+                    const el = document.createElement('textarea');
+                    el.value = finalJsonData;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    showToast('JSON copied to clipboard!', 'success');
+                } catch(e) {
+                    showToast('Failed to copy. Try selecting manually.', 'error');
+                }
+            });
+
+            document.getElementById('btn-download-json').addEventListener('click', () => {
+                if(!finalJsonData) return;
+                const blob = new Blob([finalJsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'schemasynth_output.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Download started.', 'success');
+            });
+
+            // Initial Render
+            renderCanvas();
+            renderInspector();
+        });
+
+    </script>
+</body>
+</html>

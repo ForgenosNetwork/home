@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>TokenForge | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #050505; /* Deepened dark theme for TokenForge */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.90);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(229, 9, 20, 1) 40%, rgba(229, 9, 20, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.1rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Custom TokenForge Styles */
+        .token-textarea {
+            resize: none;
+            -webkit-user-select: text; 
+            -moz-user-select: text; 
+            -ms-user-select: text; 
+            user-select: text;
+        }
+        
+        @keyframes pulse-orb {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(229, 9, 20, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+        }
+        @keyframes pulse-orb-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .orb-pulse-red { animation: pulse-orb 2s infinite; }
+        .orb-pulse-green { animation: pulse-orb-green 2s infinite; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full flex justify-between items-start flex-col sm:flex-row gap-4">
+                    <div>
+                        <h1 id="tool-title" class="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none uppercase">TOKENFORGE</h1>
+                        <p id="tool-desc" class="text-gray-500 text-sm md:text-base mt-3 font-medium max-w-2xl">Zero-Trust JWT Forensic Sandbox. Decode, audit, and locally re-sign tokens with complete cryptographic control.</p>
+                    </div>
+                    
+                    <!-- Network Status Badge -->
+                    <div class="px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/10 flex items-center gap-3 shrink-0">
+                        <div id="network-orb" class="w-2.5 h-2.5 rounded-full bg-green-500 orb-pulse-green"></div>
+                        <span id="network-text" class="text-xs font-bold uppercase tracking-widest text-gray-300">Offline & Secure</span>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left">
+                    
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
+                        
+                        <!-- LEFT PANE: Input Sandbox -->
+                        <div class="flex flex-col gap-6 w-full">
+                            <!-- JWT Input Box -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-lg">
+                                <div class="px-5 py-3 border-b border-white/5 bg-[#0f0f0f] flex items-center gap-3">
+                                    <i data-lucide="key" class="w-4 h-4 text-brand-accent"></i>
+                                    <h3 class="font-bold text-sm tracking-widest uppercase text-white/90">Encoded Token (JWT)</h3>
+                                </div>
+                                <div class="p-5">
+                                    <textarea id="jwt-input" class="w-full h-40 bg-transparent text-gray-300 font-mono text-sm leading-relaxed outline-none focus:outline-none focus:border-transparent token-textarea placeholder:text-gray-700" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... paste raw JWT here"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Secret Key & Algorithm -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                                <!-- Secret Key -->
+                                <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden shadow-lg focus-within:border-brand-accent transition-colors duration-300">
+                                    <div class="px-4 py-2 border-b border-white/5 bg-[#0f0f0f] flex items-center gap-2">
+                                        <i data-lucide="lock" class="w-3.5 h-3.5 text-gray-500"></i>
+                                        <label for="jwt-secret" class="font-bold text-xs tracking-widest uppercase text-gray-400">Secret Key (Optional)</label>
+                                    </div>
+                                    <div class="px-4 py-3">
+                                        <input type="password" id="jwt-secret" class="w-full bg-transparent text-white font-mono text-sm outline-none focus:outline-none placeholder:text-gray-700" placeholder="Enter 256-bit secret...">
+                                    </div>
+                                </div>
+
+                                <!-- Algorithm -->
+                                <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden shadow-lg focus-within:border-brand-accent transition-colors duration-300">
+                                    <div class="px-4 py-2 border-b border-white/5 bg-[#0f0f0f] flex items-center gap-2">
+                                        <i data-lucide="cpu" class="w-3.5 h-3.5 text-gray-500"></i>
+                                        <label for="jwt-algo" class="font-bold text-xs tracking-widest uppercase text-gray-400">Algorithm (HMAC)</label>
+                                    </div>
+                                    <div class="px-4 py-3 relative">
+                                        <select id="jwt-algo" class="w-full bg-transparent text-white font-mono text-sm outline-none focus:outline-none appearance-none cursor-pointer">
+                                            <option value="HS256" class="bg-[#141414]">HS256 (SHA-256)</option>
+                                            <option value="HS384" class="bg-[#141414]">HS384 (SHA-384)</option>
+                                            <option value="HS512" class="bg-[#141414]">HS512 (SHA-512)</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Button -->
+                            <button id="btn-analyze" class="w-full bg-brand-accent hover:bg-[#ff1a26] text-white font-black text-sm uppercase tracking-[0.2em] py-5 rounded-xl shadow-[0_0_20px_rgba(229,9,20,0.3)] hover:shadow-[0_0_30px_rgba(229,9,20,0.6)] transition-all duration-300 flex items-center justify-center gap-3">
+                                <i data-lucide="fingerprint" class="w-5 h-5"></i>
+                                Initiate Token Forensic Analysis
+                            </button>
+                        </div>
+
+                        <!-- RIGHT PANE: Results Sandbox -->
+                        <div id="results-pane" class="flex flex-col gap-6 w-full opacity-50 pointer-events-none transition-all duration-700">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Validation Status Badge -->
+                                <div id="validation-badge" class="bg-[#0a0a0a] border border-white/10 rounded-xl p-4 flex items-center gap-3 transition-colors duration-300">
+                                    <i data-lucide="shield" id="validation-icon" class="w-5 h-5 text-gray-500"></i>
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Cryptographic Signature</span>
+                                        <span id="validation-text" class="text-sm font-bold text-white uppercase tracking-wider">Awaiting Analysis</span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Toolbar -->
+                                <div class="bg-[#0a0a0a] border border-white/10 rounded-xl p-2 flex items-center justify-end gap-2">
+                                    <button id="btn-copy" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors flex items-center justify-center tooltip-parent relative group">
+                                        <i data-lucide="clipboard-copy" class="w-4 h-4"></i>
+                                        <span class="absolute -top-10 bg-[#1a1a1c] border border-white/10 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Copy Token</span>
+                                    </button>
+                                    <button id="btn-download" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors flex items-center justify-center relative group">
+                                        <i data-lucide="download" class="w-4 h-4"></i>
+                                        <span class="absolute -top-10 bg-[#1a1a1c] border border-white/10 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Download JSON</span>
+                                    </button>
+                                    <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+                                    <button id="btn-reset" class="p-3 rounded-lg bg-white/5 hover:bg-[#E50914] text-gray-400 hover:text-white transition-colors flex items-center justify-center relative group">
+                                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                        <span class="absolute -top-10 bg-[#1a1a1c] border border-white/10 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Reset Sandbox</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Header Viewer -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden shadow-lg">
+                                <div class="px-4 py-2 border-b border-white/5 bg-[#0f0f0f] flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="file-code" class="w-3.5 h-3.5 text-gray-500"></i>
+                                        <span class="font-bold text-xs tracking-widest uppercase text-gray-400">Header</span>
+                                    </div>
+                                    <span class="text-[10px] text-brand-accent font-bold tracking-widest uppercase">Read-Only</span>
+                                </div>
+                                <div class="p-4 bg-black/40">
+                                    <pre id="decoded-header" class="text-xs text-blue-400 font-mono overflow-x-auto m-0">{}</pre>
+                                </div>
+                            </div>
+
+                            <!-- Payload Editor -->
+                            <div class="w-full bg-[#0a0a0a] border border-brand-accent/20 rounded-xl overflow-hidden shadow-lg flex-1 flex flex-col focus-within:border-brand-accent transition-colors duration-300">
+                                <div class="px-4 py-2 border-b border-brand-accent/20 bg-[#150a0a] flex items-center justify-between shrink-0">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="database" class="w-3.5 h-3.5 text-brand-accent"></i>
+                                        <span class="font-bold text-xs tracking-widest uppercase text-white">Payload Editor</span>
+                                    </div>
+                                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase animate-pulse">Live Edit</span>
+                                </div>
+                                <textarea id="payload-editor" class="w-full flex-1 min-h-[160px] p-4 bg-transparent text-green-400 font-mono text-xs leading-relaxed outline-none focus:outline-none token-textarea whitespace-pre" spellcheck="false">{}</textarea>
+                                
+                                <div class="p-2 border-t border-white/5 bg-[#0f0f0f]">
+                                    <button id="btn-resign" class="w-full py-2.5 bg-white/5 hover:bg-white/10 text-white font-bold text-xs uppercase tracking-[0.15em] rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i> Re-Sign Payload
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+
+            if (window.innerWidth < 1024) {
+                return false;
+            }
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts (F12, Ctrl+U, Ctrl+Shift+I/J/C)
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { 
+                e.preventDefault(); 
+                return false; 
+            } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { 
+                e.preventDefault(); 
+                return false; 
+            }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : (type === 'error' ? 'alert-octagon' : 'info');
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic 
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            if(!stepsArray || stepsArray.length === 0) {
+                stepsArray = ['Processing request...'];
+            }
+
+            let listHTML = '';
+            stepsArray.forEach(step => {
+                listHTML += `<li class="shimmer-text">${step}</li>`;
+            });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Network Detection (Zero-Trust Visuals)
+            const updateNetworkStatus = () => {
+                const orb = document.getElementById('network-orb');
+                const text = document.getElementById('network-text');
+                if (!navigator.onLine) {
+                    orb.className = "w-2.5 h-2.5 rounded-full bg-[#E50914] orb-pulse-red";
+                    text.textContent = "Isolated & Secure";
+                } else {
+                    orb.className = "w-2.5 h-2.5 rounded-full bg-green-500 orb-pulse-green";
+                    text.textContent = "Offline Ready";
+                }
+            };
+            window.addEventListener('online', updateNetworkStatus);
+            window.addEventListener('offline', updateNetworkStatus);
+            updateNetworkStatus();
+
+            // Core Elements
+            const jwtInput = document.getElementById('jwt-input');
+            const secretInput = document.getElementById('jwt-secret');
+            const algoSelect = document.getElementById('jwt-algo');
+            const btnAnalyze = document.getElementById('btn-analyze');
+            const resultsPane = document.getElementById('results-pane');
+            const decodedHeader = document.getElementById('decoded-header');
+            const payloadEditor = document.getElementById('payload-editor');
+            const btnResign = document.getElementById('btn-resign');
+            
+            const valBadge = document.getElementById('validation-badge');
+            const valIcon = document.getElementById('validation-icon');
+            const valText = document.getElementById('validation-text');
+
+            // Utilities: Base64URL
+            function base64UrlDecode(str) {
+                let output = str.replace(/-/g, '+').replace(/_/g, '/');
+                switch (output.length % 4) {
+                    case 0: break;
+                    case 2: output += '=='; break;
+                    case 3: output += '='; break;
+                    default: throw new Error('Illegal base64url string!');
+                }
+                try {
+                    return decodeURIComponent(atob(output).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                } catch (err) {
+                    return atob(output);
+                }
+            }
+
+            function base64UrlEncode(str) {
+                if (str instanceof Uint8Array) {
+                    let binary = '';
+                    for (let i = 0; i < str.byteLength; i++) {
+                        binary += String.fromCharCode(str[i]);
+                    }
+                    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+                }
+                const utf8Bytes = new TextEncoder().encode(str);
+                let binary = '';
+                for (let i = 0; i < utf8Bytes.byteLength; i++) {
+                    binary += String.fromCharCode(utf8Bytes[i]);
+                }
+                return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            }
+
+            // Syntax Highlight formatter (Basic JSON stringify)
+            function formatJSON(jsonObj) {
+                return JSON.stringify(jsonObj, null, 4);
+            }
+
+            // Verification UI Updater
+            function updateValidationStatus(status) {
+                valBadge.className = 'border rounded-xl p-4 flex items-center gap-3 transition-colors duration-300';
+                if (status === 'VERIFIED') {
+                    valBadge.classList.add('bg-green-500/10', 'border-green-500/30');
+                    valIcon.setAttribute('data-lucide', 'shield-check');
+                    valIcon.className = 'w-5 h-5 text-green-500';
+                    valText.textContent = 'Signature Verified';
+                    valText.className = 'text-sm font-bold text-green-400 uppercase tracking-wider';
+                } else if (status === 'INVALID') {
+                    valBadge.classList.add('bg-brand-accent/10', 'border-brand-accent/30');
+                    valIcon.setAttribute('data-lucide', 'shield-alert');
+                    valIcon.className = 'w-5 h-5 text-brand-accent';
+                    valText.textContent = 'Invalid Signature';
+                    valText.className = 'text-sm font-bold text-brand-accent uppercase tracking-wider';
+                } else if (status === 'UNSIGNED' || status === 'NO_SECRET') {
+                    valBadge.classList.add('bg-[#141414]', 'border-white/10');
+                    valIcon.setAttribute('data-lucide', 'shield-off');
+                    valIcon.className = 'w-5 h-5 text-gray-500';
+                    valText.textContent = 'Signature Unverified (No Secret)';
+                    valText.className = 'text-sm font-bold text-gray-400 uppercase tracking-wider';
+                }
+                lucide.createIcons();
+            }
+
+            // Web Crypto Signature Validation
+            async function verifyJWTSignature(headerB64, payloadB64, signatureB64, secret, alg) {
+                if (!secret) return 'NO_SECRET';
+
+                const dataToSign = `${headerB64}.${payloadB64}`;
+                let hashName = 'SHA-256';
+                if (alg === 'HS384') hashName = 'SHA-384';
+                if (alg === 'HS512') hashName = 'SHA-512';
+
+                const encoder = new TextEncoder();
+                const keyData = encoder.encode(secret);
+
+                try {
+                    const cryptoKey = await crypto.subtle.importKey(
+                        'raw', keyData, { name: 'HMAC', hash: { name: hashName } }, false, ['sign']
+                    );
+                    const generatedSignature = await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(dataToSign));
+                    const expectedSignatureB64 = base64UrlEncode(new Uint8Array(generatedSignature));
+                    
+                    return signatureB64 === expectedSignatureB64 ? 'VERIFIED' : 'INVALID';
+                } catch(e) {
+                    console.error("Crypto Error:", e);
+                    return 'INVALID';
+                }
+            }
+
+            // Process JWT Data
+            async function processToken() {
+                const rawJWT = jwtInput.value.trim();
+                if (!rawJWT) {
+                    showToast('Please insert a JWT to analyze.', 'error');
+                    return;
+                }
+
+                const parts = rawJWT.split('.');
+                if (parts.length !== 3) {
+                    showToast('Invalid JWT Structure detected.', 'error');
+                    return;
+                }
+
+                try {
+                    const headerObj = JSON.parse(base64UrlDecode(parts[0]));
+                    const payloadObj = JSON.parse(base64UrlDecode(parts[1]));
+                    
+                    decodedHeader.textContent = formatJSON(headerObj);
+                    payloadEditor.value = formatJSON(payloadObj);
+
+                    if (headerObj.alg) {
+                        algoSelect.value = headerObj.alg;
+                    }
+
+                    // Attempt Validation
+                    const secret = secretInput.value;
+                    const status = await verifyJWTSignature(parts[0], parts[1], parts[2], secret, algoSelect.value);
+                    updateValidationStatus(status);
+
+                    // Reveal Sandbox
+                    resultsPane.classList.remove('opacity-50', 'pointer-events-none');
+                    resultsPane.classList.add('opacity-100', 'pointer-events-auto');
+                    
+                    showToast('Token structure decoded locally.', 'success');
+
+                } catch (e) {
+                    showToast('Malformed JSON detected in payload.', 'error');
+                    console.error(e);
+                }
+            }
+
+            // Re-Sign Logic
+            async function generateSignedJWT() {
+                try {
+                    const headerObj = JSON.parse(decodedHeader.textContent);
+                    const payloadObj = JSON.parse(payloadEditor.value);
+                    
+                    const headerB64 = base64UrlEncode(JSON.stringify(headerObj));
+                    const payloadB64 = base64UrlEncode(JSON.stringify(payloadObj));
+                    const dataToSign = `${headerB64}.${payloadB64}`;
+                    
+                    const secret = secretInput.value;
+                    const alg = algoSelect.value;
+
+                    if (!secret) {
+                        // Unsigned Regeneration
+                        jwtInput.value = dataToSign + ".";
+                        updateValidationStatus('NO_SECRET');
+                        showToast('Regenerated Token (Unsigned)', 'normal');
+                        return;
+                    }
+
+                    let hashName = 'SHA-256';
+                    if (alg === 'HS384') hashName = 'SHA-384';
+                    if (alg === 'HS512') hashName = 'SHA-512';
+
+                    const encoder = new TextEncoder();
+                    const keyData = encoder.encode(secret);
+
+                    const cryptoKey = await crypto.subtle.importKey(
+                        'raw', keyData, { name: 'HMAC', hash: { name: hashName } }, false, ['sign']
+                    );
+                    
+                    const signature = await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(dataToSign));
+                    const signatureB64 = base64UrlEncode(new Uint8Array(signature));
+                    
+                    jwtInput.value = `${dataToSign}.${signatureB64}`;
+                    
+                    // Re-run validation on the newly generated token
+                    const newStatus = await verifyJWTSignature(headerB64, payloadB64, signatureB64, secret, alg);
+                    updateValidationStatus(newStatus);
+                    
+                    showToast('Payload re-signed & token updated.', 'success');
+
+                } catch (e) {
+                    showToast('Error parsing edited payload JSON.', 'error');
+                }
+            }
+
+            // Action Buttons
+            btnAnalyze.addEventListener('click', () => {
+                if(!jwtInput.value.trim()) {
+                    showToast('Input is empty.', 'error');
+                    return;
+                }
+                showToolLoading([
+                    'Decoding token structure...', 
+                    'Parsing base64 payloads...', 
+                    'Validating cryptographic signatures...', 
+                    'Initializing secure offline sandbox...'
+                ], 800);
+
+                setTimeout(() => {
+                    hideToolLoading();
+                    processToken();
+                }, 3200);
+            });
+
+            btnResign.addEventListener('click', () => {
+                generateSignedJWT();
+            });
+
+            // Toolbar Actions
+            document.getElementById('btn-copy').addEventListener('click', () => {
+                const token = jwtInput.value;
+                if(!token) return;
+                navigator.clipboard.writeText(token).then(() => showToast('JWT copied to clipboard.', 'success'));
+            });
+
+            document.getElementById('btn-download').addEventListener('click', () => {
+                const payload = payloadEditor.value;
+                if(!payload || payload === '{}') return;
+                const blob = new Blob([payload], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "tokenforge_payload.json";
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast('Payload JSON downloaded.', 'success');
+            });
+
+            document.getElementById('btn-reset').addEventListener('click', () => {
+                jwtInput.value = '';
+                secretInput.value = '';
+                decodedHeader.textContent = '{}';
+                payloadEditor.value = '{}';
+                resultsPane.classList.add('opacity-50', 'pointer-events-none');
+                resultsPane.classList.remove('opacity-100', 'pointer-events-auto');
+                updateValidationStatus('UNSIGNED');
+                showToast('Sandbox reset.', 'normal');
+            });
+
+        });
+    </script>
+</body>
+</html>
