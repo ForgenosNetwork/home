@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <!-- Tool ka naam yahan change karein -->
+    <!-- Tool ka naam yahan change karein -->
    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
 
     <title>SCHEMASYNTH Free JSON Mock Data Generator | FORGENOS</title>
@@ -62,6 +62,7 @@
       ]
     }
     </script>    
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -229,21 +230,22 @@
         .json-null { color: #fca5a5; } /* Red */
         .json-key { color: #e2e8f0; font-weight: 600; } /* White/Gray */
 
-        /* The Pulsing Orb */
+        /* The Pulsing Orb - FIX: Glow Reduced to prevent cropping on mobile */
         .schema-orb {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background-color: #E50914;
-            box-shadow: 0 0 var(--orb-glow, 10px) var(--orb-glow, 2px) rgba(229, 9, 20, 0.8);
+            /* Yahan glow ko 5px tak सीमित (limit) kiya gaya hai default mein */
+            box-shadow: 0 0 var(--orb-glow, 5px) rgba(229, 9, 20, 0.6);
             transform: scale(var(--orb-scale, 1));
             animation: pulseOrb 1.5s infinite alternate ease-in-out;
             transition: all 0.3s ease;
         }
 
         @keyframes pulseOrb {
-            0% { opacity: 0.7; transform: scale(calc(var(--orb-scale, 1) * 0.9)); }
-            100% { opacity: 1; transform: scale(calc(var(--orb-scale, 1) * 1.1)); box-shadow: 0 0 calc(var(--orb-glow, 15px) * 1.5) calc(var(--orb-glow, 5px) * 1.2) rgba(229, 9, 20, 0.9); }
+            0% { opacity: 0.8; transform: scale(calc(var(--orb-scale, 1) * 0.95)); }
+            100% { opacity: 1; transform: scale(calc(var(--orb-scale, 1) * 1.05)); box-shadow: 0 0 calc(var(--orb-glow, 8px) * 1.2) rgba(229, 9, 20, 0.8); }
         }
 
         .node-card.active {
@@ -633,7 +635,7 @@
             toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
             let icon = type === 'success' ? 'check-circle' : 'info';
             if(type === 'error') icon = 'alert-triangle';
-            toast.innerHTML = `<i data-lucide="${icon}" class="${type === 'error' ? 'text-red-500' : 'text-brand-accent'} w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            toast.innerHTML = `<i data-lucide="${icon}" class="${type === 'error' ? 'text-red-500' : 'text-brand-accent'} w-5 h-5"></i> <span class=\"font-bold\">${message}</span>`;
             container.appendChild(toast);
             lucide.createIcons();
             requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
@@ -809,8 +811,9 @@
                 let momentum = schema.length;
                 schema.forEach(n => { momentum += n.fields.length * 0.5 + n.relations.length * 1.5; });
                 
-                const scale = Math.min(1 + (momentum * 0.05), 1.8);
-                const glow = Math.min(10 + (momentum * 2), 30);
+                // FIX: Scaling aur Glow limits ko kam kiya gaya hai taaki ye mobile screens par crop na ho.
+                const scale = Math.min(1 + (momentum * 0.03), 1.25); 
+                const glow = Math.min(5 + (momentum * 1), 15);
                 
                 document.documentElement.style.setProperty('--orb-scale', scale);
                 document.documentElement.style.setProperty('--orb-glow', glow + 'px');
@@ -821,7 +824,7 @@
                 countBadge.innerText = `${schema.length} Nodes`;
 
                 if(schema.length === 0) {
-                    canvasEl.innerHTML = `<div class="absolute inset-0 flex items-center justify-center text-gray-600 font-medium">Canvas is empty. Add a node to begin.</div>`;
+                    canvasEl.innerHTML = `<div class=\"absolute inset-0 flex items-center justify-center text-gray-600 font-medium\">Canvas is empty. Add a node to begin.</div>`;
                 }
 
                 schema.forEach(node => {
@@ -836,41 +839,41 @@
 
                     // Card Header
                     let html = `
-                        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="database" class="w-4 h-4 text-brand-accent"></i>
-                                <span class="font-bold text-white text-sm">${escapeHTML(node.name)}</span>
+                        <div class=\"px-4 py-3 bg-[#161616] border-b border-white/5 flex justify-between items-center\">
+                            <div class=\"flex items-center gap-2\">
+                                <i data-lucide=\"database\" class=\"w-4 h-4 text-brand-accent\"></i>
+                                <span class=\"font-bold text-white text-sm\">${escapeHTML(node.name)}</span>
                             </div>
-                            <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-gray-400">x${node.count}</span>
+                            <span class=\"text-[10px] bg-white/10 px-2 py-0.5 rounded text-gray-400\">x${node.count}</span>
                         </div>
-                        <div class="p-4 flex flex-col gap-3">
+                        <div class=\"p-4 flex flex-col gap-3\">
                     `;
 
                     // Fields preview (max 3)
-                    html += `<div class="flex flex-col gap-1.5">`;
+                    html += `<div class=\"flex flex-col gap-1.5\">`;
                     const displayFields = node.fields.slice(0, 3);
                     displayFields.forEach(f => {
                         html += `
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="text-gray-300 font-mono">${escapeHTML(f.name)}</span>
-                                <span class="text-gray-600">${f.type}</span>
+                            <div class=\"flex justify-between items-center text-xs\">
+                                <span class=\"text-gray-300 font-mono\">${escapeHTML(f.name)}</span>
+                                <span class=\"text-gray-600\">${f.type}</span>
                             </div>
                         `;
                     });
-                    if(node.fields.length > 3) html += `<div class="text-xs text-gray-600 italic">+${node.fields.length - 3} more fields</div>`;
-                    if(node.fields.length === 0) html += `<div class="text-xs text-gray-600 italic">No fields defined</div>`;
+                    if(node.fields.length > 3) html += `<div class=\"text-xs text-gray-600 italic\">+${node.fields.length - 3} more fields</div>`;
+                    if(node.fields.length === 0) html += `<div class=\"text-xs text-gray-600 italic\">No fields defined</div>`;
                     html += `</div>`;
 
                     // Relations preview
                     if(node.relations.length > 0) {
-                        html += `<div class="mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5">`;
+                        html += `<div class=\"mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5\">`;
                         node.relations.forEach(r => {
                             const targetNode = schema.find(n => n.id === r.targetId);
                             const tName = targetNode ? targetNode.name : 'Unknown';
                             html += `
-                                <div class="flex items-center gap-2 text-xs text-gray-400">
-                                    <i data-lucide="git-merge" class="w-3 h-3 text-brand-accent"></i>
-                                    <span>${r.type} <i data-lucide="arrow-right" class="w-3 h-3 inline opacity-50"></i> ${escapeHTML(tName)}</span>
+                                <div class=\"flex items-center gap-2 text-xs text-gray-400\">
+                                    <i data-lucide=\"git-merge\" class=\"w-3 h-3 text-brand-accent\"></i>
+                                    <span>${r.type} <i data-lucide=\"arrow-right\" class=\"w-3 h-3 inline opacity-50\"></i> ${escapeHTML(tName)}</span>
                                 </div>
                             `;
                         });
@@ -889,8 +892,8 @@
             function renderInspector() {
                 if(!activeNodeId) {
                     inspectorEl.innerHTML = `
-                        <div class="text-center text-gray-600 mt-20 flex flex-col items-center">
-                            <i data-lucide="mouse-pointer-click" class="w-8 h-8 mb-3 opacity-50"></i>
+                        <div class=\"text-center text-gray-600 mt-20 flex flex-col items-center\">
+                            <i data-lucide=\"mouse-pointer-click\" class=\"w-8 h-8 mb-3 opacity-50\"></i>
                             <p>Select a node on the canvas to inspect and edit its properties.</p>
                         </div>
                     `;
@@ -902,90 +905,90 @@
                 if(!node) return;
 
                 let html = `
-                    <div class="flex flex-col gap-6">
+                    <div class=\"flex flex-col gap-6\">
                         <!-- Node Config -->
-                        <div class="flex flex-col gap-3">
-                            <div class="flex justify-between items-center">
-                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Node Configuration</label>
-                                <button onclick="deleteNode('${node.id}')" class="text-xs text-red-500 hover:text-red-400 flex items-center gap-1"><i data-lucide="trash-2" class="w-3 h-3"></i> Delete Node</button>
+                        <div class=\"flex flex-col gap-3\">
+                            <div class=\"flex justify-between items-center\">
+                                <label class=\"text-xs font-bold uppercase tracking-wider text-gray-500\">Node Configuration</label>
+                                <button onclick=\"deleteNode('${node.id}')\" class=\"text-xs text-red-500 hover:text-red-400 flex items-center gap-1\"><i data-lucide=\"trash-2\" class=\"w-3 h-3\"></i> Delete Node</button>
                             </div>
                             
-                            <div class="flex flex-col gap-1">
-                                <label class="text-xs text-gray-400">Entity Name</label>
-                                <input type="text" id="ins-node-name" value="${escapeHTML(node.name)}" class="w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors" onchange="updateNodeProp('${node.id}', 'name', this.value)">
+                            <div class=\"flex flex-col gap-1\">
+                                <label class=\"text-xs text-gray-400\">Entity Name</label>
+                                <input type=\"text\" id=\"ins-node-name\" value=\"${escapeHTML(node.name)}\" class=\"w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors\" onchange=\"updateNodeProp('${node.id}', 'name', this.value)\">
                             </div>
                             
-                            <div class="flex flex-col gap-1">
-                                <label class="text-xs text-gray-400">Generation Count (Instances)</label>
-                                <input type="number" min="1" max="100" id="ins-node-count" value="${node.count}" class="w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors" onchange="updateNodeProp('${node.id}', 'count', parseInt(this.value)||1)">
+                            <div class=\"flex flex-col gap-1\">
+                                <label class=\"text-xs text-gray-400\">Generation Count (Instances)</label>
+                                <input type=\"number\" min=\"1\" max=\"100\" id=\"ins-node-count\" value=\"${node.count}\" class=\"w-full bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-accent transition-colors\" onchange=\"updateNodeProp('${node.id}', 'count', parseInt(this.value)||1)\">
                             </div>
                         </div>
 
                         <!-- Fields Config -->
-                        <div class="flex flex-col gap-3">
-                            <div class="flex justify-between items-center">
-                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Data Fields</label>
-                                <button onclick="addField('${node.id}')" class="text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors"><i data-lucide="plus" class="w-3 h-3"></i> Add Field</button>
+                        <div class=\"flex flex-col gap-3\">
+                            <div class=\"flex justify-between items-center\">
+                                <label class=\"text-xs font-bold uppercase tracking-wider text-gray-500\">Data Fields</label>
+                                <button onclick=\"addField('${node.id}')\" class=\"text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors\"><i data-lucide=\"plus\" class=\"w-3 h-3\"></i> Add Field</button>
                             </div>
                             
-                            <div class="flex flex-col gap-2">
+                            <div class=\"flex flex-col gap-2\">
                 `;
 
                 node.fields.forEach(f => {
-                    let typeOptions = FIELD_TYPES.map(t => `<option value="${t.val}" ${f.type === t.val ? 'selected' : ''}>${t.label}</option>`).join('');
+                    let typeOptions = FIELD_TYPES.map(t => `<option value=\"${t.val}\" ${f.type === t.val ? 'selected' : ''}>${t.label}</option>`).join('');
                     
                     html += `
-                        <div class="flex items-center gap-2 bg-[#111] p-2 rounded-lg border border-white/5">
-                            <input type="text" value="${escapeHTML(f.name)}" placeholder="key_name" class="w-1/2 bg-transparent border-none text-sm text-white font-mono focus:outline-none placeholder-gray-600" onchange="updateFieldProp('${node.id}', '${f.id}', 'name', this.value)">
-                            <div class="w-[1px] h-4 bg-white/10"></div>
-                            <select class="w-1/2 bg-transparent border-none text-xs text-gray-400 focus:outline-none appearance-none cursor-pointer" onchange="updateFieldProp('${node.id}', '${f.id}', 'type', this.value)">
+                        <div class=\"flex items-center gap-2 bg-[#111] p-2 rounded-lg border border-white/5\">
+                            <input type=\"text\" value=\"${escapeHTML(f.name)}\" placeholder=\"key_name\" class=\"w-1/2 bg-transparent border-none text-sm text-white font-mono focus:outline-none placeholder-gray-600\" onchange=\"updateFieldProp('${node.id}', '${f.id}', 'name', this.value)\">
+                            <div class=\"w-[1px] h-4 bg-white/10\"></div>
+                            <select class=\"w-1/2 bg-transparent border-none text-xs text-gray-400 focus:outline-none appearance-none cursor-pointer\" onchange=\"updateFieldProp('${node.id}', '${f.id}', 'type', this.value)\">
                                 ${typeOptions}
                             </select>
-                            <button onclick="deleteField('${node.id}', '${f.id}')" class="text-gray-600 hover:text-red-500 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
+                            <button onclick=\"deleteField('${node.id}', '${f.id}')\" class=\"text-gray-600 hover:text-red-500 p-1\"><i data-lucide=\"x\" class=\"w-3 h-3\"></i></button>
                         </div>
                     `;
                 });
 
-                if(node.fields.length === 0) html += `<p class="text-xs text-gray-600 italic">No fields added yet.</p>`;
+                if(node.fields.length === 0) html += `<p class=\"text-xs text-gray-600 italic\">No fields added yet.</p>`;
 
                 html += `
                             </div>
                         </div>
 
                         <!-- Relations Config -->
-                        <div class="flex flex-col gap-3">
-                            <div class="flex justify-between items-center">
-                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Relationships</label>
-                                <button onclick="addRelation('${node.id}')" class="text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors"><i data-lucide="git-merge" class="w-3 h-3"></i> Connect</button>
+                        <div class=\"flex flex-col gap-3\">
+                            <div class=\"flex justify-between items-center\">
+                                <label class=\"text-xs font-bold uppercase tracking-wider text-gray-500\">Relationships</label>
+                                <button onclick=\"addRelation('${node.id}')\" class=\"text-xs text-brand-accent hover:text-white flex items-center gap-1 transition-colors\"><i data-lucide=\"git-merge\" class=\"w-3 h-3\"></i> Connect</button>
                             </div>
                             
-                            <div class="flex flex-col gap-2">
+                            <div class=\"flex flex-col gap-2\">
                 `;
 
                 const availableNodes = schema.filter(n => n.id !== node.id);
 
                 node.relations.forEach(r => {
-                    let targetOptions = `<option value="" disabled ${!r.targetId ? 'selected' : ''}>Select Target...</option>`;
+                    let targetOptions = `<option value=\"\" disabled ${!r.targetId ? 'selected' : ''}>Select Target...</option>`;
                     availableNodes.forEach(an => {
-                        targetOptions += `<option value="${an.id}" ${r.targetId === an.id ? 'selected' : ''}>${escapeHTML(an.name)}</option>`;
+                        targetOptions += `<option value=\"${an.id}\" ${r.targetId === an.id ? 'selected' : ''}>${escapeHTML(an.name)}</option>`;
                     });
 
                     let typeOptions = `
-                        <option value="1:1" ${r.type === '1:1' ? 'selected' : ''}>1:1 (Object)</option>
-                        <option value="1:N" ${r.type === '1:N' ? 'selected' : ''}>1:N (Array)</option>
+                        <option value=\"1:1\" ${r.type === '1:1' ? 'selected' : ''}>1:1 (Object)</option>
+                        <option value=\"1:N\" ${r.type === '1:N' ? 'selected' : ''}>1:N (Array)</option>
                     `;
 
                     html += `
-                        <div class="flex flex-col gap-2 bg-[#111] p-3 rounded-lg border border-white/5">
-                            <div class="flex justify-between items-center mb-1">
-                                <input type="text" value="${escapeHTML(r.name)}" placeholder="relation_key" class="bg-transparent border-b border-white/10 text-sm text-white font-mono focus:outline-none focus:border-brand-accent pb-1 w-2/3" onchange="updateRelationProp('${node.id}', '${r.id}', 'name', this.value)">
-                                <button onclick="deleteRelation('${node.id}', '${r.id}')" class="text-gray-600 hover:text-red-500 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
+                        <div class=\"flex flex-col gap-2 bg-[#111] p-3 rounded-lg border border-white/5\">
+                            <div class=\"flex justify-between items-center mb-1\">
+                                <input type=\"text\" value=\"${escapeHTML(r.name)}\" placeholder=\"relation_key\" class=\"bg-transparent border-b border-white/10 text-sm text-white font-mono focus:outline-none focus:border-brand-accent pb-1 w-2/3\" onchange=\"updateRelationProp('${node.id}', '${r.id}', 'name', this.value)\">
+                                <button onclick=\"deleteRelation('${node.id}', '${r.id}')\" class=\"text-gray-600 hover:text-red-500 p-1\"><i data-lucide=\"x\" class=\"w-3 h-3\"></i></button>
                             </div>
-                            <div class="flex gap-2">
-                                <select class="w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none" onchange="updateRelationProp('${node.id}', '${r.id}', 'type', this.value)">
+                            <div class=\"flex gap-2\">
+                                <select class=\"w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none\" onchange=\"updateRelationProp('${node.id}', '${r.id}', 'type', this.value)\">
                                     ${typeOptions}
                                 </select>
-                                <select class="w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none" onchange="updateRelationProp('${node.id}', '${r.id}', 'targetId', this.value)">
+                                <select class=\"w-1/2 bg-[#0a0a0a] border border-white/10 rounded px-2 py-1 text-xs text-gray-300 focus:outline-none\" onchange=\"updateRelationProp('${node.id}', '${r.id}', 'targetId', this.value)\">
                                     ${targetOptions}
                                 </select>
                             </div>
@@ -995,9 +998,9 @@
 
                 if(node.relations.length === 0) {
                     if(availableNodes.length === 0) {
-                         html += `<p class="text-xs text-gray-600 italic">Create another node to establish relationships.</p>`;
+                         html += `<p class=\"text-xs text-gray-600 italic\">Create another node to establish relationships.</p>`;
                     } else {
-                         html += `<p class="text-xs text-gray-600 italic">No relations defined.</p>`;
+                         html += `<p class=\"text-xs text-gray-600 italic\">No relations defined.</p>`;
                     }
                 }
 
@@ -1166,7 +1169,7 @@
                     'Parsing schema graph...', 
                     'Resolving relational dependencies...', 
                     'Allocating memory chunks...',
-                    'Generating deeply nested data structures...', 
+                    'Synthesizing data...', 
                     'Compiling synthetic JSON output...'
                 ], 800);
 
@@ -1211,7 +1214,7 @@
                         if (/:$/.test(match)) {
                             cls = 'json-key';
                             // remove colon from styling
-                            return `<span class="${cls}">${match.substring(0, match.length-1)}</span>:`;
+                            return `<span class=\"${cls}\">${match.substring(0, match.length-1)}</span>:`;
                         } else {
                             cls = 'json-string';
                         }
@@ -1220,7 +1223,7 @@
                     } else if (/null/.test(match)) {
                         cls = 'json-null';
                     }
-                    return `<span class="${cls}">${match}</span>`;
+                    return `<span class=\"${cls}\">${match}</span>`;
                 });
 
                 document.getElementById('json-output-display').innerHTML = html;
