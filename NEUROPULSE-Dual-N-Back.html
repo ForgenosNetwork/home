@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>Neuropulse | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        tech: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Neuropulse Specific CSS */
+        @keyframes neuralPulseAnim {
+            0% { transform: scale(0.95); box-shadow: 0 0 10px rgba(229, 9, 20, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(229, 9, 20, 0.7); }
+            100% { transform: scale(0.95); box-shadow: 0 0 10px rgba(229, 9, 20, 0.2); }
+        }
+        .neural-orb {
+            animation: neuralPulseAnim 2s infinite ease-in-out;
+        }
+        
+        .grid-cell {
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .grid-cell.active {
+            background-color: #E50914;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.6), inset 0 0 10px rgba(255,255,255,0.3);
+            border-color: #ff3b3b;
+            transform: scale(0.96);
+        }
+
+        /* Match Feedback Animations */
+        @keyframes flashSuccess {
+            0% { background-color: rgba(34, 197, 94, 0.2); border-color: rgba(34, 197, 94, 0.5); }
+            100% { background-color: #0a0a0a; border-color: rgba(255, 255, 255, 0.05); }
+        }
+        @keyframes flashError {
+            0% { background-color: rgba(229, 9, 20, 0.2); border-color: rgba(229, 9, 20, 0.5); }
+            100% { background-color: #0a0a0a; border-color: rgba(255, 255, 255, 0.05); }
+        }
+        .flash-success { animation: flashSuccess 0.5s ease-out; }
+        .flash-error { animation: flashError 0.5s ease-out; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">Neuropulse</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Dual N-Back Cognitive Amplifier. Enhance working memory through synchronized visual-audio pattern recognition.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-transparent">
+                    
+                    <!-- VIEW 1: INTRO / SETUP -->
+                    <div id="view-intro" class="w-full max-w-4xl flex flex-col gap-8">
+                        <div class="w-full border border-white/5 rounded-3xl bg-[#0a0a0a] p-8 md:p-12 flex flex-col items-start relative overflow-hidden">
+                            <!-- Background subtle accent -->
+                            <div class="absolute -top-32 -right-32 w-64 h-64 bg-brand-accent rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+                            
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-[#141414] border border-white/10 flex items-center justify-center">
+                                    <i data-lucide="brain-circuit" class="w-6 h-6 text-brand-accent"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-black text-2xl tracking-tight">System Initialization</h3>
+                                    <p class="font-tech text-gray-500 text-xs tracking-widest mt-1 uppercase">Protocol: Dual N-Back Paradigm</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 text-gray-400 text-sm md:text-base font-medium max-w-2xl mb-10 leading-relaxed">
+                                <p>Welcome to NEUROPULSE. This protocol tracks your continuous working memory capacity.</p>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                                    <li>You will be presented with a sequence of <span class="text-white font-bold">visual locations</span> and <span class="text-white font-bold">audio tones</span> simultaneously.</li>
+                                    <li>Your task is to identify when the current location or tone matches the one presented exactly <span class="text-brand-accent font-tech font-bold px-1 bg-brand-accent/10 rounded">N</span> steps earlier.</li>
+                                    <li>Current target difficulty is set to <span id="intro-n-level" class="font-tech text-white font-bold bg-white/10 px-2 py-0.5 rounded">N=2</span>.</li>
+                                </ul>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                                <button onclick="initiateTraining()" class="group relative px-8 py-4 bg-brand-accent text-white font-bold text-sm tracking-widest uppercase rounded-xl overflow-hidden shadow-[0_0_20px_rgba(229,9,20,0.3)] hover:shadow-[0_0_30px_rgba(229,9,20,0.5)] transition-all outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#141414] focus:ring-brand-accent">
+                                    <span class="relative z-10 flex items-center gap-3">
+                                        <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                                        Initiate Neural Sequence
+                                    </span>
+                                    <div class="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></div>
+                                </button>
+                                
+                                <div class="flex items-center gap-6 px-6 py-4 bg-[#141414] border border-white/5 rounded-xl font-tech text-sm text-gray-400">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] uppercase tracking-wider text-gray-600 mb-1">Highest N-Level</span>
+                                        <span class="text-white font-bold text-lg" id="stat-max-n">2</span>
+                                    </div>
+                                    <div class="w-px h-8 bg-white/10"></div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] uppercase tracking-wider text-gray-600 mb-1">Max Streak</span>
+                                        <span class="text-white font-bold text-lg" id="stat-max-streak">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 2: ACTIVE TRAINING -->
+                    <div id="view-active" class="w-full hidden flex-col items-center justify-center py-4">
+                        
+                        <!-- Top HUD -->
+                        <div class="w-full max-w-2xl flex justify-between items-center mb-10 bg-[#0a0a0a] border border-white/5 px-6 py-4 rounded-2xl shadow-xl">
+                            <div class="flex items-center gap-4">
+                                <div class="relative w-8 h-8 flex items-center justify-center">
+                                    <div class="absolute inset-0 bg-brand-accent/20 rounded-full animate-ping opacity-75"></div>
+                                    <div class="neural-orb w-4 h-4 rounded-full bg-brand-accent shadow-[0_0_15px_#E50914]"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-tech text-brand-accent font-bold text-xl leading-none" id="hud-n-level">N-LEVEL: 2</span>
+                                    <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase mt-1">Neural Core Active</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-8 font-tech">
+                                <div class="flex flex-col items-end">
+                                    <span class="text-gray-600 text-[10px] tracking-widest uppercase">Sequence</span>
+                                    <span class="text-white font-bold text-lg" id="hud-trial">0/20</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-gray-600 text-[10px] tracking-widest uppercase">Streak</span>
+                                    <span class="text-white font-bold text-lg" id="hud-streak">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Central Grid -->
+                        <div class="w-full max-w-[320px] aspect-square grid grid-cols-3 grid-rows-3 gap-3 p-4 bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] mb-10">
+                            <!-- Cells generated by JS -->
+                            <div id="cell-0" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-1" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-2" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-3" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-4" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-5" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-6" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-7" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                            <div id="cell-8" class="grid-cell bg-[#141414] border border-white/5 rounded-xl"></div>
+                        </div>
+
+                        <!-- User Inputs -->
+                        <div class="w-full max-w-md flex justify-between gap-4 mb-8">
+                            <button id="btn-match-visual" onclick="handleMatch('visual')" class="flex-1 flex flex-col items-center justify-center py-4 bg-[#0f0f0f] border border-white/10 rounded-2xl hover:bg-[#1a1a1a] hover:border-brand-accent/50 transition-all outline-none focus:outline-none focus:border-brand-accent group">
+                                <i data-lucide="eye" class="w-6 h-6 text-gray-500 group-hover:text-white transition-colors mb-2"></i>
+                                <span class="font-bold text-sm tracking-wide text-gray-300">Position Match</span>
+                                <span class="font-tech text-xs text-gray-600 mt-1">[Key: A]</span>
+                            </button>
+                            <button id="btn-match-audio" onclick="handleMatch('audio')" class="flex-1 flex flex-col items-center justify-center py-4 bg-[#0f0f0f] border border-white/10 rounded-2xl hover:bg-[#1a1a1a] hover:border-brand-accent/50 transition-all outline-none focus:outline-none focus:border-brand-accent group">
+                                <i data-lucide="headphones" class="w-6 h-6 text-gray-500 group-hover:text-white transition-colors mb-2"></i>
+                                <span class="font-bold text-sm tracking-wide text-gray-300">Audio Match</span>
+                                <span class="font-tech text-xs text-gray-600 mt-1">[Key: L]</span>
+                            </button>
+                        </div>
+
+                        <!-- Emergency Stop -->
+                        <button onclick="abortSequence()" class="flex items-center gap-2 text-gray-600 hover:text-brand-accent transition-colors font-bold text-xs uppercase tracking-widest outline-none focus:outline-none">
+                            <i data-lucide="square" class="w-4 h-4 fill-current"></i> Abort Sequence
+                        </button>
+
+                    </div>
+
+                    <!-- VIEW 3: RESULTS -->
+                    <div id="view-results" class="w-full max-w-4xl hidden flex-col gap-8">
+                        <div class="w-full border border-white/5 rounded-3xl bg-[#0a0a0a] p-8 md:p-12 flex flex-col items-center text-center relative overflow-hidden">
+                            
+                            <div class="w-20 h-20 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center mb-6">
+                                <i data-lucide="bar-chart" class="w-10 h-10 text-brand-accent"></i>
+                            </div>
+                            
+                            <h2 class="text-3xl font-black text-white tracking-tighter mb-2">Sequence Complete</h2>
+                            <p class="text-gray-500 font-tech text-sm tracking-widest uppercase mb-10" id="res-status-text">Analyzing neural performance...</p>
+
+                            <!-- Data Grid -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl mb-12">
+                                <div class="flex flex-col items-center p-6 bg-[#141414] border border-white/5 rounded-2xl">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">Accuracy</span>
+                                    <span class="font-tech text-3xl font-bold text-white" id="res-accuracy">0%</span>
+                                </div>
+                                <div class="flex flex-col items-center p-6 bg-[#141414] border border-white/5 rounded-2xl">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">Next Level</span>
+                                    <span class="font-tech text-3xl font-bold text-brand-accent" id="res-next-n">N=2</span>
+                                </div>
+                                <div class="flex flex-col items-center p-6 bg-[#141414] border border-white/5 rounded-2xl">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">Max Streak</span>
+                                    <span class="font-tech text-3xl font-bold text-white" id="res-streak">0</span>
+                                </div>
+                                <div class="flex flex-col items-center p-6 bg-[#141414] border border-white/5 rounded-2xl">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">False Alarms</span>
+                                    <span class="font-tech text-3xl font-bold text-gray-400" id="res-errors">0</span>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <button onclick="resetToHome()" class="px-6 py-3 bg-[#141414] border border-white/10 text-white font-bold text-sm tracking-widest uppercase rounded-xl hover:bg-white/5 transition-all outline-none focus:outline-none flex items-center gap-2">
+                                    <i data-lucide="home" class="w-4 h-4"></i> Dashboard
+                                </button>
+                                <button onclick="initiateTraining()" class="px-6 py-3 bg-brand-accent text-white font-bold text-sm tracking-widest uppercase rounded-xl shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:shadow-[0_0_25px_rgba(229,9,20,0.5)] transition-all outline-none focus:outline-none flex items-center gap-2">
+                                    <i data-lucide="rotate-cw" class="w-4 h-4"></i> Re-Engage
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) menu.style.display = 'none'; 
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+            
+            // Allow Neural Tool Keybinds
+            if(gameState.isRunning && !e.ctrlKey && !e.metaKey) {
+                if(e.key.toLowerCase() === 'a') { e.preventDefault(); handleMatch('visual'); }
+                if(e.key.toLowerCase() === 'l') { e.preventDefault(); handleMatch('audio'); }
+            }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            if (type === 'error') icon = 'alert-circle';
+            
+            let colorClass = type === 'success' ? 'text-green-500' : (type === 'error' ? 'text-brand-accent' : 'text-blue-500');
+            
+            toast.innerHTML = `<i data-lucide="${icon}" class="${colorClass} w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+            
+            let listHTML = stepsArray.map(step => `<li class="shimmer-text">${step}</li>`).join('');
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+        
+        // --- State Management ---
+        const CONFIG = {
+            trialsPerRound: 20,
+            stimulusDurationMs: 500,
+            interStimulusMs: 2500, // Total 3s per turn
+            targetMatchRatio: 0.3 // 30% chance of a match occurring
+        };
+
+        const frequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C4 to C5 scale
+
+        let audioCtx = null;
+        let gameState = {
+            currentN: 2,
+            maxN: 2,
+            maxStreak: 0,
+            
+            isRunning: false,
+            sequence: [],
+            currentTurn: 0,
+            currentStreak: 0,
+            loopTimer: null,
+            stimulusTimer: null,
+            
+            stats: {
+                vTargets: 0, vHits: 0, vFalseAlarms: 0,
+                aTargets: 0, aHits: 0, aFalseAlarms: 0
+            }
+        };
+
+        // Load Persistent Stats
+        function loadStats() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('forgenos_neuropulse_stats'));
+                if(saved) {
+                    gameState.currentN = saved.currentN || 2;
+                    gameState.maxN = saved.maxN || 2;
+                    gameState.maxStreak = saved.maxStreak || 0;
+                }
+            } catch(e) {}
+            
+            document.getElementById('intro-n-level').innerText = `N=${gameState.currentN}`;
+            document.getElementById('stat-max-n').innerText = gameState.maxN;
+            document.getElementById('stat-max-streak').innerText = gameState.maxStreak;
+        }
+        
+        function saveStats() {
+            localStorage.setItem('forgenos_neuropulse_stats', JSON.stringify({
+                currentN: gameState.currentN,
+                maxN: gameState.maxN,
+                maxStreak: gameState.maxStreak
+            }));
+        }
+
+        // --- Core Audio Engine ---
+        function initAudio() {
+            if(!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function playTone(index) {
+            if(!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.value = frequencies[index % frequencies.length];
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start();
+            // Smooth fade out to prevent clicking
+            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (CONFIG.stimulusDurationMs / 1000));
+            osc.stop(audioCtx.currentTime + (CONFIG.stimulusDurationMs / 1000));
+        }
+
+        // --- Sequence Generation ---
+        function generateSequence() {
+            const seq = [];
+            let vTargets = 0, aTargets = 0;
+            const totalTrials = CONFIG.trialsPerRound + gameState.currentN;
+
+            for(let i = 0; i < totalTrials; i++) {
+                let pos = Math.floor(Math.random() * 9);
+                let aud = Math.floor(Math.random() * 8);
+
+                if (i >= gameState.currentN) {
+                    // Force a match based on probability ratio
+                    if (Math.random() < CONFIG.targetMatchRatio) {
+                        pos = seq[i - gameState.currentN].pos;
+                        vTargets++;
+                    }
+                    if (Math.random() < CONFIG.targetMatchRatio) {
+                        aud = seq[i - gameState.currentN].aud;
+                        aTargets++;
+                    }
+                }
+                seq.push({ pos, aud, vResponded: false, aResponded: false });
+            }
+            
+            gameState.sequence = seq;
+            gameState.stats = {
+                vTargets, vHits: 0, vFalseAlarms: 0,
+                aTargets, aHits: 0, aFalseAlarms: 0
+            };
+        }
+
+        // --- Game Flow Methods ---
+        function initiateTraining() {
+            // Setup Audio Context strictly on user gesture
+            initAudio();
+            
+            // Switch Views via Loader
+            showToolLoading(['Calibrating neural pathways...', 'Synchronizing audio-visual buffers...', 'Initializing N-Back engine...'], 1000);
+            
+            setTimeout(() => {
+                document.getElementById('view-intro').classList.add('hidden');
+                document.getElementById('view-results').classList.add('hidden');
+                document.getElementById('view-active').classList.remove('hidden');
+                document.getElementById('view-active').classList.add('flex');
+                
+                resetGameState();
+                generateSequence();
+                hideToolLoading();
+                
+                // Slight delay before first turn
+                setTimeout(runTurn, 1000);
+                
+            }, 3000);
+        }
+
+        function resetGameState() {
+            gameState.isRunning = true;
+            gameState.currentTurn = 0;
+            gameState.currentStreak = 0;
+            document.getElementById('hud-n-level').innerText = `N-LEVEL: ${gameState.currentN}`;
+            updateHUD();
+            
+            // Reset grid
+            for(let i=0; i<9; i++) {
+                document.getElementById(`cell-${i}`).classList.remove('active');
+            }
+        }
+
+        function runTurn() {
+            if(!gameState.isRunning) return;
+            
+            const totalTrials = CONFIG.trialsPerRound + gameState.currentN;
+            if(gameState.currentTurn >= totalTrials) {
+                finishSequence();
+                return;
+            }
+
+            const currentObj = gameState.sequence[gameState.currentTurn];
+            
+            // Activate Grid Cell
+            const cell = document.getElementById(`cell-${currentObj.pos}`);
+            cell.classList.add('active');
+            
+            // Play Sound
+            playTone(currentObj.aud);
+
+            // Update Turn HUD (only show valid turns beyond the N primer)
+            updateHUD();
+
+            // Deactivate visual stimulus after set duration
+            gameState.stimulusTimer = setTimeout(() => {
+                cell.classList.remove('active');
+            }, CONFIG.stimulusDurationMs);
+
+            // Schedule next turn
+            gameState.loopTimer = setTimeout(() => {
+                gameState.currentTurn++;
+                runTurn();
+            }, CONFIG.stimulusDurationMs + CONFIG.interStimulusMs);
+        }
+
+        function abortSequence() {
+            clearTimeout(gameState.stimulusTimer);
+            clearTimeout(gameState.loopTimer);
+            gameState.isRunning = false;
+            
+            for(let i=0; i<9; i++) document.getElementById(`cell-${i}`).classList.remove('active');
+            
+            showToast('Sequence Aborted.', 'error');
+            resetToHome();
+        }
+
+        function finishSequence() {
+            gameState.isRunning = false;
+            
+            showToolLoading(['Compiling performance matrix...', 'Calculating neural density...', 'Updating user records...'], 1000);
+            
+            setTimeout(() => {
+                document.getElementById('view-active').classList.add('hidden');
+                document.getElementById('view-active').classList.remove('flex');
+                document.getElementById('view-results').classList.remove('hidden');
+                document.getElementById('view-results').classList.add('flex');
+                
+                calculateResults();
+                hideToolLoading();
+            }, 3000);
+        }
+
+        // --- Interaction Logic ---
+        function handleMatch(type) {
+            if(!gameState.isRunning) return;
+            if(gameState.currentTurn < gameState.currentN) return; // Ignore input during primer turns
+            
+            const current = gameState.sequence[gameState.currentTurn];
+            const target = gameState.sequence[gameState.currentTurn - gameState.currentN];
+            
+            let btnId = type === 'visual' ? 'btn-match-visual' : 'btn-match-audio';
+            const btn = document.getElementById(btnId);
+            
+            btn.classList.remove('flash-success', 'flash-error');
+            void btn.offsetWidth; // trigger reflow
+            
+            if(type === 'visual') {
+                if(current.vResponded) return;
+                current.vResponded = true;
+                
+                if(current.pos === target.pos) {
+                    gameState.stats.vHits++;
+                    handleHit(btn);
+                } else {
+                    gameState.stats.vFalseAlarms++;
+                    handleMiss(btn);
+                }
+            } else {
+                if(current.aResponded) return;
+                current.aResponded = true;
+                
+                if(current.aud === target.aud) {
+                    gameState.stats.aHits++;
+                    handleHit(btn);
+                } else {
+                    gameState.stats.aFalseAlarms++;
+                    handleMiss(btn);
+                }
+            }
+        }
+
+        function handleHit(element) {
+            element.classList.add('flash-success');
+            gameState.currentStreak++;
+            if(gameState.currentStreak > gameState.maxStreak) {
+                gameState.maxStreak = gameState.currentStreak;
+            }
+            updateHUD();
+        }
+
+        function handleMiss(element) {
+            element.classList.add('flash-error');
+            gameState.currentStreak = 0;
+            updateHUD();
+        }
+
+        function updateHUD() {
+            const displayTurn = Math.max(0, gameState.currentTurn - gameState.currentN + 1);
+            document.getElementById('hud-trial').innerText = `${displayTurn}/${CONFIG.trialsPerRound}`;
+            document.getElementById('hud-streak').innerText = gameState.currentStreak;
+        }
+
+        // --- Results Processing ---
+        function calculateResults() {
+            const s = gameState.stats;
+            const totalTargets = s.vTargets + s.aTargets;
+            const totalHits = s.vHits + s.aHits;
+            const totalErrors = s.vFalseAlarms + s.aFalseAlarms;
+            
+            // Basic accuracy formula for N-Back
+            let accuracy = 0;
+            if(totalTargets > 0) {
+                // Penalize false alarms
+                const score = Math.max(0, totalHits - (totalErrors * 0.5));
+                accuracy = Math.round((score / totalTargets) * 100);
+            } else if (totalErrors === 0) {
+                accuracy = 100; // Rare edge case where randomizer gave 0 targets and user clicked nothing
+            }
+            
+            document.getElementById('res-accuracy').innerText = `${accuracy}%`;
+            document.getElementById('res-streak').innerText = gameState.maxStreak;
+            document.getElementById('res-errors').innerText = totalErrors;
+            
+            // Level logic
+            let statusText = "";
+            let newN = gameState.currentN;
+            
+            if(accuracy >= 80) {
+                newN++;
+                statusText = "EXCEPTIONAL PROTOCOL ADAPTATION. INCREASING COMPLEXITY.";
+                if(newN > gameState.maxN) gameState.maxN = newN;
+            } else if (accuracy < 50 && newN > 1) {
+                newN--;
+                statusText = "COGNITIVE OVERLOAD DETECTED. REDUCING COMPLEXITY.";
+            } else {
+                statusText = "NEURAL CAPACITY STABLE. MAINTAINING COMPLEXITY.";
+            }
+            
+            gameState.currentN = newN;
+            document.getElementById('res-next-n').innerText = `N=${newN}`;
+            document.getElementById('res-status-text').innerText = statusText;
+            
+            saveStats();
+        }
+
+        function resetToHome() {
+            document.getElementById('view-active').classList.add('hidden');
+            document.getElementById('view-active').classList.remove('flex');
+            document.getElementById('view-results').classList.add('hidden');
+            document.getElementById('view-results').classList.remove('flex');
+            document.getElementById('view-intro').classList.remove('hidden');
+            document.getElementById('view-intro').classList.add('flex');
+            loadStats();
+        }
+
+        // Init on load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+        });
+
+    </script>
+</body>
+</html>
