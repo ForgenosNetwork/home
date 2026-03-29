@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>STRESSSHIELD | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">STRESSSHIELD</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Cognitive Reframe Defense Engine. Log stressors, identify distortions, and fortify your mental shield.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-[#050505] rounded-3xl p-6 md:p-10 border border-white/5 shadow-2xl relative overflow-hidden">
+                    
+                    <style>
+                        /* Custom Workspace Styles */
+                        .ss-range {
+                            -webkit-appearance: none;
+                            width: 100%;
+                            height: 6px;
+                            background: rgba(255, 255, 255, 0.1);
+                            border-radius: 5px;
+                            outline: none;
+                        }
+                        .ss-range::-webkit-slider-thumb {
+                            -webkit-appearance: none;
+                            appearance: none;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            background: #E50914;
+                            cursor: pointer;
+                            box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+                            transition: transform 0.2s;
+                        }
+                        .ss-range::-webkit-slider-thumb:hover {
+                            transform: scale(1.2);
+                        }
+                        .ss-textarea {
+                            resize: none;
+                            scrollbar-width: thin;
+                            scrollbar-color: #333 transparent;
+                        }
+                        
+                        /* Dynamic Pulsing Orb tied to CSS Variables set by JS */
+                        .orb-pulse-container {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 240px;
+                            height: 240px;
+                            margin: 0 auto;
+                        }
+                        .dynamic-pulse {
+                            animation: shield-beat 4s infinite ease-in-out;
+                            transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+                        }
+                        
+                        @keyframes shield-beat {
+                            0% { 
+                                transform: scale(var(--shield-scale, 1)); 
+                                filter: drop-shadow(0 0 15px var(--shield-glow, rgba(229,9,20,0.1)));
+                            }
+                            50% { 
+                                transform: scale(calc(var(--shield-scale, 1) + 0.05)); 
+                                filter: drop-shadow(0 0 45px var(--shield-glow, rgba(229,9,20,0.6)));
+                            }
+                            100% { 
+                                transform: scale(var(--shield-scale, 1)); 
+                                filter: drop-shadow(0 0 15px var(--shield-glow, rgba(229,9,20,0.1)));
+                            }
+                        }
+
+                        /* Forensic Terminal text */
+                        .font-forensic {
+                            font-family: 'Courier New', Courier, monospace;
+                        }
+
+                        /* Grid Scanlines Effect for Background */
+                        .scanline-bg {
+                            position: absolute;
+                            top: 0; left: 0; width: 100%; height: 100%;
+                            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+                            background-size: 100% 4px, 6px 100%;
+                            pointer-events: none;
+                            z-index: 0;
+                            opacity: 0.3;
+                        }
+                    </style>
+
+                    <div class="scanline-bg"></div>
+
+                    <!-- Main Application Layout -->
+                    <div class="w-full max-w-5xl mx-auto flex flex-col gap-10 relative z-10">
+                        
+                        <!-- Top: Daily Stress Input Panel -->
+                        <div id="panel-input" class="w-full flex flex-col gap-6 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 transition-all duration-500">
+                            <div class="flex items-center gap-3 text-white mb-2">
+                                <i data-lucide="file-text" class="w-5 h-5 text-gray-400"></i>
+                                <h2 class="font-bold text-lg uppercase tracking-wider">Log Defense Entry</h2>
+                            </div>
+                            
+                            <textarea id="stress-input" rows="3" class="ss-textarea w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent/50 transition-all font-medium text-sm md:text-base placeholder-gray-600" placeholder="Describe your current stressor, anxious thought, or negative belief..."></textarea>
+                            
+                            <div class="flex flex-col gap-3 w-full">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="flex items-center gap-2 text-gray-400 font-bold"><i data-lucide="activity" class="w-4 h-4"></i> Emotional Intensity</span>
+                                    <span id="intensity-val" class="text-brand-accent font-black font-forensic text-lg">5/10</span>
+                                </div>
+                                <input type="range" id="intensity-slider" min="1" max="10" value="5" class="ss-range mt-2">
+                                <div class="flex justify-between text-xs text-gray-600 font-bold mt-1">
+                                    <span>Mild</span>
+                                    <span>Overwhelming</span>
+                                </div>
+                            </div>
+                            
+                            <button id="btn-initiate" class="w-full mt-4 bg-brand-accent hover:bg-red-700 text-white font-black text-sm md:text-base py-4 rounded-xl uppercase tracking-[0.15em] transition-all flex justify-center items-center gap-3 shadow-[0_0_20px_rgba(229,9,20,0.3)] hover:shadow-[0_0_30px_rgba(229,9,20,0.5)] focus:outline-none">
+                                <i data-lucide="shield" class="w-5 h-5"></i>
+                                Initiate Cognitive Reframe
+                            </button>
+                        </div>
+
+                        <!-- Center: Shield Visualization Canvas -->
+                        <div class="w-full flex flex-col items-center justify-center py-8">
+                            <div id="orb-wrapper" class="orb-pulse-container" style="--shield-scale: 0.8; --shield-glow: rgba(229,9,20,0.1);">
+                                <canvas id="shield-canvas" width="240" height="240" class="dynamic-pulse"></canvas>
+                            </div>
+                            <p id="shield-status-text" class="mt-6 text-gray-500 font-forensic text-xs tracking-[0.3em] uppercase opacity-70">Awaiting Input Sequence...</p>
+                        </div>
+
+                        <!-- Bottom: Insight & Trend Dashboard -->
+                        <div id="panel-dashboard" class="w-full flex flex-col gap-6 opacity-50 transition-opacity duration-1000">
+                            
+                            <!-- Reframe Result Card -->
+                            <div id="reframe-card" class="w-full bg-[#0a0a0a] border-l-4 border-brand-accent border-y border-r border-white/5 rounded-r-2xl p-6 hidden">
+                                <h3 class="text-brand-accent font-bold text-xs uppercase tracking-widest mb-1 flex items-center gap-2">
+                                    <i data-lucide="radar" class="w-4 h-4"></i> Cognitive Distortion Detected
+                                </h3>
+                                <p id="reframe-type" class="text-white font-black text-lg md:text-xl font-forensic mb-4 tracking-tight">[ANALYZING...]</p>
+                                
+                                <h3 class="text-gray-400 font-bold text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                                    <i data-lucide="cpu" class="w-4 h-4"></i> System Reframe Logic
+                                </h3>
+                                <p id="reframe-text" class="text-gray-200 text-sm md:text-base leading-relaxed font-medium bg-black/40 p-4 rounded-xl border border-white/5">
+                                    <!-- Reframe text injected here -->
+                                </p>
+                            </div>
+
+                            <!-- Metrics Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 flex flex-col justify-between">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> Shield Strength</span>
+                                    <div class="flex items-end gap-2">
+                                        <span id="metric-strength" class="text-3xl font-black text-white font-forensic">10%</span>
+                                        <span class="text-brand-accent text-xs mb-1 font-bold">+0%</span>
+                                    </div>
+                                </div>
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 flex flex-col justify-between">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4"></i> Resilience Streak</span>
+                                    <div class="flex items-end gap-2">
+                                        <span id="metric-streak" class="text-3xl font-black text-white font-forensic">0</span>
+                                        <span class="text-gray-400 text-xs mb-1 font-bold uppercase tracking-widest">Days</span>
+                                    </div>
+                                </div>
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
+                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="trending-down" class="w-4 h-4"></i> Stress Trend</span>
+                                    <!-- Mini Graph Canvas inside metric box -->
+                                    <div class="w-full h-12 mt-2">
+                                        <canvas id="trend-canvas" class="w-full h-full"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap gap-3 mt-2">
+                                <button id="btn-next" class="flex-1 min-w-[140px] bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-widest transition-colors flex justify-center items-center gap-2 focus:outline-none focus:border-brand-accent">
+                                    <i data-lucide="plus-circle" class="w-4 h-4"></i> Next Entry
+                                </button>
+                                <button id="btn-history" class="flex-1 min-w-[140px] bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-widest transition-colors flex justify-center items-center gap-2 focus:outline-none focus:border-brand-accent">
+                                    <i data-lucide="clock" class="w-4 h-4"></i> History
+                                </button>
+                                <button id="btn-reset" class="w-auto bg-transparent hover:bg-brand-accent/20 border border-brand-accent/30 text-brand-accent font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-widest transition-colors flex justify-center items-center gap-2 focus:outline-none">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Hidden History Panel -->
+                            <div id="history-panel" class="hidden w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 mt-2 max-h-64 overflow-y-auto">
+                                <h3 class="text-gray-400 font-bold text-xs uppercase tracking-widest mb-4">Defense Log Archive</h3>
+                                <div id="history-list" class="flex flex-col gap-3">
+                                    <!-- History items injected here -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                menu.style.top = y + 'px'; menu.style.left = x + 'px'; menu.style.display = 'block'; 
+            }
+            return false;
+        };
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) menu.style.display = 'none'; 
+        });
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            if (type === 'error') icon = 'alert-triangle';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden';
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = '';
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            clearInterval(globalRollInterval);
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+        
+        // --- 1. State Management ---
+        const STORAGE_KEY = 'forgenos_stressshield_v1';
+        let appState = {
+            logs: [], 
+            shieldStrength: 10,
+            streak: 0,
+            lastEntryDate: null
+        };
+
+        // Load State
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                appState = JSON.parse(saved);
+                // Basic streak validation (if more than 48 hours passed, reset streak)
+                if(appState.lastEntryDate) {
+                    const lastDate = new Date(appState.lastEntryDate);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - lastDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                    if (diffDays > 2) {
+                        appState.streak = 0;
+                        appState.shieldStrength = Math.max(10, appState.shieldStrength - 20); // Penalty
+                    }
+                }
+            }
+        } catch (e) { console.error("Could not load state", e); }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        }
+
+        // --- 2. Cognitive Reframe Engine (Rule-based NLP) ---
+        const REFRAME_RULES = [
+            { keywords: ["always", "never", "every time", "constantly"], type: "OVERGENERALIZATION", replacement: "This feels permanent right now, but it's a specific instance. I have navigated challenges before." },
+            { keywords: ["worst", "ruined", "disaster", "terrible", "hopeless"], type: "CATASTROPHIZING", replacement: "This situation is difficult, but it's not an absolute catastrophe. I will survive this moment and find a path forward." },
+            { keywords: ["stupid", "idiot", "failure", "loser", "worthless", "can't do anything"], type: "LABELING", replacement: "I am assigning an unfair label to myself based on a single action. My worth is intrinsic and not defined by this." },
+            { keywords: ["must", "should", "have to", "supposed to"], type: "SHOULD STATEMENTS", replacement: "I am placing rigid expectations on reality. I would prefer things to be different, but I accept what is and will adapt." },
+            { keywords: ["they think", "everyone knows", "they hate", "probably thinks"], type: "MIND READING", replacement: "I am assuming the thoughts of others without concrete evidence. I cannot read minds." },
+            { keywords: ["my fault", "blame myself", "because of me"], type: "PERSONALIZATION", replacement: "I am taking total responsibility for a situation that likely has multiple external factors outside my control." }
+        ];
+
+        function analyzeText(text) {
+            let lowerText = text.toLowerCase();
+            let detectedType = "GENERAL COGNITIVE STRAIN";
+            let reframeText = "Acknowledge this psychological pressure, but remember your baseline resilience. Focus strictly on variables within your immediate control.";
+
+            for (const rule of REFRAME_RULES) {
+                if (rule.keywords.some(kw => lowerText.includes(kw))) {
+                    detectedType = rule.type;
+                    reframeText = rule.replacement;
+                    break;
+                }
+            }
+            return { type: detectedType, text: reframeText };
+        }
+
+        // --- 3. UI Logic & DOM Elements ---
+        const DOM = {
+            inputPanel: document.getElementById('panel-input'),
+            stressInput: document.getElementById('stress-input'),
+            intensitySlider: document.getElementById('intensity-slider'),
+            intensityVal: document.getElementById('intensity-val'),
+            btnInitiate: document.getElementById('btn-initiate'),
+            
+            dashboard: document.getElementById('panel-dashboard'),
+            reframeCard: document.getElementById('reframe-card'),
+            reframeType: document.getElementById('reframe-type'),
+            reframeText: document.getElementById('reframe-text'),
+            
+            metricStrength: document.getElementById('metric-strength'),
+            metricStreak: document.getElementById('metric-streak'),
+            
+            btnNext: document.getElementById('btn-next'),
+            btnHistory: document.getElementById('btn-history'),
+            btnReset: document.getElementById('btn-reset'),
+            historyPanel: document.getElementById('history-panel'),
+            historyList: document.getElementById('history-list'),
+
+            shieldCanvas: document.getElementById('shield-canvas'),
+            trendCanvas: document.getElementById('trend-canvas'),
+            orbWrapper: document.getElementById('orb-wrapper'),
+            shieldStatusText: document.getElementById('shield-status-text')
+        };
+
+        // Slider listener
+        DOM.intensitySlider.addEventListener('input', (e) => {
+            DOM.intensityVal.innerText = `${e.target.value}/10`;
+            if(e.target.value > 7) DOM.intensityVal.style.color = '#E50914';
+            else DOM.intensityVal.style.color = '#e5e5e5';
+        });
+
+        // Update Dashboard Data visually
+        function updateDashboardUI(animating = false) {
+            DOM.metricStrength.innerText = `${Math.floor(appState.shieldStrength)}%`;
+            DOM.metricStreak.innerText = appState.streak;
+            
+            // Adjust shield visuals based on strength
+            let scale = 0.8 + (appState.shieldStrength / 300); // 0.8 to ~1.13
+            let glowAlpha = Math.min(0.8, 0.1 + (appState.shieldStrength / 150));
+            DOM.orbWrapper.style.setProperty('--shield-scale', scale);
+            DOM.orbWrapper.style.setProperty('--shield-glow', `rgba(229, 9, 20, ${glowAlpha})`);
+
+            if(appState.shieldStrength > 80) DOM.shieldStatusText.innerText = "SHIELD MAXIMUM PROTOCOL ACTIVE";
+            else if(appState.shieldStrength > 40) DOM.shieldStatusText.innerText = "DEFENSES REINFORCED";
+            else DOM.shieldStatusText.innerText = "SHIELD COMPROMISED. REQUIRES INPUT.";
+
+            drawTrendGraph();
+        }
+
+        // Initiate Reframe Action
+        DOM.btnInitiate.addEventListener('click', () => {
+            const text = DOM.stressInput.value.trim();
+            const intensity = parseInt(DOM.intensitySlider.value);
+
+            if (!text) {
+                showToast("Cognitive log cannot be empty.", "error");
+                return;
+            }
+
+            // Global Loading Sequence
+            showToolLoading([
+                'Capturing emotional input...',
+                'Analyzing cognitive distortions...',
+                'Generating reframing logic...',
+                'Reinforcing mental shield...'
+            ], 1200);
+
+            // Simulate Processing
+            setTimeout(() => {
+                processLog(text, intensity);
+                hideToolLoading();
+                revealResults();
+            }, 3600);
+        });
+
+        function processLog(text, intensity) {
+            // Analyze
+            const analysis = analyzeText(text);
+            
+            // Calculate Logic
+            const today = new Date().toDateString();
+            const lastLogDate = appState.lastEntryDate ? new Date(appState.lastEntryDate).toDateString() : null;
+            
+            let strengthGain = 5; // Base gain
+            if (intensity < 5) strengthGain += 3; // Bonus for low intensity 
+            if (intensity >= 8) strengthGain += 1; // Minimal gain for high stress, but still rewarded for logging
+            
+            // Streak Logic
+            if (today !== lastLogDate) {
+                appState.streak += 1;
+                appState.shieldStrength = Math.min(100, appState.shieldStrength + strengthGain);
+            } else {
+                // Already logged today, minor boost
+                appState.shieldStrength = Math.min(100, appState.shieldStrength + (strengthGain * 0.5));
+            }
+
+            // Save Entry
+            const entry = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                text: text,
+                intensity: intensity,
+                type: analysis.type,
+                reframe: analysis.text
+            };
+            appState.logs.unshift(entry);
+            if (appState.logs.length > 50) appState.logs.pop(); // Keep last 50
+            appState.lastEntryDate = new Date().toISOString();
+            
+            saveState();
+
+            // Setup View
+            DOM.reframeType.innerText = analysis.type;
+            DOM.reframeText.innerText = analysis.text;
+        }
+
+        function revealResults() {
+            DOM.stressInput.value = '';
+            DOM.intensitySlider.value = 5;
+            DOM.intensityVal.innerText = '5/10';
+            DOM.intensityVal.style.color = '#e5e5e5';
+
+            DOM.inputPanel.classList.add('opacity-50');
+            // Hide input visually but keep structure or just collapse
+            gsap.to(DOM.inputPanel, {height: 0, opacity: 0, margin: 0, padding: 0, overflow: 'hidden', duration: 0.5});
+            
+            DOM.dashboard.classList.remove('opacity-50');
+            DOM.reframeCard.classList.remove('hidden');
+
+            updateDashboardUI(true);
+            
+            // Shield pop animation
+            gsap.fromTo(DOM.orbWrapper, 
+                { scale: 0.5, filter: 'brightness(2)' }, 
+                { scale: 1, filter: 'brightness(1)', duration: 1, ease: "elastic.out(1, 0.5)" }
+            );
+
+            showToast("Defense shield successfully reinforced.", "success");
+        }
+
+        // Secondary Actions
+        DOM.btnNext.addEventListener('click', () => {
+            gsap.to(DOM.inputPanel, {height: 'auto', opacity: 1, padding: '1.5rem', duration: 0.5});
+            DOM.reframeCard.classList.add('hidden');
+            DOM.historyPanel.classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        DOM.btnHistory.addEventListener('click', () => {
+            renderHistory();
+            DOM.historyPanel.classList.toggle('hidden');
+        });
+
+        DOM.btnReset.addEventListener('click', () => {
+            if(confirm("Warning: This will reset your shield and streak data. Proceed?")) {
+                appState = { logs: [], shieldStrength: 10, streak: 0, lastEntryDate: null };
+                saveState();
+                updateDashboardUI();
+                DOM.historyPanel.classList.add('hidden');
+                showToast("System purged.", "normal");
+            }
+        });
+
+        function renderHistory() {
+            DOM.historyList.innerHTML = '';
+            if (appState.logs.length === 0) {
+                DOM.historyList.innerHTML = '<p class="text-gray-600 text-sm font-forensic">No data records found in sector.</p>';
+                return;
+            }
+            appState.logs.slice(0, 10).forEach(log => {
+                const dateObj = new Date(log.date);
+                const timeStr = `${dateObj.getMonth()+1}/${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+                const div = document.createElement('div');
+                div.className = "bg-white/5 border border-white/5 rounded-xl p-3 flex flex-col gap-1";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center w-full">
+                        <span class="text-xs text-brand-accent font-bold font-forensic">[${log.type}]</span>
+                        <span class="text-[10px] text-gray-500 font-forensic">${timeStr} | LVL: ${log.intensity}</span>
+                    </div>
+                    <p class="text-gray-300 text-xs italic truncate">"${log.text}"</p>
+                `;
+                DOM.historyList.appendChild(div);
+            });
+        }
+
+        // --- 4. Canvas Visualizations ---
+
+        // Central Shield Drawing
+        const ctxShield = DOM.shieldCanvas.getContext('2d');
+        function drawShieldCanvas() {
+            ctxShield.clearRect(0, 0, 240, 240);
+            const cx = 120; const cy = 120;
+            
+            const time = Date.now() / 1000;
+            const strRatio = appState.shieldStrength / 100;
+            
+            // Inner dark core
+            ctxShield.beginPath();
+            ctxShield.arc(cx, cy, 60, 0, Math.PI * 2);
+            ctxShield.fillStyle = '#050505';
+            ctxShield.fill();
+            
+            // Hexagon Layer
+            ctxShield.beginPath();
+            const hexRadius = 75 + (Math.sin(time * 2) * 2);
+            for(let i=0; i<6; i++) {
+                const angle = (Math.PI / 3) * i - (time * 0.2); // Slow rotation
+                const hx = cx + Math.cos(angle) * hexRadius;
+                const hy = cy + Math.sin(angle) * hexRadius;
+                if(i===0) ctxShield.moveTo(hx, hy);
+                else ctxShield.lineTo(hx, hy);
+            }
+            ctxShield.closePath();
+            ctxShield.lineWidth = 2;
+            ctxShield.strokeStyle = `rgba(229, 9, 20, ${0.3 + (strRatio * 0.5)})`;
+            ctxShield.stroke();
+
+            // Cyber tech rings
+            ctxShield.beginPath();
+            ctxShield.arc(cx, cy, 95, time * 0.5, time * 0.5 + Math.PI * 1.5);
+            ctxShield.lineWidth = 1;
+            ctxShield.strokeStyle = `rgba(255, 255, 255, ${0.1 + (strRatio * 0.2)})`;
+            ctxShield.stroke();
+
+            ctxShield.beginPath();
+            ctxShield.arc(cx, cy, 105, -time * 0.8, -time * 0.8 + Math.PI);
+            ctxShield.lineWidth = 3;
+            // Dotted effect
+            ctxShield.setLineDash([5, 15]);
+            ctxShield.strokeStyle = `rgba(229, 9, 20, ${strRatio})`;
+            ctxShield.stroke();
+            ctxShield.setLineDash([]); // reset
+
+            requestAnimationFrame(drawShieldCanvas);
+        }
+
+        // Mini Trend Graph
+        const ctxTrend = DOM.trendCanvas.getContext('2d');
+        function drawTrendGraph() {
+            // Need to set correct internal resolution
+            const rect = DOM.trendCanvas.parentElement.getBoundingClientRect();
+            DOM.trendCanvas.width = rect.width;
+            DOM.trendCanvas.height = rect.height;
+
+            const w = DOM.trendCanvas.width;
+            const h = DOM.trendCanvas.height;
+            ctxTrend.clearRect(0, 0, w, h);
+
+            if (appState.logs.length < 2) {
+                ctxTrend.fillStyle = '#333';
+                ctxTrend.font = '10px Courier New';
+                ctxTrend.fillText('INSUFFICIENT DATA', 10, h/2 + 3);
+                return;
+            }
+
+            // Get last 7 days intensities
+            const recent = appState.logs.slice(0, 7).reverse();
+            
+            ctxTrend.beginPath();
+            const stepX = w / (recent.length - 1 || 1);
+            
+            recent.forEach((log, index) => {
+                const x = index * stepX;
+                // intensity 1-10 mapped to height
+                const normalizedY = h - ((log.intensity / 10) * (h - 10)); 
+                
+                if (index === 0) ctxTrend.moveTo(x, normalizedY);
+                else ctxTrend.lineTo(x, normalizedY);
+            });
+
+            ctxTrend.strokeStyle = '#E50914';
+            ctxTrend.lineWidth = 2;
+            ctxTrend.lineJoin = 'round';
+            ctxTrend.stroke();
+
+            // Add gradient fill under line
+            ctxTrend.lineTo(w, h);
+            ctxTrend.lineTo(0, h);
+            ctxTrend.closePath();
+            const gradient = ctxTrend.createLinearGradient(0, 0, 0, h);
+            gradient.addColorStop(0, 'rgba(229, 9, 20, 0.3)');
+            gradient.addColorStop(1, 'rgba(229, 9, 20, 0)');
+            ctxTrend.fillStyle = gradient;
+            ctxTrend.fill();
+        }
+
+        // Handle Window Resize for Graph
+        window.addEventListener('resize', () => {
+            if(!DOM.dashboard.classList.contains('hidden')) drawTrendGraph();
+        });
+
+        // Init
+        updateDashboardUI();
+        drawShieldCanvas(); // Start animation loop
+        
+        // Show dashboard if we have logs on load
+        if(appState.logs.length > 0) {
+            DOM.dashboard.classList.remove('opacity-50');
+            DOM.dashboard.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>

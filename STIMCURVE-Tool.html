@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool ka naam yahan change karein -->
+    <title>STIMCURVE | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* --- STIMCURVE CUSTOM CSS --- */
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Pulsing Central Orb Animation */
+        @keyframes pulse-orb {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--orb-color, rgba(229, 9, 20, 0.2)); }
+            50% { transform: scale(1.1); box-shadow: 0 0 25px var(--orb-color, rgba(229, 9, 20, 0.6)); }
+            100% { transform: scale(1); box-shadow: 0 0 10px var(--orb-color, rgba(229, 9, 20, 0.2)); }
+        }
+        
+        .status-orb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse-orb 2s infinite ease-in-out;
+            background-color: var(--orb-color, #a3a3a3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTUwOTE0IiBzdHJva2Utd2lkdGg9IjIiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAyIDIyIDIyIDIyIi8+PC9zdmc+'">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTUwOTE0IiBzdHJva2Utd2lkdGg9IjIiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAyIDIyIDIyIDIyIi8+PC9zdmc+'">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTUwOTE0IiBzdHJva2Utd2lkdGg9IjIiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiAyIDIyIDIyIDIyIi8+PC9zdmc+'">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none uppercase flex items-center gap-4">
+                        <i data-lucide="activity" class="w-10 h-10 text-brand-accent hidden md:block"></i>
+                        STIMCURVE
+                    </h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Caffeine Decay Intelligence Engine. Simulate systemic metabolic decay to map neural stimulant persistence and protect sleep architecture.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-transparent">
+                    
+                    <!-- INPUT CONTROL PANEL -->
+                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                        
+                        <!-- Input 1: Intake Time -->
+                        <div class="glass-panel rounded-2xl p-5 flex flex-col gap-3 group transition-colors hover:border-white/20">
+                            <label class="text-xs font-bold text-gray-500 tracking-widest uppercase flex items-center gap-2">
+                                <i data-lucide="clock" class="w-4 h-4 text-brand-accent"></i> Intake Time
+                            </label>
+                            <input type="time" id="input-intake-time" value="08:00" class="w-full bg-transparent border-b-2 border-white/10 focus:border-brand-accent outline-none text-white text-3xl font-light pb-2 transition-colors font-mono" />
+                        </div>
+
+                        <!-- Input 2: Caffeine Amount -->
+                        <div class="glass-panel rounded-2xl p-5 flex flex-col gap-3 group transition-colors hover:border-white/20 relative">
+                            <label class="text-xs font-bold text-gray-500 tracking-widest uppercase flex items-center gap-2">
+                                <i data-lucide="activity" class="w-4 h-4 text-brand-accent"></i> Caffeine Dose (mg)
+                            </label>
+                            <div class="relative w-full">
+                                <input type="number" id="input-dose" value="150" min="10" max="1000" class="w-full bg-transparent border-b-2 border-white/10 focus:border-brand-accent outline-none text-white text-3xl font-light pb-2 transition-colors font-mono appearance-none" />
+                                <span class="absolute right-0 bottom-3 text-gray-600 font-bold text-sm">mg</span>
+                            </div>
+                        </div>
+
+                        <!-- Input 3: Target Bedtime -->
+                        <div class="glass-panel rounded-2xl p-5 flex flex-col gap-3 group transition-colors hover:border-white/20">
+                            <label class="text-xs font-bold text-gray-500 tracking-widest uppercase flex items-center gap-2">
+                                <i data-lucide="moon" class="w-4 h-4 text-[#4a90e2]"></i> Target Bedtime
+                            </label>
+                            <input type="time" id="input-bedtime" value="22:30" class="w-full bg-transparent border-b-2 border-white/10 focus:border-[#4a90e2] outline-none text-white text-3xl font-light pb-2 transition-colors font-mono" />
+                        </div>
+
+                    </div>
+
+                    <!-- ACTION BUTTON -->
+                    <button id="btn-initiate" class="w-full bg-brand-accent hover:bg-red-700 text-white font-black text-lg py-5 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(229,9,20,0.3)] hover:shadow-[0_0_40px_rgba(229,9,20,0.6)] flex items-center justify-center gap-3 uppercase tracking-widest active:scale-[0.98]">
+                        <i data-lucide="zap" class="w-5 h-5"></i> Initiate Stimulation Analysis
+                    </button>
+
+                    <!-- RESULTS DASHBOARD (Hidden by Default) -->
+                    <div id="results-dashboard" class="w-full hidden flex-col mt-12 gap-8 opacity-0 transition-opacity duration-1000">
+                        
+                        <div class="flex items-center justify-between w-full border-b border-white/10 pb-4">
+                            <h3 class="text-xl font-bold uppercase tracking-widest text-white flex items-center gap-3">
+                                <i data-lucide="bar-chart-2" class="w-5 h-5 text-brand-accent"></i> Decay Projection
+                            </h3>
+                            <div class="flex gap-4">
+                                <button onclick="resetSimulation()" class="text-gray-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-bold">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+                                </button>
+                                <button onclick="exportData()" class="text-gray-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-bold">
+                                    <i data-lucide="download" class="w-4 h-4"></i> Export
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MAIN CANVAS CONTAINER -->
+                        <div class="w-full h-[350px] md:h-[450px] glass-panel grid-bg rounded-3xl relative overflow-hidden border border-white/10">
+                            <!-- Overlay labels -->
+                            <div class="absolute top-4 left-4 text-xs font-mono text-gray-500">CONCENTRATION (mg)</div>
+                            <div class="absolute bottom-4 right-4 text-xs font-mono text-gray-500">TIME (HOURS)</div>
+                            
+                            <canvas id="decay-chart" class="w-full h-full block absolute inset-0"></canvas>
+                        </div>
+
+                        <!-- INSIGHT METRICS PANEL -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            
+                            <!-- Metric 1: Bedtime Active Level -->
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between border-l-4 border-l-brand-accent">
+                                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Active at Bedtime</p>
+                                <div class="mt-4 flex items-end gap-2">
+                                    <span id="metric-bedtime-mg" class="text-5xl font-black text-white font-mono leading-none">0</span>
+                                    <span class="text-gray-500 font-bold mb-1">mg</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2: Half-lives passed -->
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between">
+                                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Half-Life Cycles</p>
+                                <div class="mt-4 flex items-end gap-2">
+                                    <span id="metric-cycles" class="text-5xl font-black text-white font-mono leading-none">0.0</span>
+                                    <span class="text-gray-500 font-bold mb-1">cycles</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3: Sleep Risk Orb -->
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden">
+                                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Sleep Architecture Risk</p>
+                                <div class="mt-4 flex items-center gap-4">
+                                    <div id="risk-orb" class="status-orb" style="--orb-color: #a3a3a3;"></div>
+                                    <span id="metric-risk" class="text-3xl font-black text-white uppercase tracking-wider">UNKNOWN</span>
+                                </div>
+                                <div id="risk-glow-bg" class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/5 blur-3xl rounded-full pointer-events-none transition-colors duration-1000"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden';
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = '';
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+            
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+        
+        const CAFFEINE_HALF_LIFE_HOURS = 5;
+        let chartData = null; // Store data for export
+        let animationId = null;
+
+        // Utility: Convert HH:MM to total minutes
+        function timeToMinutes(timeStr) {
+            const [h, m] = timeStr.split(':').map(Number);
+            return h * 60 + m;
+        }
+
+        // Utility: Format minutes to HH:MM label
+        function minutesToTime(mins) {
+            mins = mins % (24 * 60);
+            if(mins < 0) mins += 24 * 60;
+            const h = Math.floor(mins / 60).toString().padStart(2, '0');
+            const m = Math.floor(mins % 60).toString().padStart(2, '0');
+            return `${h}:${m}`;
+        }
+
+        // Exponential Decay Math
+        function calculateDecay(initialDose, hoursElapsed) {
+            if (hoursElapsed < 0) return 0;
+            return initialDose * Math.pow(0.5, hoursElapsed / CAFFEINE_HALF_LIFE_HOURS);
+        }
+
+        document.getElementById('btn-initiate').addEventListener('click', runSimulation);
+
+        function runSimulation() {
+            const dose = parseFloat(document.getElementById('input-dose').value);
+            const intakeTimeStr = document.getElementById('input-intake-time').value;
+            const bedtimeStr = document.getElementById('input-bedtime').value;
+
+            if (isNaN(dose) || dose <= 0) {
+                showToast('Please enter a valid caffeine dose.', 'error');
+                return;
+            }
+            if (!intakeTimeStr || !bedtimeStr) {
+                showToast('Please set both intake and target bedtime.', 'error');
+                return;
+            }
+
+            // Save to localStorage
+            localStorage.setItem('stimcurve_dose', dose);
+            localStorage.setItem('stimcurve_intake', intakeTimeStr);
+            localStorage.setItem('stimcurve_bedtime', bedtimeStr);
+
+            // Trigger Cinematic Loading
+            showToolLoading([
+                'Modeling metabolic decay...', 
+                'Calculating half-life reduction...', 
+                'Projecting stimulant persistence...', 
+                'Rendering neural impact curve...'
+            ], 900);
+
+            // Hide existing dash if visible
+            const dash = document.getElementById('results-dashboard');
+            dash.classList.remove('flex');
+            dash.classList.add('hidden', 'opacity-0');
+
+            // Simulate Processing Delay
+            setTimeout(() => {
+                hideToolLoading();
+                
+                // 1. Reveal Dashboard DOM first so Canvas gets actual Width/Height
+                dash.classList.remove('hidden');
+                dash.classList.add('flex');
+                
+                // 2. Wait for DOM layout to update, then process & draw the chart
+                requestAnimationFrame(() => {
+                    processData(dose, intakeTimeStr, bedtimeStr);
+                    
+                    // 3. Fade in smoothly after rendering
+                    setTimeout(() => dash.classList.remove('opacity-0'), 50);
+                });
+                
+                showToast('Simulation complete.', 'success');
+            }, 3800);
+        }
+
+        function processData(initialDose, intakeTimeStr, bedtimeStr) {
+            const intakeMins = timeToMinutes(intakeTimeStr);
+            let bedtimeMins = timeToMinutes(bedtimeStr);
+            
+            // Handle overnight bedtime (e.g. intake 20:00, sleep 02:00)
+            if (bedtimeMins < intakeMins) {
+                bedtimeMins += 24 * 60; 
+            }
+
+            const totalSimulationHours = 24; // Plot a full 24h curve from intake
+            const dataPoints = [];
+            
+            for(let min = 0; min <= totalSimulationHours * 60; min += 15) { // every 15 mins
+                const currentMinsAbs = intakeMins + min;
+                const hoursElapsed = min / 60;
+                const currentDose = calculateDecay(initialDose, hoursElapsed);
+                
+                dataPoints.push({
+                    minutesElapsed: min,
+                    absoluteMinutes: currentMinsAbs,
+                    timeLabel: minutesToTime(currentMinsAbs),
+                    caffeineMg: currentDose
+                });
+            }
+
+            // Calculate exact bedtime stats
+            const hoursToBedtime = (bedtimeMins - intakeMins) / 60;
+            const mgAtBedtime = calculateDecay(initialDose, hoursToBedtime);
+            const cyclesPassed = hoursToBedtime / CAFFEINE_HALF_LIFE_HOURS;
+
+            chartData = {
+                dataPoints,
+                initialDose,
+                bedtimeMins,
+                hoursToBedtime,
+                mgAtBedtime,
+                intakeTimeStr,
+                bedtimeStr
+            };
+
+            updateMetrics(mgAtBedtime, cyclesPassed);
+            drawCanvas(chartData);
+        }
+
+        function updateMetrics(mgAtBedtime, cycles) {
+            // Update Numbers
+            document.getElementById('metric-bedtime-mg').textContent = mgAtBedtime.toFixed(1);
+            document.getElementById('metric-cycles').textContent = cycles.toFixed(2);
+
+            // Sleep Risk Logic
+            const riskEl = document.getElementById('metric-risk');
+            const orbEl = document.getElementById('risk-orb');
+            const glowEl = document.getElementById('risk-glow-bg');
+            
+            let riskLevel = "LOW";
+            let color = "#10B981"; // Green
+
+            if (mgAtBedtime > 50) {
+                riskLevel = "CRITICAL";
+                color = "#E50914"; // Brand Red
+                orbEl.style.animationDuration = "0.8s"; // Fast pulse
+            } else if (mgAtBedtime > 20) {
+                riskLevel = "MODERATE";
+                color = "#F59E0B"; // Amber
+                orbEl.style.animationDuration = "1.5s";
+            } else {
+                riskLevel = "OPTIMAL";
+                color = "#10B981";
+                orbEl.style.animationDuration = "3s"; // Slow pulse
+            }
+
+            riskEl.textContent = riskLevel;
+            riskEl.style.color = color;
+            orbEl.style.setProperty('--orb-color', color);
+            glowEl.style.backgroundColor = color;
+            glowEl.style.opacity = "0.15";
+        }
+
+        function drawCanvas(data) {
+            const canvas = document.getElementById('decay-chart');
+            const ctx = canvas.getContext('2d');
+            
+            // Set High-DPI Canvas Size
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            
+            const w = rect.width;
+            const h = rect.height;
+            
+            // Margins
+            const padding = { top: 40, right: 30, bottom: 40, left: 60 };
+            const graphW = w - padding.left - padding.right;
+            const graphH = h - padding.top - padding.bottom;
+
+            const maxCaffeine = data.initialDose * 1.1; // 10% headroom
+            const maxTimeMins = 24 * 60; // 24 hours plotted
+            
+            // Helper coordinate functions
+            const getX = (mins) => padding.left + (mins / maxTimeMins) * graphW;
+            const getY = (mg) => padding.top + graphH - ((mg / maxCaffeine) * graphH);
+
+            if(animationId) cancelAnimationFrame(animationId);
+
+            let progress = 0;
+            const duration = 1500; // 1.5s animation
+            const startTime = performance.now();
+
+            function renderFrame(time) {
+                let timeFraction = (time - startTime) / duration;
+                if (timeFraction > 1) timeFraction = 1;
+                
+                // Ease out cubic
+                progress = 1 - Math.pow(1 - timeFraction, 3);
+
+                ctx.clearRect(0, 0, w, h);
+
+                // 1. Draw Axis & Grid
+                ctx.beginPath();
+                ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                ctx.lineWidth = 1;
+                // X axis
+                ctx.moveTo(padding.left, h - padding.bottom);
+                ctx.lineTo(w - padding.right, h - padding.bottom);
+                // Y axis
+                ctx.moveTo(padding.left, padding.top);
+                ctx.lineTo(padding.left, h - padding.bottom);
+                ctx.stroke();
+
+                // Y-Axis Labels (MG)
+                ctx.fillStyle = "rgba(255,255,255,0.4)";
+                ctx.font = "10px Courier New";
+                ctx.textAlign = "right";
+                ctx.textBaseline = "middle";
+                const ySteps = 4;
+                for(let i=0; i<=ySteps; i++) {
+                    const mgVal = (maxCaffeine / ySteps) * i;
+                    const yPos = getY(mgVal);
+                    ctx.fillText(Math.round(mgVal), padding.left - 10, yPos);
+                    // subtle horizontal grid line
+                    if(i>0) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = "rgba(255,255,255,0.03)";
+                        ctx.moveTo(padding.left, yPos);
+                        ctx.lineTo(w - padding.right, yPos);
+                        ctx.stroke();
+                    }
+                }
+
+                // X-Axis Labels (Time)
+                ctx.textAlign = "center";
+                ctx.textBaseline = "top";
+                // Plot every 4 hours
+                for(let i=0; i<=24; i+=4) {
+                    const minVal = i * 60;
+                    const xPos = getX(minVal);
+                    // find absolute time for label
+                    const targetDataPoint = data.dataPoints.find(dp => dp.minutesElapsed >= minVal);
+                    if(targetDataPoint) {
+                        ctx.fillText(targetDataPoint.timeLabel, xPos, h - padding.bottom + 10);
+                        // subtle vertical tick
+                        ctx.beginPath();
+                        ctx.strokeStyle = "rgba(255,255,255,0.2)";
+                        ctx.moveTo(xPos, h - padding.bottom);
+                        ctx.lineTo(xPos, h - padding.bottom + 4);
+                        ctx.stroke();
+                    }
+                }
+
+                // 2. Draw Target Bedtime Marker
+                const bedtimeElapsedMins = data.bedtimeMins - timeToMinutes(data.intakeTimeStr);
+                const actualBedtimeMins = bedtimeElapsedMins < 0 ? bedtimeElapsedMins + (24*60) : bedtimeElapsedMins;
+                
+                if (actualBedtimeMins <= maxTimeMins) {
+                    const bX = getX(actualBedtimeMins);
+                    ctx.beginPath();
+                    ctx.setLineDash([4, 4]);
+                    ctx.strokeStyle = "#4a90e2";
+                    ctx.lineWidth = 2;
+                    ctx.moveTo(bX, padding.top);
+                    ctx.lineTo(bX, h - padding.bottom);
+                    ctx.stroke();
+                    ctx.setLineDash([]); // reset
+
+                    // Label Bedtime
+                    ctx.fillStyle = "#4a90e2";
+                    ctx.textAlign = "left";
+                    ctx.fillText("BEDTIME", bX + 8, padding.top + 10);
+                }
+
+                // 3. Draw The Decay Curve (Animated)
+                const pointsToDraw = Math.floor(data.dataPoints.length * progress);
+                
+                if (pointsToDraw > 0) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "#E50914"; // Brand Red Neon
+                    ctx.lineWidth = 3;
+                    ctx.lineJoin = 'round';
+                    
+                    ctx.moveTo(getX(data.dataPoints[0].minutesElapsed), getY(data.dataPoints[0].caffeineMg));
+                    
+                    for(let i = 1; i < pointsToDraw; i++) {
+                        ctx.lineTo(getX(data.dataPoints[i].minutesElapsed), getY(data.dataPoints[i].caffeineMg));
+                    }
+                    ctx.stroke();
+
+                    // Glow Effect
+                    ctx.shadowColor = "rgba(229, 9, 20, 0.8)";
+                    ctx.shadowBlur = 15;
+                    ctx.stroke();
+                    ctx.shadowBlur = 0; // reset
+
+                    // Fill Gradient Under Curve
+                    if(progress === 1) {
+                        const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
+                        gradient.addColorStop(0, "rgba(229, 9, 20, 0.2)");
+                        gradient.addColorStop(1, "rgba(229, 9, 20, 0.0)");
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(getX(data.dataPoints[0].minutesElapsed), h - padding.bottom); // start at bottom left
+                        ctx.lineTo(getX(data.dataPoints[0].minutesElapsed), getY(data.dataPoints[0].caffeineMg)); // up to first point
+                        
+                        for(let i = 1; i < pointsToDraw; i++) {
+                            ctx.lineTo(getX(data.dataPoints[i].minutesElapsed), getY(data.dataPoints[i].caffeineMg));
+                        }
+                        
+                        ctx.lineTo(getX(data.dataPoints[pointsToDraw-1].minutesElapsed), h - padding.bottom); // down to bottom
+                        ctx.closePath();
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+                        
+                        // Draw point at Bedtime intersection
+                        if (actualBedtimeMins <= maxTimeMins) {
+                            const bX = getX(actualBedtimeMins);
+                            const bY = getY(data.mgAtBedtime);
+                            
+                            ctx.beginPath();
+                            ctx.arc(bX, bY, 6, 0, Math.PI * 2);
+                            ctx.fillStyle = "#141414";
+                            ctx.fill();
+                            ctx.lineWidth = 3;
+                            ctx.strokeStyle = "#E50914";
+                            ctx.stroke();
+
+                            // Value box at intersection
+                            ctx.fillStyle = "rgba(20,20,20,0.9)";
+                            ctx.fillRect(bX + 10, bY - 15, 60, 24);
+                            ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                            ctx.strokeRect(bX + 10, bY - 15, 60, 24);
+                            ctx.fillStyle = "#fff";
+                            ctx.textAlign = "center";
+                            ctx.textBaseline = "middle";
+                            ctx.font = "bold 12px Courier New";
+                            ctx.fillText(data.mgAtBedtime.toFixed(0) + "mg", bX + 40, bY - 3);
+                        }
+                    }
+                }
+
+                if (timeFraction < 1) {
+                    animationId = requestAnimationFrame(renderFrame);
+                }
+            }
+
+            animationId = requestAnimationFrame(renderFrame);
+        }
+
+        // Handle Window Resize for Canvas
+        window.addEventListener('resize', () => {
+            if(chartData && document.getElementById('results-dashboard').classList.contains('flex')) {
+                // simple debounce
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(() => drawCanvas(chartData), 100);
+            }
+        });
+
+        // Load Persisted Data
+        window.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('stimcurve_dose')) {
+                document.getElementById('input-dose').value = localStorage.getItem('stimcurve_dose');
+            }
+            if(localStorage.getItem('stimcurve_intake')) {
+                document.getElementById('input-intake-time').value = localStorage.getItem('stimcurve_intake');
+            }
+            if(localStorage.getItem('stimcurve_bedtime')) {
+                document.getElementById('input-bedtime').value = localStorage.getItem('stimcurve_bedtime');
+            }
+        });
+
+        function resetSimulation() {
+            document.getElementById('input-dose').value = "150";
+            document.getElementById('input-intake-time').value = "08:00";
+            document.getElementById('input-bedtime').value = "22:30";
+            
+            const dash = document.getElementById('results-dashboard');
+            dash.classList.remove('flex');
+            dash.classList.add('hidden', 'opacity-0');
+            chartData = null;
+            
+            showToast('Parameters reset to default.', 'info');
+        }
+
+        function exportData() {
+            if(!chartData) return;
+            const csvRows = [
+                ['Time_Relative_Mins', 'Clock_Time', 'Caffeine_Active_mg']
+            ];
+            
+            chartData.dataPoints.forEach(row => {
+                csvRows.push([row.minutesElapsed, row.timeLabel, row.caffeineMg.toFixed(2)]);
+            });
+            
+            const csvString = csvRows.map(e => e.join(",")).join("\n");
+            const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `stimcurve_export_${new Date().getTime()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Data exported successfully.', 'success');
+        }
+
+    </script>
+</body>
+</html>

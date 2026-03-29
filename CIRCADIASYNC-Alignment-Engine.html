@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Tool Name Updated -->
+    <title>CIRCADIASYNC | FORGENOS</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* =========================================
+           TOOL SPECIFIC STYLES
+           ========================================= */
+        :root {
+            --wealth-momentum: 1.05;
+        }
+        
+        @keyframes orb-pulse-keyframe {
+            0% { box-shadow: 0 0 15px rgba(229, 9, 20, 0.1); transform: scale(1); }
+            50% { box-shadow: 0 0 50px rgba(229, 9, 20, 0.3); transform: scale(var(--wealth-momentum)); }
+            100% { box-shadow: 0 0 15px rgba(229, 9, 20, 0.1); transform: scale(1); }
+        }
+        
+        .orb-pulse { 
+            animation: orb-pulse-keyframe 4s infinite ease-in-out; 
+        }
+        .orb-pulse-active { 
+            animation: orb-pulse-keyframe 2s infinite ease-in-out; 
+        }
+        
+        .font-tech { 
+            font-family: 'Courier New', Courier, monospace; 
+            letter-spacing: 0.05em;
+        }
+        
+        /* Time Input Dark Theme Override */
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.4;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+            <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">CIRCADIASYNC</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Chronobiology Alignment Engine. Synchronize your lifestyle protocols and routines dynamically with your natural circadian rhythms.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-transparent">
+                    
+                    <!-- View 1: Setup Protocol -->
+                    <div id="setup-view" class="w-full flex flex-col lg:flex-row items-center justify-center gap-12 py-10">
+                        
+                        <!-- Visual Pulse Element -->
+                        <div class="relative w-56 h-56 flex items-center justify-center rounded-full border border-white/5 bg-[#0a0a0a] shadow-[0_0_30px_rgba(229,9,20,0.1)] orb-pulse shrink-0">
+                            <i data-lucide="watch" class="w-20 h-20 text-brand-accent opacity-90"></i>
+                            <div class="absolute inset-0 rounded-full border border-brand-accent/20 animate-ping" style="animation-duration: 3s;"></div>
+                        </div>
+
+                        <!-- Input Engine Panel -->
+                        <div class="w-full max-w-md bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden group hover:border-white/10 transition-colors">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-50"></div>
+                            
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                                <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-accent"></i> System Calibration
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-gray-500 text-xs font-bold mb-3 uppercase tracking-widest flex justify-between">
+                                        Base Wake Time
+                                        <span class="text-brand-accent/70">+0h Anchor</span>
+                                    </label>
+                                    <div class="relative group-focus-within:shadow-[0_0_20px_rgba(229,9,20,0.1)] transition-shadow rounded-xl">
+                                        <input type="time" id="wake-time-input" class="w-full bg-[#141414] text-white border border-white/10 rounded-xl py-4 px-4 pl-12 outline-none focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-all font-tech text-xl" value="06:30">
+                                        <i data-lucide="sun-dim" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-brand-accent transition-colors"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between text-gray-500 text-sm font-medium bg-[#141414] py-3 px-4 rounded-xl border border-white/5">
+                                    <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4"></i> Geo-Location Timezone</span>
+                                    <span id="tz-display" class="text-white font-tech text-xs tracking-wider">Detecting...</span>
+                                </div>
+
+                                <button onclick="initiateCircadianAlignment()" class="w-full bg-brand-accent text-white font-bold text-lg rounded-xl py-4 hover:bg-[#ff101d] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-widest flex items-center justify-center gap-3 mt-4">
+                                    <i data-lucide="cpu" class="w-5 h-5"></i> Initiate Alignment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View 2: Results Protocol Dashboard -->
+                    <div id="results-view" class="w-full hidden flex-col items-center space-y-12 py-6 w-full animate-fade-in">
+                        
+                        <!-- 24H Cinematic SVG Dial -->
+                        <div class="relative w-full max-w-[450px] aspect-square flex items-center justify-center">
+                            
+                            <!-- SVG Render Engine -->
+                            <svg viewBox="0 0 400 400" class="w-full h-full drop-shadow-[0_0_25px_rgba(229,9,20,0.15)] z-10">
+                                <!-- Base Grid & Rings -->
+                                <circle cx="200" cy="200" r="180" fill="none" stroke="#0f0f11" stroke-width="20"/>
+                                <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                                <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1" stroke-dasharray="4 4"/>
+                                
+                                <!-- 24 Hour Ticks (Injected via JS) -->
+                                <g id="dial-ticks"></g>
+                                
+                                <!-- Protocol Markers -->
+                                <!-- Marker 1: Sunlight (+0h) -->
+                                <g id="marker-sunlight" class="transition-transform duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center">
+                                    <line x1="200" y1="20" x2="200" y2="45" stroke="#E50914" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="200" cy="20" r="6" fill="#E50914" filter="drop-shadow(0 0 5px #E50914)"/>
+                                </g>
+
+                                <!-- Marker 2: Caffeine (+1.5h) -->
+                                <g id="marker-caffeine" class="transition-transform duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center delay-150">
+                                    <line x1="200" y1="35" x2="200" y2="50" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="200" cy="35" r="4.5" fill="#f59e0b" filter="drop-shadow(0 0 4px #f59e0b)"/>
+                                </g>
+
+                                <!-- Marker 3: Dim Lights (+12h) -->
+                                <g id="marker-dim" class="transition-transform duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center delay-300">
+                                    <line x1="200" y1="35" x2="200" y2="50" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="200" cy="35" r="4.5" fill="#3b82f6" filter="drop-shadow(0 0 4px #3b82f6)"/>
+                                </g>
+
+                                <!-- Marker 4: Fasting Close (+14h) -->
+                                <g id="marker-fasting" class="transition-transform duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center delay-[450ms]">
+                                    <line x1="200" y1="20" x2="200" y2="45" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="200" cy="20" r="6" fill="#8b5cf6" filter="drop-shadow(0 0 5px #8b5cf6)"/>
+                                </g>
+                            </svg>
+                            
+                            <!-- Central Digital HUD -->
+                            <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                                <div class="w-36 h-36 rounded-full bg-[#080808] border border-white/5 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(229,9,20,0.15)] orb-pulse-active relative overflow-hidden">
+                                    <div class="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-30"></div>
+                                    <span class="text-[10px] text-brand-accent font-bold uppercase tracking-[0.3em] mb-1">Base Anchor</span>
+                                    <span id="display-wake" class="text-3xl text-white font-tech font-bold tracking-wider">00:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insight Protocol Cards Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
+                            
+                            <!-- Card 1 -->
+                            <div class="bg-[#0a0a0c] border border-white/5 rounded-2xl p-6 hover:border-[#E50914]/40 hover:bg-[#E50914]/[0.02] transition-all group relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-[#E50914] opacity-50"></div>
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-10 h-10 rounded-xl bg-[#E50914]/10 flex items-center justify-center text-[#E50914]">
+                                        <i data-lucide="sun" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Sunlight Window</h3>
+                                </div>
+                                <p id="time-sunlight" class="text-3xl text-white font-tech font-bold mb-2">--:--</p>
+                                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="plus" class="w-3 h-3"></i> 0H OFFSET (IMMEDIATE)</p>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="bg-[#0a0a0c] border border-white/5 rounded-2xl p-6 hover:border-amber-500/40 hover:bg-amber-500/[0.02] transition-all group relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-amber-500 opacity-50"></div>
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                        <i data-lucide="coffee" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Caffeine Start</h3>
+                                </div>
+                                <p id="time-caffeine" class="text-3xl text-white font-tech font-bold mb-2">--:--</p>
+                                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="plus" class="w-3 h-3"></i> 1.5H OFFSET (DELAY)</p>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="bg-[#0a0a0c] border border-white/5 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-blue-500/[0.02] transition-all group relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-blue-500 opacity-50"></div>
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                                        <i data-lucide="moon-star" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Dim Lights</h3>
+                                </div>
+                                <p id="time-dim" class="text-3xl text-white font-tech font-bold mb-2">--:--</p>
+                                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="plus" class="w-3 h-3"></i> 12H OFFSET (MELATONIN)</p>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="bg-[#0a0a0c] border border-white/5 rounded-2xl p-6 hover:border-purple-500/40 hover:bg-purple-500/[0.02] transition-all group relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-purple-500 opacity-50"></div>
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500">
+                                        <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Fasting Close</h3>
+                                </div>
+                                <p id="time-fasting" class="text-3xl text-white font-tech font-bold mb-2">--:--</p>
+                                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="plus" class="w-3 h-3"></i> 14H OFFSET (DIGESTION)</p>
+                            </div>
+
+                        </div>
+
+                        <!-- Action Controls -->
+                        <div class="flex flex-wrap items-center justify-center gap-4 w-full pt-8 border-t border-white/5 mt-8">
+                            <button onclick="copySchedule()" class="flex items-center gap-3 px-6 py-3.5 bg-[#0a0a0a] border border-white/10 rounded-xl text-sm font-bold text-gray-300 hover:text-white hover:border-white/30 transition-all outline-none focus:outline-none focus:border-brand-accent group">
+                                <i data-lucide="clipboard-copy" class="w-4 h-4 text-gray-500 group-hover:text-white transition-colors"></i> Copy Schedule
+                            </button>
+                            <button onclick="downloadJSON()" class="flex items-center gap-3 px-6 py-3.5 bg-[#0a0a0a] border border-white/10 rounded-xl text-sm font-bold text-gray-300 hover:text-white hover:border-white/30 transition-all outline-none focus:outline-none focus:border-brand-accent group">
+                                <i data-lucide="download-cloud" class="w-4 h-4 text-gray-500 group-hover:text-white transition-colors"></i> Export Data
+                            </button>
+                            <button onclick="resetAlignment()" class="flex items-center gap-3 px-6 py-3.5 bg-brand-accent/10 border border-brand-accent/20 rounded-xl text-sm font-bold text-brand-accent hover:bg-brand-accent hover:text-white transition-all outline-none focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 focus:ring-offset-[#141414]">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Engine
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+
+        // 1. Developer Console Warning (Hacker Vibe)
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // 2. Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+
+            if (window.innerWidth < 1024) {
+                return false;
+            }
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // 3. Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            if(!stepsArray || stepsArray.length === 0) {
+                stepsArray = ['Processing request...'];
+            }
+
+            let listHTML = '';
+            stepsArray.forEach(step => {
+                listHTML += `<li class="shimmer-text">${step}</li>`;
+            });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC GOES HERE...
+        // ==========================================
+
+        let currentProtocolData = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Detect and Set Timezone
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('tz-display').textContent = tz || 'Local System Time';
+            } catch (e) {
+                document.getElementById('tz-display').textContent = 'Local System Time';
+            }
+
+            // 2. Load Persisted Wake Time if available
+            const savedTime = localStorage.getItem('forgenos_circadia_waketime');
+            if(savedTime) {
+                document.getElementById('wake-time-input').value = savedTime;
+            }
+
+            // 3. Render SVG Dial Ticks (24 Hours)
+            renderDialTicks();
+        });
+
+        function renderDialTicks() {
+            const ticksContainer = document.getElementById('dial-ticks');
+            ticksContainer.innerHTML = ''; // Clear existing
+
+            // We are mapping 00:00 (Midnight) to the Top position.
+            // SVG coordinate system: Top = angle -90 degrees from standard math.
+            for (let i = 0; i < 24; i++) {
+                const isMajor = i % 6 === 0; // 0, 6, 12, 18 hours
+                const isMedium = i % 3 === 0 && !isMajor; // 3, 9, 15, 21 hours
+                
+                const angleDeg = (i / 24) * 360 - 90; // -90 puts hour 0 at the top
+                const angleRad = angleDeg * (Math.PI / 180);
+                
+                const rOuter = 180;
+                let rInner = 170; // Default small tick
+                if (isMajor) rInner = 155;
+                else if (isMedium) rInner = 162;
+
+                // Calculate Line points using Cos/Sin for precise placement without rotating the whole group
+                const x1 = 200 + rOuter * Math.cos(angleRad);
+                const y1 = 200 + rOuter * Math.sin(angleRad);
+                const x2 = 200 + rInner * Math.cos(angleRad);
+                const y2 = 200 + rInner * Math.sin(angleRad);
+
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", x1.toString());
+                line.setAttribute("y1", y1.toString());
+                line.setAttribute("x2", x2.toString());
+                line.setAttribute("y2", y2.toString());
+                line.setAttribute("stroke", isMajor ? "rgba(255,255,255,0.4)" : (isMedium ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.05)"));
+                line.setAttribute("stroke-width", isMajor ? "3" : "2");
+                line.setAttribute("stroke-linecap", "round");
+                ticksContainer.appendChild(line);
+
+                // Add Text for Major hours (Upright readability)
+                if (isMajor || isMedium) {
+                    const rText = 135; // Inner radius for text
+                    const tx = 200 + rText * Math.cos(angleRad);
+                    const ty = 200 + rText * Math.sin(angleRad);
+
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    text.setAttribute("x", tx.toString());
+                    text.setAttribute("y", ty.toString());
+                    text.setAttribute("fill", isMajor ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.15)");
+                    text.setAttribute("font-size", isMajor ? "14" : "11");
+                    text.setAttribute("font-family", "Courier New, monospace");
+                    text.setAttribute("font-weight", "bold");
+                    text.setAttribute("text-anchor", "middle");
+                    text.setAttribute("dominant-baseline", "central");
+                    text.textContent = i.toString().padStart(2, '0');
+                    ticksContainer.appendChild(text);
+                }
+            }
+        }
+
+        // Math format helper
+        function formatMinutesToHHMM(minutes) {
+            const h = Math.floor(minutes / 60) % 24; // Ensure it wraps around 24h
+            const m = minutes % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+
+        function initiateCircadianAlignment() {
+            const wakeInput = document.getElementById('wake-time-input').value;
+            if(!wakeInput) {
+                showToast('A base wake time is required for calibration.', 'normal');
+                return;
+            }
+
+            // Persist locally
+            localStorage.setItem('forgenos_circadia_waketime', wakeInput);
+
+            // Trigger Cinematic Loading Overlay
+            showToolLoading([
+                'Analyzing biological anchor...',
+                'Calculating circadian offsets...',
+                'Aligning hormonal cycles...',
+                'Rendering chronobiology map...'
+            ], 1200);
+
+            // Simulated heavy calculation delay (UX requirement)
+            setTimeout(() => {
+                processAndRenderProtocol(wakeInput);
+            }, 4800);
+        }
+
+        function processAndRenderProtocol(wakeInputStr) {
+            // 1. Calculate the math
+            const [hStr, mStr] = wakeInputStr.split(':');
+            const wakeMins = parseInt(hStr) * 60 + parseInt(mStr);
+
+            // Huberman Protocol Standard Offsets (in minutes)
+            const OFFSETS = {
+                sunlight: 0,       // Wake time
+                caffeine: 90,      // +1.5 Hours
+                dimLights: 720,    // +12 Hours
+                fasting: 840       // +14 Hours
+            };
+
+            currentProtocolData = {
+                anchor: wakeInputStr,
+                sunlight: {
+                    time: formatMinutesToHHMM(wakeMins + OFFSETS.sunlight),
+                    mins: (wakeMins + OFFSETS.sunlight) % 1440
+                },
+                caffeine: {
+                    time: formatMinutesToHHMM(wakeMins + OFFSETS.caffeine),
+                    mins: (wakeMins + OFFSETS.caffeine) % 1440
+                },
+                dimLights: {
+                    time: formatMinutesToHHMM(wakeMins + OFFSETS.dimLights),
+                    mins: (wakeMins + OFFSETS.dimLights) % 1440
+                },
+                fasting: {
+                    time: formatMinutesToHHMM(wakeMins + OFFSETS.fasting),
+                    mins: (wakeMins + OFFSETS.fasting) % 1440
+                }
+            };
+
+            // 2. Hide Setup / Show Results
+            hideToolLoading();
+            document.getElementById('setup-view').classList.add('hidden');
+            document.getElementById('setup-view').classList.remove('flex');
+            
+            const resultsView = document.getElementById('results-view');
+            resultsView.classList.remove('hidden');
+            resultsView.classList.add('flex');
+
+            // 3. Populate HUD
+            document.getElementById('display-wake').textContent = currentProtocolData.anchor;
+            document.getElementById('time-sunlight').textContent = currentProtocolData.sunlight.time;
+            document.getElementById('time-caffeine').textContent = currentProtocolData.caffeine.time;
+            document.getElementById('time-dim').textContent = currentProtocolData.dimLights.time;
+            document.getElementById('time-fasting').textContent = currentProtocolData.fasting.time;
+
+            // 4. Animate Dial Markers dynamically
+            // Helper to apply rotation. 0 mins = Top = 0deg rotation for our markers.
+            const rotateMarker = (elementId, totalMins) => {
+                const degrees = (totalMins / 1440) * 360;
+                document.getElementById(elementId).setAttribute('transform', `rotate(${degrees} 200 200)`);
+            };
+
+            // Small delay to ensure CSS transition fires from the baseline
+            setTimeout(() => {
+                rotateMarker('marker-sunlight', currentProtocolData.sunlight.mins);
+                rotateMarker('marker-caffeine', currentProtocolData.caffeine.mins);
+                rotateMarker('marker-dim', currentProtocolData.dimLights.mins);
+                rotateMarker('marker-fasting', currentProtocolData.fasting.mins);
+            }, 100);
+
+            showToast('Biological alignment matrix generated.', 'success');
+        }
+
+        function resetAlignment() {
+            document.getElementById('results-view').classList.add('hidden');
+            document.getElementById('results-view').classList.remove('flex');
+            
+            const setupView = document.getElementById('setup-view');
+            setupView.classList.remove('hidden');
+            setupView.classList.add('flex');
+            
+            // Revert markers to default 12 o'clock position (0 deg)
+            ['marker-sunlight', 'marker-caffeine', 'marker-dim', 'marker-fasting'].forEach(id => {
+                document.getElementById(id).setAttribute('transform', `rotate(0 200 200)`);
+            });
+
+            currentProtocolData = null;
+            showToast('System recalibrated. Awaiting new anchor.', 'normal');
+        }
+
+        function copySchedule() {
+            if(!currentProtocolData) return;
+            
+            const scheduleText = `FORGENOS CIRCADIASYNC PROTOCOL\n` +
+                                 `--------------------------------\n` +
+                                 `BASE ANCHOR:       ${currentProtocolData.anchor}\n` +
+                                 `SUNLIGHT WINDOW:   ${currentProtocolData.sunlight.time} (+0h)\n` +
+                                 `CAFFEINE START:    ${currentProtocolData.caffeine.time} (+1.5h delay)\n` +
+                                 `DIM LIGHTS (PREP): ${currentProtocolData.dimLights.time} (+12h)\n` +
+                                 `FASTING CLOSE:     ${currentProtocolData.fasting.time} (+14h)\n` +
+                                 `--------------------------------\n` +
+                                 `Generated via Chronobiology Engine.`;
+                                 
+            // Try clipboard API natively
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(scheduleText).then(() => {
+                    showToast('Protocol copied to clipboard.', 'success');
+                }).catch(err => {
+                    // Fallback
+                    fallbackCopy(scheduleText);
+                });
+            } else {
+                fallbackCopy(scheduleText);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Protocol copied to clipboard.', 'success');
+            } catch (err) {
+                showToast('Copy failed. Manual selection required.', 'normal');
+            }
+            textArea.remove();
+        }
+
+        function downloadJSON() {
+            if(!currentProtocolData) return;
+            
+            const exportObj = {
+                generator: "FORGENOS CIRCADIASYNC",
+                version: "2.0",
+                timestamp: new Date().toISOString(),
+                protocol: currentProtocolData
+            };
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj, null, 4));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "circadiasync_protocol_export.json");
+            document.body.appendChild(downloadAnchorNode); 
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            
+            showToast('Protocol data exported successfully.', 'success');
+        }
+
+    </script>
+</body>
+</html>
