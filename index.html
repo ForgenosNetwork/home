@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
     
     <!-- Font -->
-    <title>FORGENOS | 100% Free Premium AI & Dev Tool Directory</title>
+    <title>FORGENOS | HOME</title>
     <meta name="description" content="Access the world's most powerful digital arsenal. FORGENOS offers a curated collection of 100% free AI, Dev, and Finance tools for Tier-1 professionals.">
     <meta name="keywords" content="free premium tools, forgenos directory, best ai tools 2026, free developer utilities, wealth architect tool, free software directory">
     <meta name="author" content="FORGENOS">
@@ -30,37 +30,6 @@
     <meta name="twitter:title" content="FORGENOS | Elite Tools for Founders & Devs">
     <meta name="twitter:description" content="Curated 100% free high-performance tools. Level up your digital workflow instantly.">
     <meta name="twitter:image" content="https://forgenos.com/assets/social-banner.png">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://forgenos.com/#organization",
-          "name": "FORGENOS",
-          "url": "https://forgenos.com/",
-          "logo": "https://forgenos.com/assets/favicon-square.png",
-          "sameAs": [
-            "https://twitter.com/forgenos",
-            "https://github.com/forgenos"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://forgenos.com/#website",
-          "url": "https://forgenos.com/",
-          "name": "FORGENOS Premium Directory",
-          "publisher": { "@id": "https://forgenos.com/#organization" },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://forgenos.com/?s={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        }
-      ]
-    }
-  </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,17 +75,32 @@
             color: #e5e5e5; 
             overflow-x: hidden; 
             transition: filter 0.3s ease; 
-            -webkit-user-select: none; 
-            -moz-user-select: none; 
-            -ms-user-select: none; 
-            user-select: none; 
+            
+            /* Strict Security: Prevent Text Selection & Copy popups on mobile */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
+        
+        /* Allow selection only inside inputs/textareas */
+        input, textarea {
+            -webkit-user-select: auto !important;
+            user-select: auto !important;
+        }
+        
         html { scroll-behavior: smooth; }
         body, .overflow-y-auto, .hide-scroll { -webkit-overflow-scrolling: touch; }
         img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
 
-        /* Smooth Background Freeze Lock */
-        body.scroll-locked { overflow: hidden !important; }
+        /* Strict Background Freeze Lock */
+        html.scroll-locked, body.scroll-locked { 
+            overflow: hidden !important; 
+            touch-action: none; 
+            height: 100vh !important; 
+        }
 
         @media (min-width: 1024px) {
             .premium-card, .category-row, .hero-slide { 
@@ -132,17 +116,17 @@
         
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
 
-        /* Sidebar Styling - Expands on hover (With Z-Index fix to stay above content) */
+        /* Sidebar Styling - Expands on hover */
         #sidebar { 
             width: 5.5rem; 
             transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
             overflow: hidden; 
-            background-color: #141414; /* Exact solid background */
+            background-color: #141414; 
             border-right: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 100 !important; /* Forces Sidebar to always be on top of search bars/cards */
+            z-index: 100 !important; 
         }
         #sidebar:hover { 
-            width: 17.5rem; /* Increased width to prevent logo text from touching the edge */
+            width: 17.5rem; 
             box-shadow: 15px 0 40px rgba(0,0,0,0.9);
         }
         
@@ -163,7 +147,7 @@
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Premium Skeleton Effect */
-        .skeleton-bg { background: linear-gradient(90deg, #18181b 0%, #27272a 50%, #18181b 100%); background-size: 200% 100%; animation: premiumShimmer 2s infinite ease-in-out; }
+        .skeleton-bg { background: linear-gradient(90deg, #18181b 0%, #2c2c30 50%, #18181b 100%); background-size: 200% 100%; animation: premiumShimmer 1.2s infinite ease-in-out; }
         @keyframes premiumShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
         /* Rolling Text */
@@ -196,7 +180,7 @@
         /* Premium Smooth Image Zoom */
         .card-image-wrapper { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
         .card-image { 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease; 
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease; 
             will-change: transform; transform: scale(1.01) translateZ(0); 
         }
         @media (min-width: 1024px) { 
@@ -223,11 +207,17 @@
         
         body.privacy-blur { filter: blur(15px); }
 
-        /* Left-Aligned Policy Pages (Fixed) */
+        /* Policy Pages */
         .policy-content p { margin-bottom: 1.5rem; color: #9ca3af; line-height: 1.8; font-size: 1.05rem; }
         .policy-content h2 { font-size: 1.75rem; font-weight: 800; color: white; margin-top: 2.5rem; margin-bottom: 1rem; letter-spacing: -0.02em; }
         .policy-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.5rem; color: #9ca3af; }
         .policy-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+
+        /* Side Panel Styling */
+        #side-panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        #side-panel-overlay.show { opacity: 1; pointer-events: auto; }
+        #side-panel { position: fixed; top: 0; left: -100%; width: 100%; max-width: 500px; height: 100%; background: #1c1c1e; z-index: 210; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 20px 0 50px rgba(0,0,0,0.8); overflow: hidden; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.05); }
+        #side-panel.show { left: 0; }
 
         /* Fast & Smooth Entry Animation */
         .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -235,7 +225,7 @@
 
         .category-hero-img { mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); }
 
-        /* FORGENOS Unique Branding Styles - Bold & Thick */
+        /* FORGENOS Unique Branding Styles */
         .brand-logo-text {
             font-family: 'Exo 2', sans-serif;
             font-weight: 800;
@@ -245,11 +235,21 @@
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
         }
+
+        /* Reading Progress */
+        #reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: #E50914; z-index: 10000; width: 0%; transition: width 0.1s; display: none; box-shadow: 0 0 10px rgba(229,9,20,0.8); }
+        
+        /* Back to top */
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #E50914; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9000; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; transform: translateY(20px); box-shadow: 0 4px 15px rgba(229,9,20,0.6); }
+        #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        #back-to-top:hover { transform: translateY(-5px); background: #f00; }
+
+        /* Welcome Banner */
+        #welcome-banner { background: linear-gradient(90deg, #E50914, #99060d); color: white; text-align: center; padding: 12px 20px; font-weight: bold; font-size: 14px; position: fixed; top: 0; left: 0; w-full; width: 100%; z-index: 10001; display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="antialiased opacity-0" id="app-root">
 
-    <!-- JS WARNING -->
     <noscript>
         <style>
             body{overflow:hidden}
@@ -270,19 +270,15 @@
         // PROPERLY FORMATTED UI INJECTION
         // =====================================
         
-        // Single Source of Truth for the Logo Image URL
         const forgenosLogoImg = "https://forgenos.com/assets/logo2.png";
         
-        // Custom FORGENOS Logo Mark component 
-        // Font made BOLD (font-bold) and Letters brought closer (tracking-[0.05em])
         const forgenosLogoMark = `
             <div class="flex items-center">
                 <div class="relative w-12 h-12 md:w-14 md:h-14 shrink-0 flex items-center justify-center bg-transparent">
-                    <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                     <img src="${forgenosLogoImg}" 
                          alt="Logo" 
-                         class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
-                         onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none';">
+                         loading="lazy"
+                         class="w-full h-full object-contain scale-110 relative z-10">
                 </div>
                 <div class="relative flex flex-col items-center justify-center shrink-0 ml-3">
                     <span class="text-xl md:text-[22px] font-bold brand-logo-text tracking-[0.05em] leading-none mt-[2px]">FORGENOS</span>
@@ -291,11 +287,41 @@
         `;
 
         const __UI__ = `
+            <div id="reading-progress"></div>
+            <div id="welcome-banner">
+                <span>Welcome to FORGENOS &mdash; Your free premium tool directory. No signup needed.</span>
+                <button onclick="window.dismissWelcome()" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 hover:bg-black/20 rounded-full transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             <canvas id="particle-canvas"></canvas>
+            
+            <button id="back-to-top" onclick="window.scrollToTop()"><i data-lucide="arrow-up" class="w-6 h-6"></i></button>
 
-            <!-- MOBILE HEADER (Solid Background Fixed) -->
+            <!-- SIDE PANEL FOR POLICY CONTENT -->
+            <div id="side-panel-overlay" onclick="window.closeSidePanel()"></div>
+            <div id="side-panel">
+                <div class="p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#1c1c1e] z-10">
+                    <h2 id="side-panel-title" class="text-2xl font-black text-white">Title</h2>
+                    <button onclick="window.closeSidePanel()" class="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                <div id="side-panel-content" class="p-6 md:p-8 policy-content flex-1 text-left text-white overflow-y-auto hide-scroll" data-lenis-prevent></div>
+            </div>
+
+            <!-- SPOTLIGHT SEARCH MODAL -->
+            <div id="spotlight-modal" class="fixed inset-0 z-[300] bg-black/80 backdrop-blur-md hidden flex items-start justify-center pt-[15vh] px-4" onclick="if(event.target===this) window.closeSpotlight()">
+                <div id="spotlight-content" class="bg-[#1c1c1e] w-full max-w-2xl rounded-2xl border border-white/10 shadow-2xl flex flex-col overflow-hidden scale-95 opacity-0 transition-all duration-200">
+                    <div class="flex items-center px-4 border-b border-white/5 relative">
+                        <i data-lucide="search" class="w-5 h-5 text-gray-500 absolute left-6"></i>
+                        <input type="text" id="spotlight-input" placeholder="Search premium tools... (Press Esc to close)" class="w-full bg-transparent border-none focus:outline-none text-white text-lg py-5 pl-10 pr-16" oninput="window.performSpotlightSearch()" autocomplete="off">
+                        <div class="absolute right-6 text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-1 rounded">ESC</div>
+                    </div>
+                    <div id="spotlight-results" class="max-h-[50vh] overflow-y-auto hide-scroll p-2" data-lenis-prevent></div>
+                </div>
+            </div>
+
+            <!-- MOBILE HEADER -->
             <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
                 <div class="flex items-center cursor-pointer" onclick="window.handleNavClick('home')">
                     ${forgenosLogoMark}
@@ -322,17 +348,14 @@
             <!-- MAIN LAYOUT -->
             <div class="flex min-h-screen">
                 
-                <!-- DESKTOP SIDEBAR (Expands on hover, Solid Background) -->
+                <!-- DESKTOP SIDEBAR -->
                 <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
-                    
-                    <!-- Glitch-free Sidebar Logo Section (Width increased to fit perfectly without touching edges) -->
                     <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="window.handleNavClick('home')">
                         <div class="relative w-14 h-14 shrink-0 flex items-center justify-center bg-transparent">
-                            <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                             <img src="${forgenosLogoImg}" 
                                  alt="Logo" 
-                                 class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
-                                 onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none';">
+                                 loading="lazy"
+                                 class="w-full h-full object-contain scale-110 relative z-10">
                         </div>
                         <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] leading-none mt-[2px]">FORGENOS</span>
                     </div>
@@ -365,13 +388,13 @@
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Company</h4>
-                                    <span onclick="window.handleNavClick('about')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
-                                    <span onclick="window.handleNavClick('contact')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
+                                    <span onclick="window.openPolicyPanel('about')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
+                                    <span onclick="window.openPolicyPanel('contact')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
-                                    <span onclick="window.handleNavClick('privacy')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
-                                    <span onclick="window.handleNavClick('terms')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
+                                    <span onclick="window.openPolicyPanel('privacy')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
+                                    <span onclick="window.openPolicyPanel('terms')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
                                 </div>
                             </div>
                         </div>
@@ -388,7 +411,6 @@
             </div>
 
             <!-- MODALS -->
-            <!-- 1. Create Project Modal (Fixed Search & Scroll) -->
             <div id="project-modal" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8">
                 <div class="bg-[#141414] w-full max-w-6xl h-[90vh] rounded-3xl border border-white/10 flex flex-col overflow-hidden shadow-2xl scale-95 opacity-0">
                     <div class="px-6 md:px-8 py-5 border-b border-white/5 flex justify-between items-center bg-[#1c1c1e] shrink-0">
@@ -400,7 +422,6 @@
                     </div>
                     
                     <div class="flex-1 overflow-hidden flex flex-col md:flex-row">
-                        <!-- Left Panel (Selection Data) -->
                         <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-white/5 bg-[#1a1a1c] flex flex-col shrink-0 md:h-full h-[35vh]">
                             <div class="flex-1 overflow-y-auto p-5 md:p-8 hide-scroll" data-lenis-prevent>
                                 <label class="block text-gray-500 text-[10px] font-black tracking-[0.2em] mb-2 uppercase">Toolkit Name</label>
@@ -419,22 +440,17 @@
                                 <button onclick="window.saveProject()" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
                             </div>
                         </div>
-                        
-                        <!-- Right Panel (Tools Grid + Search) -->
                         <div class="flex-1 p-4 md:p-8 bg-[#141414] overflow-y-auto relative hide-scroll h-full" data-lenis-prevent>
-                            <!-- Search Bar Inside Project Builder -->
                             <div class="mb-6 relative">
                                 <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"></i>
                                 <input type="text" id="modal-tool-search" placeholder="Search tools to add..." oninput="window.filterModalTools()" class="w-full bg-[#1c1c1e] border border-white/10 rounded-full py-3 pl-11 pr-4 text-white focus:outline-none focus:border-brand-accent text-sm transition-colors shadow-inner">
                             </div>
-
                             <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 pb-32" id="tool-selection-grid"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. Inner Project Details Modal -->
             <div id="inner-project-modal" class="fixed inset-0 z-[155] bg-black/95 backdrop-blur-xl hidden flex flex-col items-center justify-start overflow-y-auto p-4 md:p-8 hide-scroll" data-lenis-prevent>
                 <div class="w-full max-w-6xl flex justify-between items-center mb-8 opacity-0 scale-95 transition-all mt-10" id="inner-project-header">
                     <div>
@@ -450,7 +466,6 @@
                 <div class="w-full max-w-6xl grid-container text-left justify-start opacity-0 scale-95 transition-all pb-24" id="inner-project-grid"></div>
             </div>
 
-            <!-- 3. Delete Confirmation Modal -->
             <div id="delete-modal" class="fixed inset-0 z-[160] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
                 <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="delete-modal-content">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-brand-accent border border-brand-accent/20">
@@ -465,7 +480,6 @@
                 </div>
             </div>
 
-            <!-- 4. Disabled Modal -->
             <div id="disabled-modal" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
                 <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="disabled-modal-content">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-gray-400 border border-gray-500/20">
@@ -488,7 +502,6 @@
                     <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
                 </div>
                 
-                <!-- Refresh Button: White normally, Red on Hover -->
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
                     <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
                 </div>
@@ -501,16 +514,10 @@
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.shareWebsite(); window.closeContextMenu()">
                     <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Website
                 </div>
-                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
-                    <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
-                </div>
-                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.showFakeSource(); window.closeContextMenu()">
-                    <i data-lucide="code" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> View Page Source
-                </div>
                 
                 <div class="h-[1px] bg-white/5 my-1.5"></div>
                 
-                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.showToast('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.', 'info'); window.closeContextMenu()">
                     <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
                 </div>
             </div>
@@ -530,14 +537,17 @@
             }
         };
 
+        // Strict Scroll Lock to prevent background scrolling anytime a modal opens
         window.lockScroll = function() {
+            document.documentElement.classList.add('scroll-locked');
             document.body.classList.add('scroll-locked');
-            // By NOT stopping Lenis here, and relying on CSS body.scroll-locked (overflow: hidden),
-            // Modals that have data-lenis-prevent attribute can still scroll perfectly via native browser scroll!
+            if(typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.stop();
         };
 
         window.unlockScroll = function() {
+            document.documentElement.classList.remove('scroll-locked');
             document.body.classList.remove('scroll-locked');
+            if(typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.start();
         };
 
         window.showToast = function(message, type = 'normal') {
@@ -584,50 +594,11 @@
             } 
         };
         
-        window.showFakeSource = function() { 
-            const fakeTab = window.open('', '_blank'); 
-            const url = window.location.href;
-            
-            const sourceHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>view-source:${url}</title>
-<meta name="color-scheme" content="light dark">
-<style>
-body { margin:0; background-color:#202124; color:#E8EAED; font-family:Consolas,'Courier New',monospace; font-size:13px; line-height:1.2; word-wrap:break-word; }
-table { border-spacing:0; border-collapse:collapse; width:100%; }
-td { padding:0; font-family:Consolas,'Courier New',monospace; font-size:13px; }
-td.num { width:40px; color:#8ab4f8; text-align:right; padding-right:10px; user-select:none; border-right:1px solid #5F6368; vertical-align:top; }
-td.code { padding-left:10px; white-space:pre-wrap; }
-.tag { color:#8AB4F8; }
-.attr { color:#8AB4F8; }
-.val { color:#CE9178; }
-.cmnt { color:#6A9955; }
-</style>
-</head>
-<body>
-<table><tbody>
-<tr><td class="num">1</td><td class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span><span class="cmnt">&lt;!--c2c0e7e1d0d57bd08ba3b26a--&gt;</span><span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span><span class="tag">&lt;head&gt;</span><span class="tag">&lt;meta</span> <span class="attr">charSet</span>=<span class="val">"utf-8"</span><span class="tag">/&gt;</span><span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"</span><span class="tag">/&gt;</span><span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"preload"</span> <span class="attr">href</span>=<span class=\"val\">"/_next/static/css/styles.css"</span> <span class=\"attr\">as</span>=<span class=\"val\">"style"</span><span class=\"tag\">&gt;</span></td></tr>
-<tr><td class="num">2</td><td class="code">  <span class="tag">&lt;style&gt;</span></td></tr>
-<tr><td class="num">3</td><td class="code">    html, body { background: var(--color-surface-tertiary) !important }</td></tr>
-<tr><td class="num">4</td><td class="code">    #header-mobile { background: var(--color-surface-tertiary) !important }</td></tr>
-<tr><td class="num">5</td><td class="code">    #header {</td></tr>
-<tr><td class="num">6</td><td class="code">      box-shadow: none !important;</td></tr>
-<tr><td class="num">7</td><td class="code">      backdrop-filter: none !important;</td></tr>
-<tr><td class="num">8</td><td class="code">      background: var(--color-surface-tertiary) !important;</td></tr>
-<tr><td class="num">9</td><td class="code">    }</td></tr>
-<tr><td class="num">10</td><td class="code">  <span class="tag">&lt;/style&gt;</span></td></tr>
-<tr><td class="num">11</td><td class="code">  <span class="tag">&lt;section</span> <span class="attr">class</span>=<span class="val">"relative container px-0 group pt-2 md:pt-3 mb-6 md:mb-8 z-0"</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"overflow-x-scroll hide-scrollbar min-w-0 grid px-4"</span><span class="tag">&gt;</span><span class="tag">&lt;ul</span> <span class="attr">class</span>=<span class="val">"flex gap-5 min-w-0 *:flex-[0_0_19.5rem] md:*:flex-[0_0_25rem]"</span><span class="tag">&gt;</span><span class="tag">&lt;/ul&gt;</span><span class="tag">&lt;/section&gt;</span></td></tr>
-<tr><td class="num">12</td><td class="code"><span class="tag">&lt;/body&gt;</span><span class="tag">&lt;/html&gt;</span></td></tr>
-</tbody></table>
-</body>
-</html>`; 
-            fakeTab.document.write(sourceHTML); 
-            fakeTab.document.close(); 
-        };
-
+        // Strict protection against native right click to protect source code
         document.addEventListener('contextmenu', (e) => { 
-            e.preventDefault(); 
+            e.preventDefault(); // Block Native Menu Everywhere
+            if (window.innerWidth < 1024) return; // Don't show custom menu on mobile
+            
             const menu = document.getElementById('custom-context-menu'); 
             if(!menu) return; 
             let x = e.clientX, y = e.clientY; 
@@ -636,6 +607,11 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             menu.style.top = y + 'px'; 
             menu.style.left = x + 'px'; 
             menu.style.display = 'block'; 
+        });
+
+        // Anti-Copy protection
+        document.addEventListener('copy', (e) => {
+            e.preventDefault();
         });
         
         document.addEventListener('click', (e) => { 
@@ -647,44 +623,109 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             if(menu) menu.style.display = 'none'; 
         };
 
+        // Source Code Shortcut Protection (F12, Ctrl+U, Ctrl+Shift+I)
         document.addEventListener('keydown', (e) => { 
-            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
-            if (e.ctrlKey || e.metaKey) { 
-                const blockedKeys = ['u','s','i','j','c','a','p','h','f','g','r']; 
-                if (blockedKeys.includes(e.key.toLowerCase())) { e.preventDefault(); return false; } 
-            } 
+            if (e.key === 'F12' || 
+               (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || 
+               (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
+                e.preventDefault();
+                return;
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                window.openSpotlight();
+            }
+            if (e.key === 'Escape') {
+                window.closeAllModals();
+            }
         });
+
+        window.openSpotlight = function() {
+            const modal = document.getElementById('spotlight-modal');
+            modal.classList.add('show');
+            document.getElementById('spotlight-input').focus();
+            window.lockScroll();
+        };
+
+        window.closeSpotlight = function() {
+            document.getElementById('spotlight-modal').classList.remove('show');
+            window.unlockScroll();
+        };
+
+        window.closeAllModals = function() {
+            window.closeSpotlight();
+            if (typeof window.closeSidePanel === 'function') window.closeSidePanel();
+            if (typeof window.closeProjectModal === 'function') window.closeProjectModal();
+            if (typeof window.closeInnerProject === 'function') window.closeInnerProject();
+            window.closeContextMenu();
+        };
+
+        window.performSpotlightSearch = function() {
+            const query = document.getElementById('spotlight-input').value.toLowerCase().trim();
+            const resultsBox = document.getElementById('spotlight-results');
+            if(!query) { resultsBox.innerHTML = ''; return; }
+
+            const filtered = toolsData.filter(t => t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.category.toLowerCase().includes(query));
+
+            if(filtered.length === 0) {
+                resultsBox.innerHTML = '<div class="p-6 text-center text-gray-500 text-sm">No tools found.</div>';
+            } else {
+                resultsBox.innerHTML = filtered.map(t => `
+                    <div class="flex items-center gap-4 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors" onclick="window.closeAllModals(); window.handleNavClick('tool-${t.id}')">
+                        <img src="${t.img}" class="w-10 h-10 rounded-lg object-cover border border-white/10" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><rect width=\\'100\\' height=\\'100\\' fill=\\'%23333\\'/></svg>'">
+                        <div class="flex-1 text-left">
+                            <h4 class="text-white text-sm font-bold leading-tight">${t.title}</h4>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest">${t.category}</span>
+                        </div>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500"></i>
+                    </div>
+                `).join('');
+                window.tryCreateIcons();
+            }
+        };
+
+        // Reading Progress & Back to Top
+        let currentScrollElement = window;
+        function updateProgress(element) {
+            const scrollTop = element.scrollTop || document.documentElement.scrollTop;
+            const scrollHeight = element.scrollHeight || document.documentElement.scrollHeight;
+            const clientHeight = element.clientHeight || document.documentElement.clientHeight;
+            const windowHeight = scrollHeight - clientHeight;
+            const percent = windowHeight ? (scrollTop / windowHeight) * 100 : 0;
+            const bar = document.getElementById('reading-progress');
+            bar.style.display = 'block';
+            bar.style.width = percent + '%';
+        }
+
+        window.addEventListener('scroll', () => {
+            const btt = document.getElementById('back-to-top');
+            if (window.scrollY > 300) btt.classList.add('show');
+            else btt.classList.remove('show');
+
+            if (currentView.startsWith('tool-') || currentView === 'settings') {
+                updateProgress(document.documentElement);
+            } else {
+                document.getElementById('reading-progress').style.display = 'none';
+            }
+        });
+
+        document.getElementById('side-panel').addEventListener('scroll', (e) => {
+            updateProgress(e.target);
+        });
+
+        window.scrollToTop = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.dismissWelcome = function() {
+            document.getElementById('welcome-banner').style.display = 'none';
+            localStorage.setItem('forgenos_welcome_dismissed', 'true');
+        };
 
         // =====================================
         // DATA & STATE
         // =====================================
         
-        // ============================================================================
-        // 🛠️ ADD YOUR TOOLS HERE (TOOL DATABASE) 🛠️
-        // ============================================================================
-        /* TEMPLATE FOR ADDING A NEW TOOL (Copy this block, fill it, and paste it below):
-           { 
-                id: 99, 
-                title: "Tool Ka Naam", 
-                link: "/pagename", // <-- HERE IS THE PAGE LINK!
-                category: "dev", 
-                tags: ["new", "trending"], 
-                img: "IMAGE_URL_HERE", 
-                desc: "Bahar card par dikhne wala j description.", 
-                disabled: false, 
-                disabledReason: "",
-                details: {
-                    overview: "Lamba overview yahan likhein...",
-                    features: [
-                        { title: "Feature 1", desc: "Detail 1" },
-                        { title: "Feature 2", desc: "Detail 2" }
-                    ],
-                    insight: [ "Point 1", "Point 2" ],
-                    security: [ "Point 1", "Point 2" ],
-                    professional: [ "Point 1", "Point 2" ]
-                }
-           },
-        */
         const toolsData = [
             { id: 1, title: "PULSE Neural Wealth Architect", link: "/PULSE-Neural-Wealth-Architect", category: "finance", tags: ["new", ""], img: "https://forgenos.com/finance/tool_1.png", desc: "Quantifying the forensic impact of fiscal micro-decisions through high fidelity Monte Carlo probability modeling.", disabled: false, disabledReason: "Server Error tool temporarily offline", details: { overview: "PULSE Neural Wealth Architect is a high performance fiscal momentum engine designed to bridge the gap between daily micro expenditure and long term capital trajectory. By leveraging a 500 iteration Monte Carlo simulation, the tool provides an executive level Regret Delta audit, visualizing the true opportunity cost of impulse spending versus strategic saving. For the Tier 1 professional, it serves as a cognitive discipline framework, transforming abstract financial habits into data driven probability clouds that demand immediate, rationalized attention and absolute fiscal accountability.", features: [{ title: "Monte Carlo Probability Engine", desc: "Executes 500 concurrent stochastic simulations to project wealth variance over a ten year forensic horizon." }, { title: "Dynamic Risk Indexing", desc: "Real time adjustment of volatility and mean return variables across conservative, moderate, and aggressive fiscal profiles." }, { title: "Forensic Growth Mapping", desc: "A canvas based visualization layer that renders complex wealth paths into an intuitive, high density data cloud." }, { title: "Regret Delta Logic", desc: "Quantifies the high fidelity opportunity cost of micro spending relative to aggressive capital market compounding." }], insight: ["Consolidates complex stochastic calculus into a single, intuitive visual anchor for immediate executive clarity.", "The minimalist input array allows for instant habit to data conversion during high stakes deep work windows.","Enables founders to stress test personal liquidity trajectories against varying market conditions and volatility benchmarks.",], security: ["Technical audit confirms all simulation cycles are executed within the client side V8 environment, ensuring zero data egress.","No fiscal profiles, capital inputs, or spend patterns are cached or transmitted to external server logs.","Proprietary probability math remains isolated within the local DOM, bypassing cloud-based interception risks"], professional: ["Simulating the forensic momentum of reinvested equity versus lifestyle inflation during post IPO lockup periods.","Calculating the opportunity cost of micro subscription burn rates during lean backend architecture sprints.", "Benchmarking personal capital preservation against aggressive market volatility and high inflation scenarios"], verdict: "This utility is a critical asset for those dedicated to rewiring fiscal habits through the lens of mathematical certainty. By stripping away emotional bias and replacing it with stochastic reality, PULSE enforces the absolute attention control required to maintain elite level capital efficiency and long term momentum." } },
             { id: 2, title: "VESTIQ: Quantum Equity Vesting Simulator", link: "/VESTIQ-Quantum-Equity-Vesting-Simulator", category: "finance", tags: ["new"], img: "https://forgenos.com/finance/VESTIQ.jpeg", desc: "Visualize RSU and ESPP vesting schedules, simulate tax implications, and forecast your net equity value entirely free.", disabled: false, disabledReason: "Server Error tool temporarily offline",details: { overview: "VESTIQ Quantum Equity Vesting Simulator operates as an elite forensic forecasting engine designed to untangle complex RSU and ESPP schedules. By generating dynamic, real-time projections based on fluctuating stock prices and simulated tax liabilities, this free online tool allows professionals to visualize their true net equity trajectory. Operating entirely within your browser to ensure absolute data privacy, it delivers an immediate, quantitative perspective on your financial horizon. VESTIQ minimizes the cognitive load associated with equity planning, providing the precise data points necessary for optimized capital allocation and high level tax strategy.", features: [{ title: "Quantum Forecasting Engine", desc: "Utilize the interactive price slider to visualize real time bull and bear case scenarios and their direct impact on your net worth." }, { title: "Simulated Tax Liability Matrix", desc: "Automatically calculate estimated effective tax burdens to reveal the true, after tax net value of your vested shares." },{ title: "Granular Vesting Timelines", desc: "Model standard 4 year cliffs or continuous monthly schedules to pinpoint exact dates for capital realization and long term optimization." }, { title: "Dynamic Equity Modeling", desc: "Instantly toggle between standard RSU and ESPP frameworks to apply the correct baseline logic to your compensation package." }], insight: ["Transforms abstract equity grants into actionable, real time net worth projections for immediate executive clarity.", "Eliminates the friction of manual spreadsheet modeling, replacing it with an interactive, data driven visual forecast.","Drives high level decision making by exposing the optimal timeline for tax advantaged equity liquidation.",], security: ["Executes all complex equity forecasting and tax simulation entirely via secure, client side processing.", "Operates without external server reliance, guaranteeing absolute operational privacy for high net worth individuals.", "Maintains a rigorous zero data retention policy, ensuring your sensitive compensation details never leave your device."], professional: ["Auditing personal RSU cliff events to determine optimal timing for capital reallocation or tax mitigation.","Providing tech executives with a clear, dynamic visualization of their total compensation package over a multi year horizon.", "Stress testing pre IPO or highly volatile equity grants against various market outcomes to establish a baseline financial floor."], verdict: "VESTIQ Quantum Equity Simulator is an essential utility for individuals navigating complex corporate compensation structures. By untangling vesting schedules and clarifying tax implications, this free forensic tool provides the absolute attention control required to manage and optimize long term equity aggregation successfully." } },
@@ -719,7 +760,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         ];
 
         const categoriesList = [
-            { id: 'trending', title: 'Trending Now', icon: 'trending-up', color: 'text-orange-500', img: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(249,115,22,0.3)', filter: t => t.tags.includes('trending'), homepageTools: [1, 2, 5, 9, 13, 21] },
             { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(34,197,94,0.3)', filter: t => t.category === 'finance', homepageTools: [1, 2, 3, 4] },
             { id: 'dev', title: 'Developer Tools', icon: 'code-2', color: 'text-blue-500', img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(59,130,246,0.3)', filter: t => t.category === 'dev', homepageTools: [5, 6, 7, 8, 21] },
             { id: 'student', title: 'Study Zone', icon: 'graduation-cap', color: 'text-yellow-500', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(234,179,8,0.3)', filter: t => t.category === 'student', homepageTools: [9, 10, 11, 12] },
@@ -747,6 +787,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         let savedTools = JSON.parse(localStorage.getItem('toolnox_saved')) || [];
         let pinnedTools = JSON.parse(localStorage.getItem('toolnox_pinned')) || []; 
         let myProjects = JSON.parse(localStorage.getItem('toolnox_projects')) || [];
+        let toolHistory = JSON.parse(localStorage.getItem('forgenos_history')) || [];
         let appSettings = JSON.parse(localStorage.getItem('toolnox_settings')) || { 
             interactiveBg: false, privacyBlur: false, reduceMotion: false, notifications: false, compactMode: false 
         };
@@ -793,7 +834,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                         else if(view === 'settings') window.renderSettings();
                         else if(view === 'saved') window.renderSavedView();
                         else if(view === 'projects') window.renderProjectsView();
-                        else if(['privacy','terms','about','contact','disclaimer'].includes(view)) window.renderPolicyPage(view);
+                        else if(view === 'history') window.renderHistoryView();
                         else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
                         else window.renderCategoryPage(view);
                         
@@ -813,7 +854,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 else if(view === 'settings') window.renderSettings();
                 else if(view === 'saved') window.renderSavedView();
                 else if(view === 'projects') window.renderProjectsView();
-                else if(['privacy','terms','about','contact','disclaimer'].includes(view)) window.renderPolicyPage(view);
+                else if(view === 'history') window.renderHistoryView();
                 else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
                 else window.renderCategoryPage(view);
                 
@@ -829,7 +870,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             const navItems = [
                 { id: 'home', icon: 'home', label: 'Home' },
                 { id: 'projects', icon: 'folder-heart', label: 'My Projects' },
-                { id: 'trending', icon: 'trending-up', label: 'Trending Now' },
+                { id: 'history', icon: 'clock', label: 'History' },
                 { id: 'finance', icon: 'dollar-sign', label: 'Finance' },
                 { id: 'dev', icon: 'code-2', label: 'Dev Tools' },
                 { id: 'student', icon: 'graduation-cap', label: 'Study Zone' },
@@ -878,9 +919,9 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 mobileNavContainer.innerHTML = `
                     ${createMobileLink('home', 'home', 'Home')}
                     ${createMobileLink('projects', 'folder-heart', 'My Projects')}
+                    ${createMobileLink('history', 'clock', 'History')}
                     ${createMobileLink('saved', 'bookmark', 'My List')}
                     <div class="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] mt-8 mb-3 px-4">Categories</div>
-                    ${createMobileLink('trending', 'trending-up', 'Trending Now')}
                     ${createMobileLink('finance', 'dollar-sign', 'Finance')}
                     ${createMobileLink('dev', 'code-2', 'Dev Tools')}
                     ${createMobileLink('student', 'graduation-cap', 'Study Zone')}
@@ -888,8 +929,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                     ${createMobileLink('health', 'heart-pulse', 'Health')}
                     <div class="border-t border-white/5 mt-8 pt-6 flex flex-col gap-1">
                         ${createMobileLink('settings', 'settings', 'Settings')}
-                        ${createMobileLink('about', 'info', 'About Us')}
-                        ${createMobileLink('contact', 'mail', 'Contact')}
+                        <div onclick="window.openPolicyPanel('about'); window.toggleMobileMenu()" class="cursor-pointer flex items-center gap-4 py-3.5 px-4 rounded-xl transition-all duration-300 text-gray-400 hover:bg-white/5 hover:text-white font-medium"><i data-lucide="info" class="w-5 h-5 transition-all duration-300 text-gray-400"></i>About Us</div>
+                        <div onclick="window.openPolicyPanel('contact'); window.toggleMobileMenu()" class="cursor-pointer flex items-center gap-4 py-3.5 px-4 rounded-xl transition-all duration-300 text-gray-400 hover:bg-white/5 hover:text-white font-medium"><i data-lucide="mail" class="w-5 h-5 transition-all duration-300 text-gray-400"></i>Contact</div>
                     </div>
                 `;
             }
@@ -1042,7 +1083,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             return `
             <div class="premium-card ${cardGlowClass} rounded-2xl overflow-hidden flex flex-col group ${isSelectMode && isSelected ? 'border-brand-accent ring-1 ring-brand-accent' : ''}" onclick="${cardAction}" style="${isDisabled ? 'filter: grayscale(100%); pointer-events: auto;' : ''}">
                 <div class="card-image-wrapper ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'} skeleton-bg" onclick="${clickImageAction}">
-                    <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="card-image w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="${tool.title}">
+                    <img src="${tool.img}" loading="lazy" onload="this.classList.remove('opacity-0'); if(this.parentElement.classList.contains('skeleton-bg')) this.parentElement.classList.remove('skeleton-bg');" class="card-image w-full h-full object-cover opacity-0 transition-opacity duration-300" alt="${tool.title}">
                     ${isDisabled ? `<div class="absolute inset-0 bg-black/50 z-[15] pointer-events-none"></div>` : ''}
                     ${isDisabled ? `
                     <div class="absolute top-0 left-0 bg-[#27272a] border-b border-r border-white/10 text-gray-300 text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center gap-1">
@@ -1051,7 +1092,10 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                     <div class="absolute top-0 left-0 bg-brand-accent text-white text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(229,9,20,0.5)] flex items-center gap-1">
                         <i data-lucide="tag" class="w-3 h-3 fill-white text-white"></i> PINNED
                     </div>` : `
-                    <div class="absolute top-3 left-3 md:top-4 md:left-4 flex flex-col gap-2 pointer-events-none z-10">
+                    <div class="absolute top-0 left-0 bg-black/60 backdrop-blur-sm border-b border-r border-white/10 text-white text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center gap-1">
+                        FREE
+                    </div>
+                    <div class="absolute top-8 left-3 md:top-10 md:left-4 flex flex-col gap-2 pointer-events-none z-10">
                         ${tool.tags.includes('trending') ? `<span class="bg-white text-black text-[8px] md:text-[9px] font-black px-2 py-1 rounded tracking-tighter shadow-xl">TOP 10</span>` : ''}
                         ${tool.tags.includes('new') ? `<span class="bg-brand-accent text-white text-[8px] md:text-[9px] font-black px-2 py-1 rounded tracking-tighter shadow-xl">NEW</span>` : ''}
                     </div>`)}
@@ -1076,18 +1120,27 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                     <div class="pt-3 md:pt-4 mt-auto flex card-btn-container gap-2">
                         <button ${isDisabled ? 'disabled' : `onclick="window.handleNavClick('tool-${tool.id}')"`} class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-transparent border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white/5 hover:text-white'} rounded-xl text-xs font-bold transition-all text-gray-400"><i data-lucide="file-text" class="w-3 h-3 md:w-4 md:h-4"></i> Details</button>
                         ${isDisabled ? 
-                            `<button disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Launch</button>` 
+                            `<button disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</button>` 
                             : 
-                            `<a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Launch</a>`
+                            `<a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</a>`
                         }
                     </div>` : ''}
                 </div>
             </div>`;
         };
 
+        window.logToolHistory = function(toolId) {
+            toolHistory = toolHistory.filter(h => h.id !== toolId);
+            toolHistory.unshift({ id: toolId, timestamp: Date.now() });
+            if (toolHistory.length > 50) toolHistory.pop();
+            localStorage.setItem('forgenos_history', JSON.stringify(toolHistory));
+        };
+
         window.renderToolDetailPage = function(id) {
             const tool = toolsData.find(t => t.id === id);
             if(!tool) return window.handleNavClick('home');
+            
+            window.logToolHistory(id);
             
             let categoryColor = "text-gray-500 border-gray-500/20 bg-gray-500/5";
             if(tool.category === 'finance') categoryColor = "text-green-500 border-green-500/20 bg-green-500/5";
@@ -1108,7 +1161,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-transparent opacity-50"></div>
                         <div class="md:hidden flex items-center gap-4 relative z-10 mb-2">
                             <div class="w-20 h-20 rounded-2xl shrink-0 overflow-hidden skeleton-bg relative border border-white/10 shadow-lg">
-                                <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="w-full h-full object-cover opacity-0 transition-opacity duration-700">
+                                <img src="${tool.img}" loading="lazy" onload="this.classList.remove('opacity-0'); if(this.parentElement.classList.contains('skeleton-bg')) this.parentElement.classList.remove('skeleton-bg');" class="w-full h-full object-cover opacity-0 transition-opacity duration-300">
                             </div>
                             <div class="flex flex-col justify-center">
                                 <span class="text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded border ${categoryColor} inline-block w-max mb-2">${tool.category}</span>
@@ -1116,7 +1169,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                             </div>
                         </div>
                         <div class="hidden md:block w-72 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 border border-white/10 relative z-10 shadow-2xl skeleton-bg">
-                            <img src="${tool.img}" onload="this.classList.remove('opacity-0')" class="w-full h-full object-cover opacity-0 transition-opacity duration-700" alt="${tool.title}">
+                            <img src="${tool.img}" loading="lazy" onload="this.classList.remove('opacity-0'); if(this.parentElement.classList.contains('skeleton-bg')) this.parentElement.classList.remove('skeleton-bg');" class="w-full h-full object-cover opacity-0 transition-opacity duration-300" alt="${tool.title}">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         </div>
                         <div class="flex flex-col justify-center flex-1 relative z-10">
@@ -1127,7 +1180,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                             <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
-                                <a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
+                                <a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Open Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
                                 <button onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
@@ -1156,7 +1209,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                         <!-- NEW PREMIUM 3-SECTION EXECUTIVE LAYOUT -->
                         <div class="grid lg:grid-cols-3 md:grid-cols-1 gap-4 md:gap-6 my-10">
                             
-                            <!-- Section 1: Strategic Insight & Workflow -->
                             <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
                                     <i data-lucide="zap" class="w-5 h-5 text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.6)]"></i> 
@@ -1173,7 +1225,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 </ul>
                             </div>
                             
-                            <!-- Section 2: Security & Data Integrity -->
                             <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
                                     <i data-lucide="shield-check" class="w-5 h-5 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"></i> 
@@ -1190,7 +1241,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 </ul>
                             </div>
                             
-                            <!-- Section 3: Professional Use-Cases -->
                             <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
                                     <i data-lucide="target" class="w-5 h-5 text-indigo-400 drop-shadow-[0_0_8px_rgba(129,140,248,0.6)]"></i> 
@@ -1211,8 +1261,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
 
                         <h2 class="text-3xl font-black text-white mb-6">Final Verdict</h2>
                         <p class="text-gray-400 text-base leading-relaxed">
-    ${tool.details?.verdict || `If you are currently looking for a reliable, exceptionally fast, and highly secure solution in the ${tool.category} ecosystem, <strong>${tool.title}</strong> is highly recommended by our editorial team. It balances power and simplicity perfectly. Click the launch button above to start your journey today.`}
-</p>
+                            ${tool.details?.verdict || `If you are currently looking for a reliable, exceptionally fast, and highly secure solution in the ${tool.category} ecosystem, <strong>${tool.title}</strong> is highly recommended by our editorial team. It balances power and simplicity perfectly. Click the launch button above to start your journey today.`}
+                        </p>
                     </div>
                 </div>
             `;
@@ -1220,22 +1270,42 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             if(typeof gsap !== 'undefined') gsap.from(".seo-content > *", { opacity: 0, y: 15, duration: 0.8, stagger: 0.15, ease: "power2.out", delay: 0.2 });
         };
 
+        function getToolOfTheDay() {
+            const today = new Date().toDateString();
+            let hash = 0;
+            for(let i=0; i<today.length; i++) { hash = (hash << 5) - hash + today.charCodeAt(i); hash |= 0; }
+            const index = Math.abs(hash) % toolsData.length;
+            return toolsData[index];
+        }
+
         window.renderHome = function() {
+            const tod = getToolOfTheDay();
+            
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-12 md:pt-16 pb-8 text-left max-w-5xl">
-                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
-                        <span>Elevate Your Digital</span>
-                        <span class="rolling-wrapper-inline min-w-[200px] md:min-w-[320px]">
-                            <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
-                                <li>Workflow</li><li>Arsenal</li><li>Matrix</li><li>Craft</li><li>Frontier</li><li aria-hidden="true">Workflow</li>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter leading-[1.1] mb-4 animate-fade-up" style="animation-delay: 0.1s">
+                        The Ultimate Free Digital <br class="md:hidden"/>
+                        <span class="rolling-wrapper-inline text-brand-accent align-bottom inline-flex flex-col h-[1.1em] overflow-hidden min-w-[200px] mt-2 md:mt-0">
+                            <ul class="rolling-list-inline m-0 p-0 flex flex-col w-full" id="heroRollingList">
+                                <li class="h-[1.1em] flex items-center">Arsenal</li>
+                                <li class="h-[1.1em] flex items-center">Network</li>
+                                <li class="h-[1.1em] flex items-center">Directory</li>
+                                <li class="h-[1.1em] flex items-center">Workspace</li>
+                                <li class="h-[1.1em] flex items-center">Platform</li>
+                                <li class="h-[1.1em] flex items-center" aria-hidden="true">Arsenal</li>
                             </ul>
                         </span>
                     </h1>
-                    <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
+                    <p class="text-gray-400 text-base md:text-xl font-medium leading-relaxed max-w-3xl mb-8 animate-fade-up" style="animation-delay: 0.15s">
+                        One destination for elite AI, Developer, Finance, and Productivity tools &mdash; 100% free, curated for Tier-1 professionals.
+                    </p>
+                    
+                    <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.2s">
                         <div class="relative group">
                             <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
-                            <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-500" autocomplete="off" oninput="window.performInlineSearch()">
-                            <button onclick="window.closeInlineSearch()" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
+                            <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-14 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-500" autocomplete="off" oninput="window.performInlineSearch()">
+                            <div class="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1 text-[10px] font-bold text-gray-500 bg-[#27272a] px-2 py-1 rounded pointer-events-none" id="search-hint"><span class="text-xs">⌘</span> K</div>
+                            <button onclick="window.closeInlineSearch()" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white hidden transition-colors bg-[#1c1c1e] pl-2" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1254,17 +1324,17 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 </div>
 
                 <div id="home-main-content">
-                    <div class="px-6 md:px-16 pb-8 text-left max-w-5xl">
-                        <div class="flex flex-wrap justify-start gap-3 animate-fade-up" style="animation-delay: 0.2s">
-                            ${categoriesList.map(cat => `<div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</div>`).join('')}
+                    <div class="px-6 md:px-16 pb-8 text-left w-full overflow-hidden">
+                        <div class="flex overflow-x-auto hide-scroll whitespace-nowrap justify-start gap-3 animate-fade-up pb-4 pt-1 px-1 -mx-1" style="animation-delay: 0.25s; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
+                            ${categoriesList.map(cat => `<div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-lg"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</div>`).join('')}
                         </div>
                     </div>
 
-                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-16 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
+                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-12 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
                         <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
                             ${heroSlides.map((slide, i) => `
                             <div class="hero-slide min-w-full h-full relative skeleton-bg">
-                                <img src="${slide.img}" onload="this.classList.remove('opacity-0')" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                                <img src="${slide.img}" loading="lazy" onload="this.classList.remove('opacity-0'); if(this.parentElement.classList.contains('skeleton-bg')) this.parentElement.classList.remove('skeleton-bg');" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300">
                                 <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
                                 <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
                                 <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
@@ -1272,7 +1342,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                     <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
                                     <p class="text-sm md:text-lg text-gray-300 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
                                     <div class="flex gap-3 md:gap-4 pt-2">
-                                        <button class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Open Now</button>
                                         <button class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
                                     </div>
                                 </div>
@@ -1283,16 +1353,44 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                         </div>
                     </section>
 
-                    <div class="px-6 md:px-16 py-10 md:py-20 space-y-12 md:space-y-24">
+                    <div class="px-6 md:px-16 pb-12 max-w-5xl mx-auto md:mx-0 animate-fade-up" style="animation-delay: 0.35s">
+                        <div class="p-4 md:p-6 bg-gradient-to-r from-[#1c1c1e] to-transparent border border-white/10 hover:border-brand-accent/50 rounded-2xl flex flex-row items-center justify-between cursor-pointer transition-all group shadow-xl gap-4" onclick="window.handleNavClick('tool-${tod.id}')">
+                            <div class="flex items-center gap-4 w-[65%] md:w-auto">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden shrink-0 shadow-lg border border-white/20 group-hover:border-brand-accent/50 group-hover:scale-105 transition-all">
+                                    <img src="${tod.img}" class="w-full h-full object-cover" loading="lazy">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-brand-accent fill-brand-accent"></i>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-brand-accent">Tool of the Day</span>
+                                    </div>
+                                    <h4 class="text-white font-bold text-base md:text-lg leading-tight group-hover:text-brand-accent transition-colors truncate">${tod.title}</h4>
+                                    <p class="text-gray-400 text-xs md:text-sm line-clamp-1 max-w-md mt-1">${tod.desc}</p>
+                                </div>
+                            </div>
+                            <button class="shrink-0 w-auto flex items-center justify-center gap-2 px-4 py-2.5 md:px-6 md:py-3 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-xs md:text-sm font-bold shadow-lg transition-transform group-hover:scale-105">Open <i data-lucide="arrow-right" class="w-3 h-3 md:w-4 md:h-4"></i></button>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-8 mt-12 mb-6 py-6 border-y border-white/5 opacity-80">
+                            <div class="flex items-center gap-3 text-gray-400"><i data-lucide="layout-grid" class="w-5 h-5 text-gray-500"></i><span class="text-sm font-bold tracking-wide text-white">Browse Categories</span></div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 hidden md:block"></i>
+                            <div class="flex items-center gap-3 text-gray-400"><i data-lucide="external-link" class="w-5 h-5 text-gray-500"></i><span class="text-sm font-bold tracking-wide text-white">Open Any Tool</span></div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 hidden md:block"></i>
+                            <div class="flex items-center gap-3 text-gray-400"><i data-lucide="bookmark" class="w-5 h-5 text-gray-500"></i><span class="text-sm font-bold tracking-wide text-white">Save Favorites</span></div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 md:px-16 py-10 space-y-12 md:space-y-24">
             `;
 
             if (pinnedTools.length > 0) {
                 const pTools = toolsData.filter(t => pinnedTools.includes(t.id));
                 html += `
                     <section class="category-row opacity-0 translate-y-10">
-                        <div class="flex items-center justify-between mb-6 md:mb-8">
+                        <div class="flex flex-col items-start mb-6 md:mb-8">
+                            <span class="text-[10px] font-black tracking-[0.2em] uppercase text-gray-500 mb-2 block">Quick Access</span>
                             <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" onclick="window.handleNavClick('home')">
-                                <div class="relative"><i data-lucide="pin" class="text-brand-accent w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]"></i><div class="absolute inset-0 bg-brand-accent/20 blur-xl rounded-full z-[-1]"></div></div>
+                                <div class="relative"><i data-lucide="pin" class="text-brand-accent w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]"></i></div>
                                 <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Pinned Arsenal</h2>
                             </div>
                         </div>
@@ -1306,12 +1404,15 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 let tools = (cat.homepageTools && Array.isArray(cat.homepageTools)) ? cat.homepageTools.map(id => toolsData.find(t => t.id === id)).filter(Boolean) : toolsData.filter(cat.filter).slice(0, 5);
                 html += `
                     <section class="category-row opacity-0 translate-y-10">
-                        <div class="flex items-center justify-between mb-6 md:mb-8">
-                            <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" onclick="window.handleNavClick('${cat.id}')">
-                                <i data-lucide="${cat.icon}" class="${cat.color} w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110" style="filter: drop-shadow(0 0 10px ${cat.glow})"></i>
-                                <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">${cat.title}</h2>
+                        <div class="flex items-end justify-between mb-6 md:mb-8">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[10px] font-black tracking-[0.2em] uppercase text-gray-500 mb-2 block">Category</span>
+                                <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" onclick="window.handleNavClick('${cat.id}')">
+                                    <i data-lucide="${cat.icon}" class="${cat.color} w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110" style="filter: drop-shadow(0 0 10px ${cat.glow})"></i>
+                                    <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">${cat.title}</h2>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-4 mb-1">
                                 <div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors items-center gap-2">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
                             </div>
                         </div>
@@ -1323,6 +1424,17 @@ td.code { padding-left:10px; white-space:pre-wrap; }
 
             html += `</div></div>`;
             document.getElementById('view-content').innerHTML = html;
+            
+            document.getElementById('inline-search-input')?.addEventListener('focus', () => {
+                const hint = document.getElementById('search-hint');
+                if(hint) hint.style.display = 'none';
+            });
+            document.getElementById('inline-search-input')?.addEventListener('blur', () => {
+                const hint = document.getElementById('search-hint');
+                const val = document.getElementById('inline-search-input').value;
+                if(hint && !val) hint.style.display = 'flex';
+            });
+
             window.tryCreateIcons();
 
             if(typeof gsap !== 'undefined') {
@@ -1362,7 +1474,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
 
             document.getElementById('view-content').innerHTML = `
                 <div class="relative w-full h-[35vh] md:h-[45vh] overflow-hidden flex flex-col justify-end px-6 md:px-16 py-10 skeleton-bg">
-                    <img src="${cat.img}" onload="this.classList.remove('opacity-0')" class="absolute inset-0 w-full h-full object-cover object-center scale-105 category-hero-img opacity-0 transition-opacity duration-1000 ease-out" alt="${cat.title}">
+                    <img src="${cat.img}" loading="lazy" onload="this.classList.remove('opacity-0'); if(this.parentElement.classList.contains('skeleton-bg')) this.parentElement.classList.remove('skeleton-bg');" class="absolute inset-0 w-full h-full object-cover object-center scale-105 category-hero-img opacity-0 transition-opacity duration-1000 ease-out" alt="${cat.title}">
                     <div class="absolute inset-0 bg-black/40 z-10"></div>
                     <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-10 pointer-events-none"></div>
                     <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#141414] to-transparent z-10 pointer-events-none"></div>
@@ -1374,6 +1486,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 </div>
                                 <span class="bg-[#1a1a1c]/80 text-white text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest uppercase shadow-lg backdrop-blur-md border border-white/5">${tools.length} Premium Tools</span>
                             </div>
+                            <span class="text-[10px] font-black tracking-[0.2em] uppercase text-gray-500 mb-1 block">Category</span>
                             <h1 class="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none mb-4">${cat.title}</h1>
                             <p class="text-gray-400 text-sm md:text-xl font-medium max-w-2xl leading-relaxed">${cat.desc}</p>
                         </div>
@@ -1477,7 +1590,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#0a0a0a] rounded-2xl border border-white/10 transform -rotate-12 origin-bottom transition-transform group-hover:-rotate-[18deg] z-0 shadow-lg"></div>
                                 <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#111111] rounded-2xl border border-white/10 transform rotate-12 origin-bottom transition-transform group-hover:rotate-[18deg] z-0 shadow-lg"></div>
                                 <div class="absolute w-[85%] h-full bottom-0 z-10 bg-[#1a1a1c] border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-transform group-hover:-translate-y-2">
-                                    <img src="${coverImage}" class="w-full h-full object-cover opacity-90 transition-transform group-hover:scale-105 duration-700">
+                                    <img src="${coverImage}" class="w-full h-full object-cover opacity-90 transition-transform group-hover:scale-105 duration-300" loading="lazy">
                                 </div>
                             </div>
                             <div class="w-full bg-[#1c1c1e] hover:bg-[#27272a] border border-white/5 rounded-xl py-3 px-4 flex justify-center items-center gap-2 transition-colors text-white shadow-lg">
@@ -1521,7 +1634,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             }
         };
 
-        window.renderPolicyPage = function(view) { 
+        window.openPolicyPanel = function(view) {
             const policies = {
                 privacy: { title: 'Privacy Policy', content: `<h2>Introduction</h2><p>Welcome to FORGENOS. We strictly respect your privacy and are deeply committed to protecting your personal data in accordance with modern security standards.</p><h2>Data Storage</h2><p>FORGENOS operates primarily using local storage. This means your "Saved Tools" and "Projects" are stored locally on your device and are never uploaded to our servers unless you explicitly opt-in for our cloud sync features.</p><h2>Cookies & Telemetry</h2><p>We use only essential cookies required to ensure the site functions correctly. We do not track or sell your browsing habits to third-party ad networks.</p>` },
                 terms: { title: 'Terms of Service', content: `<h2>Agreement</h2><p>By accessing the FORGENOS directory, you immediately agree to be bound by these terms. If you do not agree, please discontinue use of the site immediately.</p><h2>License & Usage</h2><p>Permission is granted to use the tools directory for personal, non-commercial use. You may absolutely not scrape our proprietary data, attempt to reverse-engineer our platform, or redistribute it without explicit written permission.</p>` },
@@ -1529,16 +1642,94 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 contact: { title: 'Contact Us', content: `<p>Have a suggestion, found a bug, or need enterprise support? Reach out to our core team below.</p><div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl mt-8 space-y-4 max-w-xl border border-white/10"><p><strong>Email:</strong> hello@forgenos.com</p><p><strong>Business:</strong> partnership@forgenos.com</p></div>` },
                 disclaimer: { title: 'Legal Disclaimer', content: `<p>The information provided by FORGENOS is strictly for general informational purposes only. All software and tools listed in this directory are third-party products.</p><p>We are not responsible for the performance, security, or financial results of any linked tool. Always conduct your own independent research and due diligence before inputting sensitive data or payment information into any third-party application.</p>` }
             };
-
-            const policy = policies[view];
-            document.getElementById('view-content').innerHTML = `
-                <div class="pt-32 pb-20 px-6 md:px-16 max-w-4xl mx-auto min-h-[60vh]">
-                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-12 text-left">${policy.title}</h1>
-                    <div class="policy-content text-left w-full">
-                        ${policy.content}
-                    </div>
-                </div>`;
+            const p = policies[view];
+            if(!p) return;
+            document.getElementById('side-panel-title').innerHTML = p.title;
+            document.getElementById('side-panel-content').innerHTML = p.content;
+            document.getElementById('side-panel-overlay').classList.add('show');
+            document.getElementById('side-panel').classList.add('show');
+            window.lockScroll();
+            // Trigger icon render inside dynamic content if any
             window.tryCreateIcons();
+        };
+
+        window.closeSidePanel = function() {
+            document.getElementById('side-panel-overlay').classList.remove('show');
+            document.getElementById('side-panel').classList.remove('show');
+            window.unlockScroll();
+            document.getElementById('reading-progress').style.display = 'none';
+        };
+
+        window.renderHistoryView = function() {
+            let html = `
+                <div class="sticky top-16 md:top-0 z-30 bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] px-6 md:px-16 py-6 md:py-8 transition-all">
+                    <div class="w-full max-w-7xl flex justify-between items-center text-left mx-auto">
+                        <div>
+                            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-2">History</h1>
+                            <p class="text-gray-500 text-sm md:text-base font-medium">Recently opened tools.</p>
+                        </div>
+                        ${toolHistory.length > 0 ? `<button onclick="window.clearHistory()" class="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white font-bold px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-1"><i data-lucide="trash-2" class="w-4 h-4"></i> Clear All</button>` : ''}
+                    </div>
+                </div>
+                <div class="px-6 md:px-16 py-8 md:py-12 max-w-5xl mx-auto text-left">
+            `;
+
+            if (toolHistory.length === 0) {
+                html += `
+                    <div class="py-32 flex flex-col items-center opacity-40 text-center">
+                        <i data-lucide="clock" class="w-20 h-20 mb-6 text-white"></i>
+                        <h2 class="text-2xl font-bold text-white">No tools opened yet.</h2>
+                        <p class="text-gray-400 mt-2">Start exploring!</p>
+                    </div>`;
+            } else {
+                html += `<div class="flex flex-col gap-4">`;
+                toolHistory.forEach((h, index) => {
+                    const t = toolsData.find(tool => tool.id === h.id);
+                    if(!t) return;
+                    const date = new Date(h.timestamp);
+                    const isToday = date.toDateString() === new Date().toDateString();
+                    const isYesterday = date.toDateString() === new Date(Date.now() - 86400000).toDateString();
+                    let dateStr = isToday ? 'Today' : (isYesterday ? 'Yesterday' : date.toLocaleDateString());
+                    let timeStr = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    html += `
+                        <div class="bg-[#1c1c1e] hover:bg-[#27272a] border border-white/5 rounded-2xl p-4 flex items-center justify-between transition-colors group animate-fade-up" style="animation-delay: ${index * 0.03}s">
+                            <div class="flex items-center gap-4 cursor-pointer flex-1" onclick="window.handleNavClick('tool-${t.id}')">
+                                <img src="${t.img}" class="w-12 h-12 rounded-xl object-cover border border-white/10" loading="lazy">
+                                <div>
+                                    <h4 class="text-white font-bold text-base md:text-lg leading-tight group-hover:text-brand-accent transition-colors">${t.title}</h4>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">${t.category}</span>
+                                        <span class="w-1 h-1 rounded-full bg-gray-600"></span>
+                                        <span class="text-xs text-gray-400">${dateStr}, ${timeStr}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="window.removeHistoryItem(event, ${t.id})" class="p-2 text-gray-500 hover:text-red-500 hover:bg-white/5 rounded-xl transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+            html += `</div>`;
+            document.getElementById('view-content').innerHTML = html;
+            window.tryCreateIcons();
+        };
+
+        window.clearHistory = function() {
+            if(confirm("Are you sure you want to clear your history?")) {
+                toolHistory = [];
+                localStorage.removeItem('forgenos_history');
+                window.renderHistoryView();
+                window.showToast("History cleared", "success");
+            }
+        };
+
+        window.removeHistoryItem = function(e, id) {
+            e.stopPropagation();
+            toolHistory = toolHistory.filter(h => h.id !== id);
+            localStorage.setItem('forgenos_history', JSON.stringify(toolHistory));
+            window.renderHistoryView();
         };
 
         window.renderSavedView = function() { 
@@ -1724,11 +1915,14 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         window.onload = () => {
             const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
             
-            // FIX: Check URL Hash to load correct category/page instead of forcing home
+            if (!localStorage.getItem('forgenos_welcome_dismissed')) {
+                document.getElementById('welcome-banner').style.display = 'block';
+            }
+
             let initialView = 'home';
             if (window.location.hash) {
                 const hashView = window.location.hash.substring(1);
-                const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'saved', 'settings', 'about', 'contact', 'privacy', 'terms', 'disclaimer'];
+                const validViews = ['home', 'projects', 'history', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'saved', 'settings'];
                 if (validViews.includes(hashView) || hashView.startsWith('tool-')) {
                     initialView = hashView;
                 }
@@ -1737,7 +1931,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             history.replaceState({view: initialView}, '', '#' + initialView);
             currentView = initialView;
             
-            // Initialize Lenis ONLY if not on Mobile (Prevents Phone Heating/Lag)
             if(typeof Lenis !== 'undefined' && !isMobileDevice) {
                 lenisInstance = new Lenis({duration:1.2, easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)), orientation:'vertical', smoothWheel:true });
                 if(typeof ScrollTrigger !== 'undefined') lenisInstance.on('scroll', ScrollTrigger.update);
@@ -1750,16 +1943,14 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             window.triggerPageLoader(); 
             window.applyImmediateSettings(); 
             
-            // FIX: Render the specific view requested in URL
             if(initialView === 'home') window.renderHome();
             else if(initialView === 'settings') window.renderSettings();
             else if(initialView === 'saved') window.renderSavedView();
             else if(initialView === 'projects') window.renderProjectsView();
-            else if(['privacy','terms','about','contact','disclaimer'].includes(initialView)) window.renderPolicyPage(initialView);
+            else if(initialView === 'history') window.renderHistoryView();
             else if(initialView.startsWith('tool-')) window.renderToolDetailPage(parseInt(initialView.split('-')[1]));
             else window.renderCategoryPage(initialView);
 
-            // Set footer visibility appropriately
             const footer = document.getElementById('main-footer');
             if(footer) footer.style.display = (initialView === 'home') ? 'block' : 'none';
 
