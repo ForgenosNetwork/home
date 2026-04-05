@@ -7,9 +7,9 @@
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
     
     <!-- Font -->
-    <title>FORGENOS | 100% Free Premium AI & Dev Tool Directory</title>
-    <meta name="description" content="Access the world's most powerful digital arsenal. FORGENOS offers a curated collection of 100% free AI, Dev, and Finance tools for Tier-1 professionals.">
-    <meta name="keywords" content="free premium tools, forgenos directory, best ai tools 2026, free developer utilities, wealth architect tool, free software directory">
+    <title>FORGENOS | The Ultimate Digital Power Kit (Free)</title>
+    <meta name="description" content="Stop paying for basic tools. FORGENOS gives you instant access to a powerful suite of free digital utilities from PDF & image editing to developer tools, finance calculators, and brain training. No sign ups, no hidden costs. Fast, secure, and built to simplify every part of your digital day. Start using it for free.">
+    <meta name="keywords" content="free premium tools, forgenos directory, best tools 2026, free developer utilities, wealth architect tool, free software directory">
     <meta name="author" content="FORGENOS">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://forgenos.com/">
@@ -106,10 +106,10 @@
             color: #e5e5e5; 
             overflow-x: hidden; 
             transition: filter 0.3s ease; 
-            -webkit-user-select: none; 
-            -moz-user-select: none; 
-            -ms-user-select: none; 
-            user-select: none; 
+            -webkit-user-select: text; 
+            -moz-user-select: text; 
+            -ms-user-select: text; 
+            user-select: text; 
         }
         html { scroll-behavior: smooth; }
         body, .overflow-y-auto, .hide-scroll { -webkit-overflow-scrolling: touch; }
@@ -492,6 +492,13 @@
                     <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
                 </div>
                 
+                <div id="ctx-copy-btn" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxCopyText(); window.closeContextMenu()">
+                    <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Text
+                </div>
+                <div id="ctx-paste-btn" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxPasteText(); window.closeContextMenu()">
+                    <i data-lucide="clipboard" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste
+                </div>
+                
                 <div class="h-[1px] bg-white/5 my-1.5"></div>
                 
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.handleNavClick('home'); window.closeContextMenu()">
@@ -629,6 +636,15 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             e.preventDefault(); 
             const menu = document.getElementById('custom-context-menu'); 
             if(!menu) return; 
+            
+            // Show "Copy Text" only if user has selected text
+            const selectedText = window.getSelection().toString().trim();
+            const copyBtn = document.getElementById('ctx-copy-btn');
+            const pasteBtn = document.getElementById('ctx-paste-btn');
+            if (copyBtn) copyBtn.style.display = selectedText.length > 0 ? 'flex' : 'none';
+            // Always show Paste (it will try to paste from clipboard)
+            if (pasteBtn) pasteBtn.style.display = 'flex';
+
             let x = e.clientX, y = e.clientY; 
             if(x + 220 > window.innerWidth) x -= 220; 
             if(y + 350 > window.innerHeight) y -= 350; 
@@ -645,11 +661,55 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             const menu = document.getElementById('custom-context-menu'); 
             if(menu) menu.style.display = 'none'; 
         };
+        
+        window.ctxCopyText = function() {
+            const selectedText = window.getSelection().toString();
+            if (selectedText) {
+                navigator.clipboard.writeText(selectedText).then(() => {
+                    window.showToast("Text Copied!", "success");
+                }).catch(() => {
+                    // Fallback
+                    const el = document.createElement('textarea');
+                    el.value = selectedText;
+                    el.style.position = 'fixed';
+                    el.style.opacity = '0';
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    window.showToast("Text Copied!", "success");
+                });
+            } else {
+                window.showToast("No text selected", "alert");
+            }
+        };
+
+        window.ctxPasteText = async function() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    const active = document.activeElement;
+                    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
+                        const start = active.selectionStart;
+                        const end = active.selectionEnd;
+                        const val = active.value;
+                        active.value = val.substring(0, start) + text + val.substring(end);
+                        active.selectionStart = active.selectionEnd = start + text.length;
+                        active.dispatchEvent(new Event('input', { bubbles: true }));
+                        window.showToast("Text Pasted!", "success");
+                    } else {
+                        window.showToast("Click an input field first to paste", "alert");
+                    }
+                }
+            } catch (err) {
+                window.showToast("Clipboard access denied by browser", "alert");
+            }
+        };
 
         document.addEventListener('keydown', (e) => { 
             if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
             if (e.ctrlKey || e.metaKey) { 
-                const blockedKeys = ['u','s','i','j','c','a','p','h','f','g','r']; 
+                const blockedKeys = ['u','s','i','j','p','h','f','g','r']; 
                 if (blockedKeys.includes(e.key.toLowerCase())) { e.preventDefault(); return false; } 
             } 
         });
@@ -712,17 +772,19 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         // ============================================================================
 
         const heroSlides = [
-            { tag: "#1 in Productivity", title: 'Neural<span class="text-brand-accent">Forge</span> AI', desc: "Harness the power of decentralized AI to automate your entire business workflow from ideation to deployment.", img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop" },
-            { tag: "Financial Freedom", title: 'Wealth<span class="text-brand-accent">Sync</span> Pro', desc: "Master the markets with institutional-grade analytics tailored for the modern independent investor.", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2070&auto=format&fit=crop" },
-            { tag: "Developer Choice", title: 'Quantum<span class="text-brand-accent">Stack</span>', desc: "The ultimate deployment engine for low-latency applications. Scale globally with zero-config infrastructure.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" }
+            { tag: "#1 in Productivity", title: 'Neural<span class="text-brand-accent">Forge</span> AI', subtitle: "Stop performing repetitive tasks. Let our neural engine handle the heavy lifting while you focus on scaling.", desc: "Harness the power of decentralized AI to automate your entire business workflow from ideation to deployment.", img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop" },
+            { tag: "Financial Freedom", title: 'Wealth<span class="text-brand-accent">Sync</span> Pro', subtitle: "Make institutional-level moves with data-driven certainty. Build your wealth without the guesswork.", desc: "Master the markets with institutional-grade analytics tailored for the modern independent investor.", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2070&auto=format&fit=crop" },
+            { tag: "Developer Choice", title: 'Quantum<span class="text-brand-accent">Stack</span>', subtitle: "Deploy faster, scale harder, and eliminate infrastructure headaches instantly.", desc: "The ultimate deployment engine for low-latency applications. Scale globally with zero-config infrastructure.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" }
         ];
 
         const categoriesList = [
-          { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(34,197,94,0.3)', filter: t => t.category === 'finance', homepageTools: [1, 2, 3, 4] },
+            { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(34,197,94,0.3)', filter: t => t.category === 'finance', homepageTools: [1, 2, 3, 4] },
             { id: 'dev', title: 'Developer Tools', icon: 'code-2', color: 'text-blue-500', img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(59,130,246,0.3)', filter: t => t.category === 'dev', homepageTools: [5, 6, 7, 8, 21] },
             { id: 'student', title: 'Study Zone', icon: 'graduation-cap', color: 'text-yellow-500', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(234,179,8,0.3)', filter: t => t.category === 'student', homepageTools: [9, 10, 11, 12] },
             { id: 'brain', title: 'Brain Training', icon: 'brain-circuit', color: 'text-purple-500', img: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(168,85,247,0.3)', filter: t => t.category === 'brain', homepageTools: [13, 14, 15] },
-            { id: 'health', title: 'Health & Wellness', icon: 'heart-pulse', color: 'text-rose-400', img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(251,113,133,0.3)', filter: t => t.category === 'health', homepageTools: [16, 17, 18, 19, 20] }
+            { id: 'health', title: 'Health & Wellness', icon: 'heart-pulse', color: 'text-rose-400', img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(251,113,133,0.3)', filter: t => t.category === 'health', homepageTools: [16, 17, 18, 19, 20] },
+            { id: 'pdf', title: 'PDF Magic', icon: 'file-text', color: 'text-cyan-400', img: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(34,211,238,0.3)', filter: t => t.category === 'pdf', homepageTools: [] },
+            { id: 'image', title: 'Image Lab', icon: 'image', color: 'text-fuchsia-400', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2070&auto=format&fit=crop', glow: 'rgba(232,121,249,0.3)', filter: t => t.category === 'image', homepageTools: [] }
         ];
 
         const catColorsMap = { 
@@ -731,7 +793,9 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             'dev': 'text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]', 
             'student': 'text-yellow-500 drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]', 
             'brain': 'text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]', 
-            'health': 'text-rose-400 drop-shadow-[0_0_8px_rgba(251,113,133,0.8)]' 
+            'health': 'text-rose-400 drop-shadow-[0_0_8px_rgba(251,113,133,0.8)]',
+            'pdf': 'text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]',
+            'image': 'text-fuchsia-400 drop-shadow-[0_0_8px_rgba(232,121,249,0.8)]'
         };
         const catColorsSolidMap = { 
             'trending': 'bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]', 
@@ -739,7 +803,9 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             'dev': 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]', 
             'student': 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]', 
             'brain': 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]', 
-            'health': 'bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]' 
+            'health': 'bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]',
+            'pdf': 'bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]',
+            'image': 'bg-fuchsia-400 shadow-[0_0_8px_rgba(232,121,249,0.8)]'
         };
 
         let savedTools = JSON.parse(localStorage.getItem('toolnox_saved')) || [];
@@ -832,6 +898,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                 { id: 'student', icon: 'graduation-cap', label: 'Study Zone' },
                 { id: 'brain', icon: 'brain-circuit', label: 'Brain Training' },
                 { id: 'health', icon: 'heart-pulse', label: 'Health' },
+                { id: 'pdf', icon: 'file-text', label: 'PDF Magic' },
+                { id: 'image', icon: 'image', label: 'Image Lab' },
                 { id: 'saved', icon: 'bookmark', label: 'My List' }
             ];
 
@@ -882,6 +950,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                     ${createMobileLink('student', 'graduation-cap', 'Study Zone')}
                     ${createMobileLink('brain', 'brain-circuit', 'Brain Training')}
                     ${createMobileLink('health', 'heart-pulse', 'Health')}
+                    ${createMobileLink('pdf', 'file-text', 'PDF Magic')}
+                    ${createMobileLink('image', 'image', 'Image Lab')}
                     <div class="border-t border-white/5 mt-8 pt-6 flex flex-col gap-1">
                         ${createMobileLink('settings', 'settings', 'Settings')}
                         ${createMobileLink('about', 'info', 'About Us')}
@@ -1032,6 +1102,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
             else if(tool.category === 'brain') categoryColor = "text-purple-500 border-purple-500/20 bg-purple-500/5";
             else if(tool.category === 'health') categoryColor = "text-rose-400 border-rose-400/20 bg-rose-400/5";
+            else if(tool.category === 'pdf') categoryColor = "text-orange-400 border-orange-400/20 bg-orange-400/5";
+            else if(tool.category === 'image') categoryColor = "text-pink-400 border-pink-400/20 bg-pink-400/5";
 
             const cardGlowClass = (!isSelectMode && isPinnedSection) ? 'pinned-glow' : '';
 
@@ -1091,6 +1163,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
             else if(tool.category === 'brain') categoryColor = "text-purple-500 border-purple-500/20 bg-purple-500/5";
             else if(tool.category === 'health') categoryColor = "text-rose-400 border-rose-400/20 bg-rose-400/5";
+            else if(tool.category === 'pdf') categoryColor = "text-orange-400 border-orange-400/20 bg-orange-400/5";
+            else if(tool.category === 'image') categoryColor = "text-pink-400 border-pink-400/20 bg-pink-400/5";
 
             const isSaved = savedTools.includes(tool.id);
 
@@ -1219,15 +1293,21 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         window.renderHome = function() {
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-12 md:pt-16 pb-8 text-left max-w-5xl">
-                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
-                        <span>Elevate Your Digital</span>
-                        <span class="rolling-wrapper-inline min-w-[200px] md:min-w-[320px]">
+                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
+                        <span>The Ultimate All in One</span>
+                        <span class="rolling-wrapper-inline min-w-[200px] md:minw-[320px]">
                             <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
-                                <li>Workflow</li><li>Arsenal</li><li>Matrix</li><li>Craft</li><li>Frontier</li><li aria-hidden="true">Workflow</li>
+                                <li>Toolkit</li><li>Dashboard</li><li>Partner</li><li>Resource</li><li>Experience</li><li aria-hidden="true">Toolkit</li>
                             </ul>
                         </span>
                     </h1>
-                    <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
+
+                  <p class="text-gray-400 text-base md:text-lg font-medium max-w-2xl mb-8 animate-fade-up leading-relaxed" style="animation-delay: 0.05s">
+                   Why jump between 20 websites when you can have it all in one? FORGENOS is your free hub for everything digital from PDF & Images to Dev, Finance, and Brain tools. Fast, secure, and built into one elite dashboard.
+                </p> 
+
+
+                   <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
                         <div class="relative group">
                             <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
                             <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-500" autocomplete="off" oninput="window.performInlineSearch()">
@@ -1266,7 +1346,8 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
                                     <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(229,9,20,0.4)]">${slide.tag}</span>
                                     <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
-                                    <p class="text-sm md:text-lg text-gray-300 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
+                                    <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
+                                    <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
                                     <div class="flex gap-3 md:gap-4 pt-2">
                                         <button class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
                                         <button class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
@@ -1368,10 +1449,10 @@ td.code { padding-left:10px; white-space:pre-wrap; }
                                 <div class="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center shadow-2xl">
                                     <i data-lucide="${cat.icon}" class="${cat.color} w-6 h-6 md:w-8 md:h-8"></i>
                                 </div>
-                                <span class="bg-[#1a1a1c]/80 text-white text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest uppercase shadow-lg backdrop-blur-md border border-white/5">${tools.length} Premium Tools</span>
+                                <span class="bg-[#1a1a1c]/80 text-white text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest shadow-lg backdrop-blur-md border border-white/5">${tools.length} Tools</span>
                             </div>
                             <h1 class="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none mb-4">${cat.title}</h1>
-                            <p class="text-gray-400 text-sm md:text-xl font-medium max-w-2xl leading-relaxed">${cat.desc}</p>
+                            <p class="text-gray-400 text-sm md:text-xl font-medium max-w-2xl leading-relaxed">${cat.desc || `Explore premium tools in the ${cat.title} category.`}</p>
                         </div>
                     </div>
                 </div>
@@ -1724,7 +1805,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             let initialView = 'home';
             if (window.location.hash) {
                 const hashView = window.location.hash.substring(1);
-                const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'saved', 'settings', 'about', 'contact', 'privacy', 'terms', 'disclaimer'];
+                const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'pdf', 'image', 'saved', 'settings', 'about', 'contact', 'privacy', 'terms', 'disclaimer'];
                 if (validViews.includes(hashView) || hashView.startsWith('tool-')) {
                     initialView = hashView;
                 }
