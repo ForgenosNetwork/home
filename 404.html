@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting... | FORGENOS</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#141414;color:#e5e5e5;font-family:'Plus Jakarta Sans',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;}
+    .spin{width:38px;height:38px;border:3px solid rgba(229,9,20,0.15);border-top:3px solid #E50914;border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 18px;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    p{color:#6b7280;font-size:14px;margin-top:8px}
+    a{color:#E50914;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div>
+    <div class="spin"></div>
+    <p>Sahi jagah le ja rahe hain...</p>
+    <p style="margin-top:14px;font-size:12px">Redirect nahi hua? <a href="/">Home jao</a></p>
+  </div>
+  <script>
+  (function(){
+    var EXACT_MAP={
+      'pulse-neural-wealth-architect':'/finance/pulse-neural-wealth-architect',
+      'vestiq-quantum-equity-vesting-simulator':'/finance/vestiq-quantum-equity-vesting-simulator',
+      'runwayzero-tool':'/finance/runwayzero-tool',
+      'subslayer-recurring-expense-annihilation-engine':'/finance/subslayer-expense-tracker',
+      'tokenforge-sandbox':'/dev/tokenforge-sandbox',
+      'branchweaver-git-simulator':'/dev/branchweaver-git-simulator',
+      'regexdrill-execution-profiling-engine':'/dev/regexdrill-execution-profiling-engine',
+      'schemasynth':'/dev/schemasynth',
+      'deploynexus-simulation-engine':'/dev/deploynexus-simulation-engine',
+      'velocityread-tool':'/studyzone/velocityread-tool',
+      'deepwork-weaver':'/studyzone/deepwork-weaver',
+      'ideaharvest':'/studyzone/ideaharvest',
+      'chronoblock-tactile-time-allocation-matrix':'/studyzone/chronoblock-tactile-time-allocation-matrix',
+      'neuropulse-dual-n-back':'/braintraining/neuropulse-dual-n-back',
+      'biasbreaker-cognitive-bias-forensic-simulator':'/braintraining/biasbreaker-cognitive-bias-forensic-simulator',
+      'neuroflex-engine':'/braintraining/neuroflex-engine',
+      'circadiasync-alignment-engine':'/health/circadiasync-alignment-engine',
+      'macroshift-tool':'/health/macroshift-Tool',
+      'pranapace-neural-breath-sync':'/health/pranapace-neural-breath-sync',
+      'stimcurve-tool':'/health/stimcurve-tool',
+      'stressshield-tool':'/health/stressshield-tool'
+    };
+    var FALLBACK=[
+      {keys:['pulse','wealth','vestiq','equity','vesting','runwayzero','runway','subslayer','finance','invest','budget','saving','stock'],folder:'finance'},
+      {keys:['tokenforge','jwt','branchweaver','git','regexdrill','regex','schemasynth','schema','deploynexus','deploy','dev','code','api','sandbox'],folder:'dev'},
+      {keys:['velocityread','deepwork','ideaharvest','chronoblock','study','learn','read','harvest','weaver'],folder:'studyzone'},
+      {keys:['neuropulse','biasbreaker','neuroflex','brain','memory','cognitive','bias','neuro'],folder:'braintraining'},
+      {keys:['circadiasync','macroshift','macro','pranapace','prana','breath','stimcurve','stim','stressshield','stress','health','sleep','circadia'],folder:'health'},
+      {keys:['image','img','photo','png','jpg','jpeg','compress','resize','crop'],folder:'imagelab'},
+      {keys:['pdf','merge','split'],folder:'pdfmagic'}
+    ];
+    function toSlug(r){try{r=decodeURIComponent(r);}catch(e){}return r.toLowerCase().replace(/^\//,'').replace(/\.html?$/,'').replace(/\/$/,'');}
+    var slug=toSlug(window.location.pathname);
+    var dest=EXACT_MAP[slug]||null;
+    if(!dest){for(var i=0;i<FALLBACK.length;i++){var e=FALLBACK[i];for(var j=0;j<e.keys.length;j++){if(slug.indexOf(e.keys[j])!==-1){dest='/'+e.folder+'/'+slug;break;}}if(dest)break;}}
+    if(!dest)dest='/';
+    window.location.replace(dest);
+  })();
+  </script>
+</body>
+</html>
