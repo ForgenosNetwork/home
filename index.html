@@ -353,9 +353,7 @@
             buttonLink: 'https://forgenos.com/tool-page'
         };
 
-        // =====================================
-        // PROPERLY FORMATTED UI INJECTION
-        // =====================================
+      
         
         // Single Source of Truth for the Logo Image URL
         const forgenosLogoImg = "https://forgenos.com/assets/logo2.png";
@@ -631,14 +629,10 @@
         
         document.getElementById('app-root').innerHTML = __UI__;
 
-        // Hydration Logic: Remove Opacity-0 cleanly after UI renders
         setTimeout(() => {
             document.getElementById('app-root').classList.remove('opacity-0');
         }, 100);
 
-        // =====================================
-        // EXPLICIT GLOBAL FUNCTION ATTACHMENTS
-        // =====================================
         
         let lenisInstance; 
         
@@ -650,8 +644,7 @@
 
         window.lockScroll = function() {
             document.body.classList.add('scroll-locked');
-            // By NOT stopping Lenis here, and relying on CSS body.scroll-locked (overflow: hidden),
-            // Modals that have data-lenis-prevent attribute can still scroll perfectly via native browser scroll!
+
         };
 
         window.unlockScroll = function() {
@@ -793,7 +786,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             fakeTab.document.close(); 
         };
 
-        // ADVANCED SECURITY IMPLEMENTATION
         document.addEventListener('contextmenu', (e) => { 
             e.preventDefault(); 
             const isMobileDevice = window.innerWidth < 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -928,7 +920,7 @@ td.code { padding-left:10px; white-space:pre-wrap; }
         // ============================================================================
 
         const heroSlides = [
-            { tag: "New", title: 'Image<span class="text-brand-accent">Format</span> Converter', subtitle: "Convert JPG, PNG, WEBP, GIF, PDF, and AVIF instantly in your browser.", desc: "", img: "https://forgenos.com/Imagelab/img/tool_2.webp" },
+            { tag: "New", title: 'Fire<span class="text-brand-accent">Calc</span> ', subtitle: "Project your financial independence timeline, model compound growth, and calculate safe withdrawal rates securely in your local browser.", desc: "", img: "https://forgenos.com/finance/img/tool_5.webp" },
             { tag: "Health", title: 'Circadia<span class="text-brand-accent">Synic</span> ', subtitle: "Calibrate your circadian rhythm and calculate optimal sleep phases for peak cognitive recovery completely free.", desc: "", img: "https://forgenos.com/health/img/tool_1.jpg" },
             { tag: "PDF", title: 'PDF<span class="text-brand-accent">Protect</span>', subtitle: "Instantly encrypt, restrict, or unlock your sensitive PDF documents securely within your local browser.", desc: "", img: "https://forgenos.com/pdfmagic/img/tool_1.webp" }
         ];
@@ -1042,9 +1034,6 @@ td.code { padding-left:10px; white-space:pre-wrap; }
             }
         };
 
-        // =====================================
-        // RENDER LOGIC
-        // =====================================
         window.renderSidebar = function() {
             const navItems = [
                 { id: 'home', icon: 'home', label: 'Home' },
