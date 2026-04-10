@@ -13,7 +13,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://forgenos.com/">
 
-    <meta name="theme-color" content="#E50914">
+    <meta name="theme-color" content="#141414">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://forgenos.com/assets/favicon-square.png">
@@ -63,15 +63,18 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <script>
@@ -132,7 +135,6 @@
         
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; display: none; }
 
-        /* Sidebar Styling */
         #sidebar { 
             width: 5.5rem; 
             transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -152,7 +154,6 @@
         .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; pointer-events: none; }
         #sidebar:hover .logo-text { opacity: 1; transition-delay: 0.15s; }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #141414; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
@@ -167,7 +168,6 @@
         .rolling-list-inline { margin: 0; padding: 0; list-style: none; will-change: transform; display: flex; flex-direction: column; width: 100%; }
         .rolling-list-inline li { height: 1.1em; display: flex; align-items: center; white-space: nowrap; }
 
-        /* Premium Card */
         .premium-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             background: linear-gradient(145deg, #1c1c1e 0%, #09090b 100%) !important; 
@@ -238,8 +238,6 @@
             background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
         }
 
-        /* Announcement Popup */
-        @keyframes popupSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         #announcement-popup {
             position: fixed; bottom: 24px; right: 24px; z-index: 9000; max-width: 360px; width: calc(100% - 48px);
             background: #1a1a1c; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); display: none; flex-direction: column; overflow: hidden;
@@ -270,7 +268,6 @@
 </head>
 <body class="antialiased opacity-0 transition-opacity duration-700 ease-in-out" id="app-root">
 
-    <!-- SEO STATIC FALLBACK (Googlebot Indexing) -->
     <noscript>
         <style>
             body { overflow: hidden; }
@@ -286,46 +283,42 @@
         </div>
     </noscript>
 
-    <!-- Hidden SEO content block to ensure all tools are indexed by Google without relying on JS execution -->
     <div id="seo-static-content" class="sr-only">
         <h1>Forgenos - Free Developer, Finance, PDF and Image Tools</h1>
         <p>A directory of premium, free tools that run securely in your browser. Find PDF protectors, FIRE calculators, regular expression testers, format converters, and more.</p>
         <section>
             <h2>Tools Index</h2>
             <ul>
-                <li><a href="#tool-1">Pulse Neural Wealth Architect</a>: Track and visualize how small daily expenses affect your long-term wealth.</li>
-                <li><a href="#tool-2">Vestiq</a>: Easily understand your RSU and ESPP stock vesting schedules and potential taxes.</li>
-                <li><a href="#tool-3">RunwayZero</a>: Calculate your startup or personal cash runway to see how long your money will last.</li>
-                <li><a href="#tool-4">SubsLayer</a>: Find and calculate the long-term cost of hidden monthly subscriptions.</li>
-                <li><a href="#tool-5">TokenForge</a>: Easily decode, inspect, and modify JSON Web Tokens (JWT) directly in your browser.</li>
-                <li><a href="#tool-6">BranchWeaver</a>: Practice resolving Git merge conflicts safely without touching real code.</li>
-                <li><a href="#tool-7">RegexDrill</a>: Test your Regular Expressions (Regex) for performance issues and bugs.</li>
-                <li><a href="#tool-8">SchemaSynth</a>: Create database schemas visually and generate fake JSON data for testing.</li>
-                <li><a href="#tool-9">VelocityRead</a>: Read text much faster by focusing on one word at a time without moving your eyes.</li>
-                <li><a href="#tool-10">DeepworkWeaver</a>: Track your deep work sessions and build a habit of working without distractions.</li>
-                <li><a href="#tool-11">IdeahaRvest</a>: Organize messy brainstorming notes into clear, actionable project plans.</li>
-                <li><a href="#tool-12">ChronoBlock</a>: Plan your day by dragging and dropping time blocks to stay focused.</li>
-                <li><a href="#tool-13">NeuroPulse</a>: Improve your short-term memory with this scientifically proven Dual N-Back game.</li>
-                <li><a href="#tool-14">BiasBreaker</a>: Test your decision-making skills and learn how to avoid common mental biases.</li>
-                <li><a href="#tool-15">NeuroFlex</a>: Train your brain to switch tasks quickly and make faster decisions.</li>
-                <li><a href="#tool-16">CircadiaSynic</a>: Calculate the best times to go to sleep and wake up feeling refreshed.</li>
-                <li><a href="#tool-17">MacroShift</a>: Calculate exactly how much protein, carbs, and fat you need for your fitness goals.</li>
-                <li><a href="#tool-18">PranaPace</a>: Follow guided breathing exercises to instantly reduce stress and improve focus.</li>
-                <li><a href="#tool-19">StimCurve</a>: Track your caffeine intake to make sure it doesn't ruin your sleep.</li>
-                <li><a href="#tool-20">StressShield</a>: Log your daily stress points and visually destroy them to clear your mind.</li>
-                <li><a href="#tool-21">DeployNexus</a>: Simulate software deployment pipelines to practice handling crashes safely.</li>
-                <li><a href="#tool-23">PDF Protect</a>: Quickly lock or unlock PDF files with a password. Your files never leave your computer.</li>
-                <li><a href="#tool-24">ImageFormat Converter</a>: Easily convert images between JPG, PNG, WEBP, and more, right in your browser.</li>
-                <li><a href="#tool-25">FireCalc</a>: Find out exactly when you can retire early with this simple FIRE calculator.</li>
-                <li><a href="#tool-26">Cognitive Visual Trainer</a>: Boost your visual memory by remembering and matching grid patterns.</li>
+                <li><a href="#tool-1" title="Pulse Neural Wealth Architect">Pulse Neural Wealth Architect</a>: Track and visualize how small daily expenses affect your long-term wealth.</li>
+                <li><a href="#tool-2" title="Vestiq Equity Simulator">Vestiq</a>: Easily understand your RSU and ESPP stock vesting schedules and potential taxes.</li>
+                <li><a href="#tool-3" title="RunwayZero Calculator">RunwayZero</a>: Calculate your startup or personal cash runway to see how long your money will last.</li>
+                <li><a href="#tool-4" title="SubsLayer Expense Tracker">SubsLayer</a>: Find and calculate the long-term cost of hidden monthly subscriptions.</li>
+                <li><a href="#tool-5" title="TokenForge JWT Editor">TokenForge</a>: Easily decode, inspect, and modify JSON Web Tokens (JWT) directly in your browser.</li>
+                <li><a href="#tool-6" title="BranchWeaver Git Simulator">BranchWeaver</a>: Practice resolving Git merge conflicts safely without touching real code.</li>
+                <li><a href="#tool-7" title="RegexDrill Performance Profiler">RegexDrill</a>: Test your Regular Expressions (Regex) for performance issues and bugs.</li>
+                <li><a href="#tool-8" title="SchemaSynth Fake Data Generator">SchemaSynth</a>: Create database schemas visually and generate fake JSON data for testing.</li>
+                <li><a href="#tool-9" title="VelocityRead Speed Reader">VelocityRead</a>: Read text much faster by focusing on one word at a time without moving your eyes.</li>
+                <li><a href="#tool-10" title="DeepworkWeaver Focus Tracker">DeepworkWeaver</a>: Track your deep work sessions and build a habit of working without distractions.</li>
+                <li><a href="#tool-11" title="IdeahaRvest Brainstorm Organizer">IdeahaRvest</a>: Organize messy brainstorming notes into clear, actionable project plans.</li>
+                <li><a href="#tool-12" title="ChronoBlock Daily Planner">ChronoBlock</a>: Plan your day by dragging and dropping time blocks to stay focused.</li>
+                <li><a href="#tool-13" title="NeuroPulse Dual N-Back Game">NeuroPulse</a>: Improve your short-term memory with this scientifically proven Dual N-Back game.</li>
+                <li><a href="#tool-14" title="BiasBreaker Logic Test">BiasBreaker</a>: Test your decision-making skills and learn how to avoid common mental biases.</li>
+                <li><a href="#tool-15" title="NeuroFlex Cognitive Agility Game">NeuroFlex</a>: Train your brain to switch tasks quickly and make faster decisions.</li>
+                <li><a href="#tool-16" title="CircadiaSynic Sleep Cycle Calculator">CircadiaSynic</a>: Calculate the best times to go to sleep and wake up feeling refreshed.</li>
+                <li><a href="#tool-17" title="MacroShift Nutrition Calculator">MacroShift</a>: Calculate exactly how much protein, carbs, and fat you need for your fitness goals.</li>
+                <li><a href="#tool-18" title="PranaPace Breathing Guide">PranaPace</a>: Follow guided breathing exercises to instantly reduce stress and improve focus.</li>
+                <li><a href="#tool-19" title="StimCurve Caffeine Tracker">StimCurve</a>: Track your caffeine intake to make sure it doesn't ruin your sleep.</li>
+                <li><a href="#tool-20" title="StressShield Emotional Diary">StressShield</a>: Log your daily stress points and visually destroy them to clear your mind.</li>
+                <li><a href="#tool-21" title="DeployNexus Deployment Simulator">DeployNexus</a>: Simulate software deployment pipelines to practice handling crashes safely.</li>
+                <li><a href="#tool-23" title="PDF Protect Local Tool">PDF Protect</a>: Quickly lock or unlock PDF files with a password. Your files never leave your computer.</li>
+                <li><a href="#tool-24" title="ImageFormat Converter Offline">ImageFormat Converter</a>: Easily convert images between JPG, PNG, WEBP, and more, right in your browser.</li>
+                <li><a href="#tool-25" title="FireCalc Early Retirement Calculator">FireCalc</a>: Find out exactly when you can retire early with this simple FIRE calculator.</li>
+                <li><a href="#tool-26" title="Cognitive Visual Trainer Game">Cognitive Visual Trainer</a>: Boost your visual memory by remembering and matching grid patterns.</li>
             </ul>
         </section>
     </div>
 
     <script>
-        // =====================================
-        // ANNOUNCEMENT CONFIGURATION
-        // =====================================
         const announcementConfig = {
             enabled: false, 
             id: 'announce_v1', 
@@ -345,7 +338,9 @@
                 <div class="relative w-12 h-12 md:w-14 md:h-14 shrink-0 flex items-center justify-center bg-transparent">
                     <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                     <img src="${forgenosLogoImg}" 
-                         alt="Logo" 
+                         alt="Logo"
+                         loading="lazy" 
+                         decoding="async"
                          class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
                          onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none'; this.parentElement.style.animation = 'none';">
                 </div>
@@ -359,15 +354,15 @@
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             
-            <div id="announcement-popup">
-                <img id="ap-img" src="" alt="Announcement" onload="this.parentElement.style.animation = 'none';">
+            <div id="announcement-popup" role="dialog" aria-modal="true" aria-labelledby="ap-title">
+                <img id="ap-img" src="" alt="Announcement" loading="lazy" decoding="async" onload="this.parentElement.style.animation = 'none';">
                 <div class="ap-content">
                     <span id="ap-cat"></span>
                     <h3 id="ap-title"></h3>
                     <p id="ap-desc"></p>
                     <div class="ap-actions">
-                        <button id="ap-btn"></button>
-                        <button id="ap-dismiss">Dismiss</button>
+                        <button id="ap-btn" aria-label="Open Announcement"></button>
+                        <button id="ap-dismiss" aria-label="Dismiss Announcement">Dismiss</button>
                     </div>
                 </div>
             </div>
@@ -376,24 +371,24 @@
                 <div class="shimmer-text">Just a sec...</div>
             </div>
 
-            <canvas id="particle-canvas"></canvas>
+            <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
             <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
-                <div class="flex items-center cursor-pointer" onclick="window.handleNavClick('home')">
+                <div class="flex items-center cursor-pointer" onclick="window.handleNavClick('home')" aria-label="Go to Home">
                     ${forgenosLogoMark}
                 </div>
-                <button type="button" onclick="window.toggleMobileMenu()" class="p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
+                <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
             </header>
 
             <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="window.toggleMobileMenu()"></div>
-            <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]" data-lenis-prevent>
+            <div id="mobile-menu" role="navigation" aria-label="Mobile Navigation" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]" data-lenis-prevent>
                 <div class="flex justify-between items-center mb-10">
                     <div class="flex items-center cursor-pointer scale-90 md:scale-100 origin-left" onclick="window.handleNavClick('home'); window.toggleMobileMenu()">
                         ${forgenosLogoMark}
                     </div>
-                    <button onclick="window.toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                    <button onclick="window.toggleMobileMenu()" aria-label="Close Mobile Menu" class="p-2 text-white/50 hover:text-white transition-colors">
                         <i data-lucide="x" class="w-6 h-6"></i>
                     </button>
                 </div>
@@ -401,12 +396,14 @@
             </div>
 
             <div class="flex min-h-screen">
-                <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
-                    <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="window.handleNavClick('home')">
+                <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar" aria-label="Sidebar Navigation">
+                    <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="window.handleNavClick('home')" aria-label="Go to Home">
                         <div class="relative w-14 h-14 shrink-0 flex items-center justify-center bg-transparent">
                             <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                             <img src="${forgenosLogoImg}" 
                                  alt="Logo" 
+                                 loading="lazy"
+                                 decoding="async"
                                  class="w-full h-full object-contain scale-110 opacity-0 transition-opacity duration-1000 ease-out relative z-10" 
                                  onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none'; this.parentElement.style.animation = 'none';">
                         </div>
@@ -415,7 +412,7 @@
 
                     <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto hide-scroll" id="desktop-nav"></nav>
                     <div class="p-6 border-t border-white/5 flex flex-col gap-4">
-                        <div id="sidebar-settings-btn" onclick="window.handleNavClick('settings')" class="flex items-center px-4 h-12 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group relative cursor-pointer"></div>
+                        <div id="sidebar-settings-btn" role="button" aria-label="Open Settings" onclick="window.handleNavClick('settings')" class="flex items-center px-4 h-12 rounded-2xl text-gray-400 hover:text-white hover:bg-white/5 transition-all group relative cursor-pointer"></div>
                     </div>
                 </aside>
 
@@ -428,32 +425,32 @@
                                 <div class="flex items-center cursor-pointer scale-90 md:scale-100 origin-left" onclick="window.handleNavClick('home')">
                                     ${forgenosLogoMark}
                                 </div>
-                                <p class="text-gray-500 text-sm max-w-xs mt-2">The premium collection of the world's best digital tools. Curated for creators and builders.</p>
+                                <p class="text-gray-400 text-sm max-w-xs mt-2">The premium collection of the world's best digital tools. Curated for creators and builders.</p>
                             </div>
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 w-full md:w-auto">
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Platform</h4>
-                                    <span onclick="window.handleNavClick('home')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Home</span>
-                                    <span onclick="window.handleNavClick('projects')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">My Projects</span>
+                                    <span onclick="window.handleNavClick('home')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Home</span>
+                                    <span onclick="window.handleNavClick('projects')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">My Projects</span>
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Company</h4>
-                                    <span onclick="window.handleNavClick('about')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
-                                    <span onclick="window.handleNavClick('contact')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
+                                    <span onclick="window.handleNavClick('about')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
+                                    <span onclick="window.handleNavClick('contact')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
-                                    <span onclick="window.handleNavClick('privacy')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
-                                    <span onclick="window.handleNavClick('terms')" class="text-gray-500 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
+                                    <span onclick="window.handleNavClick('privacy')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
+                                    <span onclick="window.handleNavClick('terms')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
                                 </div>
                             </div>
                         </div>
                         <div class="w-full border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                            <p class="text-gray-600 text-xs font-medium uppercase tracking-widest">&copy; 2026 FORGENOS. All rights reserved.</p>
+                            <p class="text-gray-400 text-xs font-medium uppercase tracking-widest">&copy; 2026 FORGENOS. All rights reserved.</p>
                             <div class="flex gap-6">
-                                <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
-                                <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
-                                <i data-lucide="linkedin" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                                <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-brand-accent"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                                <a href="#" aria-label="Github" class="text-gray-400 hover:text-brand-accent"><i data-lucide="github" class="w-4 h-4"></i></a>
+                                <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-brand-accent"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </footer>
@@ -461,40 +458,40 @@
             </div>
 
             <!-- MODALS -->
-            <div id="project-modal" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8">
+            <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-create-title" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8">
                 <div class="bg-[#141414] w-full max-w-6xl h-[90vh] rounded-3xl border border-white/10 flex flex-col overflow-hidden shadow-2xl scale-95 opacity-0">
                     <div class="px-6 md:px-8 py-5 border-b border-white/5 flex justify-between items-center bg-[#1c1c1e] shrink-0">
                         <div>
-                            <h2 class="text-xl md:text-2xl font-bold text-white tracking-tight">Create New Toolkit</h2>
-                            <p class="text-gray-500 text-xs md:text-sm mt-1">Bundle your favorite tools for specific projects.</p>
+                            <h2 id="modal-create-title" class="text-xl md:text-2xl font-bold text-white tracking-tight">Create New Toolkit</h2>
+                            <p class="text-gray-400 text-xs md:text-sm mt-1">Bundle your favorite tools for specific projects.</p>
                         </div>
-                        <button onclick="window.closeProjectModal()" class="p-2 md:p-3 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="x" class="text-white w-5 h-5"></i></button>
+                        <button onclick="window.closeProjectModal()" aria-label="Close Project Modal" class="p-2 md:p-3 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="x" class="text-white w-5 h-5"></i></button>
                     </div>
                     
                     <div class="flex-1 overflow-hidden flex flex-col md:flex-row">
                         <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-white/5 bg-[#1a1a1c] flex flex-col shrink-0 md:h-full h-[35vh]">
                             <div class="flex-1 overflow-y-auto p-5 md:p-8 hide-scroll" data-lenis-prevent>
-                                <label class="block text-gray-500 text-[10px] font-black tracking-[0.2em] mb-2 uppercase">Toolkit Name</label>
-                                <input type="text" id="project-name-input" placeholder="e.g. AI Workflow" class="w-full bg-[#111113] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent transition-colors mb-6 placeholder-gray-700 text-sm">
+                                <label for="project-name-input" class="block text-gray-400 text-[10px] font-black tracking-[0.2em] mb-2 uppercase">Toolkit Name</label>
+                                <input type="text" id="project-name-input" aria-label="Enter Toolkit Name" placeholder="e.g. AI Workflow" class="w-full bg-[#111113] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent transition-colors mb-6 placeholder-gray-500 text-sm">
                                 
                                 <div class="flex justify-between items-center mb-3">
-                                    <label class="block text-gray-500 text-[10px] font-black tracking-[0.2em] uppercase">Selection</label>
+                                    <label class="block text-gray-400 text-[10px] font-black tracking-[0.2em] uppercase">Selection</label>
                                     <span id="selected-count" class="bg-brand-accent text-white text-[10px] font-bold px-2 py-1 rounded-full">0</span>
                                 </div>
                                 
                                 <div id="selected-tools-list" class="space-y-2 pb-4">
-                                    <p class="text-gray-700 text-xs italic text-center py-4">Tap tools in the grid to add them.</p>
+                                    <p class="text-gray-400 text-xs italic text-center py-4">Tap tools in the grid to add them.</p>
                                 </div>
                             </div>
                             <div class="p-5 md:p-6 bg-[#111113] border-t border-white/5 shrink-0">
-                                <button onclick="window.saveProject()" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
+                                <button onclick="window.saveProject()" aria-label="Save and Build Toolkit" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
                             </div>
                         </div>
                         
                         <div class="flex-1 p-4 md:p-8 bg-[#141414] overflow-y-auto relative hide-scroll h-full" data-lenis-prevent>
                             <div class="mb-6 relative">
-                                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"></i>
-                                <input type="text" id="modal-tool-search" placeholder="Search tools to add..." oninput="window.filterModalTools()" class="w-full bg-[#1c1c1e] border border-white/10 rounded-full py-3 pl-11 pr-4 text-white focus:outline-none focus:border-brand-accent text-sm transition-colors shadow-inner">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="modal-tool-search" aria-label="Search tools for project" placeholder="Search tools to add..." oninput="window.filterModalTools()" class="w-full bg-[#1c1c1e] border border-white/10 rounded-full py-3 pl-11 pr-4 text-white focus:outline-none focus:border-brand-accent text-sm transition-colors shadow-inner placeholder-gray-500">
                             </div>
                             <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 pb-32" id="tool-selection-grid"></div>
                         </div>
@@ -502,49 +499,48 @@
                 </div>
             </div>
 
-            <div id="inner-project-modal" class="fixed inset-0 z-[155] bg-black/95 backdrop-blur-xl hidden flex flex-col items-center justify-start overflow-y-auto p-4 md:p-8 hide-scroll" data-lenis-prevent>
+            <div id="inner-project-modal" role="dialog" aria-modal="true" aria-labelledby="inner-project-title" class="fixed inset-0 z-[155] bg-black/95 backdrop-blur-xl hidden flex flex-col items-center justify-start overflow-y-auto p-4 md:p-8 hide-scroll" data-lenis-prevent>
                 <div class="w-full max-w-6xl flex justify-between items-center mb-8 opacity-0 scale-95 transition-all mt-10" id="inner-project-header">
                     <div>
-                        <button onclick="window.closeInnerProject()" class="text-gray-400 hover:text-white flex items-center gap-2 mb-2 text-sm font-bold transition-colors">
+                        <button onclick="window.closeInnerProject()" aria-label="Go Back to Projects" class="text-gray-400 hover:text-white flex items-center gap-2 mb-2 text-sm font-bold transition-colors">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i> Go Back
                         </button>
                         <h2 class="text-3xl md:text-5xl font-black text-white" id="inner-project-title">Toolkit</h2>
                     </div>
-                    <button onclick="window.triggerDeleteProject(null, currentOpenProjectId)" class="bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-500 px-4 py-3 rounded-xl flex items-center gap-2 transition-all">
+                    <button onclick="window.triggerDeleteProject(null, currentOpenProjectId)" aria-label="Delete This Toolkit" class="bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-500 px-4 py-3 rounded-xl flex items-center gap-2 transition-all">
                         <i data-lucide="trash-2" class="w-5 h-5"></i> <span class="hidden md:inline font-bold text-sm">Delete Toolkit</span>
                     </button>
                 </div>
                 <div class="w-full max-w-6xl grid-container text-left justify-start opacity-0 scale-95 transition-all pb-24" id="inner-project-grid"></div>
             </div>
 
-            <div id="delete-modal" class="fixed inset-0 z-[160] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+            <div id="delete-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-[160] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
                 <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="delete-modal-content">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-brand-accent border border-brand-accent/20">
                         <i data-lucide="trash-2" class="w-8 h-8 md:w-10 md:h-10"></i>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Delete Toolkit?</h3>
-                    <p class="text-gray-500 mb-8 text-sm leading-relaxed">This curation will be permanently removed.</p>
+                    <p class="text-gray-400 mb-8 text-sm leading-relaxed">This curation will be permanently removed.</p>
                     <div class="flex gap-4">
-                        <button onclick="window.closeDeleteModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Cancel</button>
-                        <button id="confirm-delete-btn" class="flex-1 py-3 md:py-4 rounded-xl bg-brand-accent hover:bg-red-600 text-white font-bold transition-shadow text-sm">Confirm</button>
+                        <button aria-label="Cancel Delete" onclick="window.closeDeleteModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Cancel</button>
+                        <button id="confirm-delete-btn" aria-label="Confirm Delete" class="flex-1 py-3 md:py-4 rounded-xl bg-brand-accent hover:bg-red-600 text-white font-bold transition-shadow text-sm">Confirm</button>
                     </div>
                 </div>
             </div>
 
-            <div id="disabled-modal" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+            <div id="disabled-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
                 <div class="bg-[#1c1c1e] border border-white/10 rounded-3xl p-8 md:p-10 max-w-sm w-full text-center shadow-2xl scale-95 opacity-0 transition-all duration-300" id="disabled-modal-content">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-gray-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 text-gray-400 border border-gray-500/20">
                         <i data-lucide="info" class="w-8 h-8 md:w-10 md:h-10"></i>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Tool Unavailable</h3>
-                    <p class="text-gray-500 mb-8 text-sm leading-relaxed" id="disabled-modal-reason">This tool is currently disabled.</p>
+                    <p class="text-gray-400 mb-8 text-sm leading-relaxed" id="disabled-modal-reason">This tool is currently disabled.</p>
                     <div class="flex gap-4">
-                        <button onclick="window.closeDisabledModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Close</button>
+                        <button aria-label="Close Disabled Warning" onclick="window.closeDisabledModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Close</button>
                     </div>
                 </div>
             </div>
 
-            <!-- CUSTOM RIGHT CLICK CONTEXT MENU -->
             <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
                     <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
@@ -629,7 +625,7 @@
                 document.getElementById('ap-btn').textContent = announcementConfig.buttonText;
 
                 document.getElementById('ap-btn').onclick = () => {
-                    window.open(announcementConfig.buttonLink, '_blank');
+                    window.open(announcementConfig.buttonLink, '_blank', 'noopener,noreferrer');
                     window.dismissPopup();
                 };
                 document.getElementById('ap-dismiss').onclick = window.dismissPopup;
@@ -770,9 +766,6 @@
             }
         };
         
-        // ============================================================================
-        // 🛠️ ADD YOUR TOOLS HERE (TOOL DATABASE) - REWRITTEN TO PLAIN ENGLISH 🛠️
-        // ============================================================================
         const toolsData = [
             { id: 1, title: "Pulse Wealth Tracker", link: "/finance/pulse-neural-wealth-architect", category: "finance", tags: ["new", ""], img: "https://forgenos.com/finance/img/tool_1.png", desc: "Track and visualize how small daily expenses affect your long-term wealth.", disabled: false, disabledReason: "Server Error tool temporarily offline", details: { overview: "PULSE Wealth Tracker helps you see the true cost of your daily spending habits. By using an advanced Monte Carlo simulation, it shows you how your small, everyday purchases could have grown if invested over 10 years. It turns your financial habits into easy-to-understand visuals, helping you save more and spend smarter.", features: [{ title: "Monte Carlo Simulation", desc: "Runs 500 scenarios to predict how your wealth will grow over a 10-year period." }, { title: "Adjustable Risk Levels", desc: "Change your investment risk from conservative to aggressive to see different outcomes." }, { title: "Visual Growth Map", desc: "See your money grow through a simple, interactive visual graph." }, { title: "Opportunity Cost Calculator", desc: "Find out exactly how much that daily coffee is costing you in future wealth." }], insight: ["Turns complex financial math into a simple visual graph.", "Makes it easy to track habits during a busy workday.", "Helps you see if you're saving enough to survive market downturns."], security: ["All simulations run locally in your browser. Your data is never sent to any server.","We don't save your financial numbers or spending habits.","100% private and secure from external tracking."], professional: ["Compare reinvesting your money vs spending it on lifestyle upgrades.","Calculate the real cost of micro-subscriptions and small monthly fees.", "Test your savings plan against high inflation."], verdict: "This tool is perfect for anyone trying to fix bad spending habits. It shows you the cold, hard math behind your purchases, helping you save aggressively and build long-term wealth." } },
             { id: 2, title: "Vestiq Equity Simulator", link: "/finance/vestiq-quantum-equity-vesting-simulator", category: "finance", tags: ["new"], img: "https://forgenos.com/finance/img/VESTIQ.jpeg", desc: "Easily understand your RSU and ESPP stock vesting schedules and potential taxes.", disabled: false, disabledReason: "Server Error tool temporarily offline",details: { overview: "VESTIQ Equity Simulator makes it easy to understand your company stock options. Whether you have RSUs or an ESPP, this free tool calculates your future net worth based on live stock prices and estimated taxes. Everything runs privately in your browser, so your financial data is completely secure. It removes the confusion of corporate compensation packages.", features: [{ title: "Real-Time Forecasting", desc: "Use a slider to see how stock price changes will affect your total net worth." }, { title: "Automated Tax Estimation", desc: "Automatically calculates estimated taxes so you know your actual take-home value." },{ title: "Clear Vesting Timelines", desc: "Plan around your 4-year cliffs or monthly vesting schedules easily." }, { title: "RSU & ESPP Support", desc: "Switch between different stock plan types to get accurate calculations." }], insight: ["Turns confusing stock grants into clear, real-time net worth numbers.", "Replaces messy Excel sheets with a simple, interactive dashboard.", "Helps you decide the best time to sell your shares for tax benefits."], security: ["All calculations happen safely inside your browser.", "No servers are used, meaning your data stays strictly on your device.", "We do not store your company name, grant size, or personal wealth details."], professional: ["Check your RSU vesting dates to plan major life purchases.","Get a clear visual of your entire compensation package over 4 years.", "Stress-test your pre-IPO stock value against market crashes."], verdict: "VESTIQ is a must-have for employees with stock options. It makes understanding your vesting schedule and tax burden incredibly simple, helping you make smart choices with your equity." } },
@@ -800,8 +793,6 @@
             { id: 25, title: "FireCalc", link: "/finance/fire-calculator", category: "finance", tags: ["new"], img: "https://forgenos.com/finance/img/tool_5.webp", desc: "Find out exactly when you can retire early with this simple FIRE calculator.", disabled: false, disabledReason: "Server Error tool temporarily offline",details: { overview: "FireCalc is a retirement calculator for the FIRE (Financial Independence, Retire Early) movement. You type in how much money you have, how much you save, and your expected returns. It then gives you the exact year you can quit your job forever. It does all the complex compound interest math for you, securely in your browser.", features: [{ title: "Your FIRE Number", desc: "Calculates the exact amount of money you need to never work again." }, { title: "Compound Interest Math", desc: "Accurately predicts how your money will grow in the stock market over time." }, { title: "Clear Timeline", desc: "Shows you the exact year and month you will hit your financial goal." }, { title: "Private Offline Calculator", desc: "Your salary and savings numbers are never sent to our servers." }], insight: ["Turns your dream of retiring early into a concrete mathematical goal.", "Shows you exactly how saving an extra $100 a month speeds up your retirement.","Makes complicated investment math easy for anyone to understand."], security: ["All financial calculations are done privately on your own device.","We do not collect your net worth, salary, or savings data.","No need to link your bank accounts or sign up."], professional: ["Calculate if you can afford to quit your stressful corporate job in 5 years.","Test if your current investments will survive a stock market crash.","Play with different savings rates to find the perfect balance for your lifestyle."], verdict: "FireCalc is highly recommended for anyone who wants financial freedom. It provides a clear, mathematical roadmap to retirement, motivating you to save smarter." } },
             { id: 26, title: "Cognitive Visual Trainer", link: "/braintraining/cognitive-visual-trainer", category: "brain", tags: ["new"], img: "https://forgenos.com/braintraining/img/tool_4.webp", desc: "Boost your visual memory by remembering and matching grid patterns.", disabled: false, disabledReason: "Server Error tool temporarily offline",details: { overview: "The Visual Trainer is a simple but tough game that improves your visual memory. It briefly shows you a pattern of squares on a grid, hides it, and asks you to recreate it. Playing this daily helps train your brain to remember details faster and improves your overall focus. It's a fun, private way to keep your mind sharp.", features: [{ title: "Pattern Memory Game", desc: "Memorize the highlighted squares and click them to win." }, { title: "Gets Harder Over Time", desc: "The grid gets bigger and more complex as your memory improves." }, { title: "Speed Tracking", desc: "Measures how fast and accurately you can recall the patterns." }, { title: "Instant Loading", desc: "Runs directly in your browser with zero lag for a smooth experience." }], insight: ["Turns wasting time on your phone into a productive brain workout.", "Improves your ability to notice and remember small visual details.","Trains you to focus deeply for short, intense bursts of time."], security: ["The game runs offline. Your scores are processed locally.","We do not collect any data on your cognitive performance.","100% private. No accounts or leaderboards to worry about."], professional: ["Warm up your brain before looking at complex charts or code.", "Improve your ability to memorize names, faces, and numbers in meetings.", "Take a 5-minute productive break that actually helps you work better afterward."], verdict: "The Cognitive Visual Trainer is a great daily habit. It's challenging, fast, and directly improves your working memory without any frustrating ads or sign-ups." } }
         ];
-
-        // ============================================================================
 
         const heroSlides = [
             { id: 25, tag: "New", title: 'Fire<span class="text-brand-accent">Calc</span> ', subtitle: "Calculate your financial independence timeline and safe withdrawal rates.", desc: "Plan your early retirement with precision using our secure, free calculator.", img: "https://forgenos.com/finance/img/tool_5.webp" },
@@ -855,9 +846,6 @@
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
 
-        // =====================================
-        // ROUTING
-        // =====================================
         window.addEventListener('popstate', (e) => { 
             if(e.state && e.state.view) window.handleNavClick(e.state.view, true); 
             else window.handleNavClick('home', true); 
@@ -940,7 +928,7 @@
                     const activeBarClass = catColorsSolidMap[item.id] || 'bg-brand-accent shadow-[0_0_8px_rgba(229,9,20,0.8)]';
 
                     return `
-                    <div onclick="window.handleNavClick('${item.id}')" title="${item.label}" class="cursor-pointer flex items-center px-4 h-14 rounded-2xl transition-all duration-300 group relative ${isActive ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'}">
+                    <div onclick="window.handleNavClick('${item.id}')" aria-label="${item.label}" title="${item.label}" class="cursor-pointer flex items-center px-4 h-14 rounded-2xl transition-all duration-300 group relative ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}">
                         <i data-lucide="${item.icon}" class="w-6 h-6 shrink-0 transition-all duration-300 group-hover:scale-110 ${isActive ? activeColorClass : 'text-gray-400 group-hover:text-white'}"></i>
                         <span class="nav-label ml-4 font-bold text-sm truncate ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
                         ${isActive ? `<div class="absolute left-0 w-1 h-6 ${activeBarClass} rounded-r-full"></div>` : ''}
@@ -951,7 +939,7 @@
             const settingsBtn = document.getElementById('sidebar-settings-btn');
             if(settingsBtn) {
                 const isSettingsActive = currentView === 'settings';
-                settingsBtn.className = `flex items-center px-4 h-12 rounded-2xl transition-all duration-300 group relative cursor-pointer ${isSettingsActive ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'}`;
+                settingsBtn.className = `flex items-center px-4 h-12 rounded-2xl transition-all duration-300 group relative cursor-pointer ${isSettingsActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`;
                 settingsBtn.innerHTML = `
                     <i data-lucide="settings" class="w-6 h-6 shrink-0 transition-all duration-300 group-hover:scale-110 ${isSettingsActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-gray-400 group-hover:text-white'}"></i>
                     <span class="nav-label ml-4 font-bold text-sm ${isSettingsActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">Settings</span>
@@ -964,7 +952,7 @@
                     const isActive = currentView === id || (currentView.startsWith('tool-') && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === id);
                     const activeColorClass = catColorsMap[id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]';
                     return `
-                    <div onclick="window.handleNavClick('${id}'); window.toggleMobileMenu()" class="cursor-pointer flex items-center gap-4 py-3.5 px-4 rounded-xl transition-all duration-300 ${isActive ? 'bg-white/10 text-white font-bold' : 'text-gray-400 hover:bg-white/5 hover:text-white font-medium'}">
+                    <div onclick="window.handleNavClick('${id}'); window.toggleMobileMenu()" aria-label="${label}" class="cursor-pointer flex items-center gap-4 py-3.5 px-4 rounded-xl transition-all duration-300 ${isActive ? 'bg-white/10 text-white font-bold' : 'text-gray-400 hover:bg-white/5 hover:text-white font-medium'}">
                         <i data-lucide="${icon}" class="w-5 h-5 transition-all duration-300 ${isActive ? `${activeColorClass} scale-110` : 'text-gray-400'}"></i>${label}
                     </div>`;
                 };
@@ -973,7 +961,7 @@
                     ${createMobileLink('home', 'home', 'Home')}
                     ${createMobileLink('projects', 'folder-heart', 'My Projects')}
                     ${createMobileLink('saved', 'bookmark', 'My List')}
-                    <div class="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] mt-8 mb-3 px-4">Categories</div>
+                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-8 mb-3 px-4">Categories</div>
                     ${createMobileLink('finance', 'dollar-sign', 'Finance')}
                     ${createMobileLink('dev', 'code-2', 'Dev Tools')}
                     ${createMobileLink('student', 'graduation-cap', 'Study Zone')}
@@ -1125,7 +1113,7 @@
 
             if (isDisabled) { cardAction = ''; clickImageAction = ''; titleAction = ''; }
 
-            let categoryColor = "text-gray-500 border-gray-500/20 bg-gray-500/5";
+            let categoryColor = "text-gray-400 border-gray-500/20 bg-gray-500/5";
             if(tool.category === 'finance') categoryColor = "text-green-500 border-green-500/20 bg-green-500/5";
             else if(tool.category === 'dev') categoryColor = "text-blue-500 border-blue-500/20 bg-blue-500/5";
             else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
@@ -1139,7 +1127,7 @@
             return `
             <div class="premium-card ${cardGlowClass} rounded-2xl overflow-hidden flex flex-col group ${isSelectMode && isSelected ? 'border-brand-accent ring-1 ring-brand-accent' : ''}" onclick="${cardAction}" style="${isDisabled ? 'filter: grayscale(100%); pointer-events: auto;' : ''}">
                 <div class="card-image-wrapper ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'} skeleton-bg" onclick="${clickImageAction}">
-                    <img src="${tool.img}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="card-image w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${tool.title}">
+                    <img src="${tool.img}" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="card-image w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${tool.title}">
                     ${isDisabled ? `<div class="absolute inset-0 bg-black/50 z-[15] pointer-events-none"></div>` : ''}
                     ${isDisabled ? `
                     <div class="absolute top-0 left-0 bg-[#27272a] border-b border-r border-white/10 text-gray-300 text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center gap-1">
@@ -1158,9 +1146,9 @@
                         ${isSelected ? '<i data-lucide="check" class="w-3 h-3 text-white"></i>' : ''}
                     </div>` : `
                     <div class="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-2 z-30 transition-all duration-300">
-                        ${isDisabled ? `<button onclick="event.stopPropagation(); window.showDisabledModal('${(tool.disabledReason || '').replace(/'/g, "\\'")}')" title="Reason for being disabled" class="p-2 rounded-xl bg-[#27272a] backdrop-blur-md border border-white/20 hover:bg-white hover:text-black transition-all pointer-events-auto"><i data-lucide="info" class="w-3 h-3 md:w-4 md:h-4 text-white"></i></button>` : ''}
-                        <button ${isDisabled ? 'disabled' : `onclick="window.togglePin(event, ${tool.id})"`} data-pin-btn="${tool.id}" title="Pin to top" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="pin" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isPinned && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
-                        <button ${isDisabled ? 'disabled' : `onclick="window.toggleSave(event, ${tool.id})"`} data-save-btn="${tool.id}" title="Save to My List" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="bookmark" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isSaved && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
+                        ${isDisabled ? `<button aria-label="Disabled Info" onclick="event.stopPropagation(); window.showDisabledModal('${(tool.disabledReason || '').replace(/'/g, "\\'")}')" title="Reason for being disabled" class="p-2 rounded-xl bg-[#27272a] backdrop-blur-md border border-white/20 hover:bg-white hover:text-black transition-all pointer-events-auto"><i data-lucide="info" class="w-3 h-3 md:w-4 md:h-4 text-white"></i></button>` : ''}
+                        <button aria-label="Pin Tool" ${isDisabled ? 'disabled' : `onclick="window.togglePin(event, ${tool.id})"`} data-pin-btn="${tool.id}" title="Pin to top" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="pin" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isPinned && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
+                        <button aria-label="Save Tool" ${isDisabled ? 'disabled' : `onclick="window.toggleSave(event, ${tool.id})"`} data-save-btn="${tool.id}" title="Save to My List" class="p-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white hover:text-black'} transition-all pointer-events-auto"><i data-lucide="bookmark" class="w-3 h-3 md:w-4 md:h-4 transition-colors duration-300 ${isSaved && !isDisabled ? 'fill-brand-accent text-brand-accent' : 'text-white'}"></i></button>
                     </div>`}
                 </div>
                 <div class="p-6 flex flex-col gap-2 md:gap-3 flex-1 text-left ${isDisabled ? 'pointer-events-none' : ''}">
@@ -1168,14 +1156,14 @@
                         <span class="text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded border ${categoryColor}">${tool.category}</span>
                     </div>
                     <h3 class="text-xl font-bold text-white ${isDisabled ? 'cursor-not-allowed' : 'group-hover:text-brand-accent cursor-pointer'} transition-colors" onclick="${titleAction}">${tool.title}</h3>
-                    <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed flex-1">${tool.desc}</p>
+                    <p class="text-sm text-gray-400 line-clamp-2 leading-relaxed flex-1">${tool.desc}</p>
                     ${!isSelectMode ? `
                     <div class="pt-3 md:pt-4 mt-auto flex card-btn-container gap-2">
-                        <button ${isDisabled ? 'disabled' : `onclick="window.handleNavClick('tool-${tool.id}')"`} class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-transparent border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white/5 hover:text-white'} rounded-xl text-xs font-bold transition-all text-gray-400"><i data-lucide="file-text" class="w-3 h-3 md:w-4 md:h-4"></i> Details</button>
+                        <button aria-label="View Tool Details" ${isDisabled ? 'disabled' : `onclick="window.handleNavClick('tool-${tool.id}')"`} class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-transparent border border-white/10 ${isDisabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'hover:bg-white/5 hover:text-white'} rounded-xl text-xs font-bold transition-all text-gray-400"><i data-lucide="file-text" class="w-3 h-3 md:w-4 md:h-4"></i> Details</button>
                         ${isDisabled ? 
-                            `<button disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</button>` 
+                            `<button aria-label="Tool Disabled" disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</button>` 
                             : 
-                            `<a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</a>`
+                            `<a href="${tool.link || '/pagename'}" aria-label="Launch Tool" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</a>`
                         }
                     </div>` : ''}
                 </div>
@@ -1186,7 +1174,7 @@
             const tool = toolsData.find(t => t.id === id);
             if(!tool) return window.handleNavClick('home');
             
-            let categoryColor = "text-gray-500 border-gray-500/20 bg-gray-500/5";
+            let categoryColor = "text-gray-400 border-gray-500/20 bg-gray-500/5";
             if(tool.category === 'finance') categoryColor = "text-green-500 border-green-500/20 bg-green-500/5";
             else if(tool.category === 'dev') categoryColor = "text-blue-500 border-blue-500/20 bg-blue-500/5";
             else if(tool.category === 'student') categoryColor = "text-yellow-500 border-yellow-500/20 bg-yellow-500/5";
@@ -1207,7 +1195,7 @@
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-transparent opacity-50"></div>
                         <div class="md:hidden flex items-center gap-4 relative z-10 mb-2">
                             <div class="w-20 h-20 rounded-2xl shrink-0 overflow-hidden skeleton-bg relative border border-white/10 shadow-lg">
-                                <img src="${tool.img}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;">
+                                <img src="${tool.img}" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${tool.title}">
                             </div>
                             <div class="flex flex-col justify-center">
                                 <span class="text-[9px] font-black tracking-[0.2em] uppercase px-2 py-0.5 rounded border ${categoryColor} inline-block w-max mb-2">${tool.category}</span>
@@ -1215,7 +1203,7 @@
                             </div>
                         </div>
                         <div class="hidden md:block w-72 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 border border-white/10 relative z-10 shadow-2xl skeleton-bg">
-                            <img src="${tool.img}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${tool.title}">
+                            <img src="${tool.img}" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${tool.title}">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         </div>
                         <div class="flex flex-col justify-center flex-1 relative z-10">
@@ -1227,7 +1215,7 @@
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
                                 <a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
-                                <button onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
+                                <button aria-label="Save to list" onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -1325,8 +1313,8 @@
                    <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
                         <div class="relative group">
                             <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
-                            <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-500" autocomplete="off" oninput="window.performInlineSearch()">
-                            <button onclick="window.closeInlineSearch()" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
+                            <input type="text" id="inline-search-input" aria-label="Search Tools" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-400" autocomplete="off" oninput="window.performInlineSearch()">
+                            <button onclick="window.closeInlineSearch()" aria-label="Clear Search" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1338,16 +1326,16 @@
                     </div>
                     <div id="search-results-grid" class="grid-container text-left justify-start"></div>
                     <div id="search-results-empty" class="hidden flex-col items-center justify-center py-24 text-center bg-[#141414] rounded-3xl border border-white/5 shadow-2xl">
-                        <i data-lucide="telescope" class="w-20 h-20 text-gray-700 mb-6"></i>
+                        <i data-lucide="telescope" class="w-20 h-20 text-gray-600 mb-6"></i>
                         <h4 class="text-white font-black text-2xl">No tools found</h4>
-                        <p class="text-gray-500 text-base mt-2">Try adjusting your keywords to find what you need.</p>
+                        <p class="text-gray-400 text-base mt-2">Try adjusting your keywords to find what you need.</p>
                     </div>
                 </div>
 
                 <div id="home-main-content">
                     <div class="px-6 md:px-16 pb-8 text-left max-w-5xl">
                         <div class="flex flex-wrap justify-start gap-3 animate-fade-up" style="animation-delay: 0.2s">
-                            ${categoriesList.map(cat => `<div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</div>`).join('')}
+                            ${categoriesList.map(cat => `<button aria-label="Category: ${cat.title}" onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</button>`).join('')}
                         </div>
                     </div>
 
@@ -1355,7 +1343,7 @@
                         <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
                             ${heroSlides.map((slide, i) => `
                             <div class="hero-slide min-w-full h-full relative skeleton-bg">
-                                <img src="${slide.img}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;">
+                                <img src="${slide.img}" fetchpriority="${i === 0 ? 'high' : 'auto'}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${slide.title.replace(/<[^>]*>?/gm, '')}">
                                 <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
                                 <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
                                 <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
@@ -1364,8 +1352,8 @@
                                     <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
                                     <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
                                     <div class="flex gap-3 md:gap-4 pt-2">
-                                        <button onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
-                                        <button onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                                        <button aria-label="Launch ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
                                     </div>
                                 </div>
                             </div>`).join('')}
@@ -1404,7 +1392,7 @@
                                 <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">${cat.title}</h2>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors items-center gap-2">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                                <button aria-label="View all ${cat.title}" onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex text-gray-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors items-center gap-2">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
                             </div>
                         </div>
                         <div class="grid-container text-left justify-start">
@@ -1454,7 +1442,7 @@
 
             document.getElementById('view-content').innerHTML = `
                 <div class="relative w-full h-[35vh] md:h-[45vh] overflow-hidden flex flex-col justify-end px-6 md:px-16 py-10 skeleton-bg">
-                    <img src="${cat.img}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover object-center scale-105 category-hero-img opacity-0" style="transition: opacity 0.5s ease;" alt="${cat.title}">
+                    <img src="${cat.img}" fetchpriority="high" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover object-center scale-105 category-hero-img opacity-0" style="transition: opacity 0.5s ease;" alt="${cat.title}">
                     <div class="absolute inset-0 bg-black/40 z-10"></div>
                     <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-10 pointer-events-none"></div>
                     <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#141414] to-transparent z-10 pointer-events-none"></div>
@@ -1486,7 +1474,7 @@
             document.getElementById('view-content').innerHTML = `
                 <div class="pt-32 pb-20 px-6 md:px-16 max-w-5xl mx-auto text-left">
                     <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">Settings</h1>
-                    <p class="text-gray-500 mb-12 md:mb-16 text-lg">Personalize your FORGENOS experience.</p>
+                    <p class="text-gray-400 mb-12 md:mb-16 text-lg">Personalize your FORGENOS experience.</p>
                     <div class="grid md:grid-cols-2 gap-6 md:gap-8">
                         <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
                             <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="monitor" class="text-brand-accent"></i> Interface</h2>
@@ -1499,8 +1487,8 @@
                             <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="shield-check" class="text-brand-accent"></i> Privacy</h2>
                             ${window.createToggle('Privacy Blur', 'Blur site when tab is inactive.', 'privacyBlur')}
                             <div class="flex items-center justify-between">
-                                <div><h3 class="font-bold text-white">Incognito Mode</h3><p class="text-xs text-gray-500">History will not be stored locally.</p></div>
-                                <button onclick="window.showToast('Incognito Session Started', 'success')" class="text-[10px] font-black uppercase tracking-widest bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-all text-white">Enable</button>
+                                <div><h3 class="font-bold text-white">Incognito Mode</h3><p class="text-xs text-gray-400">History will not be stored locally.</p></div>
+                                <button aria-label="Enable Incognito Mode" onclick="window.showToast('Incognito Session Started', 'success')" class="text-[10px] font-black uppercase tracking-widest bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-all text-white">Enable</button>
                             </div>
                         </div>
                         <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
@@ -1510,12 +1498,12 @@
                         <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
                             <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="database" class="text-brand-accent"></i> Storage</h2>
                             <div class="flex items-center justify-between">
-                                <div><h3 class="font-bold text-white">Clear Favorites</h3><p class="text-xs text-gray-500">Delete all saved items.</p></div>
-                                <button onclick="window.resetStorage('saved')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Clear</button>
+                                <div><h3 class="font-bold text-white">Clear Favorites</h3><p class="text-xs text-gray-400">Delete all saved items.</p></div>
+                                <button aria-label="Clear Saved Favorites" onclick="window.resetStorage('saved')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Clear</button>
                             </div>
                             <div class="flex items-center justify-between">
-                                <div><h3 class="font-bold text-white">Wipe Toolkits</h3><p class="text-xs text-gray-500">Delete all custom projects.</p></div>
-                                <button onclick="window.resetStorage('projects')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Wipe</button>
+                                <div><h3 class="font-bold text-white">Wipe Toolkits</h3><p class="text-xs text-gray-400">Delete all custom projects.</p></div>
+                                <button aria-label="Wipe Custom Toolkits" onclick="window.resetStorage('projects')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Wipe</button>
                             </div>
                         </div>
                     </div>
@@ -1525,11 +1513,12 @@
 
         window.createToggle = function(title, desc, key) { 
             const isChecked = appSettings[key];
+            const idValue = `toggle-${key}`;
             return `
                 <div class="flex items-center justify-between group">
-                    <div><h3 class="font-bold text-white">${title}</h3><p class="text-xs text-gray-500">${desc}</p></div>
+                    <div><h3 class="font-bold text-white" id="${idValue}-label">${title}</h3><p class="text-xs text-gray-400">${desc}</p></div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" class="sr-only peer" ${isChecked ? 'checked' : ''} onchange="window.toggleSetting('${key}')">
+                        <input type="checkbox" id="${idValue}" aria-labelledby="${idValue}-label" class="sr-only peer" ${isChecked ? 'checked' : ''} onchange="window.toggleSetting('${key}')">
                         <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-accent"></div>
                     </label>
                 </div>`;
@@ -1541,9 +1530,9 @@
                     <div class="w-full max-w-7xl flex flex-row justify-between items-center gap-6 mx-auto">
                         <div class="text-left w-full">
                             <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-none mb-2">My Projects</h1>
-                            <p class="text-gray-500 text-sm md:text-base font-medium">Your customized collections of power tools.</p>
+                            <p class="text-gray-400 text-sm md:text-base font-medium">Your customized collections of power tools.</p>
                         </div>
-                        <button onclick="window.openCreateProjectModal()" class="bg-white text-black font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-transform hover:scale-105 shrink-0 text-sm shadow-xl">
+                        <button aria-label="Create New Project" onclick="window.openCreateProjectModal()" class="bg-white text-black font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-transform hover:scale-105 shrink-0 text-sm shadow-xl">
                             <i data-lucide="plus" class="w-4 h-4"></i> Create New
                         </button>
                     </div>
@@ -1564,20 +1553,20 @@
                     const tools = toolsData.filter(t => proj.toolIds.includes(t.id));
                     let coverImage = tools.length > 0 ? tools[0].img : 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop';
                     html += `
-                        <div class="flex flex-col group cursor-pointer animate-fade-up w-full max-w-[260px] mx-auto text-left" onclick="window.viewProjectTools(${proj.id})">
-                            <h3 class="text-2xl font-black text-white mb-1 truncate">${proj.name}</h3>
+                        <button aria-label="Open Project ${proj.name}" class="flex flex-col group cursor-pointer animate-fade-up w-full max-w-[260px] mx-auto text-left appearance-none bg-transparent" onclick="window.viewProjectTools(${proj.id})">
+                            <h3 class="text-2xl font-black text-white mb-1 truncate w-full">${proj.name}</h3>
                             <span class="text-brand-accent text-xs font-black uppercase tracking-widest mb-6">${tools.length} TOOLS</span>
                             <div class="relative w-full aspect-[4/3] mb-6 flex justify-center">
                                 <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#0a0a0a] rounded-2xl border border-white/10 transform -rotate-12 origin-bottom transition-transform group-hover:-rotate-[18deg] z-0 shadow-lg"></div>
                                 <div class="absolute w-[80%] h-[90%] bottom-0 bg-[#111111] rounded-2xl border border-white/10 transform rotate-12 origin-bottom transition-transform group-hover:rotate-[18deg] z-0 shadow-lg"></div>
                                 <div class="absolute w-[85%] h-full bottom-0 z-10 bg-[#1a1a1c] border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-transform group-hover:-translate-y-2 skeleton-bg">
-                                    <img src="${coverImage}" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0 transition-transform group-hover:scale-105" style="transition: opacity 0.5s ease;">
+                                    <img src="${coverImage}" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="w-full h-full object-cover opacity-0 transition-transform group-hover:scale-105" style="transition: opacity 0.5s ease;" alt="Toolkit Cover">
                                 </div>
                             </div>
                             <div class="w-full bg-[#1c1c1e] hover:bg-[#27272a] border border-white/5 rounded-xl py-3 px-4 flex justify-center items-center gap-2 transition-colors text-white shadow-lg">
                                 <span class="text-sm font-bold">View Tools</span><i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
                             </div>
-                        </div>`;
+                        </button>`;
                 });
                 html += `</div>`;
             }
@@ -1641,7 +1630,7 @@
                 <div class="sticky top-16 md:top-0 z-30 bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] px-6 md:px-16 py-6 md:py-8 transition-all">
                     <div class="w-full max-w-7xl text-left">
                         <h1 class="text-3xl md:text-6xl font-black text-white tracking-tighter leading-none">My List</h1>
-                        <p class="text-gray-500 text-sm md:text-lg mt-2 md:mt-4 font-medium">Quick access to your most important tools.</p>
+                        <p class="text-gray-400 text-sm md:text-lg mt-2 md:mt-4 font-medium">Quick access to your most important tools.</p>
                     </div>
                 </div>
                 <div class="px-6 md:px-16 py-8 md:py-12">
@@ -1756,10 +1745,10 @@
             document.getElementById('selected-count').innerText = selectedToolsForProject.length;
             const list = document.getElementById('selected-tools-list');
             if(selectedToolsForProject.length === 0) { 
-                list.innerHTML = '<p class="text-gray-700 text-xs italic text-center py-6">Tap tools in the grid to add them.</p>'; 
+                list.innerHTML = '<p class="text-gray-400 text-xs italic text-center py-6">Tap tools in the grid to add them.</p>'; 
             } else { 
                 const selected = toolsData.filter(t => selectedToolsForProject.includes(t.id)); 
-                list.innerHTML = selected.map(t => `<div class="flex items-center gap-3 bg-black p-3 rounded-xl border border-white/5 animate-fade-up shrink-0"><span class="text-xs font-bold text-white truncate flex-1">${t.title}</span><button onclick="window.toggleToolSelection(${t.id})" class="text-gray-500 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button></div>`).join(''); 
+                list.innerHTML = selected.map(t => `<div class="flex items-center gap-3 bg-black p-3 rounded-xl border border-white/5 animate-fade-up shrink-0"><span class="text-xs font-bold text-white truncate flex-1">${t.title}</span><button aria-label="Remove Tool" onclick="window.toggleToolSelection(${t.id})" class="text-gray-500 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button></div>`).join(''); 
             }
             window.tryCreateIcons();
         };
