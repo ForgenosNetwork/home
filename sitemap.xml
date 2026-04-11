@@ -1,141 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Homepage -->
   <url>
     <loc>https://forgenos.com/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- Finance & Wealth Tools -->
   <url>
     <loc>https://forgenos.com/finance/pulse-neural-wealth-architect</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/finance/vestiq-quantum-equity-vesting-simulator</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/finance/runwayzero-tool</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/finance/subslayer-expense-tracker</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://forgenos.com/finance/fire-calculator</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Developer Tools -->
   <url>
     <loc>https://forgenos.com/dev/tokenforge-sandbox</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/dev/branchweaver-git-simulator</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/dev/regexdrill-execution-profiling-engine</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/dev/schemasynth</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/dev/deploynexus-simulation-engine</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Study Zone Tools -->
   <url>
     <loc>https://forgenos.com/studyzone/velocityread-tool</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/studyzone/deepwork-weaver</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/studyzone/ideaharvest</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/studyzone/chronoblock-tactile-time-allocation-matrix</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Brain Training Tools -->
   <url>
     <loc>https://forgenos.com/braintraining/neuropulse-dual-n-back</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/braintraining/biasbreaker-cognitive-bias-forensic-simulator</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/braintraining/neuroflex-engine</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://forgenos.com/braintraining/cognitive-visual-trainer</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Health & Wellness Tools -->
   <url>
     <loc>https://forgenos.com/health/circadiasync-alignment-engine</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/health/macroshift-Tool</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/health/pranapace-neural-breath-sync</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/health/stimcurve-tool</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forgenos.com/health/stressshield-tool</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- PDF Magic Tools -->
+  <url>
+    <loc>https://forgenos.com/pdfmagic/pdf-security</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Image Lab Tools -->
+  <url>
+    <loc>https://forgenos.com/Imagelab/image-format-converter</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
