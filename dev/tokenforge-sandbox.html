@@ -2,48 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FIX 9: Core Web Vitals Performance Hints -->
-    <link rel="preconnect" href="https://forgenos.com">
-    <link rel="dns-prefetch" href="https://forgenos.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>JWT Decoder – JSON Web Token Parser | Forgenos</title>
 
-    
-    <!-- TITLE TAG -->
-    <title>JWT Decoder Free Online Tool — No Signup, No Watermark | Forgenos</title>
+    <meta name="description" content="Decode and verify JSON Web Tokens (JWT) for free with no signup. Analyze headers, payloads, and signatures securely in your local browser.">
 
-    <!-- META DESCRIPTION -->
-    <meta name="description" content="Securely decode, verify, and analyze JSON Web Tokens locally. This free offline-ready JWT parser requires no signup and processes everything in your browser.">
+    <meta name="keywords" content="jwt decoder, json web token parser, decode jwt online, free jwt tool, parse jwt signature, jwt verifier, inspect token payload, decode base64url, jwt header analyzer, test jwt signature, validate token free, json token editor">
 
-    <!-- META KEYWORDS (80+ Functionality-based keywords) -->
-    <meta name="keywords" content="jwt decoder free, jwt decoder online, free jwt decoder, online jwt decoder, jwt decoder tool, jwt decoder web app, jwt decoder calculator, jwt decoder generator, free jwt decoder online no signup, jwt decoder online no watermark, best free jwt decoder 2025, jwt decoder without software download, jwt decoder in browser, fast jwt decoder online free, instant jwt decoder online, jwt decoder no registration required, jwt decoder for free no login, professional jwt decoder free online, jwt decoder high quality free, jwt decoder for students free, jwt decoder for business free, jwt decoder tool no watermark, jwt decoder converter free online, jwt decoder generator free, jwt decoder maker online free, jwt decoder editor free no download, jwt decoder app free online, use jwt decoder online free, jwt decoder free alternative, free jwt decoder like jwt.io, jwt decoder better than jwt.io, jwt decoder without subscription, jwt decoder without paying, open source jwt decoder online, jwt decoder fast processing, jwt decoder secure private, jwt decoder no data stored, jwt decoder browser based, jwt decoder mobile friendly, jwt decoder works on phone, jwt decoder works on iphone android, jwt decoder instant result, jwt decoder bulk processing free, jwt decoder high resolution free, jwt decoder lossless free online, how to decode jwt online free, how to decode jwt for free, what is the best free jwt decoder online, can I decode jwt for free online, where to decode jwt online without signup, is there a free jwt decoder online, how do I decode jwt without software, what is jwt decoder used for, which jwt decoder is completely free, how to decode jwt on mobile free, best jwt decoder 2025, top free jwt decoder 2025, jwt decoder free 2025 no watermark, jwt decoder online 2025 free, Forgenos jwt decoder, Forgenos free jwt decoder tool, forgenos.com jwt decoder, jwt parser free online, free jwt validator tool, local jwt analyzer, offline jwt verifier, read jwt payload free, view jwt header online">
-
-    <!-- OPEN GRAPH TAGS -->
-    <meta property="og:title" content="JWT Decoder Free Online Tool — No Signup, No Watermark | Forgenos">
-    <meta property="og:description" content="Securely decode, verify, and analyze JSON Web Tokens locally. This free offline-ready JWT parser requires no signup and processes everything in your browser.">
+    <meta property="og:title" content="JWT Decoder – JSON Web Token Parser | Forgenos">
+    <meta property="og:description" content="Decode and verify JSON Web Tokens (JWT) for free with no signup. Analyze headers, payloads, and signatures securely in your local browser.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://forgenos.com/dev/tokenforge-sandbox">
     <meta property="og:site_name" content="Forgenos">
-    <meta property="og:image" content="https://forgenos.com/dev/img/tool_1.png">
+    <meta property="og:image" content="https://forgenos.com/dev/img/tokenforge.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="JWT Decoder Free Online Tool by Forgenos">
+    <meta property="og:image:alt" content="JWT Decoder by Forgenos">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="en_GB">
     <meta property="og:locale:alternate" content="en_AU">
     <meta property="og:locale:alternate" content="en_CA">
 
-    <!-- TWITTER CARD TAGS -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="JWT Decoder Free Online Tool — No Signup, No Watermark | Forgenos">
-    <meta name="twitter:description" content="Securely decode, verify, and analyze JSON Web Tokens locally. This free offline-ready JWT parser requires no signup and processes everything in your browser.">
-    <meta name="twitter:image" content="https://forgenos.com/dev/img/tool_1.png">
+    <meta name="twitter:title" content="JWT Decoder – JSON Web Token Parser | Forgenos">
+    <meta name="twitter:description" content="Decode and verify JSON Web Tokens (JWT) for free with no signup. Analyze headers, payloads, and signatures securely in your local browser.">
+    <meta name="twitter:image" content="https://forgenos.com/dev/img/tokenforge.jpg">
     <meta name="twitter:site" content="@forgenos">
     <meta name="twitter:creator" content="@forgenos">
 
-    <!-- ADDITIONAL META TAGS -->
     <meta name="author" content="Forgenos">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <!-- FIX 8: Updated theme-color to match sidebar/page background -->
     <meta name="theme-color" content="#141414">
     <meta name="language" content="English">
     <meta name="revisit-after" content="3 days">
@@ -58,18 +45,20 @@
     <meta name="MobileOptimized" content="320">
     <meta http-equiv="content-language" content="en-US">
 
-    <!-- CANONICAL + FAVICON -->
     <link rel="canonical" href="https://forgenos.com/dev/tokenforge-sandbox">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
 
-    <!-- SCHEMA 1 — WebApplication -->
+    <link rel="preconnect" href="https://forgenos.com">
+    <link rel="dns-prefetch" href="https://forgenos.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Forgenos JWT Decoder",
+      "name": "JWT Decoder",
       "url": "https://forgenos.com/dev/tokenforge-sandbox",
-      "description": "A completely secure, offline-ready tool to decode, verify, and edit JSON Web Tokens directly in the browser. Features real-time HMAC signature validation and payload re-signing without sending sensitive data to any server.",
+      "description": "Decode and verify JSON Web Tokens (JWT) for free with no signup. Analyze headers, payloads, and signatures securely in your local browser.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web Browser",
       "browserRequirements": "Requires JavaScript",
@@ -86,13 +75,6 @@
         "name": "Forgenos",
         "url": "https://forgenos.com"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "3847",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "featureList": [
         "Free to use",
         "No signup required",
@@ -106,7 +88,6 @@
     }
     </script>
 
-    <!-- SCHEMA 2 — FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -114,49 +95,32 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is this JWT Decoder completely free to use?",
+          "name": "Is this JWT decoder completely free to use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, this JWT decoding tool on Forgenos is 100% free, requiring no signup, subscriptions, or hidden fees."
+            "text": "Yes, this tool on Forgenos is 100% free to use. There are no subscriptions, no hidden fees, and no signups required."
           }
         },
         {
           "@type": "Question",
-          "name": "Does this tool store my sensitive JSON Web Tokens?",
+          "name": "Are my JSON Web Tokens sent to a server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. This tool processes your JWT entirely within your local browser. No tokens, payloads, or secret keys are ever sent to our servers, ensuring complete privacy."
+            "text": "No. All decoding and verification happens locally within your web browser. Your tokens are never uploaded or stored."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I verify a JWT signature with this tool?",
+          "name": "Can I verify the signature of my JWT?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, you can input your 256-bit secret key to instantly verify HMAC (HS256, HS384, HS512) cryptographic signatures offline."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is it possible to re-sign and generate a new JWT?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely. You can edit the decoded payload directly in the browser and use your secret key to instantly re-sign and generate a valid, updated token."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does the JWT parser work on mobile devices?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, the tool is fully responsive and optimized to decode and verify JWTs seamlessly on iOS and Android smartphones and tablets."
+            "text": "Yes, you can paste your secret key to verify the HMAC signature and ensure the token hasn't been tampered with."
           }
         }
       ]
     }
     </script>
 
-    <!-- SCHEMA 3 — BreadcrumbList -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -182,6 +146,42 @@
         }
       ]
     }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
     </script>
     
     <!-- Fonts -->
