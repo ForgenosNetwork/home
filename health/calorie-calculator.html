@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- FIX 12: Title Tag Strict Format -->
+    <title>Calorie Calculator – TDEE & Macro Planner | Forgenos</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free calorie calculator to calculate your TDEE, BMR, and personalized macros instantly. No signup required, works entirely in your browser.">
+    <meta name="keywords" content="calorie calculator free, free calorie calculator online, tdee calculator, macro calculator online no signup, best free calorie calculator online, calorie calculator without software, tdee calculator in browser, free diet planner for students, macro planner no registration, instant calorie calculator online, calorie calculator mobile friendly, diet planner secure private, how to calculate calories online free, best nutrition calculator 2026, tdee calculator for free no login, free macro calculator like myfitnesspal, calorie calculator without subscription, Forgenos calorie calculator, forgenos.com diet tool, open source nutrition planner online, what is the best free calorie calculator online, can I calculate tdee for free online, how do I plan macros without software, is there a free calorie calculator online, which macro planner is completely free">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Calorie Calculator – TDEE & Macro Planner | Forgenos">
+    <meta property="og:description" content="Free calorie calculator to calculate your TDEE, BMR, and personalized macros instantly. No signup required, works entirely in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/health/calorie-calculator">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Calorie Calculator Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calorie Calculator – TDEE & Macro Planner | Forgenos">
+    <meta name="twitter:description" content="Free calorie calculator to calculate your TDEE, BMR, and personalized macros instantly. No signup required, works entirely in your browser.">
+    <meta name="twitter:image" content="https://forgenos.com/assets/og-image.png">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+
+    <!-- Additional Meta Tags -->
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+
+    <!-- Canonical + Favicon -->
+    <link rel="canonical" href="https://forgenos.com/health/calorie-calculator">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calorie Calculator & Nutrition Planner",
+      "url": "https://forgenos.com/health/calorie-calculator",
+      "description": "Calculate your BMR, TDEE, and personalized macros instantly. Free nutrition planning tool with 7-day calorie cycling and weight projection.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored",
+        "TDEE & BMR Calculation",
+        "Macro Breakdown & Donut Chart",
+        "7-Day Calorie Cycling Plan"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this calorie calculator completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does this TDEE calculator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses your age, gender, height, weight, and activity level to calculate your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor formula. It then applies an activity multiplier to determine your Total Daily Energy Expenditure (TDEE)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my personal health data saved or stored?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All calculations are performed entirely in your browser using JavaScript. Your data never leaves your device and is never stored on our servers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is calorie cycling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Calorie cycling involves alternating between high, medium, and low calorie days throughout the week. This strategy helps prevent metabolic adaptation while still achieving your target weekly calorie deficit or surplus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this tool on my mobile phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! The Forgenos calorie calculator is fully responsive and optimized for a seamless experience on smartphones, tablets, and desktop computers."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Health",
+          "item": "https://forgenos.com/health"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Calorie Calculator",
+          "item": "https://forgenos.com/health/calorie-calculator"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            /* Allow text selection universally */
+        }
+        
+        /* Input Overrides */
+        input, textarea, select {
+            -webkit-user-select: auto;
+            user-select: auto;
+        }
+        
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #E50914;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+        
+        /* Hide scrollbar for goal cards */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Smooth Expand & Icon Stability */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; overflow: hidden; display: inline-block; vertical-align: middle; }
+        #sidebar:hover .nav-label { opacity: 1; max-width: 200px; margin-left: 1rem; }
+        #sidebar i { width: 24px; height: 24px; flex-shrink: 0; opacity: 1; visibility: visible; display: inline-block; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+    </style>
+</head>
+<body class="antialiased w-full max-w-full overflow-x-hidden text-left">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <!-- Dynamic Clipboard Actions -->
+        <div id="cm-copy-btn" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.cmCopyText(); window.closeContextMenu()">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selected
+        </div>
+        <div id="cm-paste-btn" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.cmPasteText(); window.closeContextMenu()">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste Text
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.cmShare(); window.closeContextMenu()">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Page
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='/index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)] text-left">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1 text-left">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="/index.html#trending" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Trending Now
+            </a>
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl bg-white/5 text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5 text-left" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="/index.html#trending" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="trending-up" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Trending Now</span>
+                </a>
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-white bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="file-text" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="image" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="group-hover:text-white transition-colors"></i>
+                    <span class="nav-label font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-tight">Calorie Calculator & Nutrition Planner | Free TDEE Tool</h1>
+                    <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Calculate your precise calorie needs, macro breakdown, and 7-day weight management plan instantly in your browser.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI TOOL WORKSPACE ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-left flex flex-col items-start justify-start relative">
+                    
+                    <!-- UNIT TOGGLE -->
+                    <div class="flex items-center bg-[#0a0a0a] border border-white/10 rounded-full p-1 mb-8">
+                        <button id="unit-imperial" class="px-6 py-2 rounded-full text-sm font-bold bg-brand-accent text-white transition-colors">Imperial (lbs, ft)</button>
+                        <button id="unit-metric" class="px-6 py-2 rounded-full text-sm font-bold text-gray-500 hover:text-white transition-colors">Metric (kg, cm)</button>
+                    </div>
+
+                    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative z-10 text-left">
+                        
+                        <!-- COLUMN 1: Inputs -->
+                        <div class="lg:col-span-5 flex flex-col gap-6">
+                            
+                            <!-- Age Input -->
+                            <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-6 transition-all focus-within:border-brand-accent">
+                                <label class="flex items-center gap-2 text-gray-400 font-bold mb-3">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i> Age
+                                </label>
+                                <input type="number" id="input-age" min="15" max="80" placeholder="e.g. 25" class="w-full bg-transparent text-white text-3xl font-mono outline-none placeholder:text-gray-700">
+                                <p id="err-age" class="text-brand-accent text-xs mt-2 hidden font-medium">Please enter an age between 15 and 80.</p>
+                            </div>
+
+                            <!-- Gender Selection -->
+                            <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-6">
+                                <label class="flex items-center gap-2 text-gray-400 font-bold mb-3">
+                                    <i data-lucide="users" class="w-4 h-4"></i> Gender
+                                </label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button id="gender-male" class="gender-btn flex items-center justify-center gap-2 py-4 rounded-xl border border-white/10 text-gray-400 hover:bg-white/5 font-bold transition-all" data-val="male">
+                                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="m21 3-6.5 6.5"/><path d="M16 3h5v5"/></svg>
+                                        Male
+                                    </button>
+                                    <button id="gender-female" class="gender-btn flex items-center justify-center gap-2 py-4 rounded-xl border border-white/10 text-gray-400 hover:bg-white/5 font-bold transition-all" data-val="female">
+                                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="M12 16v6"/><path d="M9 19h6"/></svg>
+                                        Female
+                                    </button>
+                                </div>
+                                <p class="text-gray-600 text-[11px] mt-3 uppercase tracking-wider font-semibold">Biological sex affects calorie calculation.</p>
+                            </div>
+
+                            <!-- Weight Input -->
+                            <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-6 transition-all focus-within:border-brand-accent">
+                                <label class="flex items-center gap-2 text-gray-400 font-bold mb-3">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+                                    Weight <span id="label-weight-unit" class="text-gray-600 font-normal">(lbs)</span>
+                                </label>
+                                <div class="flex items-end gap-2 mb-4">
+                                    <input type="number" id="input-weight" placeholder="0" class="w-32 bg-transparent text-white text-3xl font-mono outline-none placeholder:text-gray-700 border-b border-white/10 focus:border-brand-accent pb-1">
+                                </div>
+                                <input type="range" id="slider-weight" min="66" max="660" step="1" value="160">
+                            </div>
+
+                            <!-- Height Input -->
+                            <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-6 transition-all focus-within:border-brand-accent">
+                                <label class="flex items-center gap-2 text-gray-400 font-bold mb-3">
+                                    <i data-lucide="ruler" class="w-4 h-4"></i> Height
+                                </label>
+                                
+                                <!-- Imperial Height -->
+                                <div id="height-imperial-wrap" class="flex items-end gap-6 mb-4">
+                                    <div class="flex flex-col">
+                                        <div class="flex items-end gap-1">
+                                            <input type="number" id="input-height-ft" placeholder="5" min="3" max="8" class="w-16 bg-transparent text-white text-3xl font-mono outline-none placeholder:text-gray-700 border-b border-white/10 focus:border-brand-accent pb-1">
+                                            <span class="text-gray-500 font-bold mb-1">ft</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="flex items-end gap-1">
+                                            <input type="number" id="input-height-in" placeholder="10" min="0" max="11" class="w-16 bg-transparent text-white text-3xl font-mono outline-none placeholder:text-gray-700 border-b border-white/10 focus:border-brand-accent pb-1">
+                                            <span class="text-gray-500 font-bold mb-1">in</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Metric Height -->
+                                <div id="height-metric-wrap" class="hidden flex-col">
+                                    <div class="flex items-end gap-2 mb-4">
+                                        <input type="number" id="input-height-cm" placeholder="0" class="w-32 bg-transparent text-white text-3xl font-mono outline-none placeholder:text-gray-700 border-b border-white/10 focus:border-brand-accent pb-1">
+                                        <span class="text-gray-500 font-bold mb-1">cm</span>
+                                    </div>
+                                    <input type="range" id="slider-height-cm" min="100" max="250" step="1" value="175">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- COLUMN 2: Activity Levels -->
+                        <div class="lg:col-span-7 flex flex-col">
+                            <label class="flex items-center gap-2 text-gray-400 font-bold mb-4">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2.76 0-5 2.24-5 5v5h10v-5c0-2.76-2.24-5-5-5z"/><circle cx="12" cy="7" r="4"/></svg>
+                                Activity Level
+                            </label>
+                            <div class="flex flex-col gap-3" id="activity-cards">
+                                
+                                <div class="act-card flex items-center p-4 bg-[#0a0a0a] border border-white/5 rounded-2xl cursor-pointer hover:-translate-y-1 transition-transform relative group" data-mult="1.2">
+                                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0 mr-4">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M12 2v6"/><path d="M12 8h-4v6h4"/><path d="M12 14v8"/><circle cx="12" cy="2" r="2"/></svg>
+                                    </div>
+                                    <div class="flex-1 text-left">
+                                        <h4 class="text-white font-bold text-lg leading-tight">Sedentary</h4>
+                                        <p class="text-gray-400 text-sm">Little or no exercise, desk job</p>
+                                    </div>
+                                    <div class="text-right hidden sm:block">
+                                        <span class="text-[11px] uppercase tracking-wider text-gray-600 font-bold">Example:</span>
+                                        <p class="text-gray-500 text-xs">Office worker</p>
+                                    </div>
+                                </div>
+
+                                <div class="act-card flex items-center p-4 bg-[#0a0a0a] border border-white/5 rounded-2xl cursor-pointer hover:-translate-y-1 transition-transform relative group" data-mult="1.375">
+                                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0 mr-4">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 13.5-3.5-3.5L9 12"/><path d="M21 21v-3.5l-3.5-3.5"/><path d="M3 21v-3.5l3.5-3.5"/><circle cx="12" cy="5" r="2"/></svg>
+                                    </div>
+                                    <div class="flex-1 text-left">
+                                        <h4 class="text-white font-bold text-lg leading-tight">Lightly Active</h4>
+                                        <p class="text-gray-400 text-sm">Light exercise 1–3 days/week</p>
+                                    </div>
+                                    <div class="text-right hidden sm:block">
+                                        <span class="text-[11px] uppercase tracking-wider text-gray-600 font-bold">Example:</span>
+                                        <p class="text-gray-500 text-xs">Occasional walks</p>
+                                    </div>
+                                </div>
+
+                                <div class="act-card flex items-center p-4 bg-[#0a0a0a] border border-white/5 rounded-2xl cursor-pointer hover:-translate-y-1 transition-transform relative group" data-mult="1.55">
+                                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0 mr-4">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 12-2 4 4 4"/><path d="m10 16-4-4"/><path d="M12 12v-4a2 2 0 0 1 2-2h2"/><circle cx="14" cy="4" r="2"/></svg>
+                                    </div>
+                                    <div class="flex-1 text-left">
+                                        <h4 class="text-white font-bold text-lg leading-tight">Moderately Active</h4>
+                                        <p class="text-gray-400 text-sm">Moderate exercise 3–5 days/week</p>
+                                    </div>
+                                    <div class="text-right hidden sm:block">
+                                        <span class="text-[11px] uppercase tracking-wider text-gray-600 font-bold">Example:</span>
+                                        <p class="text-gray-500 text-xs">Gym 3–4x/week</p>
+                                    </div>
+                                </div>
+
+                                <div class="act-card flex items-center p-4 bg-[#0a0a0a] border border-white/5 rounded-2xl cursor-pointer hover:-translate-y-1 transition-transform relative group" data-mult="1.725">
+                                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0 mr-4">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 14-2-4-2 4"/><path d="m10 14-4-4"/><path d="M12 10V6a2 2 0 0 1 2-2h2"/><path d="m16 20-4-6-4 6"/><circle cx="14" cy="4" r="2"/></svg>
+                                    </div>
+                                    <div class="flex-1 text-left">
+                                        <h4 class="text-white font-bold text-lg leading-tight">Very Active</h4>
+                                        <p class="text-gray-400 text-sm">Hard exercise 6–7 days/week</p>
+                                    </div>
+                                    <div class="text-right hidden sm:block">
+                                        <span class="text-[11px] uppercase tracking-wider text-gray-600 font-bold">Example:</span>
+                                        <p class="text-gray-500 text-xs">Daily intense training</p>
+                                    </div>
+                                </div>
+
+                                <div class="act-card flex items-center p-4 bg-[#0a0a0a] border border-white/5 rounded-2xl cursor-pointer hover:-translate-y-1 transition-transform relative group" data-mult="1.9">
+                                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0 mr-4">
+                                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"/><path d="M6 10H4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"/><path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/><path d="M12 2v8"/><circle cx="12" cy="12" r="4"/></svg>
+                                    </div>
+                                    <div class="flex-1 text-left">
+                                        <h4 class="text-white font-bold text-lg leading-tight">Extra Active</h4>
+                                        <p class="text-gray-400 text-sm">Very hard exercise + physical job</p>
+                                    </div>
+                                    <div class="text-right hidden sm:block">
+                                        <span class="text-[11px] uppercase tracking-wider text-gray-600 font-bold">Example:</span>
+                                        <p class="text-gray-500 text-xs">Athlete, construction</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            <!-- Placeholder Message -->
+                            <div id="missing-fields-msg" class="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 text-center transition-all">
+                                <p class="text-gray-400 text-sm font-medium">Fill in all fields above to see your personalized results.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- TOOL INFO SECTION -->
+                    <!-- ========================================== -->
+                    <div id="tool-info-section" class="w-full text-left mt-16 pt-16 border-t border-white/5 pb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+                            <div class="text-left">
+                                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="target" class="text-brand-accent"></i> What this tool does</h3>
+                                <p class="text-gray-400 leading-relaxed text-sm mb-6">This professional-grade calculator uses the scientifically validated Mifflin-St Jeor equation to determine your precise Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE). It instantly generates customized daily macro targets and a 7-day calorie cycling plan based on your exact physical profile.</p>
+                                
+                                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="check-circle-2" class="text-brand-accent"></i> Key Features</h3>
+                                <ul class="text-gray-400 text-sm space-y-3">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-gray-600"></i> Instant BMR & TDEE calculation</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-gray-600"></i> 5 specific goal targets (Loss to Bulk)</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-gray-600"></i> Customizable Macro split (Protein/Carbs/Fat)</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-gray-600"></i> Visual 12-week body weight projection chart</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5 text-gray-600"></i> 7-day calorie cycling weekly plan</li>
+                                </ul>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="list-ordered" class="text-brand-accent"></i> How to Use</h3>
+                                <ol class="text-gray-400 text-sm space-y-4">
+                                    <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold shrink-0">1</span> <div>Select your preferred unit (Imperial or Metric) at the top.</div></li>
+                                    <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold shrink-0">2</span> <div>Input your exact age, gender, weight, and height.</div></li>
+                                    <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold shrink-0">3</span> <div>Choose the activity level that best matches your average week.</div></li>
+                                    <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold shrink-0">4</span> <div>Your results appear instantly. Select a goal card to customize the macro breakdown and weekly plan.</div></li>
+                                </ol>
+
+                                <h3 class="text-xl font-bold text-white mb-4 mt-8 flex items-center gap-2"><i data-lucide="users" class="text-brand-accent"></i> Who It's For</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed">Athletes, bodybuilders, fitness enthusiasts, and anyone looking to manage their weight scientifically. Whether you want an aggressive cut, a lean bulk, or just to maintain your current physique, this tool provides the mathematical baseline you need.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ========================================== -->
+                    <!-- LIVE RESULTS SECTION -->
+                    <!-- ========================================== -->
+                    <div id="results-section" class="w-full hidden flex-col gap-10 mt-12 pt-12 border-t border-white/10 opacity-0 transform translate-y-10 transition-all duration-700 text-left">
+                        
+                        <!-- Header Action -->
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                            <div>
+                                <h2 class="text-3xl font-black text-white tracking-tight">Your Nutrition Profile</h2>
+                                <p class="text-gray-500 font-medium mt-1">Calculations updated instantly.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button onclick="downloadReport()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-accent hover:bg-red-700 text-white font-bold text-sm transition-colors shadow-[0_0_15px_rgba(229,9,20,0.4)]">
+                                    <i data-lucide="download" class="w-4 h-4"></i> Save Report
+                                </button>
+                                <button onclick="copySummary()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-colors border border-white/10">
+                                    <i data-lucide="copy" class="w-4 h-4"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 1: HERO CARDS -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                            <!-- BMR -->
+                            <div class="bg-[#0f0f0f] border border-white/10 rounded-3xl p-8 relative overflow-hidden group">
+                                <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                                    <svg class="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                                </div>
+                                <h4 class="text-gray-400 font-bold mb-1 flex items-center gap-2">
+                                    Your BMR 
+                                    <div class="group/tooltip relative inline-block cursor-help">
+                                        <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+                                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-black border border-white/10 text-white text-xs p-3 rounded-xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-20 shadow-2xl text-left">
+                                            BMR is the number of calories your body needs just to stay alive — breathing, heartbeat, organ function. Even if you did nothing all day.
+                                        </div>
+                                    </div>
+                                </h4>
+                                <p class="text-sm text-gray-500 mb-4">Calories burned at complete rest</p>
+                                <div class="flex items-baseline gap-2 mb-4">
+                                    <span id="res-bmr" class="text-4xl md:text-5xl font-black text-white font-mono tracking-tighter">0</span>
+                                    <span class="text-gray-400 font-bold">kcal/day</span>
+                                </div>
+                                <div class="pt-4 border-t border-white/5 flex flex-col gap-1">
+                                    <p class="text-[11px] text-gray-500 font-mono"><span class="text-gray-400">Mifflin-St Jeor:</span> <span id="res-bmr-mif">0</span></p>
+                                    <p class="text-[11px] text-gray-600 font-mono">Harris-Benedict: <span id="res-bmr-har">0</span></p>
+                                </div>
+                            </div>
+
+                            <!-- TDEE -->
+                            <div class="bg-[#0f0f0f] border border-white/10 border-l-4 border-l-brand-accent rounded-3xl p-8 relative overflow-hidden group shadow-[0_0_40px_rgba(229,9,20,0.05)]">
+                                <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+                                    <svg class="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                </div>
+                                <h4 class="text-brand-accent font-bold mb-1 flex items-center gap-2 text-lg">
+                                    Your TDEE 
+                                    <div class="group/tooltip relative inline-block cursor-help">
+                                        <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+                                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-black border border-white/10 text-white text-xs p-3 rounded-xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-20 shadow-2xl text-left">
+                                            TDEE includes your activity level. This is how many calories you need to maintain your current weight.
+                                        </div>
+                                    </div>
+                                </h4>
+                                <p class="text-sm text-gray-400 mb-4">Total daily energy expenditure</p>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="res-tdee" class="text-5xl md:text-6xl font-black text-white font-mono tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">0</span>
+                                    <span class="text-gray-400 font-bold">kcal/day</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: GOALS -->
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-4">Select Your Goal</h3>
+                            <div class="flex overflow-x-auto gap-4 pb-4 hide-scrollbar w-full snap-x">
+                                
+                                <!-- Cards populated by JS -->
+                                <div id="goal-cards-container" class="flex gap-4 min-w-max">
+                                    <!-- Templates inside JS -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: MACROS -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-[#0a0a0a] border border-white/5 rounded-3xl p-6 md:p-10">
+                            
+                            <!-- Progress Bars -->
+                            <div class="flex flex-col justify-center gap-6">
+                                <div class="flex justify-between items-end mb-2">
+                                    <h3 class="text-xl font-bold text-white">Daily Macros</h3>
+                                    <button onclick="toggleMacroCustom()" class="text-sm text-brand-accent hover:text-white font-bold transition-colors">Customize <i data-lucide="settings-2" class="w-4 h-4 inline"></i></button>
+                                </div>
+
+                                <!-- Custom Sliders (Hidden initially) -->
+                                <div id="custom-macro-panel" class="hidden flex-col gap-4 bg-white/5 p-4 rounded-xl border border-white/10 mb-2">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex justify-between text-xs font-bold"><span class="text-[#A855F7]">Protein</span> <span id="lbl-cust-p">30%</span></div>
+                                        <input type="range" id="sl-macro-p" min="10" max="70" step="1" value="30" class="macro-slider">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex justify-between text-xs font-bold"><span class="text-[#FBBF24]">Carbs</span> <span id="lbl-cust-c">40%</span></div>
+                                        <input type="range" id="sl-macro-c" min="10" max="70" step="1" value="40" class="macro-slider">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex justify-between text-xs font-bold"><span class="text-[#06B6D4]">Fat</span> <span id="lbl-cust-f">30%</span></div>
+                                        <input type="range" id="sl-macro-f" min="10" max="70" step="1" value="30" class="macro-slider">
+                                    </div>
+                                    <p id="macro-warn" class="text-[10px] text-brand-accent hidden font-bold">Sum must equal 100%.</p>
+                                </div>
+
+                                <!-- Protein -->
+                                <div>
+                                    <div class="flex justify-between items-end mb-2">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 11-4-4"/><path d="m5 16 3-3"/><path d="m5 22 2-2"/><path d="m17 7 2-2"/><path d="m18 20 4-4a4 4 0 0 0-5.66-5.66l-9 9a4 4 0 0 0 5.66 5.66z"/></svg>
+                                            <span class="font-bold text-gray-300">Protein</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span id="mac-p-g" class="text-xl font-mono font-bold text-white">0g</span>
+                                            <span id="mac-p-pct" class="text-sm text-gray-500 ml-2">0%</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                        <div id="bar-p" class="bg-gradient-to-r from-[#7C3AED] to-[#A855F7] h-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                                    </div>
+                                    <p id="mac-p-cal" class="text-right text-[11px] text-gray-500 mt-1 font-mono">0 kcal</p>
+                                </div>
+
+                                <!-- Carbs -->
+                                <div>
+                                    <div class="flex justify-between items-end mb-2">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                            <span class="font-bold text-gray-300">Carbs</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span id="mac-c-g" class="text-xl font-mono font-bold text-white">0g</span>
+                                            <span id="mac-c-pct" class="text-sm text-gray-500 ml-2">0%</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                        <div id="bar-c" class="bg-gradient-to-r from-[#F97316] to-[#FBBF24] h-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                                    </div>
+                                    <p id="mac-c-cal" class="text-right text-[11px] text-gray-500 mt-1 font-mono">0 kcal</p>
+                                </div>
+
+                                <!-- Fat -->
+                                <div>
+                                    <div class="flex justify-between items-end mb-2">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                                            <span class="font-bold text-gray-300">Fat</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span id="mac-f-g" class="text-xl font-mono font-bold text-white">0g</span>
+                                            <span id="mac-f-pct" class="text-sm text-gray-500 ml-2">0%</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                        <div id="bar-f" class="bg-gradient-to-r from-[#0891B2] to-[#22D3EE] h-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                                    </div>
+                                    <p id="mac-f-cal" class="text-right text-[11px] text-gray-500 mt-1 font-mono">0 kcal</p>
+                                </div>
+                            </div>
+
+                            <!-- Donut Chart -->
+                            <div class="flex items-center justify-center relative">
+                                <svg width="240" height="240" viewBox="0 0 240 240" class="svg-chart transform -rotate-90">
+                                    <circle cx="120" cy="120" r="100" fill="none" stroke="#1e1e1e" stroke-width="24" />
+                                    <!-- Protein -->
+                                    <circle id="donut-p" cx="120" cy="120" r="100" fill="none" stroke="#A855F7" stroke-width="24" stroke-dasharray="628" stroke-dashoffset="628" />
+                                    <!-- Carbs -->
+                                    <circle id="donut-c" cx="120" cy="120" r="100" fill="none" stroke="#FBBF24" stroke-width="24" stroke-dasharray="628" stroke-dashoffset="628" />
+                                    <!-- Fat -->
+                                    <circle id="donut-f" cx="120" cy="120" r="100" fill="none" stroke="#06B6D4" stroke-width="24" stroke-dasharray="628" stroke-dashoffset="628" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                    <span class="text-sm text-gray-500 font-bold uppercase tracking-wider">Total</span>
+                                    <span id="donut-total" class="text-3xl font-black text-white font-mono mt-1 drop-shadow-md">0</span>
+                                    <span class="text-xs text-gray-500">kcal</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 4: 7-DAY CYCLE -->
+                        <div class="w-full">
+                            <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                7-Day Calorie Cycling Plan
+                            </h3>
+                            <p class="text-gray-400 text-sm mb-6 max-w-3xl">Calorie cycling alternates your intake to prevent metabolic adaptation while hitting your weekly goal. Follow this premium schedule for optimal results.</p>
+                            
+                            <div class="overflow-x-auto border border-white/10 rounded-2xl bg-[#0a0a0a]">
+                                <table class="w-full text-left border-collapse min-w-[600px]">
+                                    <thead>
+                                        <tr class="bg-white/5 text-gray-400 text-sm border-b border-white/10">
+                                            <th class="p-4 font-bold">Day</th>
+                                            <th class="p-4 font-bold">Type</th>
+                                            <th class="p-4 font-bold">Target (kcal)</th>
+                                            <th class="p-4 font-bold">Recommended Focus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cycle-table-body" class="text-sm text-gray-300">
+                                        <!-- JS populates -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-3 flex justify-end gap-6 text-sm font-mono text-gray-400 px-2">
+                                <div>Weekly Total: <span id="cycle-week-total" class="text-white font-bold">0</span> kcal</div>
+                                <div>Daily Avg: <span id="cycle-day-avg" class="text-white font-bold">0</span> kcal</div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 5: PROJECTION CHART -->
+                        <div class="w-full bg-[#0f0f0f] border border-white/5 rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                            <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                                12-Week Weight Projection
+                            </h3>
+                            <p class="text-gray-400 text-sm mb-6">Estimated trajectory based on strict adherence to the selected calorie target. Results may vary.</p>
+                            
+                            <div class="w-full h-64 relative border-b border-l border-white/20 pl-2 pb-2 mt-4">
+                                <!-- Y Axis Labels -->
+                                <div class="absolute -left-12 h-full flex flex-col justify-between text-xs text-gray-500 font-mono py-2 w-10 text-right pr-2" id="chart-y-axis">
+                                    <!-- JS populates -->
+                                </div>
+                                <!-- SVG Graph -->
+                                <svg id="proj-chart" width="100%" height="100%" viewBox="0 0 1000 240" preserveAspectRatio="none" class="svg-chart relative z-10 overflow-visible">
+                                    <!-- Grid lines generated by JS -->
+                                    <g id="chart-grid"></g>
+                                    <!-- Path -->
+                                    <polyline id="proj-line" fill="none" stroke="#E50914" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points=""/>
+                                    <!-- Dots -->
+                                    <g id="chart-dots"></g>
+                                </svg>
+                                <!-- X Axis Labels -->
+                                <div class="absolute -bottom-8 w-full flex justify-between text-xs text-gray-500 font-mono pl-1" id="chart-x-axis">
+                                    <span>Wk 0</span><span>Wk 4</span><span>Wk 8</span><span>Wk 12</span>
+                                </div>
+                            </div>
+                            <div class="mt-10 flex gap-4 items-center">
+                                <div class="flex items-center gap-2"><div class="w-3 h-3 bg-brand-accent rounded-full"></div> <span class="text-xs text-gray-400">Your Projection</span></div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 6 & 7: Tips & Formula Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                            
+                            <!-- Nutrition Tips -->
+                            <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="text-amber-400"></i> Smart Strategy</h4>
+                                <ul id="nutrition-tips-list" class="space-y-4 text-sm text-gray-400">
+                                    <!-- JS Populated based on goal -->
+                                </ul>
+                            </div>
+
+                            <!-- Formula Info -->
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 cursor-pointer hover:bg-white/10 transition-colors" onclick="document.getElementById('formula-details').classList.toggle('hidden')">
+                                <h4 class="text-white font-bold mb-2 flex justify-between items-center">
+                                    <span class="flex items-center gap-2"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7H6v1l4 4-4 4v1h12"/><path d="m10 12 4-4"/><path d="m10 12 4 4"/></svg> Which formula is right?</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500"></i>
+                                </h4>
+                                <p class="text-xs text-gray-500">We calculate using both leading scientific models. Tap to view comparison.</p>
+                                
+                                <div id="formula-details" class="hidden mt-4 pt-4 border-t border-white/10">
+                                    <table class="w-full text-xs text-left text-gray-400">
+                                        <tr class="text-white border-b border-white/10">
+                                            <th class="py-2">Formula</th>
+                                            <th class="py-2">TDEE</th>
+                                            <th class="py-2">Best For</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-bold text-gray-300">Mifflin-St Jeor</td>
+                                            <td class="py-2 font-mono" id="form-tdee-m">0</td>
+                                            <td class="py-2">General population (Recommended)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-bold text-gray-300">Harris-Benedict</td>
+                                            <td class="py-2 font-mono" id="form-tdee-h">0</td>
+                                            <td class="py-2">Athletes, older adults</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ⬆️ END LIVE RESULTS ⬆️ -->
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- FIX 12: SEO ARTICLE SECTION -->
+                <article class="mt-20 pt-16 border-t border-white/5 text-gray-400 w-full max-w-4xl mx-auto text-left">
+                    <h2 class="text-2xl font-bold text-white mb-6">The Science Behind Calorie Tracking: Why BMR and TDEE Matter</h2>
+                    
+                    <p class="mb-6 leading-relaxed">Achieving your fitness goals—whether that means losing stubborn fat, packing on lean muscle mass, or maintaining a healthy weight—ultimately comes down to the science of energy balance. Understanding your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) is the fundamental first step in any successful nutritional protocol. The Forgenos Calorie Calculator is engineered for professionals and everyday users who demand precision, utilizing the most accurate scientific formulas available to eliminate the guesswork from diet planning.</p>
+                    
+                    <h3 class="text-xl font-bold text-white mb-4 mt-10">How the Calorie Calculator Works</h3>
+                    <p class="mb-6 leading-relaxed">Our tool calculates your baseline energy needs without relying on generic averages. First, it determines your BMR. Think of BMR as your body's baseline survival cost. If you were to lie in bed all day without moving, your body would still burn calories to power your brain, circulate blood, and perform cellular repair. We utilize the <strong>Mifflin-St Jeor equation</strong>, introduced in 1990, which multiple clinical studies have proven to be the most accurate predictive formula for resting metabolic rate in modern populations.</p>
+                    <p class="mb-6 leading-relaxed">Once the BMR is established, the tool factors in your lifestyle through an Activity Multiplier to calculate your TDEE. Your TDEE represents the total number of calories you burn on an average day, factoring in workouts, non-exercise activity thermogenesis (NEAT), and the thermic effect of food. This is your "maintenance" number. To lose weight, you must consume fewer calories than your TDEE (a deficit). To gain weight, you must consume more (a surplus).</p>
+
+                    <h3 class="text-xl font-bold text-white mb-4 mt-10">5 Practical Use Cases for This Tool</h3>
+                    <ul class="list-disc pl-6 space-y-3 mb-6">
+                        <li><strong>Athletes entering a cutting phase:</strong> Safely implementing a moderate 500-calorie deficit to strip away body fat while preserving lean muscle mass using high-protein macros.</li>
+                        <li><strong>Bodybuilders starting a lean bulk:</strong> Calculating a precise 300-calorie surplus to ensure weight gained is primarily muscle, not fat, avoiding the traditional "dirty bulk."</li>
+                        <li><strong>Busy professionals managing weight:</strong> Identifying true maintenance calories to prevent gradual, lifestyle-induced weight creep over the years.</li>
+                        <li><strong>Endurance runners:</strong> Establishing carbohydrate-heavy macro targets to fuel long training sessions and expedite recovery.</li>
+                        <li><strong>Nutrition coaches:</strong> Generating instant, customized 7-day calorie cycling plans to present to clients without manual spreadsheet calculations.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white mb-4 mt-10">The Professional Advantage: Calorie Cycling</h3>
+                    <p class="mb-6 leading-relaxed">Unlike basic calculators that give you a static daily number, our tool generates a premium 7-day calorie cycling plan. Eating the exact same number of calories every day can lead to metabolic adaptation and psychological fatigue. Calorie cycling alternates your intake—placing more calories on training days or incorporating "refeed" days—which has been shown to optimize hormone levels (like leptin), sustain energy, and drastically improve long-term adherence to a diet plan.</p>
+                </article>
+
+                <!-- FIX 12: VISIBLE FAQ SECTION -->
+                <section class="mt-16 pt-16 border-t border-white/5 w-full max-w-4xl mx-auto text-left mb-10">
+                    <h2 class="text-2xl font-bold text-white mb-8">Frequently Asked Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-white font-bold mb-2">Is this calorie calculator completely free?</h3>
+                            <p class="text-gray-400 text-sm">Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees. It operates as a public utility for fitness enthusiasts.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-2">How does this TDEE calculator work?</h3>
+                            <p class="text-gray-400 text-sm">It uses your age, gender, height, weight, and activity level to calculate your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor formula. It then applies an activity multiplier to determine your Total Daily Energy Expenditure (TDEE).</p>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-2">Is my personal health data safe?</h3>
+                            <p class="text-gray-400 text-sm">Absolutely. All calculations are performed strictly locally in your browser using JavaScript. No data is ever sent to, logged, or stored on our servers.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-2">What is calorie cycling?</h3>
+                            <p class="text-gray-400 text-sm">Calorie cycling alternates high, medium, and low calorie days across the week. This strategy helps prevent metabolic adaptation, improves workout performance, and makes dieting more sustainable while still achieving the weekly target.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-2">Can I customize my macro breakdown?</h3>
+                            <p class="text-gray-400 text-sm">Yes. Once your results load, click the "Customize" button in the Daily Macros section to adjust your Protein, Carbohydrates, and Fat percentages via linked sliders.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Professional Minimal Footer (About this Tool) -->
+                <div class="mt-10 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Hidden Canvas for Export -->
+    <canvas id="export-canvas" class="hidden"></canvas>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        
+        document.oncontextmenu = function(e) {
+            // Un-restricting typical text selection on right click.
+            if(window.getSelection().toString().trim() !== '') return true;
+
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                const sel = window.getSelection().toString().trim();
+                const copyBtn = document.getElementById('cm-copy-btn');
+                const pasteBtn = document.getElementById('cm-paste-btn');
+                
+                if(sel !== '') { copyBtn.style.display = 'flex'; } 
+                else { copyBtn.style.display = 'none'; }
+
+                navigator.clipboard.readText().then(text => {
+                    if(text.trim() !== '') pasteBtn.style.display = 'flex';
+                    else pasteBtn.style.display = 'none';
+                }).catch(err => {
+                    pasteBtn.style.display = 'none';
+                });
+
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        window.cmCopyText = function() {
+            const sel = window.getSelection().toString().trim();
+            if(sel) {
+                navigator.clipboard.writeText(sel).then(() => showToast("Text copied to clipboard", "success"));
+            }
+        };
+
+        window.cmPasteText = async function() {
+            try {
+                const text = await navigator.clipboard.readText();
+                const activeEl = document.activeElement;
+                if(activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+                    activeEl.value += text;
+                    activeEl.dispatchEvent(new Event('input', { bubbles: true }));
+                    showToast("Text pasted", "success");
+                } else {
+                    showToast("Click inside an input field first", "normal");
+                }
+            } catch (err) {
+                showToast("Paste permission denied", "normal");
+            }
+        };
+
+        window.cmShare = function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(err => console.log('Share failed:', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => showToast("Link copied to share!", "success"));
+            }
+        };
+
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // ==========================================
+        // System Toasts
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; 
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            clearInterval(globalRollInterval);
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = ''; 
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // Tool Custom JS Logic
+        // ==========================================
+        
+        // --- STATE & CONFIG ---
+        const state = {
+            unit: sessionStorage.getItem('unit') || 'imperial',
+            age: null,
+            gender: null,
+            weightLbs: null,
+            weightKg: null,
+            heightCm: null,
+            activityMult: null,
+            isRevealed: false,
+            goal: 'maintenance',
+            customMacros: false,
+            macros: { p: 30, c: 40, f: 30 },
+            results: { bmrM: 0, bmrH: 0, tdee: 0, target: 0 }
+        };
+
+        const GOALS = {
+            'ext_loss': { lbl: 'Extreme Loss', desc: '~2 lbs/wk loss', diff: -1000, color: 'border-red-600', macros: {p:45,c:30,f:25}, warn: true },
+            'loss': { lbl: 'Weight Loss', desc: '~1 lb/wk loss', diff: -500, color: 'border-amber-500', macros: {p:40,c:35,f:25} },
+            'maintenance': { lbl: 'Maintain Weight', desc: 'No change', diff: 0, color: 'border-green-500', macros: {p:30,c:40,f:30} },
+            'lean_bulk': { lbl: 'Lean Bulk', desc: '~0.5 lb/wk gain', diff: 300, color: 'border-blue-500', macros: {p:30,c:45,f:25} },
+            'bulk': { lbl: 'Bulk', desc: '~1 lb/wk gain', diff: 500, color: 'border-purple-500', macros: {p:25,c:50,f:25} }
+        };
+
+        const DOM = {
+            btnImp: document.getElementById('unit-imperial'),
+            btnMet: document.getElementById('unit-metric'),
+            age: document.getElementById('input-age'),
+            errAge: document.getElementById('err-age'),
+            genders: document.querySelectorAll('.gender-btn'),
+            weightInp: document.getElementById('input-weight'),
+            weightSld: document.getElementById('slider-weight'),
+            weightLbl: document.getElementById('label-weight-unit'),
+            hWrapImp: document.getElementById('height-imperial-wrap'),
+            hWrapMet: document.getElementById('height-metric-wrap'),
+            hFt: document.getElementById('input-height-ft'),
+            hIn: document.getElementById('input-height-in'),
+            hCmInp: document.getElementById('input-height-cm'),
+            hCmSld: document.getElementById('slider-height-cm'),
+            actCards: document.querySelectorAll('.act-card'),
+            msgMiss: document.getElementById('missing-fields-msg'),
+            infoSec: document.getElementById('tool-info-section'),
+            resSec: document.getElementById('results-section'),
+            goalCont: document.getElementById('goal-cards-container'),
+            custPanel: document.getElementById('custom-macro-panel'),
+            slP: document.getElementById('sl-macro-p'),
+            slC: document.getElementById('sl-macro-c'),
+            slF: document.getElementById('sl-macro-f'),
+            macWarn: document.getElementById('macro-warn')
+        };
+
+        // --- MATH UTILS ---
+        const convert = {
+            l2k: l => l / 2.20462,
+            k2l: k => k * 2.20462,
+            ftin2cm: (f, i) => (f * 12 + i) * 2.54,
+            cm2ftin: cm => {
+                let totalInches = cm / 2.54;
+                let f = Math.floor(totalInches / 12);
+                let i = Math.round(totalInches % 12);
+                if (i === 12) { f++; i = 0; }
+                return { f, i };
+            }
+        };
+
+        function calculateBMR_M(w, h, a, g) {
+            w = parseFloat(w); h = parseFloat(h); a = parseInt(a);
+            let bmr = (10 * w) + (6.25 * h) - (5 * a);
+            return Math.round(bmr + (g === 'male' ? 5 : -161));
+        }
+        function calculateBMR_H(w, h, a, g) {
+            w = parseFloat(w); h = parseFloat(h); a = parseInt(a);
+            if(g==='male') return Math.round(88.362 + (13.397 * w) + (4.799 * h) - (5.677 * a));
+            return Math.round(447.593 + (9.247 * w) + (3.098 * h) - (4.330 * a));
+        }
+
+        // Update UI depending on unit state
+        function applyUnitUI() {
+            sessionStorage.setItem('unit', state.unit);
+            
+            // Set defaults visually if null
+            if (!state.weightKg) {
+                state.weightKg = 72.5; 
+                state.weightLbs = 160;
+                state.heightCm = 175;
+                
+                DOM.weightSld.value = 160; 
+                DOM.hCmSld.value = 175;
+            }
+
+            if(state.unit === 'imperial') {
+                DOM.btnImp.className = 'px-6 py-2 rounded-full text-sm font-bold bg-brand-accent text-white transition-colors';
+                DOM.btnMet.className = 'px-6 py-2 rounded-full text-sm font-bold text-gray-500 hover:text-white transition-colors';
+                DOM.weightLbl.textContent = '(lbs)';
+                DOM.weightSld.min = 66; DOM.weightSld.max = 660;
+                DOM.hWrapImp.classList.remove('hidden');
+                DOM.hWrapImp.classList.add('flex');
+                DOM.hWrapMet.classList.add('hidden');
+                DOM.hWrapMet.classList.remove('flex');
+                
+                DOM.weightSld.value = Math.round(state.weightLbs);
+                // Keep input exactly as user typed or default
+                if(DOM.weightInp.value) DOM.weightInp.value = Math.round(state.weightLbs);
+                
+                let hi = convert.cm2ftin(state.heightCm);
+                if(DOM.hFt.value || DOM.hIn.value) {
+                    DOM.hFt.value = hi.f; DOM.hIn.value = hi.i;
+                }
+            } else {
+                DOM.btnMet.className = 'px-6 py-2 rounded-full text-sm font-bold bg-brand-accent text-white transition-colors';
+                DOM.btnImp.className = 'px-6 py-2 rounded-full text-sm font-bold text-gray-500 hover:text-white transition-colors';
+                DOM.weightLbl.textContent = '(kg)';
+                DOM.weightSld.min = 30; DOM.weightSld.max = 300;
+                DOM.hWrapImp.classList.add('hidden');
+                DOM.hWrapImp.classList.remove('flex');
+                DOM.hWrapMet.classList.remove('hidden');
+                DOM.hWrapMet.classList.add('flex');
+                
+                DOM.weightSld.value = Math.round(state.weightKg);
+                if(DOM.weightInp.value) DOM.weightInp.value = Math.round(state.weightKg);
+                
+                if(DOM.hCmInp.value) DOM.hCmInp.value = Math.round(state.heightCm);
+                DOM.hCmSld.value = Math.round(state.heightCm);
+            }
+        }
+
+        // --- ANIMATION UTILS ---
+        function countUp(el, target, dur=1000) {
+            if(isNaN(target)) return;
+            const start = performance.now();
+            const initVal = parseInt(el.textContent.replace(/,/g,'')) || 0;
+            function update(t) {
+                const p = Math.min((t - start) / dur, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const current = initVal + (target - initVal) * eased;
+                el.textContent = Math.round(current).toLocaleString();
+                if(p < 1) requestAnimationFrame(update);
+                else el.textContent = target.toLocaleString();
+            }
+            requestAnimationFrame(update);
+        }
+
+        // --- CORE LOGIC ---
+        function calculateCore() {
+            let w = parseFloat(state.weightKg) || 0;
+            let h = parseFloat(state.heightCm) || 0;
+            let a = parseInt(state.age) || 0;
+            
+            if (w === 0 || h === 0 || a === 0) return false;
+
+            state.results.bmrM = calculateBMR_M(w, h, a, state.gender);
+            state.results.bmrH = calculateBMR_H(w, h, a, state.gender);
+            state.results.tdee = Math.round(state.results.bmrM * state.activityMult);
+            return true;
+        }
+
+        function checkRequired() {
+            let ageVal = parseInt(DOM.age.value);
+            let ageValid = ageVal >= 15 && ageVal <= 80;
+            
+            if(DOM.age.value && !ageValid) {
+                DOM.errAge.classList.remove('hidden');
+            } else {
+                DOM.errAge.classList.add('hidden');
+            }
+
+            // Must have explicitly typed values
+            let hasWeight = DOM.weightInp.value !== "";
+            let hasHeight = state.unit === 'imperial' ? (DOM.hFt.value !== "" || DOM.hIn.value !== "") : DOM.hCmInp.value !== "";
+
+            if(ageValid && state.gender && hasWeight && hasHeight && state.activityMult) {
+                state.age = ageVal;
+                
+                if(!state.isRevealed) {
+                    showToolLoading(['Analyzing profile...', 'Calculating metrics...', 'Generating plan...'], 800);
+                    setTimeout(() => {
+                        hideToolLoading();
+                        revealResults();
+                    }, 2400);
+                } else {
+                    if(calculateCore()) {
+                        state.results.target = state.results.tdee + GOALS[state.goal].diff;
+                        
+                        document.getElementById('res-bmr').textContent = state.results.bmrM.toLocaleString();
+                        document.getElementById('res-tdee').textContent = state.results.tdee.toLocaleString();
+                        document.getElementById('res-bmr-mif').textContent = state.results.bmrM.toLocaleString() + ' kcal';
+                        document.getElementById('res-bmr-har').textContent = state.results.bmrH.toLocaleString() + ' kcal';
+                        document.getElementById('form-tdee-m').textContent = state.results.tdee.toLocaleString();
+                        document.getElementById('form-tdee-h').textContent = Math.round(state.results.bmrH * state.activityMult).toLocaleString();
+                        
+                        updateGoalCards();
+                        renderMacros();
+                        renderCycleTable();
+                        renderChart();
+                    }
+                }
+            } else {
+                if(state.isRevealed) {
+                    DOM.resSec.classList.add('opacity-0', 'translate-y-10');
+                    setTimeout(() => DOM.resSec.classList.add('hidden'), 500);
+                    DOM.infoSec.style.display = 'block';
+                    DOM.msgMiss.style.display = 'block';
+                    state.isRevealed = false;
+                }
+            }
+        }
+
+        function revealResults() {
+            if(!calculateCore()) return; // Protection
+
+            state.isRevealed = true;
+            DOM.msgMiss.style.display = 'none';
+            DOM.infoSec.style.display = 'none';
+            
+            DOM.resSec.classList.remove('hidden');
+            
+            setTimeout(() => {
+                DOM.resSec.classList.remove('opacity-0', 'translate-y-10');
+                DOM.resSec.classList.add('flex');
+                
+                buildGoalCards(); 
+                
+                // Animate Numbers
+                countUp(document.getElementById('res-bmr'), state.results.bmrM);
+                countUp(document.getElementById('res-tdee'), state.results.tdee);
+                document.getElementById('res-bmr-mif').textContent = state.results.bmrM.toLocaleString() + ' kcal';
+                document.getElementById('res-bmr-har').textContent = state.results.bmrH.toLocaleString() + ' kcal';
+                document.getElementById('form-tdee-m').textContent = state.results.tdee.toLocaleString();
+                document.getElementById('form-tdee-h').textContent = Math.round(state.results.bmrH * state.activityMult).toLocaleString();
+                updateGoalCards();
+
+                // Robust Scroll to Result
+                setTimeout(() => {
+                    const headerOffset = 100;
+                    const elementPosition = DOM.resSec.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: "smooth"
+                    });
+                }, 400);
+
+            }, 50);
+        }
+
+        function buildGoalCards() {
+            let html = '';
+            for(let key in GOALS) {
+                let g = GOALS[key];
+                html += `
+                <div class="goal-card w-64 shrink-0 bg-[#0a0a0a] border-2 border-white/5 rounded-3xl p-6 cursor-pointer transition-all hover:-translate-y-1 snap-center" data-goal="${key}" onclick="selectGoal('${key}')">
+                    <div class="flex items-center gap-2 mb-3">
+                        ${g.warn ? '<i data-lucide="alert-triangle" class="w-4 h-4 text-red-500"></i>' : ''}
+                        <h4 class="text-white font-bold">${g.lbl}</h4>
+                    </div>
+                    <div class="text-3xl font-black text-white font-mono mb-2 track-tgt" id="gc-tgt-${key}">0</div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-gray-400 text-xs font-bold">${g.desc}</span>
+                </div>`;
+            }
+            DOM.goalCont.innerHTML = html;
+            lucide.createIcons();
+            selectGoal('maintenance'); // Set default
+        }
+
+        function updateGoalCards() {
+            for(let key in GOALS) {
+                let t = state.results.tdee + GOALS[key].diff;
+                let el = document.getElementById(`gc-tgt-${key}`);
+                if(el) el.textContent = t.toLocaleString();
+            }
+        }
+
+        window.selectGoal = function(key) {
+            state.goal = key;
+            state.results.target = state.results.tdee + GOALS[key].diff;
+            if(!state.customMacros) {
+                state.macros = {...GOALS[key].macros};
+                syncCustomSliders();
+            }
+            
+            document.querySelectorAll('.goal-card').forEach(c => {
+                c.classList.remove('border-brand-accent', 'bg-brand-accent/5');
+                c.classList.add('border-white/5', 'bg-[#0a0a0a]');
+                if(c.dataset.goal === key) {
+                    c.classList.remove('border-white/5', 'bg-[#0a0a0a]');
+                    c.classList.add('border-brand-accent', 'bg-brand-accent/5');
+                }
+            });
+
+            if(state.isRevealed) {
+                renderMacros();
+                renderCycleTable();
+                renderChart();
+                renderTips();
+            }
+        }
+
+        function syncCustomSliders() {
+            DOM.slP.value = state.macros.p;
+            DOM.slC.value = state.macros.c;
+            DOM.slF.value = state.macros.f;
+            document.getElementById('lbl-cust-p').textContent = state.macros.p + '%';
+            document.getElementById('lbl-cust-c').textContent = state.macros.c + '%';
+            document.getElementById('lbl-cust-f').textContent = state.macros.f + '%';
+        }
+
+        window.toggleMacroCustom = function() {
+            DOM.custPanel.classList.toggle('hidden');
+            DOM.custPanel.classList.toggle('flex');
+            state.customMacros = !DOM.custPanel.classList.contains('hidden');
+            if(state.customMacros) syncCustomSliders();
+            else selectGoal(state.goal); 
+        }
+
+        function handleSlider(changedId) {
+            state.customMacros = true;
+            let p = parseInt(DOM.slP.value);
+            let c = parseInt(DOM.slC.value);
+            let f = parseInt(DOM.slF.value);
+            let sum = p + c + f;
+            
+            if(sum !== 100) {
+                DOM.macWarn.classList.remove('hidden');
+            } else {
+                DOM.macWarn.classList.add('hidden');
+                state.macros = {p, c, f};
+                document.getElementById('lbl-cust-p').textContent = p + '%';
+                document.getElementById('lbl-cust-c').textContent = c + '%';
+                document.getElementById('lbl-cust-f').textContent = f + '%';
+                renderMacros();
+            }
+        }
+        [DOM.slP, DOM.slC, DOM.slF].forEach(sl => sl.addEventListener('input', handleSlider));
+
+        function renderMacros() {
+            let tc = state.results.target;
+            let m = state.macros;
+            
+            let pCal = Math.round(tc * (m.p/100));
+            let cCal = Math.round(tc * (m.c/100));
+            let fCal = Math.round(tc * (m.f/100));
+            
+            let pG = Math.round(pCal / 4);
+            let cG = Math.round(cCal / 4);
+            let fG = Math.round(fCal / 9);
+
+            document.getElementById('mac-p-g').textContent = pG + 'g';
+            document.getElementById('mac-c-g').textContent = cG + 'g';
+            document.getElementById('mac-f-g').textContent = fG + 'g';
+            
+            document.getElementById('mac-p-pct').textContent = m.p + '%';
+            document.getElementById('mac-c-pct').textContent = m.c + '%';
+            document.getElementById('mac-f-pct').textContent = m.f + '%';
+            
+            document.getElementById('mac-p-cal').textContent = pCal + ' kcal';
+            document.getElementById('mac-c-cal').textContent = cCal + ' kcal';
+            document.getElementById('mac-f-cal').textContent = fCal + ' kcal';
+
+            setTimeout(() => {
+                document.getElementById('bar-p').style.width = m.p + '%';
+                document.getElementById('bar-c').style.width = m.c + '%';
+                document.getElementById('bar-f').style.width = m.f + '%';
+            }, 50);
+
+            countUp(document.getElementById('donut-total'), tc);
+            
+            let circ = 628;
+            let offsetP = circ - (circ * m.p / 100);
+            let offsetC = circ - (circ * m.c / 100);
+            let offsetF = circ - (circ * m.f / 100);
+
+            let donP = document.getElementById('donut-p');
+            let donC = document.getElementById('donut-c');
+            let donF = document.getElementById('donut-f');
+
+            donP.style.transform = `rotate(-90deg)`; donP.style.transformOrigin = "center";
+            let angleC = -90 + (m.p/100 * 360);
+            donC.style.transform = `rotate(${angleC}deg)`; donC.style.transformOrigin = "center";
+            let angleF = angleC + (m.c/100 * 360);
+            donF.style.transform = `rotate(${angleF}deg)`; donF.style.transformOrigin = "center";
+
+            setTimeout(() => {
+                donP.style.strokeDashoffset = offsetP;
+                donC.style.strokeDashoffset = offsetC;
+                donF.style.strokeDashoffset = offsetF;
+            }, 50);
+        }
+
+        function renderCycleTable() {
+            let tc = state.results.target;
+            let g = state.goal;
+            let plan = [];
+            
+            if(g === 'ext_loss') {
+                for(let i=0; i<7; i++) plan.push({ d: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i], typ: 'Low', val: tc, foc: 'Consistent Deficit', c: 'bg-red-500/20 text-red-400' });
+            } else if (g === 'loss') {
+                plan = [
+                    { d: 'Mon', typ: 'Low Day', val: tc-200, foc: 'Cardio / Steady State', c: 'bg-red-500/20 text-red-400' },
+                    { d: 'Tue', typ: 'Medium', val: tc+100, foc: 'Strength Training', c: 'bg-amber-500/20 text-amber-400' },
+                    { d: 'Wed', typ: 'Low Day', val: tc-200, foc: 'Active Recovery', c: 'bg-red-500/20 text-red-400' },
+                    { d: 'Thu', typ: 'Refeed', val: state.results.tdee, foc: 'Heavy Leg Day', c: 'bg-purple-500/20 text-purple-400' },
+                    { d: 'Fri', typ: 'Low Day', val: tc-200, foc: 'Cardio Focus', c: 'bg-red-500/20 text-red-400' },
+                    { d: 'Sat', typ: 'Medium', val: tc+100, foc: 'Full Body Workout', c: 'bg-amber-500/20 text-amber-400' },
+                    { d: 'Sun', typ: 'Low Day', val: tc-200, foc: 'Rest Day', c: 'bg-blue-500/20 text-blue-400' }
+                ];
+            } else if (g === 'lean_bulk' || g === 'bulk') {
+                let boost = g === 'bulk' ? 200 : 100;
+                plan = [
+                    { d: 'Mon', typ: 'High Day', val: tc+boost, foc: 'Heavy Push Day', c: 'bg-green-500/20 text-green-400' },
+                    { d: 'Tue', typ: 'Medium', val: tc-100, foc: 'Active Recovery', c: 'bg-amber-500/20 text-amber-400' },
+                    { d: 'Wed', typ: 'High Day', val: tc+boost, foc: 'Heavy Pull Day', c: 'bg-green-500/20 text-green-400' },
+                    { d: 'Thu', typ: 'Rest Day', val: state.results.tdee, foc: 'Mobility / Rest', c: 'bg-blue-500/20 text-blue-400' },
+                    { d: 'Fri', typ: 'High Day', val: tc+boost, foc: 'Heavy Leg Day', c: 'bg-green-500/20 text-green-400' },
+                    { d: 'Sat', typ: 'Medium', val: tc-100, foc: 'Light Workout', c: 'bg-amber-500/20 text-amber-400' },
+                    { d: 'Sun', typ: 'Rest Day', val: state.results.tdee, foc: 'Complete Rest', c: 'bg-blue-500/20 text-blue-400' }
+                ];
+            } else {
+                for(let i=0; i<7; i++) plan.push({ d: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i], typ: 'Maintenance', val: tc, foc: 'Standard Routine', c: 'bg-gray-500/20 text-gray-400' });
+            }
+
+            let sum = plan.reduce((a, b) => a + b.val, 0);
+            let targetSum = tc * 7;
+            if(sum !== targetSum && g !== 'maintenance' && g !== 'ext_loss') {
+                let diff = targetSum - sum;
+                plan[3].val += diff; 
+            }
+
+            let html = '';
+            plan.forEach((p, i) => {
+                html += `
+                <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td class="p-4 font-bold text-white">${p.d}</td>
+                    <td class="p-4"><span class="px-3 py-1 rounded-full text-xs font-bold ${p.c}">${p.typ}</span></td>
+                    <td class="p-4 font-mono font-bold">${p.val.toLocaleString()}</td>
+                    <td class="p-4 text-gray-400">${p.foc}</td>
+                </tr>`;
+            });
+            document.getElementById('cycle-table-body').innerHTML = html;
+            document.getElementById('cycle-week-total').textContent = (tc * 7).toLocaleString();
+            document.getElementById('cycle-day-avg').textContent = tc.toLocaleString();
+        }
+
+        function renderChart() {
+            // FIX: Reliable Graph Render Logic
+            const wStart = parseFloat(state.unit === 'imperial' ? state.weightLbs : state.weightKg);
+            if(isNaN(wStart)) return;
+
+            const targetCals = state.results.target;
+            const diffCals = targetCals - state.results.tdee;
+            
+            const lbsPerWk = (diffCals * 7) / 3500;
+            const changePerWk = state.unit === 'imperial' ? lbsPerWk : (lbsPerWk / 2.20462);
+            
+            let pts = [];
+            let wks = 12;
+            let maxW = wStart;
+            let minW = wStart;
+
+            for(let i=0; i<=wks; i++) {
+                let currW = wStart + (changePerWk * i);
+                pts.push(currW);
+                if(currW > maxW) maxW = currW;
+                if(currW < minW) minW = currW;
+            }
+
+            let range = maxW - minW;
+            if(range < 5) { range = 10; maxW += 5; minW -= 5; }
+            maxW += range * 0.1;
+            minW -= range * 0.1;
+
+            let pathStr = "";
+            let dotHTML = "";
+            let stepX = 1000 / wks;
+
+            pts.forEach((w, i) => {
+                let x = i * stepX;
+                let y = 240 - ((w - minW) / (maxW - minW) * 240);
+                pathStr += `${x},${y} `;
+
+                if(i===0 || i===4 || i===8 || i===12) {
+                    dotHTML += `<circle cx="${x}" cy="${y}" r="6" fill="#141414" stroke="#E50914" stroke-width="3"/>`;
+                    dotHTML += `<text x="${x}" y="${y-15}" fill="white" font-size="12" font-family="monospace" text-anchor="middle">${w.toFixed(1)}</text>`;
+                }
+            });
+
+            const lineEl = document.getElementById('proj-line');
+            lineEl.style.transition = 'none';
+            // Use massive default safe array to avoid getTotalLength glitch entirely
+            lineEl.style.strokeDasharray = '2000';
+            lineEl.style.strokeDashoffset = '2000';
+            lineEl.setAttribute('points', pathStr.trim());
+            
+            document.getElementById('chart-dots').innerHTML = dotHTML;
+
+            let yHTML = '';
+            for(let i=0; i<=4; i++) {
+                let val = maxW - (i * ((maxW - minW)/4));
+                yHTML += `<span>${Math.round(val)}</span>`;
+            }
+            document.getElementById('chart-y-axis').innerHTML = yHTML;
+
+            let gridHTML = '';
+            for(let i=1; i<4; i++) {
+                let y = i * (240/4);
+                gridHTML += `<line x1="0" y1="${y}" x2="1000" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+            }
+            document.getElementById('chart-grid').innerHTML = gridHTML;
+
+            setTimeout(() => {
+                lineEl.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+                lineEl.style.strokeDashoffset = '0';
+            }, 100);
+        }
+
+        function renderTips() {
+            let g = state.goal;
+            let tips = [];
+            if(g.includes('loss')) {
+                tips = [
+                    "Eat protein first at every meal — it keeps you fuller longer and preserves muscle.",
+                    "Drink a large glass of water before meals — it can reduce appetite by up to 30%.",
+                    "Prioritize sleep (7–9 hours) — poor sleep drastically increases hunger hormones like ghrelin.",
+                    "Focus on high-volume, low-calorie foods (like leafy greens and berries) to stay satiated."
+                ];
+            } else if (g.includes('bulk')) {
+                tips = [
+                    "Aim for 0.7–1g of protein per pound of bodyweight to maximize muscle protein synthesis.",
+                    "Eat within 2 hours after intense training to optimize glycogen replenishment and recovery.",
+                    "Don't fear carbohydrates — they are the primary fuel source for intense strength training.",
+                    "Track your progressive overload in the gym — extra calories only build muscle if the stimulus is there."
+                ];
+            } else {
+                tips = [
+                    "Weigh yourself daily and take a weekly average to ensure true maintenance.",
+                    "Keep your protein intake moderate to high to maintain lean tissue.",
+                    "Focus on micronutrient density (vitamins/minerals) now that calories are stable."
+                ];
+            }
+            
+            let html = '';
+            tips.forEach(t => {
+                html += `<li class="flex items-start gap-3"><i data-lucide="arrow-right-circle" class="w-5 h-5 text-gray-600 shrink-0 mt-0.5"></i> <span class="leading-relaxed">${t}</span></li>`;
+            });
+            document.getElementById('nutrition-tips-list').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // --- EVENT LISTENERS ---
+        DOM.btnImp.addEventListener('click', () => { state.unit = 'imperial'; applyUnitUI(); checkRequired(); });
+        DOM.btnMet.addEventListener('click', () => { state.unit = 'metric'; applyUnitUI(); checkRequired(); });
+
+        DOM.age.addEventListener('input', checkRequired);
+        
+        DOM.genders.forEach(b => {
+            b.addEventListener('click', (e) => {
+                DOM.genders.forEach(btn => {
+                    btn.classList.remove('bg-white/10', 'border-brand-accent');
+                    btn.classList.add('border-white/10');
+                });
+                const cur = e.currentTarget;
+                cur.classList.remove('border-white/10');
+                cur.classList.add('bg-white/10', 'border-brand-accent');
+                state.gender = cur.dataset.val;
+                checkRequired();
+            });
+        });
+
+        let debounceTimer;
+        function debouncedCheck() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(checkRequired, 200);
+        }
+
+        // Handle text inputs explicitly converting to float for protection
+        DOM.weightSld.addEventListener('input', (e) => {
+            let v = e.target.value;
+            DOM.weightInp.value = v;
+            if(state.unit === 'imperial') { state.weightLbs = parseFloat(v); state.weightKg = convert.l2k(parseFloat(v)); }
+            else { state.weightKg = parseFloat(v); state.weightLbs = convert.k2l(parseFloat(v)); }
+            debouncedCheck();
+        });
+        DOM.weightInp.addEventListener('input', (e) => {
+            let v = parseFloat(e.target.value) || 0;
+            DOM.weightSld.value = v;
+            if(state.unit === 'imperial') { state.weightLbs = v; state.weightKg = convert.l2k(v); }
+            else { state.weightKg = v; state.weightLbs = convert.k2l(v); }
+            debouncedCheck();
+        });
+
+        function updHeightImp() {
+            let f = parseInt(DOM.hFt.value) || 0;
+            let i = parseInt(DOM.hIn.value) || 0;
+            if(f > 0) {
+                state.heightCm = convert.ftin2cm(f, i);
+                debouncedCheck();
+            }
+        }
+        DOM.hFt.addEventListener('input', updHeightImp);
+        DOM.hIn.addEventListener('input', updHeightImp);
+
+        DOM.hCmSld.addEventListener('input', (e) => {
+            let v = parseFloat(e.target.value) || 0;
+            DOM.hCmInp.value = v;
+            state.heightCm = v;
+            debouncedCheck();
+        });
+        DOM.hCmInp.addEventListener('input', (e) => {
+            let v = parseFloat(e.target.value) || 0;
+            DOM.hCmSld.value = v;
+            state.heightCm = v;
+            debouncedCheck();
+        });
+
+        DOM.actCards.forEach(c => {
+            c.addEventListener('click', (e) => {
+                DOM.actCards.forEach(card => {
+                    card.classList.remove('border-brand-accent', 'bg-brand-accent/5');
+                    card.classList.add('border-white/5', 'bg-[#0a0a0a]');
+                });
+                const cur = e.currentTarget;
+                cur.classList.remove('border-white/5', 'bg-[#0a0a0a]');
+                cur.classList.add('border-brand-accent', 'bg-brand-accent/5');
+                state.activityMult = parseFloat(cur.dataset.mult);
+                checkRequired();
+            });
+        });
+
+        // --- EXPORT & COPY ---
+        window.copySummary = function() {
+            const text = `Forgenos Calorie Report\nGoal: ${GOALS[state.goal].lbl}\nTDEE: ${state.results.tdee} kcal\nTarget: ${state.results.target} kcal/day\nMacros: ${state.macros.p}% Protein / ${state.macros.c}% Carbs / ${state.macros.f}% Fat\nhttps://forgenos.com`;
+            navigator.clipboard.writeText(text).then(() => showToast("Summary copied to clipboard", "success"));
+        };
+
+        // Premium Canvas Generator (FIX 6: Hospital Grade Export)
+        window.downloadReport = function() {
+            showToast("Generating premium report...", "normal");
+            
+            const canvas = document.getElementById('export-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = 1200; 
+            canvas.height = 800;
+            
+            // BG
+            ctx.fillStyle = '#141414'; 
+            ctx.fillRect(0, 0, 1200, 800);
+            
+            // Header
+            ctx.fillStyle = '#E50914'; 
+            ctx.fillRect(0, 0, 1200, 110);
+            ctx.fillStyle = '#FFFFFF'; 
+            ctx.font = 'bold 46px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText('FORGENOS | Clinical Nutrition Report', 60, 72);
+            
+            ctx.font = '22px sans-serif';
+            ctx.fillStyle = '#ffb3b3';
+            ctx.fillText(new Date().toLocaleDateString(), 1000, 68);
+
+            // Helper to draw clean data cards
+            function drawCard(x, y, w, h, title) {
+                ctx.fillStyle = '#1a1a1c';
+                ctx.beginPath();
+                ctx.roundRect(x, y, w, h, 16);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#262626';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 26px sans-serif';
+                ctx.fillText(title, x + 40, y + 50);
+                
+                ctx.fillStyle = '#333333';
+                ctx.fillRect(x + 40, y + 75, w - 80, 2);
+            }
+
+            // Card 1: Stats
+            drawCard(60, 160, 520, 260, 'Patient Profile');
+            ctx.fillStyle = '#a3a3a3'; ctx.font = '24px monospace';
+            ctx.fillText(`Age:     ${state.age} years`, 100, 270);
+            ctx.fillText(`Gender:  ${state.gender ? state.gender.charAt(0).toUpperCase() + state.gender.slice(1) : '-'}`, 100, 315);
+            ctx.fillText(`Weight:  ${Math.round(state.weightKg)} kg / ${Math.round(state.weightLbs)} lbs`, 100, 360);
+
+            // Card 2: Expenditure
+            drawCard(620, 160, 520, 260, 'Metabolic Baseline');
+            ctx.fillStyle = '#a3a3a3'; ctx.font = '24px sans-serif';
+            ctx.fillText(`Basal Metabolic Rate (BMR):`, 660, 260);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 30px monospace';
+            ctx.fillText(`${state.results.bmrM.toLocaleString()} kcal`, 660, 300);
+
+            ctx.fillStyle = '#a3a3a3'; ctx.font = '24px sans-serif';
+            ctx.fillText(`Total Daily Energy (TDEE):`, 660, 355);
+            ctx.fillStyle = '#E50914'; ctx.font = 'bold 40px monospace';
+            ctx.fillText(`${state.results.tdee.toLocaleString()} kcal`, 660, 400);
+
+            // Card 3: Target & Macros
+            drawCard(60, 460, 1080, 260, 'Prescribed Protocol & Macros');
+            
+            ctx.fillStyle = '#a3a3a3'; ctx.font = '24px sans-serif';
+            ctx.fillText(`Selected Goal:`, 100, 555);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 30px sans-serif';
+            ctx.fillText(`${GOALS[state.goal].lbl}`, 280, 555);
+
+            ctx.fillStyle = '#a3a3a3'; ctx.font = '24px sans-serif';
+            ctx.fillText(`Daily Target:`, 720, 555);
+            ctx.fillStyle = '#E50914'; ctx.font = 'bold 42px monospace';
+            ctx.fillText(`${state.results.target.toLocaleString()} kcal`, 880, 558);
+
+            const pG = Math.round((state.results.target*(state.macros.p/100))/4);
+            const cG = Math.round((state.results.target*(state.macros.c/100))/4);
+            const fG = Math.round((state.results.target*(state.macros.f/100))/9);
+
+            ctx.font = 'bold 24px sans-serif';
+            ctx.fillStyle = '#A855F7'; ctx.fillText(`Protein (${state.macros.p}%)`, 100, 640);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 36px monospace'; ctx.fillText(`${pG}g`, 100, 690);
+            
+            ctx.font = 'bold 24px sans-serif';
+            ctx.fillStyle = '#FBBF24'; ctx.fillText(`Carbohydrates (${state.macros.c}%)`, 460, 640);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 36px monospace'; ctx.fillText(`${cG}g`, 460, 690);
+            
+            ctx.font = 'bold 24px sans-serif';
+            ctx.fillStyle = '#06B6D4'; ctx.fillText(`Dietary Fat (${state.macros.f}%)`, 840, 640);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 36px monospace'; ctx.fillText(`${fG}g`, 840, 690);
+
+            // Footer
+            ctx.fillStyle = '#444444'; ctx.font = '18px sans-serif';
+            ctx.fillText('Generated securely via FORGENOS Intelligence Engine | Processed completely locally', 60, 770);
+
+            const link = document.createElement('a');
+            const d = new Date().toISOString().split('T')[0];
+            link.download = `forgenos-clinical-report-${d}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast("Report exported successfully", "success");
+        };
+
+        // Initialize UI explicitly
+        applyUnitUI();
+
+    </script>
+</body>
+</html>
