@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO TITLE TAG -->
     <title>JSON Formatter – JSON Validator & Viewer | Forgenos</title>
     
-    <!-- SEO META DESCRIPTION -->
     <meta name="description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
     
-    <!-- SEO META KEYWORDS (Max 25 focused) -->
     <meta name="keywords" content="json formatter free, free json validator online, json tree viewer, json beautifier tool, json parser online no signup, best free json formatter online, json formatter without software, json validator in browser, free json tool for students, instant json formatter online, json viewer mobile friendly, secure private json formatter, how to format json online free, best json formatter 2026, forgenos json tool, open source json formatter online, what is the best free json formatter online, how do i validate json without software, is there a free json validator online">
     
-    <!-- OPEN GRAPH TAGS -->
     <meta property="og:title" content="JSON Formatter – JSON Validator & Viewer | Forgenos">
     <meta property="og:description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://forgenos.com/dev/json-formatter">
     <meta property="og:site_name" content="Forgenos">
-    <meta property="og:image" content="https://forgenos.com/assets/og-image.png">
+    <meta property="og:image" content="https://forgenos.com/dev/img/tool_6.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="JSON Formatter and Validator Free Tool by Forgenos">
@@ -28,15 +24,13 @@
     <meta property="og:locale:alternate" content="en_AU">
     <meta property="og:locale:alternate" content="en_CA">
     
-    <!-- TWITTER CARD TAGS -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="JSON Formatter – JSON Validator & Viewer | Forgenos">
     <meta name="twitter:description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
-    <meta name="twitter:image" content="https://forgenos.com/assets/og-image.png">
+    <meta name="twitter:image" content="https://forgenos.com/dev/img/tool_6.webp">
     <meta name="twitter:site" content="@forgenos">
     <meta name="twitter:creator" content="@forgenos">
     
-    <!-- ADDITIONAL META TAGS -->
     <meta name="author" content="Forgenos">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="theme-color" content="#141414">
@@ -47,11 +41,9 @@
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
     
-    <!-- CANONICAL + FAVICON -->
     <link rel="canonical" href="https://forgenos.com/dev/json-formatter">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
     
-    <!-- SCHEMA 1 — WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -89,7 +81,6 @@
     }
     </script>
     
-    <!-- SCHEMA 2 — FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -139,7 +130,6 @@
     }
     </script>
     
-    <!-- SCHEMA 3 — BreadcrumbList -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -167,17 +157,14 @@
     }
     </script>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -202,20 +189,17 @@
     </script>
 
     <style>
-        /* Base Setup & Security */
         body {
-            background-color: #141414; /* FIX 8 - Page background match sidebar */
+            background-color: #141414; 
             color: #e5e5e5;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent !important;
-            /* Allow text selection to be overridden in tool sections */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* TEXT SELECTION FIX - Allow text selection in the workspace and article areas */
         #ai-tool-workspace, 
         #tool-info-section,
         .code-textarea, 
@@ -231,7 +215,6 @@
             user-select: text !important;
         }
 
-        /* Keep UI elements unselectable */
         button, .tree-toggle, .line-numbers, .view-tab, .resizer, #status-indicator {
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -249,7 +232,6 @@
             filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
         }
 
-        /* Loading Overlay */
         #tool-loading-overlay {
             position: fixed; inset: 0; width: 100%; height: 100%;
             background: rgba(20, 20, 20, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
@@ -268,7 +250,6 @@
         }
         @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
         
-        /* FIX 1 & 9 - Sidebar Expand Logic without glitch */
         #sidebar {
             width: 5.5rem; transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden; background-color: #141414; border-right: 1px solid rgba(255, 255, 255, 0.05); z-index: 100 !important;
@@ -280,20 +261,17 @@
         #sidebar:hover .logo-text { opacity: 1; }
         .sidebar-icon-container { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;}
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #E50914; }
         ::-webkit-scrollbar-corner { background: transparent; }
 
-        /* JSON Tool Specific CSS */
         .workspace-area {
             height: 75vh;
             min-height: 500px;
             max-height: 1000px;
         }
         
-        /* Line Numbers */
         .line-numbers {
             font-family: 'Courier New', Courier, monospace;
             font-size: 13px;
@@ -313,7 +291,6 @@
             resize: none;
         }
         
-        /* Tree View Styling */
         .tree-row {
             font-family: 'Courier New', Courier, monospace;
             font-size: 13px;
@@ -340,7 +317,6 @@
             transition: transform 200ms ease;
         }
         
-        /* Syntax Colors */
         .tree-key { color: #06B6D4; }      /* Teal */
         .tree-string { color: #10B981; }   /* Green */
         .tree-number { color: #FBBF24; }   /* Amber */
@@ -350,7 +326,6 @@
         .tree-preview { color: #6b7280; font-style: italic; cursor: pointer;}
         .tree-bracket { color: #9ca3af; }
         
-        /* Indent Guides */
         .tree-indent-line {
             position: absolute;
             top: 0; bottom: 0;
@@ -362,7 +337,6 @@
         .indent-level-3 { background-color: rgba(16,185,129,0.15); }
         .indent-level-n { background-color: rgba(255,255,255,0.06); }
 
-        /* Tree Action Icons on Hover */
         .tree-actions {
             opacity: 0;
             position: absolute;
@@ -375,7 +349,6 @@
         .tree-action-btn { cursor: pointer; opacity: 0.7; }
         .tree-action-btn:hover { opacity: 1; transform: scale(1.1); }
 
-        /* Split Pane Divider */
         .resizer {
             cursor: col-resize;
             transition: background-color 0.2s;
@@ -384,13 +357,11 @@
             background-color: #E50914;
         }
 
-        /* Error Highlights */
         .error-line {
             background-color: rgba(153, 27, 27, 0.1) !important;
             border-left: 3px solid #E50914 !important;
         }
         
-        /* Hide scrollbar for standard containers */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -404,7 +375,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- JS WARNING -->
     <noscript>
         <style>
             body{overflow:hidden}
@@ -420,15 +390,11 @@
         </div>
     </noscript>
 
-    <!-- Global Toast -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- CUSTOM RIGHT CLICK MENU -->
     <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
-        <!-- Populated dynamically via JS -->
     </div>
 
-    <!-- Global Loading Overlay -->
     <div id="tool-loading-overlay">
         <div class="rolling-wrapper">
             <div class="rolling-viewport" id="tool-viewport">
@@ -437,7 +403,6 @@
         </div>
     </div>
 
-    <!-- Mobile Header -->
     <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
         <div class="flex items-center cursor-pointer" onclick="location.href='/'">
             <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
@@ -446,11 +411,8 @@
         <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
     </header>
 
-    <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
     
-    <!-- FIX 1: Restore Full Sidebar & Mobile Menu Categories -->
-    <!-- Mobile Side Menu -->
     <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center cursor-pointer" onclick="location.href='/'">
@@ -497,7 +459,6 @@
 
     <div class="flex min-h-screen">
         
-        <!-- FIX 1: Desktop Sidebar restored with all links -->
         <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
             <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/'">
                 <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
@@ -547,12 +508,10 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
             
             <div class="flex-1 px-4 md:px-8 lg:px-12 py-6 flex flex-col w-full text-left max-w-[1600px] mx-auto">
                 
-                <!-- SEO H1 TAG -->
                 <header class="mb-6 flex justify-between items-end">
                     <div>
                         <a href="/dev" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-4 text-sm font-bold w-max">
@@ -565,18 +524,12 @@
                     </div>
                 </header>
 
-                <!-- ========================================== -->
-                <!-- AI TOOL WORKSPACE -->
-                <!-- ========================================== -->
                 <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col relative z-10">
                     
-                    <!-- TOOL CONTAINER -->
                     <div class="flex flex-col workspace-area border border-white/10 rounded-xl overflow-hidden bg-[#050505] shadow-2xl flex-shrink-0">
                         
-                        <!-- TOP BAR -->
                         <div class="h-12 border-b border-white/10 bg-[#0a0a0a] flex items-center justify-between px-4 shrink-0 overflow-x-auto hide-scroll">
                             
-                            <!-- Logo & Status -->
                             <div class="flex items-center gap-4 shrink-0">
                                 <div class="flex items-center gap-2">
                                     <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none">
@@ -592,13 +545,11 @@
                                 </div>
                             </div>
 
-                            <!-- Mobile Tabs Switcher -->
                             <div class="md:hidden flex items-center bg-[#1c1c1e] rounded-lg p-1 border border-white/10 mx-2 shrink-0">
                                 <button id="mob-tab-input" class="px-3 py-1 text-xs font-semibold rounded-md bg-[#2a2a2c] text-white shadow-sm transition-all">Input</button>
                                 <button id="mob-tab-output" class="px-3 py-1 text-xs font-semibold rounded-md text-gray-400 hover:text-white transition-all">Output</button>
                             </div>
 
-                            <!-- Action Buttons -->
                             <div class="flex items-center gap-2 shrink-0">
                                 <button id="btn-format" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Format JSON (Ctrl+Shift+F)">
                                     <svg viewBox="0 0 24 24" class="w-4 h-4" stroke="#A855F7" stroke-width="2" fill="none"><path d="M4 6h16M8 12h12M4 18h16" stroke-linecap="round"/><circle cx="5" cy="12" r="1.5" fill="#7C3AED" stroke="none"/></svg>
@@ -633,10 +584,8 @@
                             </div>
                         </div>
 
-                        <!-- MAIN SPLIT WORKSPACE -->
                         <div class="flex flex-1 relative overflow-hidden" id="main-panels">
                             
-                            <!-- LEFT PANEL (INPUT) -->
                             <div id="panel-left" class="flex flex-col w-full md:w-1/2 h-full absolute md:relative left-0 top-0 transition-transform duration-300 z-20 bg-[#050505]">
                                 
                                 <div class="h-7 bg-[#0a0a0a] border-b border-white/5 flex items-center justify-between px-3 shrink-0">
@@ -647,14 +596,11 @@
                                 </div>
                                 
                                 <div class="flex-1 flex relative overflow-hidden group">
-                                    <!-- Line Numbers -->
                                     <div id="line-numbers" class="w-10 bg-[#080808] border-r border-white/5 text-right py-4 shrink-0 overflow-hidden line-numbers hide-scroll select-none">
                                         <div>1</div>
                                     </div>
-                                    <!-- Textarea -->
                                     <textarea id="json-input" class="flex-1 bg-transparent text-gray-200 p-4 code-textarea outline-none focus:outline-none focus:ring-0" placeholder="Paste your JSON here..." spellcheck="false" wrap="off"></textarea>
                                     
-                                    <!-- Drag overlay -->
                                     <div id="drag-overlay" class="absolute inset-0 bg-brand-accent/10 border-2 border-brand-accent border-dashed m-2 rounded-lg hidden items-center justify-center pointer-events-none backdrop-blur-sm transition-all">
                                         <div class="bg-[#141414] px-6 py-3 rounded-full text-brand-accent font-bold shadow-lg border border-brand-accent/30 flex items-center gap-2">
                                             <i data-lucide="upload-cloud" class="w-5 h-5"></i> Drop JSON file here
@@ -663,7 +609,6 @@
                                 </div>
                             </div>
 
-                            <!-- RESIZER DIVIDER (Desktop only) -->
                             <div id="panel-resizer" class="w-1 bg-white/5 z-30 resizer hidden md:flex items-center justify-center hover:bg-brand-accent relative flex-shrink-0">
                                 <div class="w-full h-8 flex flex-col justify-between items-center opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
                                     <div class="w-[2px] h-[2px] bg-white rounded-full"></div>
@@ -672,19 +617,16 @@
                                 </div>
                             </div>
 
-                            <!-- RIGHT PANEL (OUTPUT) -->
                             <div id="panel-right" class="flex flex-col w-full md:w-1/2 h-full absolute md:relative right-0 top-0 transform translate-x-full md:translate-x-0 transition-transform duration-300 z-10 bg-[#050505]">
                                 
                                 <div class="h-7 bg-[#0a0a0a] border-b border-white/5 flex items-center justify-between px-2 shrink-0">
                                     
-                                    <!-- View Tabs -->
                                     <div class="flex items-center gap-1">
                                         <button class="view-tab active px-3 py-1 text-[11px] font-bold rounded text-white bg-white/10 transition-colors" data-view="tree">Tree</button>
                                         <button class="view-tab px-3 py-1 text-[11px] font-bold rounded text-gray-500 hover:text-white transition-colors" data-view="formatted">Formatted</button>
                                         <button class="view-tab px-3 py-1 text-[11px] font-bold rounded text-gray-500 hover:text-white transition-colors" data-view="minified">Minified</button>
                                     </div>
 
-                                    <!-- Right controls (Tree specific) -->
                                     <div class="flex items-center gap-2" id="tree-controls">
                                         <div id="path-display" class="hidden lg:block text-[10px] font-mono text-gray-500 bg-[#141414] px-2 py-0.5 rounded border border-white/5 max-w-[150px] truncate"></div>
                                         <button id="btn-expand-all" class="text-gray-500 hover:text-[#10B981] transition-colors p-1" title="Expand All">
@@ -696,10 +638,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Output Content Areas -->
                                 <div class="flex-1 relative overflow-auto bg-[#0a0a0a]">
                                     
-                                    <!-- Error Screen -->
                                     <div id="view-error" class="absolute inset-0 bg-[#050505] hidden flex-col p-6 overflow-y-auto z-20">
                                         <div class="bg-red-900/10 border border-red-500/30 rounded-xl p-5 w-full max-w-2xl">
                                             <div class="flex items-center gap-3 mb-3">
@@ -712,7 +652,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Views -->
                                     <div id="view-tree" class="w-full h-full p-4 font-mono text-[13px] absolute inset-0"></div>
                                     <div id="view-formatted" class="w-full h-full font-mono text-[13px] absolute inset-0 hidden">
                                         <div class="flex h-full">
@@ -726,7 +665,6 @@
                             </div>
                         </div>
 
-                        <!-- BOTTOM BAR STATS -->
                         <div class="h-8 bg-[#080808] border-t border-white/10 flex items-center justify-between px-4 shrink-0 overflow-x-auto hide-scroll">
                             <div class="flex items-center gap-4 text-[10px] md:text-xs font-mono text-gray-500 shrink-0 whitespace-nowrap">
                                 <span id="stat-size">Size: 0 B</span>
@@ -744,13 +682,10 @@
                     </div>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- FIX 3 & 4: Expanded SEO Article & Tool Info Section -->
-                <!-- ========================================== -->
+ 
                 <div id="tool-info-section" class="mt-16 w-full text-left">
                     
                     <article class="prose prose-invert max-w-none text-gray-400">
-                        <!-- Introduction Section -->
                         <section class="mb-12 bg-[#0a0a0a] border border-white/5 p-8 rounded-2xl shadow-xl">
                             <h2 class="text-3xl font-black text-white mb-6 tracking-tight">The Ultimate Free JSON Formatter & Validator</h2>
                             <p class="mb-5 text-[15px] leading-relaxed">
@@ -769,7 +704,6 @@
                             </p>
                         </section>
 
-                        <!-- Use Cases Section -->
                         <section class="mb-12">
                             <h2 class="text-2xl font-bold text-white mb-6">Real-World Professional Use Cases</h2>
                             <p class="mb-6 text-[15px] leading-relaxed">JsonVault is designed to handle a wide variety of scenarios that software engineers, data scientists, and system administrators face daily. Here are five ways this tool can streamline your workflow:</p>
@@ -809,7 +743,6 @@
                             </div>
                         </section>
 
-                        <!-- Professional Benefits -->
                         <section class="mb-12 bg-[#0a0a0a] border border-white/5 p-8 rounded-2xl shadow-xl">
                             <h2 class="text-2xl font-bold text-white mb-6">Why Choose JsonVault over other Free Tools?</h2>
                             <ul class="space-y-4">
@@ -837,7 +770,6 @@
                             </ul>
                         </section>
 
-                        <!-- Expanded FAQ Section -->
                         <section class="mb-12">
                             <h2 class="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
                             <div class="space-y-4">
@@ -861,7 +793,6 @@
                         </section>
                     </article>
 
-                    <!-- Professional Footer inside Content -->
                     <div class="mt-16 pt-10 border-t border-white/5 w-full text-left">
                         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
                             <div class="flex flex-col lg:col-span-5 text-left">
@@ -891,12 +822,9 @@
     </div>
 
     <script>
-        // Icons Initialization
         lucide.createIcons();
 
-        // FIX 2: Security & UI Overrides - Adjusted to allow normal text copying while protecting source code
         document.oncontextmenu = function(e) {
-            // Allow default right click inside the tool textareas and article to allow pasting and native copying
             if(e.target.tagName === 'TEXTAREA' || e.target.closest('.tree-row') || e.target.closest('article') || e.target.closest('#view-formatted')) {
                 return true; 
             }
@@ -1006,11 +934,7 @@
             }
         }
 
-        // ==========================================
-        // Tool Custom JS Logic Yahan Niche Likha Jayega...
-        // ==========================================
-        
-        // --- State Management ---
+  
         const state = {
             rawInput: '',
             parsedJson: null,
@@ -1020,7 +944,6 @@
             isFirstValidParse: true
         };
 
-        // --- DOM Elements ---
         const els = {
             input: document.getElementById('json-input'),
             lineNumbers: document.getElementById('line-numbers'),
