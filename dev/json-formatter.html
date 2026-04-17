@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO TITLE TAG -->
+    <title>JSON Formatter – JSON Validator & Viewer | Forgenos</title>
+    
+    <!-- SEO META DESCRIPTION -->
+    <meta name="description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
+    
+    <!-- SEO META KEYWORDS (Max 25 focused) -->
+    <meta name="keywords" content="json formatter free, free json validator online, json tree viewer, json beautifier tool, json parser online no signup, best free json formatter online, json formatter without software, json validator in browser, free json tool for students, instant json formatter online, json viewer mobile friendly, secure private json formatter, how to format json online free, best json formatter 2026, forgenos json tool, open source json formatter online, what is the best free json formatter online, how do i validate json without software, is there a free json validator online">
+    
+    <!-- OPEN GRAPH TAGS -->
+    <meta property="og:title" content="JSON Formatter – JSON Validator & Viewer | Forgenos">
+    <meta property="og:description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/dev/json-formatter">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="JSON Formatter and Validator Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+    
+    <!-- TWITTER CARD TAGS -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JSON Formatter – JSON Validator & Viewer | Forgenos">
+    <meta name="twitter:description" content="Free online JSON formatter and validator tool. Beautify, minify, explore interactive tree views, and query JSON data instantly in your browser. No signup required.">
+    <meta name="twitter:image" content="https://forgenos.com/assets/og-image.png">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+    
+    <!-- ADDITIONAL META TAGS -->
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+    
+    <!-- CANONICAL + FAVICON -->
+    <link rel="canonical" href="https://forgenos.com/dev/json-formatter">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+    
+    <!-- SCHEMA 1 — WebApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "JsonVault - Advanced JSON Formatter",
+      "url": "https://forgenos.com/dev/json-formatter",
+      "description": "Professional-grade JSON formatter, validator, and tree explorer. Format, minify, query, and convert JSON data directly in your browser.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works entirely in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored",
+        "Interactive Tree View",
+        "JSONPath Querying"
+      ]
+    }
+    </script>
+    
+    <!-- SCHEMA 2 — FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this JSON formatter completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my JSON data secure and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. All JSON formatting, validation, and parsing happen locally in your web browser. Your data is never uploaded to our servers, ensuring 100% privacy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the JSON validator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As you type or paste your code, the tool continuously checks the syntax. If there's an error, it provides a plain English explanation and highlights the exact line so you can fix it quickly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert JSON to CSV or YAML?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! The tool includes a built-in conversion engine that lets you instantly convert valid JSON data into CSV, YAML, XML, or even TypeScript Interfaces."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum file size the tool can handle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because it runs in your browser, the limit depends on your device's memory. It can easily handle files up to 10MB+. We use optimized virtual rendering to ensure the tree view remains fast for large datasets."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- SCHEMA 3 — BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer Tools",
+          "item": "https://forgenos.com/dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "JSON Formatter",
+          "item": "https://forgenos.com/dev/json-formatter"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414; /* FIX 8 - Page background match sidebar */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            /* Allow text selection to be overridden in tool sections */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* TEXT SELECTION FIX - Allow text selection in the workspace and article areas */
+        #ai-tool-workspace, 
+        #tool-info-section,
+        .code-textarea, 
+        #view-tree, 
+        #view-formatted, 
+        #view-minified,
+        article, 
+        .prose,
+        .tree-row {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* Keep UI elements unselectable */
+        button, .tree-toggle, .line-numbers, .view-tab, .resizer, #status-indicator {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Loading Overlay */
+        #tool-loading-overlay {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            z-index: 99999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #tool-loading-overlay.visible { opacity: 1; visibility: visible; }
+        .rolling-wrapper { text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 600px; padding: 0 20px; }
+        .rolling-viewport { height: 3rem; overflow: hidden; position: relative; width: 100%; }
+        .rolling-list { list-style: none; will-change: transform; margin: 0; padding: 0; }
+        .rolling-list li { height: 3rem; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 800; white-space: nowrap; letter-spacing: -0.02em; }
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        /* FIX 1 & 9 - Sidebar Expand Logic without glitch */
+        #sidebar {
+            width: 5.5rem; transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden; background-color: #141414; border-right: 1px solid rgba(255, 255, 255, 0.05); z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; max-width: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: inline-block; overflow:hidden;}
+        #sidebar:hover .nav-label { opacity: 1; max-width: 200px; transform: translateX(0); }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+        .sidebar-icon-container { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;}
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+        ::-webkit-scrollbar-corner { background: transparent; }
+
+        /* JSON Tool Specific CSS */
+        .workspace-area {
+            height: 75vh;
+            min-height: 500px;
+            max-height: 1000px;
+        }
+        
+        /* Line Numbers */
+        .line-numbers {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: right;
+            padding-right: 12px;
+            color: #4b5563; /* gray-600 */
+        }
+        
+        .code-textarea {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+            resize: none;
+        }
+        
+        /* Tree View Styling */
+        .tree-row {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 28px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            white-space: pre;
+            transition: background 150ms ease;
+        }
+        .tree-row:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+        .tree-toggle {
+            cursor: pointer;
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 10px;
+            margin-right: 6px;
+            transition: transform 200ms ease;
+        }
+        
+        /* Syntax Colors */
+        .tree-key { color: #06B6D4; }      /* Teal */
+        .tree-string { color: #10B981; }   /* Green */
+        .tree-number { color: #FBBF24; }   /* Amber */
+        .tree-bool { color: #3B82F6; }     /* Blue */
+        .tree-null { color: #E50914; font-style: italic; } /* Red */
+        .tree-colon { color: #6b7280; margin-right: 4px; }
+        .tree-preview { color: #6b7280; font-style: italic; cursor: pointer;}
+        .tree-bracket { color: #9ca3af; }
+        
+        /* Indent Guides */
+        .tree-indent-line {
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 1px;
+            pointer-events: none;
+        }
+        .indent-level-1 { background-color: rgba(229,9,20,0.15); }
+        .indent-level-2 { background-color: rgba(59,130,246,0.15); }
+        .indent-level-3 { background-color: rgba(16,185,129,0.15); }
+        .indent-level-n { background-color: rgba(255,255,255,0.06); }
+
+        /* Tree Action Icons on Hover */
+        .tree-actions {
+            opacity: 0;
+            position: absolute;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            transition: opacity 150ms ease;
+        }
+        .tree-row:hover .tree-actions { opacity: 1; }
+        .tree-action-btn { cursor: pointer; opacity: 0.7; }
+        .tree-action-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Split Pane Divider */
+        .resizer {
+            cursor: col-resize;
+            transition: background-color 0.2s;
+        }
+        .resizer:hover, .resizer.active {
+            background-color: #E50914;
+        }
+
+        /* Error Highlights */
+        .error-line {
+            background-color: rgba(153, 27, 27, 0.1) !important;
+            border-left: 3px solid #E50914 !important;
+        }
+        
+        /* Hide scrollbar for standard containers */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media (max-width: 768px) {
+            .workspace-area { height: calc(100vh - 180px); min-height: unset; }
+            .mobile-hide { display: none !important; }
+            .mobile-show { display: flex !important; }
+            .tree-row { padding-left: 10px; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK MENU -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <!-- Populated dynamically via JS -->
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- FIX 1: Restore Full Sidebar & Mobile Menu Categories -->
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-white bg-white/10 font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <div class="flex min-h-screen">
+        
+        <!-- FIX 1: Desktop Sidebar restored with all links -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-white bg-white/10 transition-all group shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                    <div class="sidebar-icon-container"><i data-lucide="code-2" class="w-6 h-6 text-white"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="file-text" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="image" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <div class="sidebar-icon-container"><i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i></div>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-4 md:px-8 lg:px-12 py-6 flex flex-col w-full text-left max-w-[1600px] mx-auto">
+                
+                <!-- SEO H1 TAG -->
+                <header class="mb-6 flex justify-between items-end">
+                    <div>
+                        <a href="/dev" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-4 text-sm font-bold w-max">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Dev Tools
+                        </a>
+                        <h1 class="text-3xl md:text-4xl font-black text-white tracking-tight leading-none">
+                            JsonVault | JSON Formatter & Viewer
+                        </h1>
+                        <p class="text-gray-500 text-sm mt-2 font-medium">Professional offline-first JSON editor, validator, and interactive tree explorer.</p>
+                    </div>
+                </header>
+
+                <!-- ========================================== -->
+                <!-- AI TOOL WORKSPACE -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col relative z-10">
+                    
+                    <!-- TOOL CONTAINER -->
+                    <div class="flex flex-col workspace-area border border-white/10 rounded-xl overflow-hidden bg-[#050505] shadow-2xl flex-shrink-0">
+                        
+                        <!-- TOP BAR -->
+                        <div class="h-12 border-b border-white/10 bg-[#0a0a0a] flex items-center justify-between px-4 shrink-0 overflow-x-auto hide-scroll">
+                            
+                            <!-- Logo & Status -->
+                            <div class="flex items-center gap-4 shrink-0">
+                                <div class="flex items-center gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none">
+                                        <path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h2m8-16h2a2 2 0 012 2v12a2 2 0 01-2 2h-2" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                                        <circle cx="12" cy="12" r="2" fill="#F97316"/>
+                                    </svg>
+                                    <span class="font-bold text-sm text-gray-200 hidden sm:block tracking-wide">JsonVault</span>
+                                </div>
+                                <div class="w-px h-5 bg-white/10 hidden sm:block"></div>
+                                <div id="status-indicator" class="flex items-center gap-2 bg-[#1c1c1e] px-3 py-1 rounded-full border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-gray-500" id="status-dot"></div>
+                                    <span class="text-xs font-semibold text-gray-400" id="status-text">Empty</span>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Tabs Switcher -->
+                            <div class="md:hidden flex items-center bg-[#1c1c1e] rounded-lg p-1 border border-white/10 mx-2 shrink-0">
+                                <button id="mob-tab-input" class="px-3 py-1 text-xs font-semibold rounded-md bg-[#2a2a2c] text-white shadow-sm transition-all">Input</button>
+                                <button id="mob-tab-output" class="px-3 py-1 text-xs font-semibold rounded-md text-gray-400 hover:text-white transition-all">Output</button>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex items-center gap-2 shrink-0">
+                                <button id="btn-format" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Format JSON (Ctrl+Shift+F)">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4" stroke="#A855F7" stroke-width="2" fill="none"><path d="M4 6h16M8 12h12M4 18h16" stroke-linecap="round"/><circle cx="5" cy="12" r="1.5" fill="#7C3AED" stroke="none"/></svg>
+                                    <span class="text-xs font-semibold text-gray-300 group-hover:text-white hidden lg:block">Format</span>
+                                </button>
+                                
+                                <button id="btn-minify" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Minify JSON (Ctrl+Shift+M)">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M4 12h16m-8-8v16" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/><path d="M10 6l2-2 2 2M10 18l2 2 2-2M6 10l-2 2 2 2M18 10l2 2-2 2" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <span class="text-xs font-semibold text-gray-300 group-hover:text-white hidden lg:block">Minify</span>
+                                </button>
+
+                                <button id="btn-sort" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Sort Keys Alphabetically">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4" stroke="#FBBF24" stroke-width="2" fill="none"><path d="M4 6h7M4 12h7M4 18h7M16 4v16m-4-4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <span class="text-xs font-semibold text-gray-300 group-hover:text-white hidden lg:block">Sort Keys</span>
+                                </button>
+
+                                <div class="w-px h-4 bg-white/10 hidden sm:block mx-1"></div>
+
+                                <button id="btn-clear" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-red-900/20 border border-white/10 hover:border-red-500/50 rounded-lg px-3 py-1.5 transition-all outline-none" title="Clear All">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4 group-hover:stroke-[#E50914] stroke-gray-400" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6m0-6l6 6" stroke-linecap="round"/></svg>
+                                    <span class="text-xs font-semibold text-gray-300 group-hover:text-[#E50914] hidden lg:block label-text">Clear</span>
+                                </button>
+
+                                <button id="btn-copy" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Copy Output">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#3B82F6" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/></svg>
+                                    <span class="text-xs font-semibold text-gray-300 group-hover:text-white hidden lg:block label-text">Copy</span>
+                                </button>
+
+                                <button id="btn-download" class="group flex items-center gap-2 bg-[#1c1c1e] hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg px-3 py-1.5 transition-all outline-none focus:border-brand-accent" title="Download JSON">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4" stroke="#E50914" stroke-width="2" fill="none"><path d="M12 4v12m-4-4l4 4 4-4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MAIN SPLIT WORKSPACE -->
+                        <div class="flex flex-1 relative overflow-hidden" id="main-panels">
+                            
+                            <!-- LEFT PANEL (INPUT) -->
+                            <div id="panel-left" class="flex flex-col w-full md:w-1/2 h-full absolute md:relative left-0 top-0 transition-transform duration-300 z-20 bg-[#050505]">
+                                
+                                <div class="h-7 bg-[#0a0a0a] border-b border-white/5 flex items-center justify-between px-3 shrink-0">
+                                    <span class="text-[11px] font-semibold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                                        Input Editor
+                                    </span>
+                                    <button id="btn-sample" class="text-[10px] bg-white/5 hover:bg-white/10 text-gray-400 px-2 py-0.5 rounded transition-colors">Sample JSON</button>
+                                </div>
+                                
+                                <div class="flex-1 flex relative overflow-hidden group">
+                                    <!-- Line Numbers -->
+                                    <div id="line-numbers" class="w-10 bg-[#080808] border-r border-white/5 text-right py-4 shrink-0 overflow-hidden line-numbers hide-scroll select-none">
+                                        <div>1</div>
+                                    </div>
+                                    <!-- Textarea -->
+                                    <textarea id="json-input" class="flex-1 bg-transparent text-gray-200 p-4 code-textarea outline-none focus:outline-none focus:ring-0" placeholder="Paste your JSON here..." spellcheck="false" wrap="off"></textarea>
+                                    
+                                    <!-- Drag overlay -->
+                                    <div id="drag-overlay" class="absolute inset-0 bg-brand-accent/10 border-2 border-brand-accent border-dashed m-2 rounded-lg hidden items-center justify-center pointer-events-none backdrop-blur-sm transition-all">
+                                        <div class="bg-[#141414] px-6 py-3 rounded-full text-brand-accent font-bold shadow-lg border border-brand-accent/30 flex items-center gap-2">
+                                            <i data-lucide="upload-cloud" class="w-5 h-5"></i> Drop JSON file here
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RESIZER DIVIDER (Desktop only) -->
+                            <div id="panel-resizer" class="w-1 bg-white/5 z-30 resizer hidden md:flex items-center justify-center hover:bg-brand-accent relative flex-shrink-0">
+                                <div class="w-full h-8 flex flex-col justify-between items-center opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+                                    <div class="w-[2px] h-[2px] bg-white rounded-full"></div>
+                                    <div class="w-[2px] h-[2px] bg-white rounded-full"></div>
+                                    <div class="w-[2px] h-[2px] bg-white rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT PANEL (OUTPUT) -->
+                            <div id="panel-right" class="flex flex-col w-full md:w-1/2 h-full absolute md:relative right-0 top-0 transform translate-x-full md:translate-x-0 transition-transform duration-300 z-10 bg-[#050505]">
+                                
+                                <div class="h-7 bg-[#0a0a0a] border-b border-white/5 flex items-center justify-between px-2 shrink-0">
+                                    
+                                    <!-- View Tabs -->
+                                    <div class="flex items-center gap-1">
+                                        <button class="view-tab active px-3 py-1 text-[11px] font-bold rounded text-white bg-white/10 transition-colors" data-view="tree">Tree</button>
+                                        <button class="view-tab px-3 py-1 text-[11px] font-bold rounded text-gray-500 hover:text-white transition-colors" data-view="formatted">Formatted</button>
+                                        <button class="view-tab px-3 py-1 text-[11px] font-bold rounded text-gray-500 hover:text-white transition-colors" data-view="minified">Minified</button>
+                                    </div>
+
+                                    <!-- Right controls (Tree specific) -->
+                                    <div class="flex items-center gap-2" id="tree-controls">
+                                        <div id="path-display" class="hidden lg:block text-[10px] font-mono text-gray-500 bg-[#141414] px-2 py-0.5 rounded border border-white/5 max-w-[150px] truncate"></div>
+                                        <button id="btn-expand-all" class="text-gray-500 hover:text-[#10B981] transition-colors p-1" title="Expand All">
+                                            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+                                        </button>
+                                        <button id="btn-collapse-all" class="text-gray-500 hover:text-[#94A3B8] transition-colors p-1" title="Collapse All">
+                                            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 11l5-5 5 5M7 18l5-5 5 5"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Output Content Areas -->
+                                <div class="flex-1 relative overflow-auto bg-[#0a0a0a]">
+                                    
+                                    <!-- Error Screen -->
+                                    <div id="view-error" class="absolute inset-0 bg-[#050505] hidden flex-col p-6 overflow-y-auto z-20">
+                                        <div class="bg-red-900/10 border border-red-500/30 rounded-xl p-5 w-full max-w-2xl">
+                                            <div class="flex items-center gap-3 mb-3">
+                                                <svg viewBox="0 0 24 24" class="w-6 h-6 shrink-0"><circle cx="12" cy="12" r="10" fill="#E50914"/><path d="M9 9l6 6m0-6l-6 6" stroke="#fff" stroke-width="2" fill="none"/></svg>
+                                                <h3 class="text-red-500 font-bold text-lg">Invalid JSON</h3>
+                                            </div>
+                                            <div class="bg-black/30 rounded border border-red-900/50 p-3 font-mono text-sm text-red-200 mb-4" id="error-raw-msg"></div>
+                                            <h4 class="text-white text-sm font-bold mb-1">Plain English Explanation:</h4>
+                                            <p class="text-gray-400 text-sm leading-relaxed" id="error-translation"></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Views -->
+                                    <div id="view-tree" class="w-full h-full p-4 font-mono text-[13px] absolute inset-0"></div>
+                                    <div id="view-formatted" class="w-full h-full font-mono text-[13px] absolute inset-0 hidden">
+                                        <div class="flex h-full">
+                                            <div id="out-line-numbers" class="w-10 bg-[#080808] border-r border-white/5 text-right py-4 shrink-0 overflow-hidden line-numbers hide-scroll select-none"></div>
+                                            <div id="formatted-content" class="flex-1 p-4 overflow-auto whitespace-pre"></div>
+                                        </div>
+                                    </div>
+                                    <textarea id="view-minified" class="w-full h-full p-4 font-mono text-[13px] absolute inset-0 bg-transparent text-gray-300 resize-none outline-none hidden" readonly wrap="off"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BOTTOM BAR STATS -->
+                        <div class="h-8 bg-[#080808] border-t border-white/10 flex items-center justify-between px-4 shrink-0 overflow-x-auto hide-scroll">
+                            <div class="flex items-center gap-4 text-[10px] md:text-xs font-mono text-gray-500 shrink-0 whitespace-nowrap">
+                                <span id="stat-size">Size: 0 B</span>
+                                <span class="text-gray-700">|</span>
+                                <span id="stat-keys">Keys: 0</span>
+                                <span class="text-gray-700">|</span>
+                                <span id="stat-depth">Depth: 0</span>
+                                <span class="text-gray-700">|</span>
+                                <span id="stat-nodes">Nodes: 0</span>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                <button class="text-[10px] text-gray-500 hover:text-white transition-colors uppercase font-bold tracking-wider" onclick="alert('Shortcuts:\nCtrl+Shift+F: Format\nCtrl+Shift+M: Minify\nCtrl+Shift+C: Copy')">? Shortcuts</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- FIX 3 & 4: Expanded SEO Article & Tool Info Section -->
+                <!-- ========================================== -->
+                <div id="tool-info-section" class="mt-16 w-full text-left">
+                    
+                    <article class="prose prose-invert max-w-none text-gray-400">
+                        <!-- Introduction Section -->
+                        <section class="mb-12 bg-[#0a0a0a] border border-white/5 p-8 rounded-2xl shadow-xl">
+                            <h2 class="text-3xl font-black text-white mb-6 tracking-tight">The Ultimate Free JSON Formatter & Validator</h2>
+                            <p class="mb-5 text-[15px] leading-relaxed">
+                                JSON (JavaScript Object Notation) has become the de-facto standard for data interchange on the modern web. Whether you are building complex REST APIs, configuring cloud servers, or managing NoSQL database dumps, you deal with JSON every single day. However, raw JSON data is rarely formatted for human eyes. It is often minified into a single massive string, making it nearly impossible to read, debug, or understand without the right tools.
+                            </p>
+                            <p class="mb-5 text-[15px] leading-relaxed">
+                                This is exactly why we built <strong>JsonVault by Forgenos</strong>. It is not just another basic online formatter. It is a premium, professional-grade developer tool designed to bring an IDE-like experience directly to your web browser. With features like instant syntax validation, a deeply interactive tree explorer, and intelligent error highlighting, JsonVault is engineered to save developers countless hours of frustration.
+                            </p>
+                            
+                            <h3 class="text-xl font-bold text-white mb-4 mt-8">How It Works: Secure Client-Side Processing</h3>
+                            <p class="mb-5 text-[15px] leading-relaxed">
+                                Security and data privacy are top priorities for any developer. When you are debugging API keys, customer information, or proprietary configuration files, you cannot afford to upload that data to an unknown third-party server.
+                            </p>
+                            <p class="mb-5 text-[15px] leading-relaxed">
+                                JsonVault operates on a strict <strong>offline-first architecture</strong>. When you paste your data into the editor, the entire parsing, validation, and formatting process is executed locally using your browser's JavaScript engine. Absolutely no data is transmitted over the internet, and no server logs are ever created. You get the speed and responsiveness of a native desktop application, with the convenience of a web-based tool.
+                            </p>
+                        </section>
+
+                        <!-- Use Cases Section -->
+                        <section class="mb-12">
+                            <h2 class="text-2xl font-bold text-white mb-6">Real-World Professional Use Cases</h2>
+                            <p class="mb-6 text-[15px] leading-relaxed">JsonVault is designed to handle a wide variety of scenarios that software engineers, data scientists, and system administrators face daily. Here are five ways this tool can streamline your workflow:</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <i data-lucide="bug" class="w-5 h-5 text-brand-accent"></i>
+                                        <h4 class="text-white font-bold text-lg">1. Debugging Broken API Responses</h4>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">When an API endpoint returns a 500 Internal Server Error due to a malformed JSON payload, finding the missing comma or unclosed bracket in a 5,000-line file can be a nightmare. Our real-time validator instantly pinpoints the exact line and column of the syntax error, translating cryptic JavaScript exceptions into plain English.</p>
+                                </div>
+                                
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <i data-lucide="database" class="w-5 h-5 text-[#3B82F6]"></i>
+                                        <h4 class="text-white font-bold text-lg">2. Exploring Database Dumps</h4>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">Document databases like MongoDB or Firebase export data as massive JSON arrays. Using our interactive <strong>Tree Viewer</strong>, you can collapse and expand deeply nested data structures, allowing you to visually navigate complex hierarchies without getting lost in a wall of text.</p>
+                                </div>
+
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <i data-lucide="minimize-2" class="w-5 h-5 text-[#10B981]"></i>
+                                        <h4 class="text-white font-bold text-lg">3. Payload Minification for Production</h4>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">Before deploying configuration files or hardcoding JSON payloads into your front-end application, you want to reduce the file size as much as possible to save bandwidth. The Minify feature strips all unnecessary whitespace and line breaks instantly.</p>
+                                </div>
+
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <i data-lucide="file-json" class="w-5 h-5 text-[#FBBF24]"></i>
+                                        <h4 class="text-white font-bold text-lg">4. Standardizing Configuration Files</h4>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">When working in a team environment, inconsistent formatting in config files (like `package.json` or `.prettierrc`) leads to messy Git diffs. Use the Beautifier and the <strong>Sort Keys</strong> function to alphabetize your JSON properties, ensuring a clean and standardized format every time.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Professional Benefits -->
+                        <section class="mb-12 bg-[#0a0a0a] border border-white/5 p-8 rounded-2xl shadow-xl">
+                            <h2 class="text-2xl font-bold text-white mb-6">Why Choose JsonVault over other Free Tools?</h2>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="zap" class="w-6 h-6 text-yellow-500 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="text-white block mb-1">Zero Latency and Blazing Fast Performance</strong>
+                                        <p class="text-sm text-gray-400">Because it doesn't rely on server round-trips, the tool formats and validates your data the millisecond you paste it. We use an optimized virtual DOM rendering technique that prevents your browser from freezing, even when exploring JSON files with tens of thousands of nodes.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="code" class="w-6 h-6 text-blue-500 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="text-white block mb-1">A True Developer Environment</strong>
+                                        <p class="text-sm text-gray-400">Unlike basic text areas, our input editor features line numbers, synchronized scrolling, and error line highlighting. It feels exactly like writing code in VS Code or WebStorm.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="shield" class="w-6 h-6 text-green-500 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="text-white block mb-1">No Account Required</strong>
+                                        <p class="text-sm text-gray-400">We believe essential developer tools should be frictionless. There are no paywalls, no forced sign-ups, and no usage limits. Bookmark it and use it whenever you need it.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <!-- Expanded FAQ Section -->
+                        <section class="mb-12">
+                            <h2 class="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+                            <div class="space-y-4">
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl hover:bg-white/5 transition-colors">
+                                    <h4 class="text-white font-bold mb-2">Is this JSON formatter completely free?</h4>
+                                    <p class="text-[14px] leading-relaxed">Yes, this tool on Forgenos is 100% free forever. There are no signups, no subscriptions, and no restricted premium features hidden behind a paywall.</p>
+                                </div>
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl hover:bg-white/5 transition-colors">
+                                    <h4 class="text-white font-bold mb-2">Is my JSON data secure and private?</h4>
+                                    <p class="text-[14px] leading-relaxed">Absolutely. JsonVault is a pure client-side web application. All formatting, validation, parsing, and tree generation execute locally within your web browser's memory sandbox. Your sensitive data, API payloads, or database dumps are never uploaded to our servers or the internet.</p>
+                                </div>
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl hover:bg-white/5 transition-colors">
+                                    <h4 class="text-white font-bold mb-2">How does the JSON validator detect errors?</h4>
+                                    <p class="text-[14px] leading-relaxed">We use a strict internal parsing engine that validates syntax in real-time as you type. Unlike basic tools that just throw a cryptic console error, we intercept the error object, determine the exact line number, and provide a plain English translation (e.g., explaining missing double quotes, trailing commas, or unexpected tokens).</p>
+                                </div>
+                                <div class="bg-[#141414] border border-white/5 p-6 rounded-xl hover:bg-white/5 transition-colors">
+                                    <h4 class="text-white font-bold mb-2">What is the maximum file size the tool can handle?</h4>
+                                    <p class="text-[14px] leading-relaxed">Because the tool runs entirely in your browser, the strict limit depends on your device's available RAM. However, it can easily and smoothly handle files up to 10MB+ without stuttering. We use highly optimized virtual rendering to ensure the tree view remains lightning fast even for massive datasets.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </article>
+
+                    <!-- Professional Footer inside Content -->
+                    <div class="mt-16 pt-10 border-t border-white/5 w-full text-left">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                            <div class="flex flex-col lg:col-span-5 text-left">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                                <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized developer ecosystem. It runs locally to ensure maximum performance, zero latency, and uncompromising security.</p>
+                            </div>
+                            <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                                <div class="flex flex-col">
+                                    <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                    <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                        <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                        <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                        <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> Local Storage Isolated</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="py-6 px-4 md:px-8 lg:px-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left bg-[#050505]">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // FIX 2: Security & UI Overrides - Adjusted to allow normal text copying while protecting source code
+        document.oncontextmenu = function(e) {
+            // Allow default right click inside the tool textareas and article to allow pasting and native copying
+            if(e.target.tagName === 'TEXTAREA' || e.target.closest('.tree-row') || e.target.closest('article') || e.target.closest('#view-formatted')) {
+                return true; 
+            }
+            
+            e.preventDefault();
+            if (window.innerWidth < 1024) return false;
+            
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                menu.innerHTML = `
+                    <div class="flex items-center gap-3 px-3.5 py-2 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] hover:bg-white/10" onclick="location.reload()">Refresh App</div>
+                    <div class="flex items-center gap-3 px-3.5 py-2 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] hover:bg-white/10" onclick="window.closeContextMenu()">Close Menu</div>
+                `;
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 100 > window.innerHeight) y -= 100; 
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) menu.style.display = 'none'; 
+        });
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1000) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Scroll lock
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = '';
+            clearInterval(globalRollInterval);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden';
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth;
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = '';
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Tool Custom JS Logic Yahan Niche Likha Jayega...
+        // ==========================================
+        
+        // --- State Management ---
+        const state = {
+            rawInput: '',
+            parsedJson: null,
+            isValid: false,
+            activeView: 'tree', // tree, formatted, minified
+            treeData: [],
+            isFirstValidParse: true
+        };
+
+        // --- DOM Elements ---
+        const els = {
+            input: document.getElementById('json-input'),
+            lineNumbers: document.getElementById('line-numbers'),
+            outLineNumbers: document.getElementById('out-line-numbers'),
+            statusDot: document.getElementById('status-dot'),
+            statusText: document.getElementById('status-text'),
+            
+            // Views
+            viewTree: document.getElementById('view-tree'),
+            viewFormatted: document.getElementById('view-formatted'),
+            formattedContent: document.getElementById('formatted-content'),
+            viewMinified: document.getElementById('view-minified'),
+            viewError: document.getElementById('view-error'),
+            
+            // Error elements
+            errorRawMsg: document.getElementById('error-raw-msg'),
+            errorTranslation: document.getElementById('error-translation'),
+            
+            // Stats
+            statSize: document.getElementById('stat-size'),
+            statKeys: document.getElementById('stat-keys'),
+            statDepth: document.getElementById('stat-depth'),
+            statNodes: document.getElementById('stat-nodes'),
+            pathDisplay: document.getElementById('path-display'),
+            
+            // Panels
+            panelLeft: document.getElementById('panel-left'),
+            panelRight: document.getElementById('panel-right'),
+            resizer: document.getElementById('panel-resizer'),
+            mainPanels: document.getElementById('main-panels'),
+            
+            // Mobile Tabs
+            mobTabInput: document.getElementById('mob-tab-input'),
+            mobTabOutput: document.getElementById('mob-tab-output'),
+            infoSection: document.getElementById('tool-info-section')
+        };
+
+        // --- Core Functions ---
+
+        function init() {
+            // Event Listeners
+            els.input.addEventListener('input', handleInput);
+            els.input.addEventListener('scroll', syncScroll);
+            els.formattedContent.addEventListener('scroll', syncOutScroll);
+            
+            // Action Buttons
+            document.getElementById('btn-format').addEventListener('click', () => formatInput());
+            document.getElementById('btn-minify').addEventListener('click', () => minifyInput());
+            document.getElementById('btn-sort').addEventListener('click', () => sortInput());
+            document.getElementById('btn-clear').addEventListener('click', clearInput);
+            document.getElementById('btn-copy').addEventListener('click', copyOutput);
+            document.getElementById('btn-download').addEventListener('click', downloadOutput);
+            document.getElementById('btn-sample').addEventListener('click', loadSample);
+            
+            // Tree Controls
+            document.getElementById('btn-expand-all').addEventListener('click', () => toggleAllTree(true));
+            document.getElementById('btn-collapse-all').addEventListener('click', () => toggleAllTree(false));
+
+            // View Tabs
+            document.querySelectorAll('.view-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => switchView(e.target.dataset.view));
+            });
+
+            // Mobile Tabs
+            els.mobTabInput.addEventListener('click', () => setMobileTab('input'));
+            els.mobTabOutput.addEventListener('click', () => setMobileTab('output'));
+
+            // Drag and Drop
+            setupDragAndDrop();
+
+            // Resizer
+            setupResizer();
+
+            // Keyboard Shortcuts
+            setupShortcuts();
+
+            updateLineNumbers();
+        }
+
+        // Input Handling & Validation
+        let debounceTimer;
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            updateLineNumbers();
+            
+            const val = els.input.value;
+            if (!val.trim()) {
+                setStatus('empty');
+                return;
+            }
+
+            setStatus('checking');
+            
+            debounceTimer = setTimeout(() => {
+                validateAndProcess(val);
+            }, 300);
+        }
+
+        function validateAndProcess(text) {
+            try {
+                // Clear previous error lines
+                els.input.classList.remove('error-line');
+                const parsed = JSON.parse(text);
+                
+                state.parsedJson = parsed;
+                state.isValid = true;
+                setStatus('valid');
+                
+                // Hide info section on first successful use
+                if(state.isFirstValidParse) {
+                    els.infoSection.style.display = 'none';
+                    // Auto scroll to workspace
+                    document.getElementById('ai-tool-workspace').scrollIntoView({behavior: 'smooth', block: 'start'});
+                    state.isFirstValidParse = false;
+                }
+
+                updateStats(parsed, text);
+                renderActiveView();
+
+            } catch (e) {
+                state.isValid = false;
+                state.parsedJson = null;
+                setStatus('invalid');
+                showError(e, text);
+            }
+        }
+
+        function setStatus(type) {
+            const ind = els.statusIndicator;
+            const dot = els.statusDot;
+            const txt = els.statusText;
+            
+            els.viewError.classList.add('hidden');
+            
+            if (type === 'empty') {
+                dot.className = 'w-2 h-2 rounded-full bg-gray-500';
+                txt.textContent = 'Empty';
+                txt.className = 'text-xs font-semibold text-gray-400';
+                resetOutput();
+            } else if (type === 'checking') {
+                dot.className = 'w-2 h-2 rounded-full bg-amber-500 animate-pulse';
+                txt.textContent = 'Checking...';
+                txt.className = 'text-xs font-semibold text-amber-500';
+            } else if (type === 'valid') {
+                dot.className = 'w-2 h-2 rounded-full bg-[#10B981]';
+                txt.textContent = 'Valid JSON ✓';
+                txt.className = 'text-xs font-semibold text-[#10B981]';
+            } else if (type === 'invalid') {
+                dot.className = 'w-2 h-2 rounded-full bg-[#E50914]';
+                txt.textContent = 'Invalid JSON ✗';
+                txt.className = 'text-xs font-semibold text-[#E50914]';
+            }
+        }
+
+        function showError(error, text) {
+            // Translate error
+            const msg = error.message;
+            let trans = "Syntax error in JSON structure.";
+            let lineMatch = msg.match(/at position (\d+)/) || msg.match(/line (\d+)/);
+            
+            if (msg.includes('Unexpected token')) trans = "Found an unexpected character. Check for missing commas, unquoted strings, or trailing commas.";
+            if (msg.includes('Expected double-quoted property name')) trans = "JSON keys must be enclosed in double quotes (e.g. \"key\": value).";
+            if (msg.includes('Unexpected end of JSON input')) trans = "The JSON is incomplete. You are likely missing a closing brace '}' or bracket ']'.";
+            
+            els.errorRawMsg.textContent = msg;
+            els.errorTranslation.textContent = trans;
+            
+            // Show error view
+            hideAllViews();
+            els.viewError.classList.remove('hidden');
+            els.viewError.classList.add('flex');
+
+            // Optional: Line highlighting based on position
+            if(lineMatch) {
+                // Rough estimate of line
+                const pos = parseInt(lineMatch[1]);
+                if(!isNaN(pos) && text) {
+                    const linesBefore = text.substring(0, pos).split('\n').length;
+                    // Simple UX: highlight textarea
+                    els.input.classList.add('error-line');
+                }
+            }
+        }
+
+        function resetOutput() {
+            els.viewTree.innerHTML = '<div class="text-gray-600 flex items-center justify-center h-full italic">Paste JSON to view tree</div>';
+            els.formattedContent.innerHTML = '';
+            els.viewMinified.value = '';
+            els.statSize.textContent = 'Size: 0 B';
+            els.statKeys.textContent = 'Keys: 0';
+            els.statDepth.textContent = 'Depth: 0';
+            els.statNodes.textContent = 'Nodes: 0';
+            hideAllViews();
+            els.viewTree.classList.remove('hidden');
+        }
+
+        // --- Rendering Views ---
+        function switchView(viewName) {
+            if(!state.isValid) return;
+            document.querySelectorAll('.view-tab').forEach(t => {
+                t.classList.remove('active', 'text-white', 'bg-white/10');
+                t.classList.add('text-gray-500');
+                if(t.dataset.view === viewName) {
+                    t.classList.add('active', 'text-white', 'bg-white/10');
+                    t.classList.remove('text-gray-500');
+                }
+            });
+            state.activeView = viewName;
+            renderActiveView();
+        }
+
+        function hideAllViews() {
+            els.viewTree.classList.add('hidden');
+            els.viewFormatted.classList.add('hidden');
+            els.viewMinified.classList.add('hidden');
+            els.viewError.classList.add('hidden');
+            els.viewError.classList.remove('flex');
+        }
+
+        function renderActiveView() {
+            if(!state.isValid) return;
+            hideAllViews();
+            
+            if(state.activeView === 'tree') {
+                els.viewTree.classList.remove('hidden');
+                // Only rebuild if empty or needs refresh
+                if(els.viewTree.innerHTML === '' || els.viewTree.innerText.includes('Paste JSON')) {
+                    buildTree();
+                }
+            } else if (state.activeView === 'formatted') {
+                els.viewFormatted.classList.remove('hidden');
+                buildFormatted();
+            } else if (state.activeView === 'minified') {
+                els.viewMinified.classList.remove('hidden');
+                buildMinified();
+            }
+        }
+
+        // -- Tree Builder (Optimized lazy loading for large JSON) --
+        function buildTree() {
+            els.viewTree.innerHTML = '';
+            const root = buildTreeNode('root', state.parsedJson, 0, '$');
+            // Remove 'root' key wrapper for the top level to look cleaner
+            if(root.querySelector('.tree-children')) {
+                const children = root.querySelector('.tree-children');
+                children.style.display = 'block';
+                // Adjust indent
+                Array.from(children.childNodes).forEach(c => c.style.paddingLeft = '0px');
+                els.viewTree.appendChild(children);
+            } else {
+                els.viewTree.appendChild(root);
+            }
+        }
+
+        function buildTreeNode(key, value, depth, path) {
+            const row = document.createElement('div');
+            // Add classes
+            
+            if (value === null) {
+                row.className = 'tree-row';
+                row.style.paddingLeft = `${depth * 20}px`;
+                row.innerHTML = `<span class="tree-key">"${escapeHTML(key)}"</span><span class="tree-colon">: </span><span class="tree-null">null</span>`;
+            } else if (typeof value === 'string') {
+                row.className = 'tree-row';
+                row.style.paddingLeft = `${depth * 20}px`;
+                const displayVal = value.length > 80 ? value.substring(0, 80) + '...' : value;
+                row.innerHTML = `<span class="tree-key">"${escapeHTML(key)}"</span><span class="tree-colon">: </span><span class="tree-string">"${escapeHTML(displayVal)}"</span>`;
+            } else if (typeof value === 'number') {
+                row.className = 'tree-row';
+                row.style.paddingLeft = `${depth * 20}px`;
+                row.innerHTML = `<span class="tree-key">"${escapeHTML(key)}"</span><span class="tree-colon">: </span><span class="tree-number">${value}</span>`;
+            } else if (typeof value === 'boolean') {
+                row.className = 'tree-row';
+                row.style.paddingLeft = `${depth * 20}px`;
+                row.innerHTML = `<span class="tree-key">"${escapeHTML(key)}"</span><span class="tree-colon">: </span><span class="tree-bool">${value}</span>`;
+            } else if (Array.isArray(value) || typeof value === 'object') {
+                buildCollapsibleNode(row, key, value, depth, path, Array.isArray(value) ? 'array' : 'object');
+            }
+            
+            // Hover Path Display
+            row.addEventListener('mouseenter', (e) => {
+                e.stopPropagation();
+                els.pathDisplay.textContent = path;
+                els.pathDisplay.title = path;
+            });
+            
+            // Context Menu actions
+            row.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const menu = document.getElementById('custom-context-menu');
+                menu.innerHTML = `
+                    <div class="flex items-center gap-3 px-3.5 py-2 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] hover:bg-white/10" onclick="navigator.clipboard.writeText('${escapeHTML(path)}'); showToast('Path copied'); window.closeContextMenu()">Copy JSONPath</div>
+                    <div class="flex items-center gap-3 px-3.5 py-2 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] hover:bg-white/10" onclick="navigator.clipboard.writeText('${escapeHTML(key)}'); showToast('Key copied'); window.closeContextMenu()">Copy Key</div>
+                    <div class="flex items-center gap-3 px-3.5 py-2 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] hover:bg-white/10" onclick="navigator.clipboard.writeText(JSON.stringify(${JSON.stringify(value)})); showToast('Value copied'); window.closeContextMenu()">Copy Value (JSON)</div>
+                `;
+                menu.style.top = `${e.clientY}px`; menu.style.left = `${e.clientX}px`; menu.style.display = 'block';
+            });
+
+            return row;
+        }
+
+        function buildCollapsibleNode(row, key, value, depth, path, type) {
+            row.className = 'tree-row-wrapper'; // Wrapper doesn't have hover styling directly
+            
+            const count = type === 'array' ? value.length : Object.keys(value).length;
+            const preview = type === 'array' ? `[${count} item${count !== 1 ? 's' : ''}]` : `{${count} key${count !== 1 ? 's' : ''}}`;
+            
+            const headerRow = document.createElement('div');
+            headerRow.className = 'tree-row cursor-pointer';
+            headerRow.style.paddingLeft = `${depth * 20}px`;
+            
+            const toggle = document.createElement('span');
+            toggle.className = 'tree-toggle';
+            // Auto collapse deeper than 3 levels to prevent massive DOM lag on huge files
+            const isInitiallyExpanded = depth < 3; 
+            toggle.textContent = '▶';
+            toggle.style.transform = isInitiallyExpanded ? 'rotate(90deg)' : 'rotate(0deg)';
+            
+            headerRow.appendChild(toggle);
+            
+            if (key !== 'root') {
+                const keyEl = document.createElement('span');
+                keyEl.className = type === 'array' && !isNaN(key) ? 'text-gray-500 italic text-xs' : 'tree-key';
+                keyEl.textContent = type === 'array' && !isNaN(key) ? `[${key}]` : `"${escapeHTML(key)}"`;
+                headerRow.appendChild(keyEl);
+                if(type !== 'array' || isNaN(key)){
+                    const colon = document.createElement('span');
+                    colon.className = 'tree-colon';
+                    colon.textContent = ': ';
+                    headerRow.appendChild(colon);
+                }
+            }
+            
+            const previewEl = document.createElement('span');
+            previewEl.className = 'tree-preview';
+            previewEl.textContent = preview;
+            headerRow.appendChild(previewEl);
+            
+            const childrenContainer = document.createElement('div');
+            childrenContainer.className = 'tree-children relative';
+            childrenContainer.style.display = isInitiallyExpanded ? 'block' : 'none';
+            
+            // Add vertical indent guide line
+            const guide = document.createElement('div');
+            guide.className = `tree-indent-line indent-level-${depth > 3 ? 'n' : depth + 1}`;
+            guide.style.left = `${(depth * 20) + 7}px`;
+            childrenContainer.appendChild(guide);
+
+            let isRendered = false;
+
+            const renderChildren = () => {
+                if(isRendered) return;
+                if (type === 'array') {
+                    value.forEach((item, i) => {
+                        childrenContainer.appendChild(buildTreeNode(i, item, depth + 1, `${path}[${i}]`));
+                    });
+                } else {
+                    Object.entries(value).forEach(([k, v]) => {
+                        childrenContainer.appendChild(buildTreeNode(k, v, depth + 1, `${path}.${k}`));
+                    });
+                }
+                isRendered = true;
+            };
+
+            if(isInitiallyExpanded) renderChildren();
+
+            headerRow.addEventListener('click', (e) => {
+                // If clicking to select text, don't collapse/expand
+                const selection = window.getSelection().toString();
+                if(selection.length > 0) return;
+
+                e.stopPropagation();
+                const isOpen = childrenContainer.style.display !== 'none';
+                if(!isOpen && !isRendered) renderChildren(); // Lazy render! Extremely important for performance.
+                childrenContainer.style.display = isOpen ? 'none' : 'block';
+                toggle.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+            });
+
+            row.appendChild(headerRow);
+            row.appendChild(childrenContainer);
+        }
+
+        function toggleAllTree(expand) {
+            const toggles = els.viewTree.querySelectorAll('.tree-toggle');
+            const rows = els.viewTree.querySelectorAll('.tree-row');
+            
+            // Performance check
+            if(expand && toggles.length > 1000) {
+                alert("This JSON is very large. Expanding all nodes may freeze the browser.");
+                return;
+            }
+
+            rows.forEach(row => {
+                const children = row.nextElementSibling;
+                if(children && children.classList.contains('tree-children')) {
+                    // Force click event to ensure lazy loading triggers
+                    if(expand && children.style.display === 'none') {
+                        row.click();
+                    } else if (!expand && children.style.display !== 'none') {
+                        row.click();
+                    }
+                }
+            });
+        }
+
+        // -- Formatted View --
+        function buildFormatted() {
+            const formattedStr = JSON.stringify(state.parsedJson, null, 2);
+            els.formattedContent.innerHTML = syntaxHighlight(escapeHTML(formattedStr));
+            
+            // Output line numbers
+            const linesCount = formattedStr.split('\n').length;
+            els.outLineNumbers.innerHTML = Array.from({length: linesCount}, (_, i) => `<div>${i+1}</div>`).join('');
+        }
+
+        function syntaxHighlight(jsonStr) {
+            return jsonStr.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                let cls = 'tree-number';
+                if (/^"/.test(match)) {
+                    cls = /:$/.test(match) ? 'tree-key' : 'tree-string';
+                } else if (/true|false/.test(match)) {
+                    cls = 'tree-bool';
+                } else if (/null/.test(match)) {
+                    cls = 'tree-null';
+                }
+                return `<span class="${cls}">${match}</span>`;
+            });
+        }
+
+        // -- Minified View --
+        function buildMinified() {
+            const mini = JSON.stringify(state.parsedJson);
+            els.viewMinified.value = mini;
+        }
+
+        // --- Actions ---
+        function formatInput() {
+            if(!state.isValid) return showToast('Fix JSON errors first', 'error');
+            
+            els.input.style.opacity = '0.5';
+            setTimeout(() => {
+                els.input.value = JSON.stringify(state.parsedJson, null, 2);
+                els.input.style.opacity = '1';
+                handleInput();
+                showToast('JSON Formatted', 'success');
+            }, 50);
+        }
+
+        function minifyInput() {
+            if(!state.isValid) return showToast('Fix JSON errors first', 'error');
+            const mini = JSON.stringify(state.parsedJson);
+            els.input.value = mini;
+            handleInput();
+            showToast('JSON Minified', 'success');
+        }
+
+        function sortInput() {
+            if(!state.isValid) return showToast('Fix JSON errors first', 'error');
+            function recursiveSort(obj) {
+                if (Array.isArray(obj)) return obj.map(recursiveSort);
+                if (obj !== null && typeof obj === 'object') {
+                    return Object.keys(obj).sort().reduce((acc, key) => {
+                        acc[key] = recursiveSort(obj[key]); return acc;
+                    }, {});
+                }
+                return obj;
+            }
+            const sorted = recursiveSort(state.parsedJson);
+            els.input.value = JSON.stringify(sorted, null, 2);
+            handleInput();
+            showToast('Keys Sorted Alphabetically', 'success');
+        }
+
+        function clearInput() {
+            const btn = document.getElementById('btn-clear');
+            if (btn.dataset.confirm !== 'true') {
+                btn.dataset.confirm = 'true';
+                btn.querySelector('.label-text').textContent = 'Sure?';
+                btn.classList.add('bg-red-900/50', 'border-red-500');
+                setTimeout(() => {
+                    btn.dataset.confirm = 'false';
+                    btn.querySelector('.label-text').textContent = 'Clear';
+                    btn.classList.remove('bg-red-900/50', 'border-red-500');
+                }, 2000);
+            } else {
+                els.input.value = '';
+                handleInput();
+                btn.dataset.confirm = 'false';
+                btn.querySelector('.label-text').textContent = 'Clear';
+                btn.classList.remove('bg-red-900/50', 'border-red-500');
+            }
+        }
+
+        function copyOutput() {
+            if(!state.isValid) return;
+            let textToCopy = '';
+            if(state.activeView === 'formatted' || state.activeView === 'tree') {
+                textToCopy = JSON.stringify(state.parsedJson, null, 2);
+            } else {
+                textToCopy = JSON.stringify(state.parsedJson);
+            }
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('Output copied to clipboard', 'success');
+                const btn = document.getElementById('btn-copy');
+                const icon = btn.innerHTML;
+                btn.innerHTML = `<svg viewBox="0 0 24 24" class="w-4 h-4 text-[#10B981]"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span class="text-xs font-semibold text-[#10B981] hidden lg:block">Copied</span>`;
+                setTimeout(() => btn.innerHTML = icon, 1500);
+            });
+        }
+
+        function downloadOutput() {
+            if(!state.isValid) return;
+            const text = JSON.stringify(state.parsedJson, null, 2);
+            const blob = new Blob([text], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `forgenos-json-${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Download started', 'success');
+        }
+
+        function loadSample() {
+            showToolLoading(['Loading Sample...'], 500);
+            setTimeout(() => {
+                const sample = {
+                  "project": "JsonVault",
+                  "version": "2.1.0",
+                  "active": true,
+                  "developer": {
+                    "id": "dev_9x",
+                    "roles": ["admin", "architect"]
+                  },
+                  "features": [
+                    {"name": "Tree View", "status": "completed"},
+                    {"name": "Validation", "status": "completed"}
+                  ],
+                  "metadata": null,
+                  "stats": {
+                    "users": 1024,
+                    "rating": 4.9
+                  }
+                };
+                els.input.value = JSON.stringify(sample, null, 2);
+                handleInput();
+                hideToolLoading();
+            }, 600);
+        }
+
+        // --- Helpers ---
+        function updateStats(obj, rawText) {
+            let keys = 0, nodes = 0, depth = 0;
+            function traverse(val, d) {
+                nodes++;
+                depth = Math.max(depth, d);
+                if (Array.isArray(val)) {
+                    val.forEach(v => traverse(v, d + 1));
+                } else if (val !== null && typeof val === 'object') {
+                    Object.entries(val).forEach(([k, v]) => {
+                        keys++; traverse(v, d + 1);
+                    });
+                }
+            }
+            traverse(obj, 0);
+            
+            const sizeBytes = new Blob([rawText]).size;
+            const sizeStr = sizeBytes > 1024 ? (sizeBytes/1024).toFixed(1) + ' KB' : sizeBytes + ' B';
+            
+            els.statSize.textContent = `Size: ${sizeStr}`;
+            els.statKeys.textContent = `Keys: ${keys}`;
+            els.statDepth.textContent = `Depth: ${depth}`;
+            els.statNodes.textContent = `Nodes: ${nodes}`;
+        }
+
+        function updateLineNumbers() {
+            const linesCount = els.input.value.split('\n').length;
+            els.lineNumbers.innerHTML = Array.from({length: linesCount || 1}, (_, i) => `<div>${i+1}</div>`).join('');
+        }
+
+        function syncScroll() {
+            els.lineNumbers.scrollTop = els.input.scrollTop;
+        }
+        function syncOutScroll() {
+            els.outLineNumbers.scrollTop = els.formattedContent.scrollTop;
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // --- UI Interactions ---
+        function setupResizer() {
+            let isResizing = false;
+            els.resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                els.resizer.classList.add('active');
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const containerRect = els.mainPanels.getBoundingClientRect();
+                const pct = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+                const clamped = Math.max(20, Math.min(80, pct));
+                els.panelLeft.style.width = `${clamped}%`;
+                els.panelRight.style.width = `${100 - clamped}%`;
+            });
+            document.addEventListener('mouseup', () => {
+                isResizing = false;
+                els.resizer.classList.remove('active');
+            });
+        }
+
+        function setupDragAndDrop() {
+            const overlay = document.getElementById('drag-overlay');
+            els.panelLeft.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+            });
+            els.panelLeft.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+            });
+            els.panelLeft.addEventListener('drop', (e) => {
+                e.preventDefault();
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                
+                const file = e.dataTransfer.files[0];
+                if(file && (file.type === "application/json" || file.name.endsWith('.json') || file.type === "text/plain")) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        els.input.value = ev.target.result;
+                        handleInput();
+                    };
+                    reader.readAsText(file);
+                } else {
+                    showToast('Please drop a valid JSON file', 'error');
+                }
+            });
+        }
+
+        function setMobileTab(tab) {
+            if(tab === 'input') {
+                els.panelLeft.classList.remove('-translate-x-full');
+                els.panelRight.classList.add('translate-x-full');
+                els.mobTabInput.classList.replace('text-gray-400', 'text-white');
+                els.mobTabInput.classList.replace('bg-transparent', 'bg-[#2a2a2c]');
+                els.mobTabOutput.classList.replace('text-white', 'text-gray-400');
+                els.mobTabOutput.classList.replace('bg-[#2a2a2c]', 'bg-transparent');
+            } else {
+                if(!state.isValid) {
+                    showToast('Please enter valid JSON first', 'error');
+                    return;
+                }
+                els.panelLeft.classList.add('-translate-x-full');
+                els.panelRight.classList.remove('translate-x-full');
+                els.mobTabOutput.classList.replace('text-gray-400', 'text-white');
+                els.mobTabOutput.classList.replace('bg-transparent', 'bg-[#2a2a2c]');
+                els.mobTabInput.classList.replace('text-white', 'text-gray-400');
+                els.mobTabInput.classList.replace('bg-[#2a2a2c]', 'bg-transparent');
+            }
+        }
+
+        function setupShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey) {
+                    if (e.key.toLowerCase() === 'f') { e.preventDefault(); formatInput(); }
+                    if (e.key.toLowerCase() === 'm') { e.preventDefault(); minifyInput(); }
+                    if (e.key.toLowerCase() === 'c') { e.preventDefault(); copyOutput(); }
+                }
+            });
+        }
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>
