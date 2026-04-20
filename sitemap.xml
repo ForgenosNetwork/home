@@ -53,5 +53,20 @@
 
   <!-- Image Lab (1 tool) -->
   <url><loc>https://forgenos.com/Imagelab/image-format-converter</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  
+  <url>
+  <loc>https://forgenos.com/dev/json-formatter</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+
+<url>
+  <loc>https://forgenos.com/dev/base64-encoder-decoder</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+  
 
 </urlset>
