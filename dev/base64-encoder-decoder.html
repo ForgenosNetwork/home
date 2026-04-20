@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Base64 Encoder & Decoder – Convert Base64 Online | Forgenos</title>
+    <meta name="description" content="Free Base64 encoder and decoder online. Convert text, files, and images to Base64 instantly. No signup required, works entirely in your browser securely.">
+    <meta name="keywords" content="base64 encoder free, free base64 decoder online, base64 converter tool, base64 encoder online no signup, best free base64 decoder online, base64 encoder without software, base64 decoder in browser, free base64 tool for students, base64 converter no registration, instant base64 encoder online, base64 decoder mobile friendly, base64 converter secure private, how to encode base64 online free, best base64 decoder 2026, base64 encoder for free no login, free base64 decoder like rapidtables, base64 converter without subscription, Forgenos base64 encoder, forgenos.com base64 decoder, open source base64 converter online, what is the best free base64 encoder online, can I decode base64 for free online, how do I encode base64 without software, is there a free base64 converter online, which base64 tool is completely free">
+    
+    <meta property="og:title" content="Base64 Encoder & Decoder – Convert Base64 Online | Forgenos">
+    <meta property="og:description" content="Free Base64 encoder and decoder online. Convert text, files, and images to Base64 instantly. No signup required, works entirely in your browser securely.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/dev/base64-encoder-decoder">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/dev/img/tool_7.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Base64 Encoder and Decoder Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Base64 Encoder & Decoder – Convert Base64 Online | Forgenos">
+    <meta name="twitter:description" content="Free Base64 encoder and decoder online. Convert text, files, and images to Base64 instantly. No signup required, works entirely in your browser securely.">
+    <meta name="twitter:image" content="https://forgenos.com/dev/img/tool_7.webp">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+    
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+    
+    <link rel="canonical" href="https://forgenos.com/dev/base64-encoder-decoder">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Base64Forge Encoder & Decoder",
+      "url": "https://forgenos.com/dev/base64-encoder-decoder",
+      "description": "A premium, fully client-side Base64 encoding and decoding tool. Convert plain text, files, and images to Base64 and vice versa instantly.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works entirely in browser",
+        "Mobile friendly",
+        "Instant text processing",
+        "Private and secure",
+        "No data stored or sent to servers"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this Base64 Encoder completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the Base64 Converter work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses native browser algorithms to instantly convert plain text, binary files, or images into Base64 encoded strings, and can reverse the process to decode them back to their original state."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. This tool operates 100% client-side. Your text, files, and images never leave your browser and are never sent to any external server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I encode files and images to Base64?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Base64Forge supports text strings, file uploads, and direct image conversions, providing standard data URIs for immediate use in CSS or HTML."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who should use this Base64 tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Developers, system administrators, and security professionals frequently use Base64 to handle API authentication, JWT tokens, inline CSS images, and email attachments."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer Tools",
+          "item": "https://forgenos.com/dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Base64 Encoder & Decoder",
+          "item": "https://forgenos.com/dev/base64-encoder-decoder"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414; /* FIX 8: Page Background match */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            /* Removed user-select:none to allow users to select and copy text anywhere on the page */
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* FIX 1 & 9: Sidebar Expand Logic & Icon Stability */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; white-space: nowrap; display: none; }
+        #sidebar:hover .nav-label { opacity: 1; transform: translateX(0); display: block; max-width: 200px; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+        /* Explicit Icon Stability overrides */
+        .sidebar-icon { min-width: 24px; min-height: 24px; opacity: 1 !important; visibility: visible !important; flex-shrink: 0; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Custom Textarea Scrollbar */
+        .custom-textarea::-webkit-scrollbar { width: 4px; }
+        .custom-textarea::-webkit-scrollbar-track { background: transparent; }
+        .custom-textarea::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+        .custom-textarea:hover::-webkit-scrollbar-thumb { background: #E50914; }
+
+        /* Tool Specific Animations & Styles */
+        .active-tab { background-color: #E50914 !important; color: white !important; }
+        .active-card { border-color: #E50914 !important; background-color: rgba(229, 9, 20, 0.05) !important; }
+        
+        .drag-active { border-color: #E50914 !important; background-color: rgba(229, 9, 20, 0.05) !important; animation: dashRotate 20s linear infinite; }
+        @keyframes dashRotate { 100% { background-position: 100% 100%; } }
+
+        /* Hide Scrollbar for tabs on mobile */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (FIX 3) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <!-- Dynamic actions -->
+        <div id="ctx-copy" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="executeContextAction('copy')">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selection
+        </div>
+        <div id="ctx-paste" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="executeContextAction('paste')">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste
+        </div>
+        <div id="ctx-divider-1" class="hidden h-[1px] bg-white/5 my-1.5"></div>
+
+        <!-- Share (Always visible) -->
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="executeContextAction('share')">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Tool
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='/index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <!-- FIX 2: Removed ONLY Trending, kept all other categories -->
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-white bg-white/10 font-bold transition-all">
+                <i data-lucide="code-2" class="w-5 h-5 text-[#E50914]"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <!-- FIX 2: Removed ONLY Trending, restored all other template categories -->
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-white bg-white/10 transition-all group border border-white/5">
+                    <i data-lucide="code-2" class="sidebar-icon text-[#E50914] group-hover:text-[#E50914] transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="file-text" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="image" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-4 sm:px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left max-w-7xl mx-auto">
+                
+                <!-- Back Button -->
+                <a href="/index.html#dev" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Developer Tools
+                </a>
+
+                <!-- Tool Title Section - H1 FIX 12A -->
+                <div class="mb-10 text-left w-full">
+                    <h1 id="tool-title" class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">Base64Forge | Base64 Encoder & Decoder</h1>
+                    <p id="tool-desc" class="text-gray-400 text-sm md:text-base mt-3 font-medium max-w-3xl leading-relaxed">The ultimate developer toolkit for Base64. Encode and decode text, files, and images instantly entirely within your browser. 100% private.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <!-- FIX 10: Tool First, Info Below -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-6 pb-20">
+                    
+                    <!-- Top Bar -->
+                    <div class="w-full h-12 bg-[#0a0a0a] border border-white/5 rounded-t-2xl flex items-center justify-between px-4 sticky top-[4.5rem] md:top-0 z-40">
+                        <div class="flex items-center gap-2">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0"><path d="M10 8L6 12L10 16M14 8L18 12L14 16" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="font-bold text-sm tracking-wide text-white">Base<span class="text-[#E50914]">64</span>Forge</span>
+                        </div>
+                        
+                        <div id="status-indicator" class="hidden sm:flex items-center gap-2 bg-[#1c1c1e] px-3 py-1 rounded-full border border-white/5">
+                            <!-- Dynamic Status -->
+                            <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M5 12h14M15 5l7 7-7 7" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                            <span class="text-xs font-bold text-[#06B6D4]">Ready</span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button onclick="toolCopyOutput()" class="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/5">
+                                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" fill="none" stroke="#3B82F6" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" fill="none" stroke="#6366F1" stroke-width="2"/></svg>
+                                <span class="hidden sm:inline">Copy Output</span>
+                            </button>
+                            <button onclick="toolClearAll()" class="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-[#E50914] transition-colors bg-white/5 hover:bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/5">
+                                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10" fill="none" stroke="#E50914" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span class="hidden sm:inline">Clear All</span>
+                            </button>
+                            <button onclick="toolSwapDirection()" class="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/5 group">
+                                <svg id="icon-swap-top" viewBox="0 0 24 24" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180"><path d="M8 3v3a2 2 0 01-2 2H3m18 8v3a2 2 0 01-2 2h-3m0-18h3a2 2 0 012 2v3M3 13v-3a2 2 0 012-2h3" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#22D3EE"/></svg>
+                                <span class="hidden sm:inline">Swap ↕</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mode Selector Pills -->
+                    <div class="w-full flex justify-start sm:justify-center overflow-x-auto hide-scrollbar py-2">
+                        <div class="flex bg-[#1c1c1e] p-1 rounded-2xl border border-white/5 min-w-max">
+                            <button onclick="setMode('text')" id="tab-text" class="active-tab flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white group">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M3 12h14l-4-4m0 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="17" y="9" width="6" height="6" rx="1" fill="currentColor"/></svg>
+                                <div class="flex flex-col items-start text-left leading-none">
+                                    <span>Text ↔ Base64</span>
+                                </div>
+                            </button>
+                            <button onclick="setMode('file')" id="tab-file" class="flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white group">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6M12 18v-6m-3 3l3-3 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <div class="flex flex-col items-start text-left leading-none">
+                                    <span>File → Base64</span>
+                                </div>
+                            </button>
+                            <button onclick="setMode('image')" id="tab-image" class="flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white group">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5L5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <div class="flex flex-col items-start text-left leading-none">
+                                    <span>Image ↔ Base64</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Direction Toggle Cards -->
+                    <div id="direction-selector" class="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div onclick="setDirection('encode')" id="card-encode" class="active-card flex items-start gap-4 p-4 bg-[#0f0f0f] border border-white/8 rounded-2xl cursor-pointer hover:border-white/20 transition-all">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M3 12h14l-4-4m0 8l4-4" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="17" y="9" width="6" height="6" rx="1" fill="#fff"/></svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-white text-base">Encode</span>
+                                <span class="text-xs text-gray-500 font-medium">Plain text → Base64</span>
+                            </div>
+                        </div>
+                        <div onclick="setDirection('decode')" id="card-decode" class="flex items-start gap-4 p-4 bg-[#0f0f0f] border border-white/8 rounded-2xl cursor-pointer hover:border-white/20 transition-all">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M21 12H7l4-4m0 8l-4-4" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M7 10V8a2 2 0 014 0v2m-5 0h6v6H6v-6z" fill="#fff"/></svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-white text-base">Decode</span>
+                                <span class="text-xs text-gray-500 font-medium">Base64 → Plain text</span>
+                            </div>
+                        </div>
+                        <div onclick="setDirection('auto')" id="card-auto" class="flex items-start gap-4 p-4 bg-[#0f0f0f] border border-white/8 rounded-2xl cursor-pointer hover:border-white/20 transition-all">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M8 3v3a2 2 0 01-2 2H3m18 8v3a2 2 0 01-2 2h-3m0-18h3a2 2 0 012 2v3M3 13v-3a2 2 0 012-2h3" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#22D3EE"/></svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-white text-base">Auto Detect</span>
+                                <span class="text-xs text-gray-500 font-medium">Automatically detects direction</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WORKSPACE CONTAINER (Changes based on mode) -->
+                    <div id="workspace-container" class="w-full relative min-h-[400px]">
+                        
+                        <!-- TEXT MODE -->
+                        <div id="view-text" class="w-full flex flex-col md:flex-row gap-6 md:gap-4 relative transition-all duration-300">
+                            <!-- Left Panel -->
+                            <div class="flex-1 flex flex-col gap-2 relative">
+                                <div class="flex justify-between items-center h-7">
+                                    <span id="label-input" class="text-sm font-bold text-white">Plain Text</span>
+                                    <span id="stat-in-char" class="text-xs font-mono text-gray-500">0 chars</span>
+                                </div>
+                                <textarea id="input-text" class="w-full h-48 md:h-[calc(100vh-450px)] min-h-[200px] bg-[#050505] border border-white/8 rounded-2xl p-4 text-[#e5e5e5] font-mono text-[13px] leading-[1.7] resize-none outline-none focus:outline-none focus:border-[#E50914] custom-textarea" placeholder="Type or paste text to encode..." spellcheck="false"></textarea>
+                                
+                                <div class="flex items-center gap-2 mt-1">
+                                    <button onclick="toolPaste()" class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs font-bold text-gray-400 hover:text-white transition-colors">Paste</button>
+                                    <button onclick="toggleUrlInput()" class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs font-bold text-gray-400 hover:text-white transition-colors">Load from URL</button>
+                                    <button onclick="document.getElementById('input-text').value=''; processData();" class="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs font-bold text-gray-400 hover:text-white transition-colors">Clear</button>
+                                </div>
+                                
+                                <div id="url-loader" class="hidden flex items-center gap-2 mt-2 w-full">
+                                    <input type="url" id="url-input" class="flex-1 bg-[#1a1a1c] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-[#E50914]" placeholder="https://example.com/data.txt">
+                                    <button onclick="loadFromUrl()" class="px-3 py-1.5 bg-[#E50914] text-white rounded-lg text-xs font-bold hover:bg-red-600 transition-colors">Load</button>
+                                </div>
+                            </div>
+
+                            <!-- Swap Button (Centered) -->
+                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-y-4 z-10 hidden md:flex items-center justify-center">
+                                <button onclick="toolSwapDirection()" class="w-12 h-12 bg-[#1c1c1e] border-2 border-white/10 rounded-full flex items-center justify-center hover:border-[#E50914] transition-all group shadow-2xl">
+                                    <svg id="icon-swap-center" viewBox="0 0 24 24" class="w-5 h-5 transition-transform duration-300 group-hover:rotate-180"><path d="M8 3v3a2 2 0 01-2 2H3m18 8v3a2 2 0 01-2 2h-3m0-18h3a2 2 0 012 2v3M3 13v-3a2 2 0 012-2h3" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#22D3EE"/></svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Swap Button Mobile -->
+                            <div class="w-full flex md:hidden items-center justify-center my-[-10px] z-10 relative">
+                                <button onclick="toolSwapDirection()" class="w-14 h-14 bg-[#1c1c1e] border-2 border-white/10 rounded-full flex items-center justify-center hover:border-[#E50914] transition-all group shadow-2xl">
+                                    <svg viewBox="0 0 24 24" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-180"><path d="M8 3v3a2 2 0 01-2 2H3m18 8v3a2 2 0 01-2 2h-3m0-18h3a2 2 0 012 2v3M3 13v-3a2 2 0 012-2h3" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#22D3EE"/></svg>
+                                </button>
+                            </div>
+
+                            <!-- Right Panel -->
+                            <div class="flex-1 flex flex-col gap-2 relative">
+                                <div class="flex justify-between items-center h-7">
+                                    <span id="label-output" class="text-sm font-bold text-white">Base64</span>
+                                    <div class="flex gap-3 items-center">
+                                        <span id="inline-error" class="hidden text-[10px] font-bold bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">Invalid Base64</span>
+                                        <span id="stat-out-byte" class="text-xs font-mono text-gray-500">0 bytes</span>
+                                    </div>
+                                </div>
+                                <textarea id="output-text" class="w-full h-48 md:h-[calc(100vh-450px)] min-h-[200px] bg-[#040404] border border-white/8 rounded-2xl p-4 text-[#f0f0f0] font-mono text-[13px] leading-[1.7] resize-none outline-none focus:outline-none focus:border-[#E50914] custom-textarea break-all" readonly placeholder="Output will appear here..."></textarea>
+                                
+                                <div class="flex items-center gap-2 mt-1 flex-wrap">
+                                    <button onclick="toolCopyOutput()" class="px-4 py-1.5 bg-[#3B82F6] hover:bg-blue-600 rounded-lg text-xs font-bold text-white transition-colors shadow-lg">Copy Output</button>
+                                    <button onclick="downloadOutput('txt')" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors">DL .txt</button>
+                                    <button id="btn-dl-b64" onclick="downloadOutput('b64')" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors">DL .b64</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FILE MODE -->
+                        <div id="view-file" class="w-full hidden flex-col gap-6 transition-all duration-300">
+                            <!-- Dropzone -->
+                            <div id="file-dropzone" class="w-full h-52 bg-[#050505] border-2 border-dashed border-white/10 hover:border-[#E50914]/50 rounded-3xl flex flex-col items-center justify-center cursor-pointer transition-all relative group overflow-hidden">
+                                <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                <svg viewBox="0 0 24 24" class="w-12 h-12 mb-4 transition-transform group-hover:-translate-y-2"><path d="M4 4h6l2 2h8v14H4V4z" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/><path d="M12 18v-6m-3 3l3-3 3 3" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <span class="text-white font-bold text-lg group-hover:text-[#E50914] transition-colors">Drop any file here</span>
+                                <span class="text-gray-500 text-sm mt-1">or click to browse</span>
+                                <span class="text-gray-600 text-xs mt-2">Supports all file types — max 10MB recommended</span>
+                            </div>
+
+                            <!-- File Info & Result (Hidden initially) -->
+                            <div id="file-result-area" class="hidden w-full flex-col gap-6">
+                                <div class="bg-[#0f0f0f] border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-[#1c1c1e] border border-white/5 flex items-center justify-center shrink-0">
+                                            <i data-lucide="file-check-2" class="w-6 h-6 text-[#10B981]"></i>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span id="file-name" class="font-bold text-white text-base truncate max-w-[200px] sm:max-w-xs">filename.ext</span>
+                                            <span class="text-xs text-gray-400 font-mono"><span id="file-type">mime/type</span> • <span id="file-size">0 KB</span></span>
+                                        </div>
+                                    </div>
+                                    <button onclick="document.getElementById('file-input').click()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-sm font-bold text-white transition-colors border border-white/5">Change File</button>
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-bold text-white">Base64 Output</span>
+                                        <span id="file-stat-overhead" class="text-xs font-mono text-gray-500">Overhead: +33%</span>
+                                    </div>
+                                    <textarea id="file-output-text" class="w-full h-48 bg-[#040404] border border-white/8 rounded-2xl p-4 text-[#f0f0f0] font-mono text-[13px] leading-[1.7] resize-none outline-none focus:outline-none focus:border-[#E50914] custom-textarea break-all" readonly></textarea>
+                                    <div class="flex items-center gap-2 mt-1 flex-wrap">
+                                        <button onclick="copyElement('file-output-text')" class="px-4 py-1.5 bg-[#3B82F6] hover:bg-blue-600 rounded-lg text-xs font-bold text-white transition-colors shadow-lg">Copy All</button>
+                                        <button onclick="downloadOutput('b64', 'file')" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors">Download .b64</button>
+                                        <button onclick="downloadOutput('txt', 'file')" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold text-gray-300 hover:text-white transition-colors">Download .txt</button>
+                                        <button id="btn-use-datauri" onclick="copyDataURI()" class="px-3 py-1.5 bg-[#10B981]/20 hover:bg-[#10B981]/30 text-[#10B981] rounded-lg text-xs font-bold transition-colors border border-[#10B981]/30">Copy as Data URI</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IMAGE MODE -->
+                        <div id="view-image" class="w-full hidden flex-col gap-6 transition-all duration-300">
+                            <!-- Image Sub Tabs -->
+                            <div class="flex gap-2 border-b border-white/5 pb-2">
+                                <button onclick="setImageTab('encode')" id="img-tab-encode" class="px-4 py-2 text-sm font-bold text-[#E50914] border-b-2 border-[#E50914] transition-colors">Image → Base64</button>
+                                <button onclick="setImageTab('decode')" id="img-tab-decode" class="px-4 py-2 text-sm font-bold text-gray-500 hover:text-gray-300 border-b-2 border-transparent transition-colors">Base64 → Image Preview</button>
+                            </div>
+
+                            <!-- IMG ENCODE -->
+                            <div id="img-view-encode" class="w-full flex flex-col gap-6">
+                                <div id="img-dropzone" class="w-full h-32 bg-[#050505] border-2 border-dashed border-white/10 hover:border-[#A855F7]/50 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all relative group">
+                                    <input type="file" accept="image/*" id="img-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                    <svg viewBox="0 0 24 24" class="w-8 h-8 mb-2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="#A855F7" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="#7C3AED"/><path d="M21 15l-5-5L5 21" fill="none" stroke="#A855F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <span class="text-white font-bold text-sm">Upload Image (JPG, PNG, SVG, WEBP)</span>
+                                </div>
+
+                                <div id="img-result-area" class="hidden w-full flex-col lg:flex-row gap-6">
+                                    <div class="lg:w-1/3 flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-white">Preview</span>
+                                        <div class="w-full h-48 bg-[#080808] border border-white/10 rounded-2xl p-2 flex items-center justify-center overflow-hidden">
+                                            <img id="img-preview" class="max-w-full max-h-full object-contain rounded" src="" alt="Preview">
+                                        </div>
+                                        <span id="img-dims" class="text-xs text-gray-500 font-mono text-center mt-1">0 × 0 px</span>
+                                    </div>
+                                    <div class="lg:w-2/3 flex flex-col gap-2">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-bold text-white">Data URI (Ready to use)</span>
+                                        </div>
+                                        <textarea id="img-output-text" class="w-full h-24 bg-[#040404] border border-white/8 rounded-2xl p-4 text-[#f0f0f0] font-mono text-[13px] leading-[1.7] resize-none outline-none focus:outline-none focus:border-[#E50914] custom-textarea break-all" readonly></textarea>
+                                        <div class="flex gap-2">
+                                            <button onclick="copyElement('img-output-text')" class="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 rounded-lg text-xs font-bold text-white transition-colors">Copy Full URI</button>
+                                            <button onclick="copyRawBase64Img()" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold text-white transition-colors">Copy Raw Base64</button>
+                                        </div>
+
+                                        <!-- Snippets -->
+                                        <div class="mt-4 bg-[#0f0f0f] border border-white/5 rounded-xl p-4">
+                                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 block">Quick Snippets</span>
+                                            <div class="flex flex-col gap-3">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-[10px] bg-white/5 px-2 py-1 rounded text-gray-400 font-mono w-12 text-center">HTML</span>
+                                                    <input id="snip-html" readonly class="flex-1 bg-[#1a1a1c] border border-white/5 rounded px-2 py-1 text-xs font-mono text-gray-300 outline-none">
+                                                    <button onclick="copyElement('snip-html')" class="text-gray-500 hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-[10px] bg-white/5 px-2 py-1 rounded text-gray-400 font-mono w-12 text-center">CSS</span>
+                                                    <input id="snip-css" readonly class="flex-1 bg-[#1a1a1c] border border-white/5 rounded px-2 py-1 text-xs font-mono text-gray-300 outline-none">
+                                                    <button onclick="copyElement('snip-css')" class="text-gray-500 hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- IMG DECODE -->
+                            <div id="img-view-decode" class="hidden w-full flex-col gap-6">
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-sm font-bold text-white">Paste Data URI or Raw Base64</span>
+                                    <textarea id="img-decode-input" class="w-full h-32 bg-[#050505] border border-white/8 rounded-2xl p-4 text-[#e5e5e5] font-mono text-[13px] leading-[1.7] resize-none outline-none focus:outline-none focus:border-[#E50914] custom-textarea" placeholder="data:image/png;base64,iVBOR..."></textarea>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <button onclick="previewBase64Image()" class="px-5 py-2 bg-[#10B981] hover:bg-emerald-600 rounded-xl text-sm font-bold text-white transition-colors shadow-lg">Render Image</button>
+                                        <span id="img-decode-error" class="hidden text-xs font-bold text-red-400 ml-2">Could not render image.</span>
+                                    </div>
+                                </div>
+
+                                <div id="img-decode-result" class="hidden w-full flex-col gap-2 items-center bg-[#080808] border border-white/10 rounded-2xl p-6">
+                                    <img id="img-decode-preview" class="max-w-full max-h-[400px] object-contain rounded border border-white/5" src="" alt="Rendered Preview">
+                                    <span id="img-decode-dims" class="text-xs text-gray-500 font-mono text-center mt-2 mb-3">0 × 0 px</span>
+                                    <button onclick="downloadRenderedImage()" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-bold text-white transition-colors border border-white/5">Download Image</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- OPTIONS PANEL (Collapsible) -->
+                    <div id="options-panel-container" class="w-full border border-white/5 rounded-2xl bg-[#0a0a0a] overflow-hidden transition-all duration-300">
+                        <button onclick="toggleOptions()" class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M4 6h16M4 12h16M4 18h16M8 6v.01M16 12v.01M12 18v.01" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                                <span class="font-bold text-sm text-gray-300">Encoding Options</span>
+                            </div>
+                            <i data-lucide="chevron-down" id="options-chevron" class="w-4 h-4 text-gray-500 transition-transform"></i>
+                        </button>
+                        
+                        <div id="options-content" class="hidden p-4 border-t border-white/5">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Variant -->
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">Base64 Variant <i data-lucide="info" class="w-3 h-3 text-blue-400 cursor-help" title="Standard: +, / | URL-Safe: -, _ (for JWT/URLs) | MIME/PEM: line breaks"></i></span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button onclick="setOption('variant', 'standard')" class="opt-variant active-card px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-white border border-transparent transition-all">Standard</button>
+                                        <button onclick="setOption('variant', 'url')" class="opt-variant px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-gray-400 border border-transparent hover:text-white transition-all">URL Safe</button>
+                                        <button onclick="setOption('variant', 'mime')" class="opt-variant px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-gray-400 border border-transparent hover:text-white transition-all">MIME</button>
+                                        <button onclick="setOption('variant', 'pem')" class="opt-variant px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-gray-400 border border-transparent hover:text-white transition-all">PEM</button>
+                                    </div>
+                                </div>
+                                <!-- Input Encoding -->
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Input Encoding</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button onclick="setOption('encoding', 'utf8')" class="opt-encoding active-card px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-white border border-transparent transition-all">UTF-8</button>
+                                        <button onclick="setOption('encoding', 'latin1')" class="opt-encoding px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-gray-400 border border-transparent hover:text-white transition-all">Latin-1</button>
+                                        <button onclick="setOption('encoding', 'ascii')" class="opt-encoding px-3 py-1.5 rounded bg-[#1c1c1e] text-xs font-bold text-gray-400 border border-transparent hover:text-white transition-all">ASCII</button>
+                                    </div>
+                                </div>
+                                <!-- Padding & Chunking -->
+                                <div class="flex flex-col gap-3">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <div class="relative">
+                                            <input type="checkbox" id="opt-pad" class="sr-only" checked onchange="processData()">
+                                            <div class="block bg-[#1c1c1e] border border-white/10 w-10 h-6 rounded-full group-hover:border-white/30 transition-all"></div>
+                                            <div class="dot absolute left-1 top-1 bg-gray-500 w-4 h-4 rounded-full transition transform translate-x-4 bg-[#E50914]"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-gray-300">Include '=' padding</span>
+                                    </label>
+                                    
+                                    <div id="chunk-control" class="hidden flex-col gap-1 mt-2">
+                                        <div class="flex justify-between">
+                                            <span class="text-xs font-bold text-gray-500">Line Length</span>
+                                            <span id="chunk-val" class="text-xs font-mono text-gray-400">76 chars</span>
+                                        </div>
+                                        <input type="range" id="opt-chunk-size" min="40" max="100" value="76" step="4" class="w-full accent-[#E50914] cursor-pointer" oninput="updateChunkVal(this.value); processData()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- FIX 7 & 12B/C: Info & SEO Article Section -->
+                <article id="tool-info-section" class="mt-8 border-t border-white/5 pt-16 text-left">
+                    <header class="mb-12 text-center md:text-left">
+                        <h2 class="text-2xl md:text-3xl font-black text-white mb-4">The Ultimate Guide to Base64 Encoding</h2>
+                        <p class="text-gray-400 leading-relaxed max-w-4xl text-sm md:text-base">Understanding why developers use Base64, how the algorithm works behind the scenes, and the common professional use cases across web development, APIs, and security.</p>
+                    </header>
+
+                    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                        <div class="prose prose-invert prose-sm max-w-none text-gray-400 leading-loose">
+                            <h3 class="text-xl font-bold text-white mb-3">Why Base64 Matters</h3>
+                            <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It is foundational to the modern internet. Why? Because many protocols (like email via SMTP, or basic HTTP headers) were originally designed to handle only text—specifically 7-bit ASCII characters. If you try to send raw binary data (like an image or a compiled file) through these text-based systems, special control characters can cause the system to misinterpret the data, corrupting the file.</p>
+                            <p class="mt-4">Base64 solves this by taking any binary data and translating it into a safe alphabet of 64 characters: <code>A-Z, a-z, 0-9, +, /</code>. This guarantees the data will survive transport across any system without corruption.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-[#10B981]"></i> Key Features of Base64Forge</h3>
+                            <ul class="space-y-3 text-sm text-gray-400">
+                                <li class="flex items-start gap-2"><strong class="text-gray-200">100% Client-Side:</strong> Zero server calls. Maximum privacy.</li>
+                                <li class="flex items-start gap-2"><strong class="text-gray-200">Auto-Detection:</strong> Intelligently detects if input needs encoding or decoding.</li>
+                                <li class="flex items-start gap-2"><strong class="text-gray-200">File & Image Support:</strong> Drag and drop files to generate Data URIs instantly.</li>
+                                <li class="flex items-start gap-2"><strong class="text-gray-200">Multiple Variants:</strong> Support for Standard, URL-Safe (JWTs), MIME, and PEM.</li>
+                                <li class="flex items-start gap-2"><strong class="text-gray-200">UTF-8 Safe:</strong> Properly handles emojis and international characters without throwing DOMExceptions.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="mb-16">
+                        <h3 class="text-xl font-bold text-white mb-6">How It Works (The Math)</h3>
+                        <div class="bg-[#050505] border border-white/5 rounded-2xl p-8 text-sm text-gray-400 leading-relaxed">
+                            <p>Base64 works by grouping binary data into 24-bit chunks (which is exactly 3 bytes). It then splits those 24 bits into four 6-bit groups. Since 6 bits can represent exactly 64 different values (2^6 = 64), each group is mapped to one of the 64 characters in the Base64 alphabet.</p>
+                            <div class="flex items-center gap-4 my-6 opacity-80 font-mono text-xs overflow-x-auto text-white">
+                                <div class="bg-white/10 px-3 py-2 rounded">3 Bytes Input<br>(24 bits)</div>
+                                <span>→</span>
+                                <div class="bg-blue-500/20 px-3 py-2 rounded border border-blue-500/30">4 × 6-bit groups</div>
+                                <span>→</span>
+                                <div class="bg-[#E50914]/20 px-3 py-2 rounded border border-[#E50914]/30">4 Base64 Chars</div>
+                            </div>
+                            <p>Because 3 bytes of input become 4 bytes of output, <strong>Base64 encoding increases file size by roughly 33%</strong>. This is why you shouldn't use Base64 to embed massive images in your CSS, but it is perfect for tiny icons or necessary API tokens.</p>
+                            <p class="mt-4 text-xs bg-white/5 inline-block px-3 py-1.5 rounded">Note: If the input data is not a multiple of 3 bytes, Base64 pads the output with <code>=</code> characters.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-4">Professional Use Cases</h3>
+                            <ul class="space-y-4 text-sm text-gray-400">
+                                <li><strong class="text-white">JWT (JSON Web Tokens):</strong> Uses the URL-Safe Base64 variant (replacing + and /) to pass authentication state safely in HTTP headers and URLs.</li>
+                                <li><strong class="text-white">Data URIs in CSS/HTML:</strong> Embedding small SVGs or placeholder images directly into the DOM using <code>data:image/png;base64,...</code> to save HTTP requests.</li>
+                                <li><strong class="text-white">Email Attachments (MIME):</strong> Email protocols require 7-bit ASCII. Attachments are encoded using MIME Base64 with 76-character line breaks.</li>
+                                <li><strong class="text-white">Basic Authentication:</strong> HTTP Basic Auth transmits credentials as a Base64 encoded string of <code>username:password</code>.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-[#1c1c1e] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold mb-4">Quick Decode Reference</h3>
+                            <div class="space-y-2 font-mono text-xs">
+                                <div class="flex justify-between items-center border-b border-white/5 py-2">
+                                    <span class="text-gray-400">dXNlcm5hbWU=</span> <span class="text-teal-400">"username"</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-white/5 py-2">
+                                    <span class="text-gray-400">cGFzc3dvcmQ=</span> <span class="text-teal-400">"password"</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-white/5 py-2">
+                                    <span class="text-gray-400">SGVsbG8gV29ybGQ=</span> <span class="text-teal-400">"Hello World"</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-white/5 py-2">
+                                    <span class="text-gray-400">dHJ1ZQ==</span> <span class="text-teal-400">"true"</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-gray-400">bnVsbA==</span> <span class="text-teal-400">"null"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-10">
+                        <h3 class="text-xl font-bold text-white mb-6">Frequently Asked Questions (FAQ)</h3>
+                        <div class="space-y-4">
+                            <details class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 cursor-pointer group">
+                                <summary class="font-bold text-gray-200 group-hover:text-white transition-colors outline-none flex justify-between">Is this Base64 Encoder completely free? <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i></summary>
+                                <p class="text-sm text-gray-400 mt-3 pl-2 border-l-2 border-[#E50914]/50">Yes, this tool on Forgenos is 100% free forever. There is no signup required, no subscription tier, and no hidden fees.</p>
+                            </details>
+                            <details class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 cursor-pointer group">
+                                <summary class="font-bold text-gray-200 group-hover:text-white transition-colors outline-none flex justify-between">Is my data safe when using this tool? <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i></summary>
+                                <p class="text-sm text-gray-400 mt-3 pl-2 border-l-2 border-[#E50914]/50">Absolutely. The Forgenos Base64Forge runs entirely inside your local web browser. No text, files, or images are ever uploaded to our servers. Your data never leaves your device.</p>
+                            </details>
+                            <details class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 cursor-pointer group">
+                                <summary class="font-bold text-gray-200 group-hover:text-white transition-colors outline-none flex justify-between">What is the "URL Safe" Base64 variant? <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i></summary>
+                                <p class="text-sm text-gray-400 mt-3 pl-2 border-l-2 border-[#E50914]/50">Standard Base64 uses the '+' and '/' characters, which have special meanings in URLs. URL-Safe Base64 replaces '+' with '-' and '/' with '_', and usually removes the '=' padding. This is the format required for JSON Web Tokens (JWT).</p>
+                            </details>
+                            <details class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 cursor-pointer group">
+                                <summary class="font-bold text-gray-200 group-hover:text-white transition-colors outline-none flex justify-between">Why do I get an error when decoding? <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i></summary>
+                                <p class="text-sm text-gray-400 mt-3 pl-2 border-l-2 border-[#E50914]/50">Decoding errors usually happen if the input string contains invalid characters (anything outside A-Z, a-z, 0-9, +, /, =, -, _). Ensure you haven't accidentally pasted surrounding quotes or spaces.</p>
+                            </details>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- Professional Minimal Footer -->
+                <div class="mt-10 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-6 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left mb-8 md:mb-0">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <div class="flex items-center gap-2 text-gray-600">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+                        <span class="text-xs font-bold">100% Private (No Server Tracking)</span>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Stats Bar (Always Fixed at bottom) -->
+            <div class="fixed bottom-0 left-0 md:left-[5.5rem] right-0 h-8 bg-[#080808] border-t border-white/5 px-4 flex items-center justify-between font-mono text-[10px] sm:text-xs text-gray-500 z-50 shadow-[0_-5px_15px_rgba(0,0,0,0.5)]">
+                <div class="flex gap-4">
+                    <span class="hidden sm:inline" id="bar-variant">Var: Standard</span>
+                    <span class="hidden sm:inline" id="bar-encoding">Enc: UTF-8</span>
+                </div>
+                <div class="flex gap-4">
+                    <span id="bar-in">In: 0B</span>
+                    <span id="bar-out">Out: 0B</span>
+                    <span id="bar-diff" class="font-bold">Overhead: +0%</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT
+        // ==========================================
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here, it is a scam.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+
+        // FIX 3: Advanced Right Click Context Menu
+        document.oncontextmenu = function(e) {
+            e.preventDefault();
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                // Dynamic checking for Copy/Paste
+                const selection = window.getSelection().toString().trim();
+                const copyBtn = document.getElementById('ctx-copy');
+                const pasteBtn = document.getElementById('ctx-paste');
+                const div1 = document.getElementById('ctx-divider-1');
+                
+                if (selection !== '') {
+                    copyBtn.classList.replace('hidden', 'flex');
+                    div1.classList.replace('hidden', 'block');
+                } else {
+                    copyBtn.classList.replace('flex', 'hidden');
+                }
+
+                // Check clipboard permission for Paste
+                navigator.clipboard.readText().then(text => {
+                    if (text.length > 0 && document.activeElement.tagName === 'TEXTAREA') {
+                        pasteBtn.classList.replace('hidden', 'flex');
+                        div1.classList.replace('hidden', 'block');
+                    } else {
+                        pasteBtn.classList.replace('flex', 'hidden');
+                    }
+                }).catch(() => {
+                    pasteBtn.classList.replace('flex', 'hidden');
+                });
+
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        function executeContextAction(action) {
+            window.closeContextMenu();
+            if (action === 'copy') {
+                document.execCommand('copy');
+                showToast('Selection copied to clipboard', 'success');
+            } else if (action === 'paste') {
+                navigator.clipboard.readText().then(text => {
+                    if (document.activeElement.tagName === 'TEXTAREA') {
+                        document.activeElement.value += text;
+                        document.activeElement.dispatchEvent(new Event('input'));
+                    }
+                });
+            } else if (action === 'share') {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Base64Forge | Forgenos',
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    showToast('Tool link copied to clipboard', 'success');
+                }
+            }
+        }
+
+        // ==========================================
+        // System Toasts
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth;
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing...'];
+            let listHTML = '';
+            stepsArray.forEach(step => listHTML += `<li class="shimmer-text">${step}</li>`);
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            rollingList.innerHTML = listHTML;
+            
+            document.body.style.overflow = 'hidden'; // FIX 4: Scroll Lock
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = ''; // FIX 4: Unlock scroll
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // TOOL CUSTOM JS LOGIC YAHAN NICHE LIKHA JAYEGA...
+        // ==========================================
+        
+        let state = {
+            mode: 'text', // text, file, image
+            direction: 'encode', // encode, decode, auto
+            variant: 'standard', // standard, url, mime, pem
+            encoding: 'utf8', // utf8, latin1, ascii
+            padOutput: true,
+            chunkSize: 76,
+            fileResult: null, // Stores {base64, mimeType, name, size}
+            imgDataURI: null
+        };
+
+        const els = {
+            inputText: document.getElementById('input-text'),
+            outputText: document.getElementById('output-text'),
+            labelIn: document.getElementById('label-input'),
+            labelOut: document.getElementById('label-output'),
+            statIn: document.getElementById('stat-in-char'),
+            statOut: document.getElementById('stat-out-byte'),
+            errInline: document.getElementById('inline-error'),
+            statusInd: document.getElementById('status-indicator'),
+            barVariant: document.getElementById('bar-variant'),
+            barEncoding: document.getElementById('bar-encoding'),
+            barIn: document.getElementById('bar-in'),
+            barOut: document.getElementById('bar-out'),
+            barDiff: document.getElementById('bar-diff')
+        };
+
+        // --- Core Encoding/Decoding Functions ---
+        function encodeBase64(text) {
+            try {
+                if (state.encoding === 'utf8') {
+                    return { val: btoa(unescape(encodeURIComponent(text))) };
+                } else if (state.encoding === 'ascii') {
+                    if (!/^[\x00-\x7F]*$/.test(text)) return { error: 'Input contains non-ASCII chars' };
+                    return { val: btoa(text) };
+                } else {
+                    // Latin1
+                    return { val: btoa(text) };
+                }
+            } catch (e) {
+                return { error: 'Encoding failed: ' + e.message };
+            }
+        }
+
+        function decodeBase64(b64) {
+            try {
+                const clean = b64.replace(/\s/g, '');
+                if (!/^[A-Za-z0-9+/=_\-]*$/.test(clean)) {
+                    return { error: 'Invalid Base64 characters detected' };
+                }
+                
+                // Convert URL Safe back to standard for native atob
+                let std = clean.replace(/-/g, '+').replace(/_/g, '/');
+                
+                let decoded = atob(std);
+                if (state.encoding === 'utf8') {
+                    return { val: decodeURIComponent(escape(decoded)) };
+                }
+                return { val: decoded };
+            } catch (e) {
+                return { error: 'Decoding failed: Invalid Base64 format' };
+            }
+        }
+
+        // --- Formatting & Variants ---
+        function applyVariant(base64Str) {
+            let res = base64Str;
+            if (state.variant === 'url') {
+                res = res.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            } else if (state.variant === 'mime' || state.variant === 'pem') {
+                const len = state.variant === 'mime' ? state.chunkSize : 64;
+                const regex = new RegExp(`.{1,${len}}`, 'g');
+                const chunks = res.match(regex);
+                res = chunks ? chunks.join(state.variant === 'mime' ? '\r\n' : '\n') : res;
+            }
+            if (!state.padOutput && state.variant !== 'url') {
+                res = res.replace(/=/g, '');
+            }
+            return res;
+        }
+
+        function autoDetect(input) {
+            const clean = input.replace(/\s/g, '');
+            if (clean.length === 0) return 'encode';
+            // If contains characters not in base64 alphabet, must be plain text
+            const isBase64 = /^[A-Za-z0-9+/\-_]*={0,2}$/.test(clean) && clean.length % 4 === 0;
+            return isBase64 ? 'decode' : 'encode';
+        }
+
+        // --- Stats ---
+        function updateStats(input, output, isError = false) {
+            const inBytes = new Blob([input]).size;
+            const outBytes = new Blob([output]).size;
+            
+            els.statIn.textContent = `${input.length} chars`;
+            els.statOut.textContent = isError ? `0 bytes` : `${outBytes} bytes`;
+            
+            els.barIn.textContent = `In: ${inBytes}B`;
+            els.barOut.textContent = `Out: ${isError ? 0 : outBytes}B`;
+            
+            if (inBytes > 0 && !isError) {
+                const overhead = (((outBytes - inBytes) / inBytes) * 100).toFixed(1);
+                els.barDiff.textContent = `Overhead: ${overhead > 0 ? '+' : ''}${overhead}%`;
+                els.barDiff.className = overhead > 40 ? 'font-bold text-red-400' : (overhead > 20 ? 'font-bold text-amber-400' : 'font-bold text-emerald-400');
+            } else {
+                els.barDiff.textContent = `Overhead: 0%`;
+                els.barDiff.className = 'font-bold text-gray-500';
+            }
+        }
+
+        // --- Main Processing Flow ---
+        function processData() {
+            if (state.mode !== 'text') return;
+            
+            const input = els.inputText.value;
+            if (!input) {
+                els.outputText.value = '';
+                els.errInline.classList.add('hidden');
+                updateStats('', '');
+                updateStatusUI();
+                return;
+            }
+
+            let execDirection = state.direction;
+            if (execDirection === 'auto') {
+                execDirection = autoDetect(input);
+                updateStatusUI(execDirection); // Show detected
+            } else {
+                updateStatusUI();
+            }
+
+            let result;
+            if (execDirection === 'encode') {
+                result = encodeBase64(input);
+                if (!result.error) result.val = applyVariant(result.val);
+            } else {
+                result = decodeBase64(input);
+            }
+
+            if (result.error) {
+                els.errInline.classList.remove('hidden');
+                els.errInline.textContent = result.error;
+                updateStats(input, '', true);
+            } else {
+                els.errInline.classList.add('hidden');
+                els.outputText.value = result.val;
+                updateStats(input, result.val);
+                // FIX 6: Hide info section softly on first successful conversion
+                document.getElementById('tool-info-section').style.opacity = '0.4';
+            }
+        }
+
+        // --- Debounce ---
+        function debounce(fn, delay) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn(...args), delay);
+            };
+        }
+        
+        els.inputText.addEventListener('input', debounce(processData, 50));
+
+        // --- UI Updates ---
+        function updateStatusUI(detectedDir = null) {
+            const dir = detectedDir || state.direction;
+            let html = '';
+            if (state.direction === 'auto' && !detectedDir && els.inputText.value) {
+                html = `<span class="text-xs font-bold text-[#FBBF24]">Detecting...</span>`;
+            } else if (dir === 'encode') {
+                html = `<svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M5 12h14M15 5l7 7-7 7" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" fill="none"/></svg> <span class="text-xs font-bold text-[#06B6D4]">Encoding →</span>`;
+            } else {
+                html = `<svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M19 12H5M9 19l-7-7 7-7" stroke="#10B981" stroke-width="2" stroke-linecap="round" fill="none"/></svg> <span class="text-xs font-bold text-[#10B981]">← Decoding</span>`;
+            }
+            els.statusInd.innerHTML = html;
+        }
+
+        function setMode(mode) {
+            state.mode = mode;
+            ['text', 'file', 'image'].forEach(m => {
+                document.getElementById(`tab-${m}`).classList.remove('active-tab');
+                document.getElementById(`tab-${m}`).classList.add('text-gray-400');
+                document.getElementById(`view-${m}`).classList.add('hidden');
+                document.getElementById(`view-${m}`).classList.remove('flex');
+            });
+            document.getElementById(`tab-${mode}`).classList.add('active-tab');
+            document.getElementById(`tab-${mode}`).classList.remove('text-gray-400');
+            document.getElementById(`view-${mode}`).classList.remove('hidden');
+            document.getElementById(`view-${mode}`).classList.add('flex');
+            
+            document.getElementById('direction-selector').style.display = mode === 'text' ? 'grid' : 'none';
+            document.getElementById('options-panel-container').style.display = mode === 'text' ? 'block' : 'none';
+            
+            if (mode === 'text') processData();
+        }
+
+        function setDirection(dir) {
+            state.direction = dir;
+            ['encode', 'decode', 'auto'].forEach(d => {
+                document.getElementById(`card-${d}`).classList.remove('active-card');
+            });
+            document.getElementById(`card-${dir}`).classList.add('active-card');
+            
+            if (dir === 'encode') {
+                els.labelIn.textContent = 'Plain Text';
+                els.labelOut.textContent = 'Base64';
+                els.inputText.placeholder = 'Type or paste text to encode...';
+            } else if (dir === 'decode') {
+                els.labelIn.textContent = 'Base64';
+                els.labelOut.textContent = 'Plain Text';
+                els.inputText.placeholder = 'Paste Base64 string to decode...';
+            } else {
+                els.labelIn.textContent = 'Input';
+                els.labelOut.textContent = 'Output';
+                els.inputText.placeholder = 'Type text or paste Base64 — auto detected';
+            }
+            processData();
+        }
+
+        function toolSwapDirection() {
+            if (state.mode !== 'text') return;
+            const temp = els.inputText.value;
+            els.inputText.value = els.outputText.value;
+            els.outputText.value = temp;
+            
+            if (state.direction === 'encode') setDirection('decode');
+            else if (state.direction === 'decode') setDirection('encode');
+            else processData(); // If auto, just re-evaluate
+        }
+
+        // --- Options Panel ---
+        function toggleOptions() {
+            const content = document.getElementById('options-content');
+            const chev = document.getElementById('options-chevron');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chev.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                chev.classList.remove('rotate-180');
+            }
+        }
+
+        function setOption(type, val) {
+            state[type] = val;
+            document.querySelectorAll(`.opt-${type}`).forEach(el => {
+                el.classList.remove('active-card', 'text-white');
+                el.classList.add('text-gray-400');
+            });
+            event.target.classList.add('active-card', 'text-white');
+            event.target.classList.remove('text-gray-400');
+            
+            if (type === 'variant') {
+                els.barVariant.textContent = `Var: ${val}`;
+                const chunkCtrl = document.getElementById('chunk-control');
+                if (val === 'mime' || val === 'pem') {
+                    chunkCtrl.classList.remove('hidden');
+                    chunkCtrl.classList.add('flex');
+                    state.chunkSize = val === 'mime' ? 76 : 64;
+                    document.getElementById('opt-chunk-size').value = state.chunkSize;
+                    updateChunkVal(state.chunkSize);
+                } else {
+                    chunkCtrl.classList.add('hidden');
+                    chunkCtrl.classList.remove('flex');
+                }
+                
+                // Toggle checkbox logic
+                const chk = document.getElementById('opt-pad');
+                chk.disabled = (val === 'url');
+                if (val === 'url') chk.parentNode.classList.add('opacity-50');
+                else chk.parentNode.classList.remove('opacity-50');
+            }
+            if (type === 'encoding') els.barEncoding.textContent = `Enc: ${val}`;
+            
+            processData();
+        }
+
+        function updateChunkVal(val) {
+            state.chunkSize = val;
+            document.getElementById('chunk-val').textContent = `${val} chars`;
+        }
+
+        document.getElementById('opt-pad').addEventListener('change', (e) => {
+            state.padOutput = e.target.checked;
+            const dot = e.target.parentNode.querySelector('.dot');
+            if(state.padOutput) {
+                dot.classList.add('translate-x-4', 'bg-[#E50914]');
+                dot.classList.remove('bg-gray-500');
+            } else {
+                dot.classList.remove('translate-x-4', 'bg-[#E50914]');
+                dot.classList.add('bg-gray-500');
+            }
+        });
+
+        // --- Actions ---
+        function toolClearAll() {
+            els.inputText.value = '';
+            els.outputText.value = '';
+            processData();
+            
+            if(state.mode === 'file') {
+                document.getElementById('file-input').value = '';
+                document.getElementById('file-result-area').classList.add('hidden');
+                document.getElementById('file-dropzone').classList.remove('hidden');
+                document.getElementById('file-dropzone').classList.add('flex');
+            }
+            if(state.mode === 'image') {
+                document.getElementById('img-input').value = '';
+                document.getElementById('img-result-area').classList.add('hidden');
+                document.getElementById('img-dropzone').classList.remove('hidden');
+                document.getElementById('img-dropzone').classList.add('flex');
+                document.getElementById('img-decode-input').value = '';
+                document.getElementById('img-decode-result').classList.add('hidden');
+            }
+        }
+
+        async function toolCopyOutput() {
+            let val = '';
+            if(state.mode === 'text') val = els.outputText.value;
+            else if(state.mode === 'file') val = document.getElementById('file-output-text').value;
+            else if(state.mode === 'image') val = document.getElementById('img-output-text').value;
+            
+            if(!val) { showToast('Nothing to copy', 'error'); return; }
+            await copyToClip(val);
+        }
+
+        async function copyElement(id) {
+            const el = document.getElementById(id);
+            if(el) await copyToClip(el.value || el.textContent);
+        }
+
+        async function toolPaste() {
+            try {
+                const text = await navigator.clipboard.readText();
+                els.inputText.value = text;
+                processData();
+            } catch (e) {
+                showToast('Clipboard access denied. Please use Ctrl+V', 'error');
+            }
+        }
+
+        function toggleUrlInput() {
+            const loader = document.getElementById('url-loader');
+            loader.classList.toggle('hidden');
+        }
+
+        async function loadFromUrl() {
+            const url = document.getElementById('url-input').value;
+            if(!url) return;
+            showToolLoading(['Fetching URL...']);
+            try {
+                const res = await fetch(url);
+                if(!res.ok) throw new Error('Network response not ok');
+                const text = await res.text();
+                els.inputText.value = text;
+                toggleUrlInput();
+                processData();
+                showToast('Data loaded successfully', 'success');
+            } catch (e) {
+                showToast('Failed to fetch URL (CORS or network error)', 'error');
+            } finally {
+                hideToolLoading();
+            }
+        }
+
+        async function copyToClip(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast('Copied to clipboard', 'success');
+            } catch (e) {
+                const a = document.createElement('textarea');
+                a.value = text; document.body.appendChild(a); a.select();
+                document.execCommand('copy'); document.body.removeChild(a);
+                showToast('Copied to clipboard', 'success');
+            }
+        }
+
+        function downloadOutput(ext, modeOverride = 'text') {
+            let val = modeOverride === 'text' ? els.outputText.value : document.getElementById('file-output-text').value;
+            if(!val) return;
+            const blob = new Blob([val], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; 
+            a.download = `forgenos-base64-${new Date().getTime()}.${ext}`;
+            a.click(); URL.revokeObjectURL(url);
+        }
+
+        // --- FILE MODE LOGIC ---
+        const fileInput = document.getElementById('file-input');
+        const fileDrop = document.getElementById('file-dropzone');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+            fileDrop.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        
+        ['dragenter', 'dragover'].forEach(ev => {
+            fileDrop.addEventListener(ev, () => fileDrop.classList.add('drag-active'), false);
+        });
+        
+        ['dragleave', 'drop'].forEach(ev => {
+            fileDrop.addEventListener(ev, () => fileDrop.classList.remove('drag-active'), false);
+        });
+        
+        fileDrop.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            if(dt.files && dt.files.length) handleFile(dt.files[0]);
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if(!file) return;
+            // 10MB warning soft
+            if(file.size > 10 * 1024 * 1024) showToast('File is large, browser may lag during conversion.', 'normal');
+            
+            showToolLoading(['Reading File...', 'Encoding to Base64...']);
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataURI = e.target.result;
+                const base64 = dataURI.split(',')[1];
+                
+                state.fileResult = {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type || 'application/octet-stream',
+                    base64: base64,
+                    dataURI: dataURI
+                };
+                
+                document.getElementById('file-dropzone').classList.add('hidden');
+                document.getElementById('file-dropzone').classList.remove('flex');
+                document.getElementById('file-result-area').classList.remove('hidden');
+                document.getElementById('file-result-area').classList.add('flex');
+                
+                document.getElementById('file-name').textContent = file.name;
+                document.getElementById('file-type').textContent = state.fileResult.type;
+                document.getElementById('file-size').textContent = formatBytes(file.size);
+                
+                const outEl = document.getElementById('file-output-text');
+                outEl.value = base64;
+                
+                const outBytes = new Blob([base64]).size;
+                const overhead = (((outBytes - file.size) / file.size) * 100).toFixed(1);
+                const statEl = document.getElementById('file-stat-overhead');
+                statEl.textContent = `Overhead: +${overhead}%`;
+                statEl.className = overhead > 35 ? 'text-xs font-mono text-amber-400' : 'text-xs font-mono text-emerald-400';
+                
+                // Auto Scroll FIX 5
+                setTimeout(() => outEl.scrollIntoView({ behavior:'smooth', block:'start'}), 300);
+                hideToolLoading();
+            };
+            reader.onerror = () => {
+                hideToolLoading();
+                showToast('Error reading file', 'error');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function copyDataURI() {
+            if(state.fileResult) copyToClip(state.fileResult.dataURI);
+        }
+
+        // --- IMAGE MODE LOGIC ---
+        function setImageTab(tab) {
+            state.imageTab = tab;
+            if(tab === 'encode') {
+                document.getElementById('img-tab-encode').classList.add('text-[#E50914]', 'border-[#E50914]');
+                document.getElementById('img-tab-encode').classList.remove('text-gray-500', 'border-transparent');
+                document.getElementById('img-tab-decode').classList.remove('text-[#E50914]', 'border-[#E50914]');
+                document.getElementById('img-tab-decode').classList.add('text-gray-500', 'border-transparent');
+                document.getElementById('img-view-encode').classList.remove('hidden');
+                document.getElementById('img-view-encode').classList.add('flex');
+                document.getElementById('img-view-decode').classList.add('hidden');
+                document.getElementById('img-view-decode').classList.remove('flex');
+            } else {
+                document.getElementById('img-tab-decode').classList.add('text-[#E50914]', 'border-[#E50914]');
+                document.getElementById('img-tab-decode').classList.remove('text-gray-500', 'border-transparent');
+                document.getElementById('img-tab-encode').classList.remove('text-[#E50914]', 'border-[#E50914]');
+                document.getElementById('img-tab-encode').classList.add('text-gray-500', 'border-transparent');
+                document.getElementById('img-view-decode').classList.remove('hidden');
+                document.getElementById('img-view-decode').classList.add('flex');
+                document.getElementById('img-view-encode').classList.add('hidden');
+                document.getElementById('img-view-encode').classList.remove('flex');
+            }
+        }
+
+        const imgInput = document.getElementById('img-input');
+        const imgDrop = document.getElementById('img-dropzone');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+            imgDrop.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        
+        ['dragenter', 'dragover'].forEach(ev => {
+            imgDrop.addEventListener(ev, () => imgDrop.classList.add('border-[#A855F7]/50', 'bg-[#A855F7]/5'), false);
+        });
+        
+        ['dragleave', 'drop'].forEach(ev => {
+            imgDrop.addEventListener(ev, () => imgDrop.classList.remove('border-[#A855F7]/50', 'bg-[#A855F7]/5'), false);
+        });
+        
+        imgDrop.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            if(dt.files && dt.files.length) handleImageFile(dt.files[0]);
+        });
+        
+        imgInput.addEventListener('change', (e) => {
+            if(e.target.files.length) handleImageFile(e.target.files[0]);
+        });
+
+        function handleImageFile(file) {
+            if(!file || !file.type.startsWith('image/')) {
+                showToast('Please upload a valid image file', 'error'); return;
+            }
+            
+            showToolLoading(['Processing Image...']);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataURI = e.target.result;
+                state.imgDataURI = dataURI;
+                
+                document.getElementById('img-dropzone').classList.add('hidden');
+                document.getElementById('img-dropzone').classList.remove('flex');
+                document.getElementById('img-result-area').classList.remove('hidden');
+                document.getElementById('img-result-area').classList.add('flex');
+                
+                const img = new Image();
+                img.onload = () => {
+                    document.getElementById('img-dims').textContent = `${img.naturalWidth} × ${img.naturalHeight} px • ${formatBytes(file.size)}`;
+                };
+                img.src = dataURI;
+                document.getElementById('img-preview').src = dataURI;
+                
+                document.getElementById('img-output-text').value = dataURI;
+                document.getElementById('snip-html').value = `<img src="${dataURI.substring(0, 40)}..." alt="img">`;
+                document.getElementById('snip-css').value = `background-image: url('${dataURI.substring(0, 40)}...');`;
+                
+                setTimeout(() => document.getElementById('img-output-text').scrollIntoView({ behavior:'smooth', block:'start'}), 300);
+                hideToolLoading();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function copyRawBase64Img() {
+            if(state.imgDataURI) copyToClip(state.imgDataURI.split(',')[1]);
+        }
+
+        function previewBase64Image() {
+            const input = document.getElementById('img-decode-input').value.trim();
+            const err = document.getElementById('img-decode-error');
+            const res = document.getElementById('img-decode-result');
+            
+            if(!input) return;
+            
+            let dataURI = input;
+            if(!dataURI.startsWith('data:')) {
+                // Try to infer type, default to png
+                dataURI = `data:image/png;base64,${dataURI}`;
+            }
+            
+            const img = new Image();
+            img.onload = () => {
+                err.classList.add('hidden');
+                res.classList.remove('hidden');
+                res.classList.add('flex');
+                document.getElementById('img-decode-preview').src = dataURI;
+                document.getElementById('img-decode-dims').textContent = `${img.naturalWidth} × ${img.naturalHeight} px`;
+                setTimeout(() => res.scrollIntoView({ behavior:'smooth', block:'start'}), 300);
+            };
+            img.onerror = () => {
+                err.classList.remove('hidden');
+                res.classList.add('hidden');
+                res.classList.remove('flex');
+            };
+            img.src = dataURI;
+        }
+
+        function downloadRenderedImage() {
+            const src = document.getElementById('img-decode-preview').src;
+            if(!src) return;
+            const a = document.createElement('a');
+            a.href = src; 
+            a.download = `forgenos-image-${new Date().getTime()}.png`;
+            a.click();
+        }
+
+        // --- Keyboard Shortcuts ---
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                processData();
+            } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'c') {
+                toolCopyOutput();
+            } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 's') {
+                toolSwapDirection();
+            } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'x') {
+                toolClearAll();
+            } else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'o') {
+                toggleOptions();
+            } else if (document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+                if (e.key === '1') setMode('text');
+                else if (e.key === '2') setMode('file');
+                else if (e.key === '3') setMode('image');
+                else if (e.key.toLowerCase() === 'e') setDirection('encode');
+                else if (e.key.toLowerCase() === 'd') setDirection('decode');
+                else if (e.key.toLowerCase() === 'a') setDirection('auto');
+            }
+        });
+
+    </script>
+</body>
+</html>
