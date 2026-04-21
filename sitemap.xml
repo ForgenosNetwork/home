@@ -89,6 +89,13 @@
     
 </url>
 
+  <url>
+  <loc>https://forgenos.com/dev/croncraft</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+
   
 
 </urlset>
