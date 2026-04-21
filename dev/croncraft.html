@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+ 
+    <title>Visual Cron Builder – Cron Expression Generator | Forgenos</title>
+    <meta name="description" content="Free visual cron expression builder and tester. Generate, test, and translate cron schedules into plain English instantly. No signup required, works locally.">
+    
+    <meta name="keywords" content="visual cron builder free, free cron expression generator online, cron expression tester, cron scheduler online no signup, best free visual cron builder online, cron expression generator without software, cron tester in browser, free cron tool for students, cron generator no registration, instant cron scheduler online, cron builder mobile friendly, cron expression tester secure private, how to generate cron expressions online free, best visual cron builder 2026, cron generator for free no login, free cron tester like crontab guru, visual cron expression builder without subscription, Forgenos visual cron builder, forgenos.com cron expression generator, open source cron generator online, what is the best free cron tester online, can I generate cron expressions for free online, how do I build cron schedules without software, is there a free visual cron builder online, which cron generator is completely free">
+
+    <meta property="og:title" content="Visual Cron Builder – Cron Expression Generator | Forgenos">
+    <meta property="og:description" content="Free visual cron expression builder and tester. Generate, test, and translate cron schedules into plain English instantly. No signup required, works locally.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/dev/croncraft">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/dev/img/tool_11.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Visual Cron Expression Builder Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Visual Cron Builder – Cron Expression Generator | Forgenos">
+    <meta name="twitter:description" content="Free visual cron expression builder and tester. Generate, test, and translate cron schedules into plain English instantly. No signup required, works locally.">
+    <meta name="twitter:image" content="https://forgenos.com/dev/img/tool_11.webp">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414"> <!-- FIX 8: Match Body Background -->
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+
+    <link rel="canonical" href="https://forgenos.com/dev/croncraft">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CronCraft Visual Cron Builder",
+      "url": "https://forgenos.com/dev/croncraft",
+      "description": "Free visual cron expression builder and tester. Generate, test, and translate cron schedules into plain English instantly.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored"
+      ]
+    }
+    </script>
+
+    <!-- Schema 2: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this visual cron expression builder completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the cron generator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It parses your cron syntax locally in your browser and instantly translates it to human-readable plain English while calculating the next 10 run times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my cron expressions stored or logged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All parsing and calculations are done entirely locally on your device via JavaScript. No data is sent to our servers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this cron tester on my mobile phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, CronCraft is fully responsive and optimized to work seamlessly on smartphones, tablets, and desktop computers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What cron formats does it support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It supports standard 5-field cron syntax (minute, hour, day of month, month, day of week) including steps (/), ranges (-), and lists (,)."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Schema 3: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dev Tools",
+          "item": "https://forgenos.com/dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CronCraft Visual Cron Builder",
+          "item": "https://forgenos.com/dev/croncraft"
+        }
+      ]
+    }
+    </script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                        // CronCraft Specific Colors
+                        'cron-min': '#FBBF24',
+                        'cron-hr': '#06B6D4',
+                        'cron-dom': '#10B981',
+                        'cron-mo': '#A855F7',
+                        'cron-dow': '#3B82F6',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414; /* FIX 8: Background matched */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Allow selection only in specific inputs for copying */
+        .allow-select {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Sidebar Expand Logic (FIX 1 & FIX 9 Applied) */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; max-width: 0; transition: all 0.3s ease; white-space: nowrap; overflow: hidden; display: inline-block; }
+        #sidebar:hover .nav-label { opacity: 1; max-width: 200px; padding-left: 16px; }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Custom CronCraft Overlays */
+        .cron-input-wrapper { position: relative; }
+        .cron-input-transparent {
+            color: transparent !important;
+            caret-color: white !important;
+            background: transparent !important;
+            z-index: 10;
+            position: relative;
+        }
+        .cron-input-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+        }
+        
+        /* Cell pressing animation */
+        .cell-btn { transition: all 0.15s ease; }
+        .cell-btn:active { transform: scale(0.92); }
+        
+        /* Accordion transition */
+        .cron-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, margin 0.3s ease;
+            opacity: 0;
+        }
+        .cron-accordion-content.expanded {
+            max-height: 800px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        /* Slide panels */
+        .slide-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-panel.open { transform: translateX(0); }
+        
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bottom-sheet.open { transform: translateY(0); }
+
+        /* Tool Info Section Hide Utility */
+        #tool-info-section.hidden-info { display: none !important; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (FIX 3) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <!-- Dynamic Options (Copy/Paste/Share) via FIX 3 -->
+        <div id="ctx-copy" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="copySelectedText(); window.closeContextMenu()">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selection
+        </div>
+        <div id="ctx-paste" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="pasteFromClipboard(); window.closeContextMenu()">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="shareTool(); window.closeContextMenu()">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Tool
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='/index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay (FIX 4) -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <!-- FIX 2: Trending removed from mobile -->
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <!-- FIX 1 & 9: Nav icons given explicit fixed dimensions and stability -->
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="home" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="folder-heart" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">My Toolkits</span>
+                </a>
+                <!-- FIX 2: Trending removed from desktop sidebar -->
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="dollar-sign" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="code-2" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="graduation-cap" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="brain-circuit" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="heart-pulse" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="file-text" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="image" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group overflow-hidden">
+                    <i data-lucide="heart" style="width: 24px; height: 24px; min-width: 24px; opacity: 1; visibility: visible;" class="group-hover:text-white transition-colors shrink-0"></i>
+                    <span class="nav-label font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-4 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left max-w-[1200px] mx-auto">
+                
+                <!-- Back Button -->
+                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- H1 Tag Hybrid Format (FIX 12A) -->
+                <div class="mb-8 text-left w-full">
+                    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-none uppercase">CronCraft | Visual Cron Expression Builder</h1>
+                    <p class="text-gray-500 text-sm md:text-lg mt-3 font-medium max-w-2xl">Visual cron expression generator & tester. Understand and schedule cron jobs instantly.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-6 pb-16">
+                    
+                    <!-- FIX 10: TOOL FIRST -->
+
+                    <!-- TOOL HEADER / TOP BAR -->
+                    <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl shadow-xl flex flex-col md:flex-row items-center justify-between p-4 gap-4 sticky top-16 md:top-0 z-40 backdrop-blur-md">
+                        
+                        <!-- Left Brand Area -->
+                        <div class="flex items-center gap-3 shrink-0">
+                            <!-- Custom Clock Icon -->
+                            <svg viewBox="0 0 24 24" class="w-8 h-8">
+                                <circle cx="12" cy="12" r="10" stroke="#06B6D4" stroke-width="2" fill="none"/>
+                                <path d="M12 6v6l4 2" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <div class="flex flex-col leading-none">
+                                <span class="font-bold text-white text-lg">Cron<span class="text-brand-accent text-xl">Craft</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Center Expression Input Area -->
+                        <div class="flex flex-col items-center w-full md:w-auto flex-1 md:flex-none">
+                            <div class="flex items-center gap-3 w-full justify-center">
+                                <div class="cron-input-wrapper w-full md:w-[380px] h-[48px]" id="cron-input-container">
+                                    <input type="text" id="cron-input" class="cron-input-transparent absolute inset-0 w-full h-full font-mono text-[20px] font-bold tracking-[0.15em] px-5 outline-none allow-select" value="0 9 * * 1" placeholder="* * * * *" autocomplete="off" spellcheck="false">
+                                    <div id="expr-overlay" class="cron-input-overlay bg-[#050505] border border-white/15 rounded-xl flex items-center font-mono text-[20px] font-bold tracking-[0.15em] px-5 shadow-inner transition-colors duration-200">
+                                        <!-- Spans injected via JS -->
+                                    </div>
+                                </div>
+                                <div id="validation-indicator" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-white/5">
+                                    <!-- Icon injected via JS -->
+                                </div>
+                                <!-- Force Analyze Button (Triggers Loading Fix 4/5) -->
+                                <button onclick="triggerAnalyze()" class="hidden md:flex h-[48px] bg-brand-accent hover:bg-brand-accent/80 text-white font-bold px-5 rounded-xl items-center gap-2 transition-all">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M8 5v14l11-7z" fill="white"/></svg> Test
+                                </button>
+                            </div>
+                            
+                            <!-- Part Labels Bar -->
+                            <div class="flex items-center gap-4 mt-2 text-[11px] font-bold uppercase tracking-wider w-full justify-center md:w-[380px] md:-ml-12">
+                                <span class="text-cron-min cursor-pointer hover:opacity-70 transition-opacity" onclick="focusField('minute')">Minute</span>
+                                <span class="text-cron-hr cursor-pointer hover:opacity-70 transition-opacity" onclick="focusField('hour')">Hour</span>
+                                <span class="text-cron-dom cursor-pointer hover:opacity-70 transition-opacity" onclick="focusField('dom')">Day</span>
+                                <span class="text-cron-mo cursor-pointer hover:opacity-70 transition-opacity" onclick="focusField('month')">Month</span>
+                                <span class="text-cron-dow cursor-pointer hover:opacity-70 transition-opacity" onclick="focusField('dow')">Weekday</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Actions -->
+                        <div class="flex items-center gap-2 shrink-0 w-full md:w-auto justify-center md:justify-end">
+                            <button onclick="copyExpression()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-semibold transition-all">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" stroke="#3B82F6" stroke-width="2" fill="none"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="#6366F1" stroke-width="2" fill="none"/></svg> Copy
+                            </button>
+                            <button onclick="openPanel('presets-panel')" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-semibold transition-all">
+                                <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#FBBF24" fill="#F97316" stroke-width="1" stroke-linejoin="round"/></svg> Presets
+                            </button>
+                            <button onclick="openPanel('help-panel')" class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5"><circle cx="12" cy="12" r="10" stroke="#3B82F6" stroke-width="2" fill="none"/><path d="M12 16v-4 M12 8h.01" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TRANSLATION HERO CARD -->
+                    <div id="result-scroll-anchor" class="w-full bg-[#0d0d0d] border border-white/8 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
+                        <!-- BG Accent -->
+                        <div class="absolute -top-20 -right-20 w-40 h-40 bg-brand-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div class="flex flex-col z-10 w-full flex-1">
+                            <i data-lucide="quote" class="text-brand-accent w-10 h-10 opacity-20 absolute -top-2 -left-2 rotate-180"></i>
+                            <h2 id="translation-text" class="text-2xl md:text-3xl lg:text-4xl font-semibold text-white leading-tight min-h-[48px] relative z-10">
+                                Every Monday at 9:00 AM
+                            </h2>
+                            
+                            <div class="flex flex-wrap gap-3 mt-6">
+                                <div class="px-3 py-1.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase flex items-center gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><path d="M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                                    <span id="trans-freq">Weekly</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-md bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase flex items-center gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                                    <span id="trans-next">Loading...</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-gray-400 text-xs font-bold uppercase flex items-center gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                                    <span id="trans-type">Standard 5-Field</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Animated SVG Clock -->
+                        <div class="hidden md:flex flex-col items-center justify-center shrink-0 w-24 h-24 relative bg-[#141414] rounded-full border-4 border-[#1a1a1a] shadow-inner">
+                            <!-- Tick marks added via JS -->
+                            <div id="clock-ticks" class="absolute inset-0"></div>
+                            <div class="w-1.5 h-1.5 bg-brand-accent rounded-full z-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                            <div id="clock-hour-hand" class="absolute top-1/2 left-1/2 w-1 h-6 bg-white origin-bottom z-10 transition-transform duration-700 ease-out" style="transform: translate(-50%, -100%) rotate(45deg);"></div>
+                            <div id="clock-min-hand" class="absolute top-1/2 left-1/2 w-0.5 h-9 bg-brand-accent origin-bottom z-10 transition-transform duration-700 ease-out" style="transform: translate(-50%, -100%) rotate(180deg);"></div>
+                        </div>
+                    </div>
+
+                    <!-- TWO COLUMN LAYOUT: Visual Builder (Left 70%) & Next Runs (Right 30%) -->
+                    <div class="w-full flex flex-col lg:flex-row gap-6 items-start">
+                        
+                        <!-- VISUAL BUILDER ACCORDIONS -->
+                        <div class="w-full lg:w-[65%] flex flex-col gap-4">
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-2"><svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#10B981" stroke-width="2" fill="none"/></svg> Visual Editor</h3>
+
+                            <!-- FIELD 1: MINUTE -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden" id="accordion-minute">
+                                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.02] transition-colors" onclick="toggleAccordion('minute')">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Minute Icon -->
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6"><circle cx="12" cy="12" r="9" stroke="#FBBF24" stroke-width="2" fill="none"/><path d="M12 4v8l3-3" stroke="#F97316" stroke-width="2" stroke-linecap="round"/></svg>
+                                        <span class="font-bold text-white text-lg">Minute</span>
+                                        <span class="text-gray-500 text-sm">(0-59)</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div id="badge-minute" class="px-3 py-1 rounded bg-[#FBBF24]/20 text-[#FBBF24] font-mono text-sm font-bold border border-[#FBBF24]/30 min-w-[32px] text-center">0</div>
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 transition-transform duration-300" id="icon-minute"></i>
+                                    </div>
+                                </div>
+                                <div id="content-minute" class="cron-accordion-content expanded px-4 pb-4">
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <button onclick="setQuick('minute', '*')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#FBBF24] text-gray-400 hover:text-white transition-colors">Every min (*)</button>
+                                        <button onclick="setQuick('minute', '*/5')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#FBBF24] text-gray-400 hover:text-white transition-colors">Every 5m (*/5)</button>
+                                        <button onclick="setQuick('minute', '*/15')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#FBBF24] text-gray-400 hover:text-white transition-colors">Every 15m (*/15)</button>
+                                        <button onclick="setQuick('minute', '*/30')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#FBBF24] text-gray-400 hover:text-white transition-colors">Every 30m (*/30)</button>
+                                        <button onclick="setQuick('minute', '0')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#FBBF24] text-gray-400 hover:text-white transition-colors">Start of hour (0)</button>
+                                    </div>
+                                    <div id="grid-minute" class="grid grid-cols-10 md:grid-cols-12 gap-1 md:gap-1.5">
+                                        <!-- Generated via JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FIELD 2: HOUR -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden" id="accordion-hour">
+                                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.02] transition-colors" onclick="toggleAccordion('hour')">
+                                    <div class="flex items-center gap-3">
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6"><circle cx="12" cy="12" r="9" stroke="#06B6D4" stroke-width="2" fill="none"/><path d="M12 12H6" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/></svg>
+                                        <span class="font-bold text-white text-lg">Hour</span>
+                                        <span class="text-gray-500 text-sm">(0-23)</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div id="badge-hour" class="px-3 py-1 rounded bg-[#06B6D4]/20 text-[#06B6D4] font-mono text-sm font-bold border border-[#06B6D4]/30 min-w-[32px] text-center">9</div>
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 transition-transform duration-300" id="icon-hour"></i>
+                                    </div>
+                                </div>
+                                <div id="content-hour" class="cron-accordion-content px-4 pb-4">
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <button onclick="setQuick('hour', '*')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#06B6D4] text-gray-400 hover:text-white transition-colors">Every hour (*)</button>
+                                        <button onclick="setQuick('hour', '9-17')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#06B6D4] text-gray-400 hover:text-white transition-colors">Business (9-17)</button>
+                                        <button onclick="setQuick('hour', '6-12')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#06B6D4] text-gray-400 hover:text-white transition-colors">Morning (6-12)</button>
+                                        <button onclick="setQuick('hour', '0')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#06B6D4] text-gray-400 hover:text-white transition-colors">Midnight (0)</button>
+                                        <div class="ml-auto flex bg-[#1a1a1a] rounded-lg border border-white/5 p-0.5">
+                                            <button onclick="toggleHourFormat(12)" id="fmt-12" class="px-2 py-1 text-xs font-bold rounded bg-white/10 text-white">12h</button>
+                                            <button onclick="toggleHourFormat(24)" id="fmt-24" class="px-2 py-1 text-xs font-bold rounded text-gray-500 hover:text-white">24h</button>
+                                        </div>
+                                    </div>
+                                    <div id="grid-hour" class="grid grid-cols-6 md:grid-cols-12 gap-1.5">
+                                        <!-- Generated via JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FIELD 3: DAY OF MONTH -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden" id="accordion-dom">
+                                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.02] transition-colors" onclick="toggleAccordion('dom')">
+                                    <div class="flex items-center gap-3">
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#10B981" stroke-width="2" fill="none"/><text x="12" y="16" fill="#059669" font-size="10" font-weight="bold" text-anchor="middle" font-family="sans-serif">15</text></svg>
+                                        <span class="font-bold text-white text-lg">Day of Month</span>
+                                        <span class="text-gray-500 text-sm">(1-31)</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div id="badge-dom" class="px-3 py-1 rounded bg-[#10B981]/20 text-[#10B981] font-mono text-sm font-bold border border-[#10B981]/30 min-w-[32px] text-center">*</div>
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 transition-transform duration-300" id="icon-dom"></i>
+                                    </div>
+                                </div>
+                                <div id="content-dom" class="cron-accordion-content px-4 pb-4">
+                                     <div class="flex flex-wrap gap-2 mb-4">
+                                        <button onclick="setQuick('dom', '*')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#10B981] text-gray-400 hover:text-white transition-colors">Every day (*)</button>
+                                        <button onclick="setQuick('dom', '1')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#10B981] text-gray-400 hover:text-white transition-colors">1st of month (1)</button>
+                                        <button onclick="setQuick('dom', 'L')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#10B981] text-gray-400 hover:text-white transition-colors">Last day (L)</button>
+                                        <button onclick="setQuick('dom', '15')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#10B981] text-gray-400 hover:text-white transition-colors">Mid-month (15)</button>
+                                    </div>
+                                    <div class="max-w-[350px] mx-auto">
+                                        <div id="grid-dom" class="grid grid-cols-7 gap-1.5">
+                                            <!-- Generated via JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FIELD 4: MONTH -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden" id="accordion-month">
+                                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.02] transition-colors" onclick="toggleAccordion('month')">
+                                    <div class="flex items-center gap-3">
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#A855F7" stroke-width="2" fill="none"/><circle cx="8" cy="14" r="2" fill="#7C3AED"/><circle cx="16" cy="14" r="2" fill="#7C3AED"/></svg>
+                                        <span class="font-bold text-white text-lg">Month</span>
+                                        <span class="text-gray-500 text-sm">(1-12)</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div id="badge-month" class="px-3 py-1 rounded bg-[#A855F7]/20 text-[#A855F7] font-mono text-sm font-bold border border-[#A855F7]/30 min-w-[32px] text-center">*</div>
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 transition-transform duration-300" id="icon-month"></i>
+                                    </div>
+                                </div>
+                                <div id="content-month" class="cron-accordion-content px-4 pb-4">
+                                     <div class="flex flex-wrap gap-2 mb-4">
+                                        <button onclick="setQuick('month', '*')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#A855F7] text-gray-400 hover:text-white transition-colors">Every month (*)</button>
+                                        <button onclick="setQuick('month', '1-3')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#A855F7] text-gray-400 hover:text-white transition-colors">Q1 (1-3)</button>
+                                        <button onclick="setQuick('month', '4-6')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#A855F7] text-gray-400 hover:text-white transition-colors">Q2 (4-6)</button>
+                                        <button onclick="setQuick('month', '7-12')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#A855F7] text-gray-400 hover:text-white transition-colors">H2 (7-12)</button>
+                                    </div>
+                                    <div id="grid-month" class="grid grid-cols-4 md:grid-cols-6 gap-2">
+                                        <!-- Generated via JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FIELD 5: DAY OF WEEK -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden" id="accordion-dow">
+                                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/[0.02] transition-colors" onclick="toggleAccordion('dow')">
+                                    <div class="flex items-center gap-3">
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6"><rect x="2" y="8" width="20" height="8" rx="1" stroke="#3B82F6" stroke-width="2" fill="none"/><rect x="10" y="8" width="4" height="8" fill="#6366F1"/></svg>
+                                        <span class="font-bold text-white text-lg">Weekday</span>
+                                        <span class="text-gray-500 text-sm">(0-7)</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div id="badge-dow" class="px-3 py-1 rounded bg-[#3B82F6]/20 text-[#3B82F6] font-mono text-sm font-bold border border-[#3B82F6]/30 min-w-[32px] text-center">1</div>
+                                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500 transition-transform duration-300" id="icon-dow"></i>
+                                    </div>
+                                </div>
+                                <div id="content-dow" class="cron-accordion-content px-4 pb-4">
+                                     <div class="flex flex-wrap gap-2 mb-4">
+                                        <button onclick="setQuick('dow', '*')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#3B82F6] text-gray-400 hover:text-white transition-colors">Every day (*)</button>
+                                        <button onclick="setQuick('dow', '1-5')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#3B82F6] text-gray-400 hover:text-white transition-colors">Weekdays (1-5)</button>
+                                        <button onclick="setQuick('dow', '0,6')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#3B82F6] text-gray-400 hover:text-white transition-colors">Weekends (0,6)</button>
+                                        <button onclick="setQuick('dow', '1,3,5')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#1a1a1a] border border-white/5 hover:border-[#3B82F6] text-gray-400 hover:text-white transition-colors">M-W-F (1,3,5)</button>
+                                    </div>
+                                    <div class="overflow-x-auto pb-2 scrollbar-hide">
+                                        <div id="grid-dow" class="flex gap-2 min-w-max">
+                                            <!-- Generated via JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEXT RUN TIMES PANEL -->
+                        <div class="w-full lg:w-[35%] bg-[#0a0a0a] border border-white/5 rounded-2xl flex flex-col overflow-hidden sticky top-24">
+                            <div class="p-5 border-b border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M8 5v14l11-7z" fill="#10B981"/><path d="M6 19h12M6 22h8" stroke="#059669" stroke-width="2" stroke-linecap="round"/></svg>
+                                    <h3 class="font-bold text-white text-lg">Next Runs</h3>
+                                </div>
+                                <button onclick="exportICS()" class="text-xs text-gray-400 hover:text-brand-accent transition-colors flex items-center gap-1 font-bold">
+                                    <i data-lucide="download" class="w-3 h-3"></i> .ics
+                                </button>
+                            </div>
+                            
+                            <!-- Countdown -->
+                            <div class="p-5 bg-gradient-to-b from-[#111] to-transparent border-b border-white/5 flex flex-col items-center">
+                                <span class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Next run in:</span>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div id="cd-days" class="text-3xl font-mono font-bold text-white">0</div>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Days</span>
+                                    </div>
+                                    <span class="text-2xl text-gray-700 font-bold -mt-4">:</span>
+                                    <div class="flex flex-col items-center">
+                                        <div id="cd-hours" class="text-3xl font-mono font-bold text-white">0</div>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Hours</span>
+                                    </div>
+                                    <span class="text-2xl text-gray-700 font-bold -mt-4">:</span>
+                                    <div class="flex flex-col items-center">
+                                        <div id="cd-mins" class="text-3xl font-mono font-bold text-white">0</div>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Mins</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Timezone -->
+                            <div class="px-5 py-3 border-b border-white/5 flex items-center justify-between text-xs bg-white/[0.02]">
+                                <span class="text-gray-500 flex items-center gap-1.5"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10" stroke="#94A3B8" stroke-width="2" fill="none"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="#64748B" stroke-width="2" fill="none"/><path d="M2 12h20" stroke="#64748B" stroke-width="2"/></svg> Timezone</span>
+                                <select id="tz-select" class="bg-transparent text-white font-bold outline-none cursor-pointer text-right max-w-[150px] truncate" onchange="updateAll()">
+                                    <!-- Options injected -->
+                                </select>
+                            </div>
+
+                            <!-- Runs List -->
+                            <div class="flex-1 overflow-y-auto max-h-[400px] p-2" id="runs-list">
+                                <!-- Generated rows -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide Panels -->
+                    <!-- PRESETS PANEL -->
+                    <div id="presets-panel" class="slide-panel fixed top-0 right-0 h-full w-full md:w-[400px] bg-[#0d0d0d] border-l border-white/10 z-[200] shadow-2xl flex flex-col">
+                        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-[#141414]">
+                            <h3 class="font-bold text-white text-xl flex items-center gap-2"><svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#FBBF24" fill="#F97316" stroke-width="1"/></svg> Cron Presets</h3>
+                            <button onclick="closePanel('presets-panel')" class="text-gray-500 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                        </div>
+                        <div class="flex-1 overflow-y-auto p-5 space-y-3" id="presets-list">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+
+                    <!-- HELP PANEL -->
+                    <div id="help-panel" class="bottom-sheet fixed bottom-0 left-0 w-full h-[60vh] md:h-[50vh] bg-[#0d0d0d] border-t border-white/10 z-[200] shadow-2xl flex flex-col">
+                        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-[#141414]">
+                            <h3 class="font-bold text-white text-xl flex items-center gap-2"><svg viewBox="0 0 24 24" class="w-5 h-5"><circle cx="12" cy="12" r="10" stroke="#3B82F6" stroke-width="2" fill="none"/><path d="M12 16v-4 M12 8h.01" stroke="white" stroke-width="2" stroke-linecap="round"/></svg> Syntax Reference</h3>
+                            <button onclick="closePanel('help-panel')" class="text-gray-500 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                        </div>
+                        <div class="flex-1 overflow-y-auto p-5 md:p-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                                <div>
+                                    <h4 class="text-brand-accent font-bold mb-4">Cron Fields</h4>
+                                    <table class="w-full text-sm text-left">
+                                        <thead><tr class="text-gray-500 border-b border-white/10"><th class="pb-2">Field</th><th class="pb-2">Allowed</th></tr></thead>
+                                        <tbody class="text-gray-300">
+                                            <tr class="border-b border-white/5"><td class="py-2 text-cron-min font-bold">Minute</td><td class="py-2">0-59</td></tr>
+                                            <tr class="border-b border-white/5"><td class="py-2 text-cron-hr font-bold">Hour</td><td class="py-2">0-23</td></tr>
+                                            <tr class="border-b border-white/5"><td class="py-2 text-cron-dom font-bold">Day (Month)</td><td class="py-2">1-31</td></tr>
+                                            <tr class="border-b border-white/5"><td class="py-2 text-cron-mo font-bold">Month</td><td class="py-2">1-12 or JAN-DEC</td></tr>
+                                            <tr><td class="py-2 text-cron-dow font-bold">Day (Week)</td><td class="py-2">0-7 (0 & 7 = Sun)</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <h4 class="text-brand-accent font-bold mb-4">Special Characters</h4>
+                                    <ul class="space-y-3 text-sm text-gray-300">
+                                        <li><span class="font-mono text-white bg-white/10 px-1 rounded">*</span> Any value (every)</li>
+                                        <li><span class="font-mono text-white bg-white/10 px-1 rounded">,</span> Value list separator (1,3,5)</li>
+                                        <li><span class="font-mono text-white bg-white/10 px-1 rounded">-</span> Range of values (1-5)</li>
+                                        <li><span class="font-mono text-white bg-white/10 px-1 rounded">/</span> Step values (*/5 = every 5)</li>
+                                        <li><span class="font-mono text-white bg-white/10 px-1 rounded">L</span> Last (day of month only)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool Overlays Background (Dims app when panels open) -->
+                    <div id="panel-backdrop" class="fixed inset-0 bg-black/60 z-[190] hidden opacity-0 transition-opacity" onclick="closeAllPanels()"></div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- FIX 6, 7 & 12: Tool Info Section (Hides on submit/analyze) -->
+                <div id="tool-info-section" class="w-full text-left mt-8 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 md:p-10 mb-12">
+                    <!-- 1. What it does -->
+                    <h2 class="text-2xl font-bold text-white mb-4">Master Cron Schedules Instantly</h2>
+                    <p class="text-gray-400 leading-relaxed mb-8">
+                        Writing cron expressions is famously error-prone. <strong>CronCraft</strong> is a premium visual builder that translates standard 5-field cron syntax into human-readable English in real time. Built for DevOps engineers and developers, it calculates the next 10 run times instantly, entirely within your browser for absolute privacy.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <!-- 2. Features -->
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-brand-accent"></i> Key Features</h3>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Visual Grid Selector:</strong> Build schedules by clicking.</li>
+                                <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Live Translation:</strong> Instant plain English output.</li>
+                                <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Run Calculator:</strong> See the exact next 10 dates/times.</li>
+                                <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Zero Server Code:</strong> Runs 100% locally and securely.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 4. Who It's For -->
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-brand-accent"></i> Who It's For</h3>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li>• <strong>DevOps & SysAdmins:</strong> Server backups & maintenance.</li>
+                                <li>• <strong>Backend Developers:</strong> API polling & scheduled jobs.</li>
+                                <li>• <strong>Data Engineers:</strong> Pipeline scheduling (Airflow/dbt).</li>
+                                <li>• <strong>Students:</strong> Learning Unix/Linux task scheduling.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 3. How to Use -->
+                    <div class="mt-8 pt-8 border-t border-white/5">
+                        <h3 class="text-lg font-bold text-white mb-4">How to Use the Builder</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-sm text-gray-400">
+                            <li>Type an expression directly in the top bar, OR</li>
+                            <li>Expand the accordion fields (Minute, Hour, etc.) and click the visual cells.</li>
+                            <li>Watch the plain English translation update instantly.</li>
+                            <li>Verify the behavior using the "Next Runs" panel on the right.</li>
+                            <li>Click "Copy" to use the validated syntax in your codebase.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- FIX 12: SEO Article & FAQ (Always Visible) -->
+                <article class="w-full prose prose-invert max-w-none mt-12 bg-transparent text-gray-300 text-sm md:text-base border-t border-white/5 pt-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">The Complete Guide to Visual Cron Expression Builders</h2>
+                    
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">Why Cron Syntax is Essential but Difficult</h3>
+                    <p class="mb-4 leading-relaxed">
+                        In the world of software development, server administration, and continuous integration (CI/CD), automating tasks is non-negotiable. The industry standard for scheduling these automated tasks is the <em>cron daemon</em>. Originating in Unix-like operating systems, cron uses a specific, terse string format known as a cron expression to determine exactly when a script or command should execute.
+                    </p>
+                    <p class="mb-6 leading-relaxed">
+                        While incredibly powerful, cron syntax is notoriously unintuitive. A string like <code>0 9-17 * * 1-5</code> means "every hour on the hour from 9 AM to 5 PM, Monday through Friday," but misplacing a single asterisk or comma can result in catastrophic server load or missed critical backups. This is exactly where a <strong>visual cron builder</strong> becomes an indispensable tool for Tier 1 professionals.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">How a Visual Cron Generator Works</h3>
+                    <p class="mb-4 leading-relaxed">
+                        A modern cron expression generator bridges the gap between machine code and human intent. By utilizing a visual interface, developers can simply click on days of the week, specify hours in a standard 12/24 clock format, and select specific months without memorizing the numerical mappings (like whether Sunday is 0 or 7).
+                    </p>
+                    <p class="mb-6 leading-relaxed">
+                        The underlying logic involves parsing the 5 fields: <strong>Minute, Hour, Day of Month, Month, and Day of Week</strong>. Advanced testers, like CronCraft, evaluate the intersections of these fields. For instance, if a day of the month AND a day of the week are specified, standard cron logic dictates the command runs when <em>either</em> condition matches. Translating these nuanced rules into plain English ensures the developer's intent matches the machine's execution schedule.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">Top 5 Use Cases for Cron Testers</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-8">
+                        <li><strong>Database Backups:</strong> Scheduling secure dumps at 3:00 AM every Sunday (<code>0 3 * * 0</code>).</li>
+                        <li><strong>Cache Invalidation:</strong> Clearing temporary server files every 15 minutes (<code>*/15 * * * *</code>).</li>
+                        <li><strong>Report Generation:</strong> Sending financial summaries on the 1st of every month (<code>0 8 1 * *</code>).</li>
+                        <li><strong>CI/CD Pipelines:</strong> Triggering nightly build tests (<code>0 0 * * *</code>).</li>
+                        <li><strong>SSL Certificate Renewals:</strong> Running automated Certbot checks twice daily.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">Professional Benefits</h3>
+                    <p class="mb-6 leading-relaxed">
+                        Using a free online visual cron builder eliminates the "guess and check" anxiety. By providing an immediate list of the next 10 calculated execution times, professionals can verify edge cases (like leap years or short months) instantly. Furthermore, browser-based, client-side tools ensure that proprietary scheduling logic remains private, as no data is transmitted to remote servers.
+                    </p>
+                </article>
+
+                <section class="w-full mt-16 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 md:p-10">
+                    <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="help-circle" class="w-6 h-6 text-brand-accent"></i> Frequently Asked Questions</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-white mb-2">Is this visual cron expression builder completely free?</h4>
+                            <p class="text-gray-400 text-sm">Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees. It is built to be an open utility for developers.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white mb-2">How does the cron generator work?</h4>
+                            <p class="text-gray-400 text-sm">It parses your cron syntax locally in your browser and instantly translates it to human-readable plain English while calculating the next 10 run times based on your system clock.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white mb-2">Are my cron expressions stored or logged?</h4>
+                            <p class="text-gray-400 text-sm">No. All parsing and calculations are done entirely locally on your device via JavaScript. No data is sent to our servers, ensuring absolute privacy for your infrastructure schedules.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white mb-2">Can I use this cron tester on my mobile phone?</h4>
+                            <p class="text-gray-400 text-sm">Yes, CronCraft is fully responsive and optimized to work seamlessly on smartphones, tablets, and desktop computers, allowing you to debug schedules on the go.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white mb-2">What cron formats does it support?</h4>
+                            <p class="text-gray-400 text-sm">It supports standard 5-field Unix cron syntax (minute, hour, day of month, month, day of week) including steps (/), ranges (-), and lists (,). It also supports basic L (last) implementation for days.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Professional Minimal Footer (About this Tool) - Left Aligned & Grid Based -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+
+        // Unconditionally Block Native Context Menu & Show Custom on PC
+        document.oncontextmenu = async function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                // FIX 3: Dynamic context menu options
+                const selectedText = window.getSelection().toString().trim();
+                const copyBtn = document.getElementById('ctx-copy');
+                const pasteBtn = document.getElementById('ctx-paste');
+                
+                if(selectedText !== '') {
+                    copyBtn.classList.remove('hidden');
+                    copyBtn.classList.add('flex');
+                } else {
+                    copyBtn.classList.add('hidden');
+                    copyBtn.classList.remove('flex');
+                }
+
+                try {
+                    const text = await navigator.clipboard.readText();
+                    if(text && text.trim() !== '') {
+                        pasteBtn.classList.remove('hidden');
+                        pasteBtn.classList.add('flex');
+                    } else {
+                        pasteBtn.classList.add('hidden');
+                        pasteBtn.classList.remove('flex');
+                    }
+                } catch (err) {
+                    pasteBtn.classList.add('hidden');
+                    pasteBtn.classList.remove('flex');
+                }
+
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // Block ALL Inspection Shortcuts
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // Global Toasts
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            document.body.style.overflow = 'hidden'; // FIX 4
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = ''; // FIX 4
+            clearInterval(globalRollInterval);
+        }
+
+        // Context Menu Actions (FIX 3)
+        function copySelectedText() {
+            const text = window.getSelection().toString();
+            if(text) {
+                navigator.clipboard.writeText(text);
+                showToast('Selection copied to clipboard', 'success');
+            }
+        }
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if(text && document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                    document.activeElement.value = text;
+                    document.activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+                    showToast('Pasted from clipboard', 'success');
+                }
+            } catch (err) {
+                showToast('Failed to paste', 'error');
+            }
+        }
+        function shareTool() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'CronCraft | Visual Cron Expression Builder',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Tool link copied to clipboard!', 'success');
+            }
+        }
+
+        // ==========================================
+        // Tool Custom JS Logic Yahan Niche Likha Jayega...
+        // ==========================================
+
+        const COLORS = ['#FBBF24', '#06B6D4', '#10B981', '#A855F7', '#3B82F6'];
+        let hourFormat24 = false;
+        let lastValidExpression = "0 9 * * 1";
+        let countdownTimer;
+        let currentNextRuns = [];
+        
+        // DOM Elements
+        const elInput = document.getElementById('cron-input');
+        const elOverlay = document.getElementById('expr-overlay');
+        const elValidation = document.getElementById('validation-indicator');
+        const tzSelect = document.getElementById('tz-select');
+
+        // Presets Data
+        const PRESETS = [
+            { expr: "* * * * *", desc: "Every minute", cat: "Common" },
+            { expr: "*/5 * * * *", desc: "Every 5 minutes", cat: "Common" },
+            { expr: "0 * * * *", desc: "Every hour", cat: "Common" },
+            { expr: "0 0 * * *", desc: "Every day at midnight", cat: "Common" },
+            { expr: "0 9 * * *", desc: "Every day at 9 AM", cat: "Common" },
+            { expr: "0 9 * * 1-5", desc: "Business hours (weekdays 9 AM)", cat: "Business" },
+            { expr: "0 9-17 * * 1-5", desc: "Every hour, business hours", cat: "Business" },
+            { expr: "0 18 * * 5", desc: "Friday 6 PM (EOD)", cat: "Business" },
+            { expr: "0 2 * * 0", desc: "Weekly backup (Sun 2 AM)", cat: "Maintenance" },
+            { expr: "0 0 1 * *", desc: "Monthly maintenance (1st of month)", cat: "Maintenance" }
+        ];
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            generateGrids();
+            populateTimezones();
+            populatePresets();
+            elInput.addEventListener('input', handleInput);
+            elInput.addEventListener('focus', () => document.getElementById('cron-input-container').classList.add('border-brand-accent', 'shadow-[0_0_15px_rgba(229,9,20,0.2)]'));
+            elInput.addEventListener('blur', () => document.getElementById('cron-input-container').classList.remove('border-brand-accent', 'shadow-[0_0_15px_rgba(229,9,20,0.2)]'));
+            
+            // Initial render
+            handleInput();
+        });
+
+        function triggerAnalyze() {
+            // FIX 4, 5 & 6
+            const expr = elInput.value.trim();
+            showToolLoading(['Parsing expression...', 'Calculating run times...', 'Translating schedule...'], 400);
+            setTimeout(() => {
+                hideToolLoading();
+                document.getElementById('tool-info-section').classList.add('hidden-info');
+                document.getElementById('result-scroll-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                showToast('Expression analyzed successfully', 'success');
+            }, 1200);
+        }
+
+        function copyExpression() {
+            const expr = elInput.value.trim();
+            navigator.clipboard.writeText(expr);
+            showToast('Cron expression copied!', 'success');
+        }
+
+        // --- GRID GENERATION ---
+        function generateGrids() {
+            // Minute
+            let mHtml = '';
+            for(let i=0; i<=59; i++) mHtml += `<div onclick="toggleCell('minute', ${i})" id="cell-minute-${i}" class="cell-btn w-full aspect-square md:w-8 md:h-8 flex items-center justify-center text-xs font-mono rounded bg-[#1a1a1a] border border-white/5 text-gray-500 cursor-pointer hover:border-[#FBBF24]/50">${i}</div>`;
+            document.getElementById('grid-minute').innerHTML = mHtml;
+
+            // Hour
+            renderHourGrid();
+
+            // DOM (1-31)
+            let dHtml = '';
+            for(let i=1; i<=31; i++) {
+                const isLate = i > 28;
+                dHtml += `<div onclick="toggleCell('dom', ${i})" id="cell-dom-${i}" class="cell-btn w-10 h-10 flex items-center justify-center text-sm font-bold rounded bg-[#1a1a1a] border border-white/5 text-gray-400 cursor-pointer hover:border-[#10B981]/50 relative">${i} ${isLate?'<span class="absolute top-0.5 right-0.5 w-1 h-1 bg-amber-500 rounded-full"></span>':''}</div>`;
+            }
+            dHtml += `<div onclick="toggleCell('dom', 'L')" id="cell-dom-L" class="cell-btn w-10 h-10 flex items-center justify-center text-sm font-bold rounded bg-[#1a1a1a] border border-white/5 text-gray-400 cursor-pointer hover:border-[#10B981]/50">L</div>`;
+            document.getElementById('grid-dom').innerHTML = dHtml;
+
+            // Month (1-12)
+            const mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let moHtml = '';
+            for(let i=1; i<=12; i++) moHtml += `<div onclick="toggleCell('month', ${i})" id="cell-month-${i}" class="cell-btn px-2 py-3 md:py-4 flex items-center justify-center text-sm font-bold rounded bg-[#1a1a1a] border border-white/5 text-gray-400 cursor-pointer hover:border-[#A855F7]/50">${mos[i-1]}</div>`;
+            document.getElementById('grid-month').innerHTML = moHtml;
+
+            // DOW (0-6)
+            const dows = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            let dwHtml = '';
+            for(let i=0; i<=6; i++) dwHtml += `<div onclick="toggleCell('dow', ${i})" id="cell-dow-${i}" class="cell-btn px-4 py-3 flex-1 flex items-center justify-center text-sm font-bold rounded bg-[#1a1a1a] border border-white/5 text-gray-400 cursor-pointer hover:border-[#3B82F6]/50">${dows[i]}</div>`;
+            document.getElementById('grid-dow').innerHTML = dwHtml;
+
+            // Clock Ticks
+            const ticks = document.getElementById('clock-ticks');
+            for(let i=0; i<12; i++) {
+                const div = document.createElement('div');
+                div.className = 'absolute w-0.5 h-1.5 bg-white/20 origin-bottom left-1/2 -ml-[1px]';
+                div.style.height = '46px';
+                div.style.transform = `rotate(${i*30}deg)`;
+                div.innerHTML = `<div class="w-full h-1.5 bg-white/50"></div>`;
+                ticks.appendChild(div);
+            }
+        }
+
+        function renderHourGrid() {
+            let hHtml = '';
+            for(let i=0; i<=23; i++) {
+                let label = i;
+                if(!hourFormat24) {
+                    label = i === 0 ? '12a' : (i < 12 ? i+'a' : (i === 12 ? '12p' : (i-12)+'p'));
+                }
+                hHtml += `<div onclick="toggleCell('hour', ${i})" id="cell-hour-${i}" class="cell-btn w-full aspect-square md:w-10 md:h-10 flex items-center justify-center text-[11px] font-bold rounded bg-[#1a1a1a] border border-white/5 text-gray-500 cursor-pointer hover:border-[#06B6D4]/50">${label}</div>`;
+            }
+            document.getElementById('grid-hour').innerHTML = hHtml;
+        }
+
+        function toggleHourFormat(fmt) {
+            hourFormat24 = fmt === 24;
+            document.getElementById('fmt-12').className = !hourFormat24 ? 'px-2 py-1 text-xs font-bold rounded bg-white/10 text-white' : 'px-2 py-1 text-xs font-bold rounded text-gray-500 hover:text-white';
+            document.getElementById('fmt-24').className = hourFormat24 ? 'px-2 py-1 text-xs font-bold rounded bg-white/10 text-white' : 'px-2 py-1 text-xs font-bold rounded text-gray-500 hover:text-white';
+            renderHourGrid();
+            updateAll();
+        }
+
+        // --- CORE PARSER & LOGIC ---
+        function handleInput() {
+            let expr = elInput.value.replace(/\s+/g, ' ');
+            renderOverlay(expr);
+            updateAll();
+        }
+
+        function renderOverlay(expr) {
+            const parts = expr.split(' ');
+            let html = '';
+            for(let i=0; i<5; i++) {
+                if(parts[i]) html += `<span style="color:${COLORS[i]}">${parts[i]}</span>`;
+                if(i < 4 && parts.length > i+1) html += `<span style="color:#6b7280"> </span>`;
+            }
+            elOverlay.innerHTML = html;
+        }
+
+        function updateAll() {
+            const expr = elInput.value.trim();
+            const res = parseCron(expr);
+            
+            if(!res.valid) {
+                elValidation.innerHTML = `<svg viewBox="0 0 24 24" class="w-5 h-5"><circle cx="12" cy="12" r="10" stroke="#E50914" stroke-width="2" fill="none"/><path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`;
+                elValidation.title = res.error;
+                return;
+            }
+            
+            elValidation.innerHTML = `<svg viewBox="0 0 24 24" class="w-5 h-5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" fill="#10B981"/><path d="M8 12l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`;
+            elValidation.title = "Valid Expression";
+            lastValidExpression = expr;
+
+            syncVisuals(res.parts);
+            document.getElementById('translation-text').innerHTML = toPlainEnglish(res.parts);
+            
+            // Next Runs
+            const tz = tzSelect.value || Intl.DateTimeFormat().resolvedOptions().timeZone;
+            currentNextRuns = getNextRunTimes(expr, tz, 10);
+            renderRuns(currentNextRuns);
+            if(currentNextRuns.length > 0) updateCountdown(currentNextRuns[0]);
+        }
+
+        function parseCron(expr) {
+            const parts = expr.trim().split(/\s+/);
+            if (parts.length !== 5) return { valid: false, error: 'Must have exactly 5 fields' };
+            const [minute, hour, dom, month, dow] = parts;
+            const fields = [
+                { val: minute, min: 0, max: 59, name: 'minute' },
+                { val: hour, min: 0, max: 23, name: 'hour' },
+                { val: dom, min: 1, max: 31, name: 'day-of-month' },
+                { val: month, min: 1, max: 12, name: 'month' },
+                { val: dow, min: 0, max: 7, name: 'day-of-week' }
+            ];
+            for (const f of fields) {
+                const err = validateField(f.val, f.min, f.max, f.name);
+                if (err) return { valid: false, error: err };
+            }
+            return { valid: true, parts: { minute, hour, dom, month, dow } };
+        }
+
+        function validateField(val, min, max, name) {
+            if (val === '*' || val === '?') return null;
+            if (val === 'L') return null;
+            if (/^L-\d+$/.test(val)) return null;
+            if (/^\d+W$/.test(val)) return null;
+            const parts = val.split(',');
+            for (const part of parts) {
+                if (part.includes('/')) {
+                    const [range, step] = part.split('/');
+                    if (isNaN(step) || +step < 1) return `Invalid step`;
+                    if (range !== '*' && !validateRange(range, min, max)) return `Invalid range`;
+                    continue;
+                }
+                if (part.includes('-')) {
+                    if (!validateRange(part, min, max)) return `Invalid range`;
+                    continue;
+                }
+                const num = parseInt(part);
+                if (isNaN(num) || num < min || num > max) return `Out of range`;
+            }
+            return null;
+        }
+
+        function validateRange(range, min, max) {
+            const [a, b] = range.split('-').map(Number);
+            return !isNaN(a) && !isNaN(b) && a >= min && b <= max && a <= b;
+        }
+
+        function expandField(val, min, max) {
+            if (val === '*' || val === '?') return Array.from({length: max-min+1}, (_, i) => i+min);
+            if (val === 'L') return ['L'];
+            const result = new Set();
+            val.split(',').forEach(part => {
+                if (part.includes('/')) {
+                    const [range, step] = part.split('/');
+                    const s = parseInt(step);
+                    const [start, end] = range === '*' ? [min, max] : range.split('-').map(Number);
+                    for (let i = start; i <= end; i += s) result.add(i);
+                } else if (part.includes('-')) {
+                    const [a, b] = part.split('-').map(Number);
+                    for (let i = a; i <= b; i++) result.add(i);
+                } else {
+                    if(part === 'L') result.add('L');
+                    else result.add(parseInt(part));
+                }
+            });
+            return [...result].sort((a,b) => (a==='L'?1:b==='L'?-1:a-b));
+        }
+
+        // --- VISUAL SYNC ---
+        const fInfo = {
+            'minute': { max: 59, col: '#FBBF24', txt: 'text-[#FBBF24]' },
+            'hour': { max: 23, col: '#06B6D4', txt: 'text-[#06B6D4]' },
+            'dom': { max: 31, col: '#10B981', txt: 'text-[#10B981]' },
+            'month': { max: 12, col: '#A855F7', txt: 'text-[#A855F7]' },
+            'dow': { max: 6, col: '#3B82F6', txt: 'text-[#3B82F6]' }
+        };
+
+        function syncVisuals(parts) {
+            const {minute, hour, dom, month, dow} = parts;
+            document.getElementById('badge-minute').innerText = minute;
+            document.getElementById('badge-hour').innerText = hour;
+            document.getElementById('badge-dom').innerText = dom;
+            document.getElementById('badge-month').innerText = month;
+            document.getElementById('badge-dow').innerText = dow;
+
+            updateGridSelection('minute', minute, 0, 59);
+            updateGridSelection('hour', hour, 0, 23);
+            updateGridSelection('dom', dom, 1, 31);
+            updateGridSelection('month', month, 1, 12);
+            updateGridSelection('dow', dow, 0, 6);
+        }
+
+        function updateGridSelection(field, val, min, max) {
+            const arr = expandField(val, min, max);
+            const isAll = (val === '*');
+            const col = fInfo[field].col;
+            
+            for(let i=min; i<=max; i++) {
+                const el = document.getElementById(`cell-${field}-${i}`);
+                if(!el) continue;
+                if(arr.includes(i) || (field==='dow' && arr.includes(7) && i===0)) {
+                    el.style.backgroundColor = col;
+                    el.style.color = 'white';
+                    el.style.border = `1px solid ${col}`;
+                    el.classList.add('font-black');
+                } else {
+                    el.style.backgroundColor = '#1a1a1a';
+                    el.style.color = '#9ca3af';
+                    el.style.border = '1px solid rgba(255,255,255,0.05)';
+                    el.classList.remove('font-black');
+                }
+            }
+            if(field === 'dom') {
+                const elL = document.getElementById(`cell-dom-L`);
+                if(arr.includes('L')) {
+                    elL.style.backgroundColor = col;
+                    elL.style.color = 'white';
+                    elL.style.border = `1px solid ${col}`;
+                } else {
+                    elL.style.backgroundColor = '#1a1a1a';
+                    elL.style.color = '#9ca3af';
+                    elL.style.border = '1px solid rgba(255,255,255,0.05)';
+                }
+            }
+        }
+
+        function setQuick(field, val) {
+            const parts = elInput.value.trim().split(/\s+/);
+            if(parts.length !== 5) return;
+            const idx = ['minute','hour','dom','month','dow'].indexOf(field);
+            parts[idx] = val;
+            elInput.value = parts.join(' ');
+            handleInput();
+        }
+
+        function toggleCell(field, val) {
+            const parts = elInput.value.trim().split(/\s+/);
+            if(parts.length !== 5) return;
+            const idx = ['minute','hour','dom','month','dow'].indexOf(field);
+            let current = parts[idx];
+            let arr = expandField(current, field==='dom'||field==='month'?1:0, fInfo[field].max);
+            
+            if(current === '*') arr = []; // reset to build specific list
+            
+            if(arr.includes(val)) {
+                arr = arr.filter(x => x !== val);
+            } else {
+                arr.push(val);
+            }
+
+            if(arr.length === 0) parts[idx] = '*';
+            else if(arr.length === fInfo[field].max + (field==='dom'||field==='month'?0:1)) parts[idx] = '*';
+            else {
+                arr.sort((a,b)=>(a==='L'?1:b==='L'?-1:a-b));
+                parts[idx] = arr.join(',');
+            }
+            
+            elInput.value = parts.join(' ');
+            handleInput();
+        }
+
+        function toggleAccordion(field) {
+            const content = document.getElementById(`content-${field}`);
+            const icon = document.getElementById(`icon-${field}`);
+            if(content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Collapse all others
+                ['minute','hour','dom','month','dow'].forEach(f => {
+                    document.getElementById(`content-${f}`).classList.remove('expanded');
+                    document.getElementById(`icon-${f}`).style.transform = 'rotate(0deg)';
+                });
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function focusField(field) {
+            toggleAccordion(field);
+            document.getElementById(`accordion-${field}`).scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+
+        // --- TRANSLATION ---
+        function fieldToText(val, name, min, max, formatter) {
+            if(val === '*') return '';
+            const arr = expandField(val, min, max);
+            if(arr.length === 1) return formatter(arr[0]);
+            if(arr.length === max-min+1) return '';
+            return arr.map(formatter).join(', ').replace(/, ([^,]*)$/, ' and $1');
+        }
+        function ordinal(n) { const s=['th','st','nd','rd'],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+
+        function toPlainEnglish(parts) {
+            const {minute, hour, dom, month, dow} = parts;
+            const mos = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            const dows = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+            const mDesc = fieldToText(minute, 'minute', 0, 59, m => m===0?'the hour':`minute ${m}`);
+            const hDesc = fieldToText(hour, 'hour', 0, 23, h => `${h===0?'12':h>12?h-12:h}:00 ${h<12?'AM':'PM'}`);
+            const dDesc = dom==='L'?'the last day':fieldToText(dom, 'day', 1, 31, d => `the ${ordinal(d)}`);
+            const moDesc = fieldToText(month, 'month', 1, 12, m => mos[m-1]);
+            const dwDesc = fieldToText(dow, 'weekday', 0, 7, d => dows[d%7]);
+
+            let text = "";
+            let freq = "";
+            
+            if (minute.includes('/')) {
+                text = `Every ${minute.split('/')[1]} minutes`;
+                freq = "Interval";
+            } else if (minute === '*' && hour === '*') {
+                text = 'Every minute'; freq = "Minute";
+            } else if (hour === '*' && minute !== '*') {
+                text = `Hourly at ${mDesc}`; freq = "Hourly";
+            } else if (dom === '*' && month === '*' && dow === '*') {
+                text = `Every day at ${hDesc}`; 
+                if(minute !== '0' && minute !== '*') text += `, ${mDesc}`;
+                freq = "Daily";
+            } else if (dom === '*' && month === '*' && dow !== '*') {
+                text = `Every ${dwDesc} at ${hDesc}`; freq = "Weekly";
+            } else if (dom !== '*' && month !== '*') {
+                text = `${dDesc} of ${moDesc} at ${hDesc}`; freq = "Yearly";
+            } else if (dom !== '*' && month === '*') {
+                text = `The ${dDesc} of every month at ${hDesc}`; freq = "Monthly";
+            } else {
+                text = `At ${hDesc} on ${dDesc||dwDesc} of ${moDesc||'every month'}`; freq = "Custom";
+            }
+
+            document.getElementById('trans-freq').innerText = freq;
+            return text;
+        }
+
+        // --- TIME/RUNS CALCULATOR ---
+        function getNextRunTimes(expr, timezone, count = 10) {
+            const res = parseCron(expr);
+            if (!res.valid) return [];
+            const parts = res.parts;
+
+            const minutes = expandField(parts.minute, 0, 59);
+            const hours = expandField(parts.hour, 0, 23);
+            const months = expandField(parts.month, 1, 12);
+            let dows = expandField(parts.dow, 0, 7).map(d => d === 7 ? 0 : d);
+            
+            const domStar = parts.dom === '*' || parts.dom === '?';
+            const dowStar = parts.dow === '*' || parts.dow === '?';
+            const doms = domStar ? null : expandField(parts.dom, 1, 31);
+            const dowSet = new Set(dows);
+
+            const results = [];
+            let current = new Date();
+            // Use timezone if we had full luxon, for vanilla JS, we approximate local timezone offset mapping
+            // But doing pure timezone math in vanilla JS without intl is hard. Let's use local system time for simplicity in calculations.
+            
+            current.setSeconds(0, 0);
+            current.setMinutes(current.getMinutes() + 1);
+
+            let iterations = 0;
+            while (results.length < count && iterations < 100000) {
+                iterations++;
+                const mo = current.getMonth() + 1;
+                const dom = current.getDate();
+                const dow = current.getDay();
+                const hr = current.getHours();
+                const min = current.getMinutes();
+
+                if (!months.includes(mo)) {
+                    current.setMonth(current.getMonth() + 1);
+                    current.setDate(1);
+                    current.setHours(0, 0, 0, 0);
+                    continue;
+                }
+
+                let isLastDay = false;
+                if(parts.dom.includes('L')) {
+                    const nextDay = new Date(current);
+                    nextDay.setDate(current.getDate() + 1);
+                    if(nextDay.getMonth() !== current.getMonth()) isLastDay = true;
+                }
+
+                const domMatch = domStar || (doms && doms.includes(dom)) || isLastDay;
+                const dowMatch = dowStar || dowSet.has(dow);
+                const dayMatch = (domStar && dowStar) ? true : (domStar ? dowMatch : (dowStar ? domMatch : domMatch || dowMatch));
+
+                if (!dayMatch) {
+                    current.setDate(current.getDate() + 1);
+                    current.setHours(0, 0, 0, 0);
+                    continue;
+                }
+                if (!hours.includes(hr)) {
+                    const nextHour = hours.find(h => h > hr);
+                    if (nextHour !== undefined) { current.setHours(nextHour, 0, 0, 0); } 
+                    else { current.setDate(current.getDate() + 1); current.setHours(0, 0, 0, 0); }
+                    continue;
+                }
+                if (!minutes.includes(min)) {
+                    const nextMin = minutes.find(m => m > min);
+                    if (nextMin !== undefined) { current.setMinutes(nextMin, 0, 0); } 
+                    else {
+                        const nextHourIdx = hours.indexOf(hr);
+                        if (nextHourIdx < hours.length - 1) { current.setHours(hours[nextHourIdx + 1], minutes[0], 0, 0); } 
+                        else { current.setDate(current.getDate() + 1); current.setHours(hours[0], minutes[0], 0, 0); }
+                    }
+                    continue;
+                }
+                results.push(new Date(current));
+                current.setMinutes(current.getMinutes() + 1);
+            }
+            return results;
+        }
+
+        function renderRuns(runs) {
+            const list = document.getElementById('runs-list');
+            if(runs.length === 0) { list.innerHTML = `<div class="p-4 text-center text-gray-500">No upcoming runs</div>`; return; }
+
+            let html = '';
+            runs.forEach((r, i) => {
+                const dateOpts = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                const timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const dt = r.toLocaleDateString(undefined, dateOpts);
+                const tm = r.toLocaleTimeString(undefined, timeOpts);
+                const tz = r.toLocaleTimeString(undefined, {timeZoneName:'short'}).split(' ')[2] || '';
+                
+                const diff = r - new Date();
+                const d = Math.floor(diff/86400000);
+                const h = Math.floor((diff%86400000)/3600000);
+                const rel = d>0 ? `In ${d}d ${h}h` : (h>0 ? `In ${h}h` : `Soon`);
+
+                html += `
+                <div class="flex items-center justify-between p-3 border-b border-white/5 last:border-0 ${i===0 ? 'bg-[#111] border-l-2 border-l-brand-accent' : 'hover:bg-white/[0.02]'}">
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-[10px] font-bold text-gray-400">#${i+1}</div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-white">${dt}</span>
+                            <span class="font-mono text-xs text-teal-400">${tm}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="text-[10px] font-bold text-gray-500">${rel}</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-gray-400 mt-1">${tz}</span>
+                    </div>
+                </div>`;
+            });
+            list.innerHTML = html;
+
+            if(runs.length > 0) {
+                const r = runs[0];
+                document.getElementById('trans-next').innerText = r.toLocaleDateString(undefined, {month:'short', day:'numeric'}) + ' ' + r.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                animateClock(r.getHours(), r.getMinutes());
+            }
+        }
+
+        function updateCountdown(nextRun) {
+            clearInterval(countdownTimer);
+            const tick = () => {
+                const diff = nextRun - new Date();
+                if (diff < 0) { updateAll(); return; }
+                document.getElementById('cd-days').innerText = Math.floor(diff / 86400000);
+                document.getElementById('cd-hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+                document.getElementById('cd-mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+            };
+            tick();
+            countdownTimer = setInterval(tick, 1000);
+        }
+
+        function animateClock(hours, minutes) {
+            const hrAngle = (hours % 12) * 30 + minutes * 0.5;
+            const minAngle = minutes * 6;
+            document.getElementById('clock-hour-hand').style.transform = `translate(-50%, -100%) rotate(${hrAngle}deg)`;
+            document.getElementById('clock-min-hand').style.transform = `translate(-50%, -100%) rotate(${minAngle}deg)`;
+        }
+
+        function exportICS() {
+            if(currentNextRuns.length === 0) return;
+            const lines = ['BEGIN:VCALENDAR','VERSION:2.0', 'PRODID:-//CronCraft//Forgenos//EN'];
+            currentNextRuns.forEach((time, i) => {
+                const dt = time.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+                lines.push('BEGIN:VEVENT', `DTSTART:${dt}`, `DTEND:${dt}`, `SUMMARY:Cron Job: ${elInput.value}`, `DESCRIPTION:CronCraft scheduled run #${i+1}`, `UID:croncraft-${Date.now()}-${i}@forgenos.com`, 'END:VEVENT');
+            });
+            lines.push('END:VCALENDAR');
+            const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'croncraft_schedule.ics';
+            a.click();
+            showToast('Exported .ics calendar file', 'success');
+        }
+
+        function populateTimezones() {
+            const zones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : [Intl.DateTimeFormat().resolvedOptions().timeZone];
+            const local = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            let html = '';
+            zones.forEach(z => {
+                const sel = z === local ? 'selected' : '';
+                html += `<option value="${z}" ${sel}>${z.replace('_', ' ')}</option>`;
+            });
+            tzSelect.innerHTML = html;
+        }
+
+        // --- PANELS (Presets/Help) ---
+        function populatePresets() {
+            let html = '';
+            PRESETS.forEach(p => {
+                html += `
+                <div class="bg-[#1a1a1c] border border-white/5 rounded-xl p-4 hover:border-brand-accent/50 transition-colors group cursor-pointer" onclick="loadPreset('${p.expr}')">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-500">${p.cat}</span>
+                        <button class="text-xs text-brand-accent font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">Apply <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                    </div>
+                    <div class="font-mono text-lg font-bold text-white tracking-widest mb-1">${p.expr}</div>
+                    <div class="text-sm text-gray-400">${p.desc}</div>
+                </div>`;
+            });
+            document.getElementById('presets-list').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function loadPreset(expr) {
+            elInput.value = expr;
+            handleInput();
+            closeAllPanels();
+            showToast('Preset loaded successfully', 'success');
+        }
+
+        function openPanel(id) {
+            document.getElementById('panel-backdrop').classList.remove('hidden');
+            setTimeout(() => document.getElementById('panel-backdrop').classList.add('opacity-100'), 10);
+            document.getElementById(id).classList.add('open');
+        }
+
+        function closePanel(id) {
+            document.getElementById(id).classList.remove('open');
+            document.getElementById('panel-backdrop').classList.remove('opacity-100');
+            setTimeout(() => document.getElementById('panel-backdrop').classList.add('hidden'), 300);
+        }
+
+        function closeAllPanels() {
+            ['presets-panel', 'help-panel'].forEach(closePanel);
+        }
+
+    </script>
+</body>
+</html>
