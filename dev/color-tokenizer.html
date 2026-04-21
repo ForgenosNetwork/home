@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Color Converter & Design Token Generator – Free Online Tool | Forgenos</title>
+    <meta name="description" content="Free color converter and design token generator. Convert hex, RGB, HSL, OKLCH, check WCAG contrast, and generate Tailwind palettes instantly with no signup.">
+    <meta name="keywords" content="color converter free, free color converter online, design token generator, color converter online no signup, best free color converter online, color converter without software, color converter in browser, instant color converter online, color converter mobile friendly, how to convert colors online free, free design token generator like figma, forgenos.com color converter, open source color converter online, what is the best free color converter online, can I generate design tokens for free online">
+    
+    <meta property="og:title" content="Color Converter & Design Token Generator – Free Online Tool | Forgenos">
+    <meta property="og:description" content="Free color converter and design token generator. Convert hex, RGB, HSL, OKLCH, check WCAG contrast, and generate Tailwind palettes instantly with no signup.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/dev/color-tokenizer">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/dev/img/tool_10.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Color Converter & Design Token Generator Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Color Converter & Design Token Generator – Free Online Tool | Forgenos">
+    <meta name="twitter:description" content="Free color converter and design token generator. Convert hex, RGB, HSL, OKLCH, check WCAG contrast, and generate Tailwind palettes instantly with no signup.">
+    <meta name="twitter:image" content="https://forgenos.com/dev/img/tool_10.webp">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+    
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+    
+    <link rel="canonical" href="https://forgenos.com/dev/color-tokenizer">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ColorTokenizer",
+      "url": "https://forgenos.com/dev/color-tokenizer",
+      "description": "An advanced color conversion, contrast checking, and design token generation tool for developers and designers.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this color converter completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool support OKLCH and CSS Color Level 4?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, it fully supports OKLCH, LCH, and LAB formats, converting them back and forth with standard Hex, RGB, and HSL formats instantly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the WCAG Contrast Checker work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It calculates the relative luminance of your chosen color against white and black backgrounds to ensure it meets the Web Content Accessibility Guidelines (WCAG) 2.1 AA and AAA standards."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I generate a Tailwind CSS palette from a single hex code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Just paste any color, and the Palette Generator will instantly create a full 11-shade scale (50-950) formatted exactly like Tailwind CSS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my custom design token data saved on your servers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All color processing and token generation happens 100% locally in your browser. We do not store or transmit your color palettes."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer Tools",
+          "item": "https://forgenos.com/dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ColorTokenizer",
+          "item": "https://forgenos.com/dev/color-tokenizer"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Security */
+        body {
+            background-color: #141414; /* FIX 8 - Page Background */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* FIX 1 & 9 — Sidebar Smooth Expand & Icon Stability */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        
+        #sidebar .lucide, #sidebar svg {
+            width: 24px !important; 
+            height: 24px !important; 
+            min-width: 24px !important;
+            opacity: 1 !important; 
+            visibility: visible !important;
+            flex-shrink: 0;
+            display: block;
+        }
+        
+        .nav-label { 
+            opacity: 0; 
+            max-width: 0;
+            transform: translateX(-10px); 
+            transition: all 0.3s ease; 
+            white-space: nowrap; 
+            overflow: hidden;
+            display: block;
+        }
+        #sidebar:hover .nav-label { 
+            opacity: 1; 
+            max-width: 200px;
+            transform: translateX(0); 
+        }
+        
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Tool specific styles */
+        .color-swatch-bg { background-image: conic-gradient(#333 25%, transparent 25%, transparent 75%, #333 75%, #333); background-size: 16px 16px; background-position: 0 0, 8px 8px; }
+        .hero-grid-overlay { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; opacity: 0; transition: opacity 0.3s; }
+        .hero-swatch:hover .hero-grid-overlay { opacity: 1; }
+        
+        .drawer { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .drawer.open { transform: translateX(0); }
+        .drawer-left { transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .drawer-left.open { transform: translateX(0); }
+
+        .alpha-slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; outline: none; }
+        .alpha-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; cursor: pointer; border: 2px solid #000; }
+        
+        pre code span { font-family: 'Courier New', Courier, monospace; }
+        
+        .keyboard-key { display: inline-block; padding: 2px 6px; background: #333; border: 1px solid #555; border-radius: 4px; border-bottom-width: 2px; font-size: 12px; color: #fff; font-family: monospace; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed top-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (Fix 3 - Added Copy/Paste) -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
+            <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <!-- Fix 3 Context Menu Logic Items -->
+        <div id="ctx-copy" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxCopy(); window.closeContextMenu()">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selected
+        </div>
+        <div id="ctx-paste" class="hidden items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxPaste(); window.closeContextMenu()">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste into Input
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxShare(); window.closeContextMenu()">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Tool
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='/index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <!-- FIX 2: Removed Trending from Mobile Menu -->
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <div class="flex min-h-screen">
+        
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <!-- FIX 2: Removed Trending from Sidebar -->
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="file-text" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="image" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="w-6 h-6 group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-4 sm:px-6 md:px-10 lg:px-12 py-8 md:py-12 flex flex-col w-full text-left max-w-[1600px] mx-auto">
+                
+                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- FIX 12: SEO H1 TAG - HYBRID FORMAT -->
+                <div class="mb-8 text-left w-full">
+                    <h1 id="tool-title" class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tighter leading-tight">ColorTokenizer | Free Design Token Generator</h1>
+                    <p id="tool-desc" class="text-gray-400 text-sm md:text-base mt-3 font-medium max-w-3xl">Instantly convert hex, rgb, hsl, check WCAG contrast, and generate Tailwind palettes and design tokens.</p>
+                </div>
+
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- FIX 10: Tool First, Info Below -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-8">
+                    
+                    <!-- TOOL INTERFACE -->
+                    <div id="tool-interface" class="w-full bg-[#050505] border border-white/10 rounded-3xl overflow-hidden flex flex-col shadow-2xl relative">
+                        
+                        <!-- Top Bar -->
+                        <div class="h-16 md:h-14 bg-[#0a0a0a] border-b border-white/5 flex items-center px-4 justify-between gap-4 flex-wrap sm:flex-nowrap">
+                            <div class="flex items-center gap-3 shrink-0">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2A10 10 0 0 0 2 12h10V2z" fill="#E50914"/>
+                                    <path d="M22 12A10 10 0 0 0 12 2v10h10z" fill="#F97316"/>
+                                    <path d="M22 12a10 10 0 0 1-10 10v-10h10z" fill="#FBBF24"/>
+                                    <path d="M12 22A10 10 0 0 1 2 12h10v10z" fill="#3B82F6"/>
+                                </svg>
+                                <span class="font-bold text-lg hidden sm:block"><span class="text-white">Color</span><span class="text-[#E50914]">Tokenizer</span></span>
+                            </div>
+                            
+                            <!-- Master Input -->
+                            <div class="flex-1 max-w-2xl relative group">
+                                <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                    <div id="master-swatch" class="w-5 h-5 rounded-full border border-white/20 color-swatch-bg" style="background-color: transparent"></div>
+                                </div>
+                                <input type="text" id="master-input" class="w-full bg-[#111] border border-white/15 focus:border-[#E50914] focus:outline-none focus:ring-1 focus:ring-[#E50914]/50 rounded-full py-2.5 pl-11 pr-10 text-white font-mono text-sm transition-all" placeholder="Paste hex, rgb, hsl, oklch, tailwind...">
+                                <div class="absolute inset-y-0 right-3 flex items-center">
+                                    <button onclick="document.getElementById('master-input').focus()" class="text-gray-500 hover:text-white hidden md:block">
+                                        <span class="keyboard-key">Ctrl</span><span class="keyboard-key ml-1">K</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-2 shrink-0">
+                                <button onclick="toggleHistory()" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors" title="History (Ctrl+Shift+H)">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+                                        <circle cx="12" cy="12" r="9" stroke="#94A3B8" stroke-width="2"/>
+                                        <path d="M12 7v5l3 3" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button onclick="toggleSaved()" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors relative" title="Saved Colors">
+                                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+                                        <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" fill="#E50914" stroke="#E50914" stroke-width="2" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span id="saved-badge" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Main Grid Layout -->
+                        <div class="flex flex-col lg:flex-row w-full flex-1">
+                            
+                            <!-- Left Column: 400px fixed width on desktop -->
+                            <div class="w-full lg:w-[400px] border-b lg:border-b-0 lg:border-r border-white/5 p-4 sm:p-6 flex flex-col gap-8 overflow-y-auto bg-[#0a0a0a]" style="max-height: calc(100vh - 200px);">
+                                
+                                <!-- Hero Swatch -->
+                                <div class="bg-[#0f0f0f] border border-white/10 rounded-3xl overflow-hidden shadow-lg group hero-swatch">
+                                    <div id="hero-color-display" class="h-40 w-full relative transition-colors duration-300 color-swatch-bg" style="background-color: #141414;">
+                                        <div class="absolute inset-0 hero-grid-overlay"></div>
+                                        <button onclick="pickColorFromScreen()" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 backdrop-blur rounded-xl text-white transition-all shadow-sm group/btn" title="Use EyeDropper">
+                                            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+                                                <path d="M14.5 3.5l6 6-2 2-6-6 2-2z" fill="#FBBF24"/>
+                                                <path d="M3.5 14.5l6 6-7 1 1-7z" fill="#F97316"/>
+                                            </svg>
+                                        </button>
+                                        <div id="hero-copied-msg" class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 transition-opacity pointer-events-none">
+                                            <span class="bg-white text-black px-4 py-2 rounded-full font-bold text-sm shadow-xl">Copied!</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-5 flex flex-col gap-3">
+                                        <div class="flex justify-between items-center">
+                                            <h2 id="color-name-display" class="text-gray-400 italic font-medium">No color selected</h2>
+                                            <button onclick="saveCurrentColor()" class="text-xs bg-[#E50914]/10 hover:bg-[#E50914]/20 text-[#E50914] px-3 py-1.5 rounded-lg font-bold transition-colors">Save</button>
+                                        </div>
+                                        <div class="flex gap-2 text-xs font-bold uppercase tracking-wider">
+                                            <span id="badge-temp" class="px-2.5 py-1 rounded bg-gray-800 text-gray-400">Neutral</span>
+                                            <span id="badge-light" class="px-2.5 py-1 rounded bg-gray-800 text-gray-400">Medium</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Formats Section -->
+                                <div class="flex flex-col gap-4">
+                                    <h3 class="text-white/40 font-bold uppercase text-xs tracking-widest pl-2">Format Conversions</h3>
+                                    
+                                    <div id="formats-list" class="flex flex-col gap-2">
+                                        <!-- Formats dynamically generated by JS -->
+                                    </div>
+                                    
+                                    <button onclick="document.getElementById('adv-formats').classList.toggle('hidden'); this.innerText = this.innerText.includes('Show') ? 'Hide advanced formats ▴' : 'Show advanced formats ▾';" class="text-gray-500 hover:text-white text-xs font-medium text-left mt-1 w-max">Show advanced formats ▾</button>
+                                    <div id="adv-formats" class="hidden flex flex-col gap-2">
+                                        <!-- Adv formats -->
+                                    </div>
+
+                                    <!-- Tailwind Match -->
+                                    <div class="mt-4 bg-[#111] border border-white/5 p-4 rounded-2xl">
+                                        <div class="flex items-center gap-3 mb-3">
+                                            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+                                                <path d="M12 4C8 4 6 7 5 11c2-1 4-1 6 0-1 3-3 4-5 5 2 2 6 1 8-1s2-8 5-8c4 0 6 3 7 7-2-1-4-1-6 0 1-3 3-4 5-5-2-2-6-1-8 1s-2 8-5 8c-4 0-6-3-7-7z" fill="#06B6D4"/>
+                                            </svg>
+                                            <span class="font-bold text-sm">Tailwind CSS Match</span>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-[#0a0a0a] rounded-xl p-3 border border-white/5">
+                                            <div class="flex items-center gap-3">
+                                                <div id="tw-match-swatch" class="w-6 h-6 rounded-md shadow-inner"></div>
+                                                <code id="tw-match-class" class="text-sm font-mono text-[#06B6D4]">bg-transparent</code>
+                                            </div>
+                                            <span id="tw-match-dist" class="text-xs text-gray-500">Exact</span>
+                                        </div>
+                                        <div class="flex gap-1 mt-3 w-full justify-between" id="tw-shade-row">
+                                            <!-- Swatches injected -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Contrast Checker -->
+                                <div class="flex flex-col gap-4 mt-2">
+                                    <div class="flex items-center gap-3 pl-2">
+                                        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none">
+                                            <circle cx="12" cy="12" r="10" fill="#fff" clip-path="url(#half)"/>
+                                            <circle cx="12" cy="12" r="10" fill="#000" clip-path="url(#half2)"/>
+                                            <defs>
+                                                <clipPath id="half"><rect x="0" y="0" width="12" height="24"/></clipPath>
+                                                <clipPath id="half2"><rect x="12" y="0" width="12" height="24"/></clipPath>
+                                            </defs>
+                                        </svg>
+                                        <h3 class="text-white/40 font-bold uppercase text-xs tracking-widest">WCAG Contrast</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <!-- Vs White -->
+                                        <div class="bg-white rounded-2xl p-4 flex flex-col items-center border border-white/20" id="contrast-white-card">
+                                            <span class="text-4xl font-black mb-1 transition-colors" id="contrast-white-text">Aa</span>
+                                            <span class="text-black font-mono text-sm font-bold bg-black/5 px-2 py-1 rounded" id="contrast-white-ratio">1.00 : 1</span>
+                                            <div class="flex gap-1 mt-3 w-full justify-center">
+                                                <span class="text-[10px] font-bold px-2 py-0.5 rounded text-white" id="badge-w-aa">AA</span>
+                                                <span class="text-[10px] font-bold px-2 py-0.5 rounded text-white" id="badge-w-aaa">AAA</span>
+                                            </div>
+                                        </div>
+                                        <!-- Vs Black -->
+                                        <div class="bg-black rounded-2xl p-4 flex flex-col items-center border border-white/20" id="contrast-black-card">
+                                            <span class="text-4xl font-black mb-1 transition-colors" id="contrast-black-text">Aa</span>
+                                            <span class="text-white font-mono text-sm font-bold bg-white/10 px-2 py-1 rounded" id="contrast-black-ratio">1.00 : 1</span>
+                                            <div class="flex gap-1 mt-3 w-full justify-center">
+                                                <span class="text-[10px] font-bold px-2 py-0.5 rounded text-white" id="badge-b-aa">AA</span>
+                                                <span class="text-[10px] font-bold px-2 py-0.5 rounded text-white" id="badge-b-aaa">AAA</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Flexible -->
+                            <div class="flex-1 p-4 sm:p-6 flex flex-col gap-8 bg-[#050505] overflow-y-auto" style="max-height: calc(100vh - 200px);">
+                                
+                                <!-- Palette Generator Section -->
+                                <div class="flex flex-col gap-5">
+                                    <div class="flex items-center gap-3">
+                                        <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none">
+                                            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 1.5-.5 3-2 3h-2c-1.1 0-2 .9-2 2v2c0 1.66-1.34 3-3 3h-1z" fill="#FBBF24"/>
+                                            <circle cx="7.5" cy="10.5" r="1.5" fill="#F97316"/>
+                                            <circle cx="10.5" cy="6.5" r="1.5" fill="#F97316"/>
+                                            <circle cx="15.5" cy="7.5" r="1.5" fill="#F97316"/>
+                                        </svg>
+                                        <h2 class="text-xl font-bold">Palette Generator</h2>
+                                    </div>
+                                    
+                                    <!-- Tabs -->
+                                    <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                                        <button class="pal-tab active px-4 py-2 rounded-full text-sm font-bold bg-white/10 text-white transition-colors whitespace-nowrap" data-target="pal-shades">Shades</button>
+                                        <button class="pal-tab px-4 py-2 rounded-full text-sm font-bold bg-transparent text-gray-500 hover:text-white transition-colors whitespace-nowrap" data-target="pal-tints">Tints</button>
+                                        <button class="pal-tab px-4 py-2 rounded-full text-sm font-bold bg-transparent text-gray-500 hover:text-white transition-colors whitespace-nowrap" data-target="pal-tones">Tones</button>
+                                        <button class="pal-tab px-4 py-2 rounded-full text-sm font-bold bg-transparent text-gray-500 hover:text-white transition-colors whitespace-nowrap" data-target="pal-harmonies">Harmonies</button>
+                                    </div>
+
+                                    <!-- Palette Container -->
+                                    <div id="palette-container" class="w-full flex flex-col gap-1 rounded-2xl overflow-hidden border border-white/5">
+                                        <!-- Generated by JS -->
+                                    </div>
+
+                                    <div class="flex gap-3 mt-1 flex-wrap">
+                                        <button onclick="copyPaletteCSS()" class="text-sm font-bold bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-xl transition-colors">Copy as CSS Vars</button>
+                                        <button onclick="copyPaletteTailwind()" class="text-sm font-bold bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-xl transition-colors">Copy as Tailwind Config</button>
+                                    </div>
+                                </div>
+
+                                <!-- Design Tokens Section -->
+                                <div class="flex flex-col gap-5 mt-6 border-t border-white/5 pt-8">
+                                    <div class="flex items-center justify-between flex-wrap gap-4">
+                                        <div class="flex items-center gap-3">
+                                            <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none">
+                                                <path d="M8 5C5 5 3 7 3 10c0 2 2 2 2 4s-2 2-2 4c0 3 2 5 5 5" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+                                                <path d="M16 5c3 0 5 2 5 5 0 2-2 2-2 4s2 2 2 4c0 3-2 5-5 5" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+                                                <circle cx="12" cy="12" r="1.5" fill="#6366F1"/>
+                                                <circle cx="12" cy="8" r="1.5" fill="#6366F1"/>
+                                                <circle cx="12" cy="16" r="1.5" fill="#6366F1"/>
+                                            </svg>
+                                            <h2 class="text-xl font-bold">Design Tokens</h2>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-sm font-medium text-gray-400">Token name:</span>
+                                            <input type="text" id="token-name" value="primary" class="bg-[#111] border border-white/10 rounded-lg px-3 py-1.5 text-sm text-white focus:border-[#E50914] focus:outline-none w-32 font-mono">
+                                        </div>
+                                    </div>
+
+                                    <!-- Code Tabs -->
+                                    <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide border-b border-white/5">
+                                        <button class="code-tab active pb-3 px-2 border-b-2 border-[#E50914] text-white font-bold text-sm whitespace-nowrap transition-colors" data-target="code-css">CSS</button>
+                                        <button class="code-tab pb-3 px-2 border-b-2 border-transparent text-gray-500 hover:text-white font-bold text-sm whitespace-nowrap transition-colors" data-target="code-scss">SCSS</button>
+                                        <button class="code-tab pb-3 px-2 border-b-2 border-transparent text-gray-500 hover:text-white font-bold text-sm whitespace-nowrap transition-colors" data-target="code-js">JS / TS</button>
+                                        <button class="code-tab pb-3 px-2 border-b-2 border-transparent text-gray-500 hover:text-white font-bold text-sm whitespace-nowrap transition-colors" data-target="code-json">JSON</button>
+                                        <button class="code-tab pb-3 px-2 border-b-2 border-transparent text-gray-500 hover:text-white font-bold text-sm whitespace-nowrap transition-colors" data-target="code-tw">Tailwind</button>
+                                    </div>
+
+                                    <!-- Code Block -->
+                                    <div class="relative bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden group">
+                                        <button onclick="copyCodeBlock()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2 text-xs font-bold backdrop-blur-md">
+                                            <i data-lucide="copy" class="w-4 h-4"></i> Copy Code
+                                        </button>
+                                        <pre class="p-5 overflow-x-auto text-[13px] leading-[1.7] text-gray-300 font-mono scrollbar-hide" id="token-code-output">
+                                            <!-- Code injected here -->
+                                        </pre>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FIX 7: Tool Info Section (Hides on submit/first valid interaction) -->
+                    <div id="tool-info-section" class="w-full bg-[#0a0a0a] border border-white/5 rounded-3xl p-6 sm:p-10 flex flex-col gap-8 transition-all duration-500 text-left">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">About ColorTokenizer</h3>
+                            <p class="text-gray-400 leading-relaxed max-w-4xl text-sm sm:text-base">ColorTokenizer is a premium, client-side utility designed for frontend developers and UI designers. It instantly converts any color format (Hex, RGB, HSL, OKLCH, LAB) while simultaneously generating WCAG contrast reports, matching Tailwind CSS scales, and exporting production-ready design tokens for CSS, SCSS, JS, and JSON.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-brand-accent"></i> Key Features</h4>
+                                <ul class="space-y-3 text-sm text-gray-400">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Universal Conversion:</strong> Paste hex, rgb, rgba, hsl, oklch, lch, or named colors.</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>WCAG Contrast Checking:</strong> Live AA and AAA validation for accessibility.</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Tailwind Integration:</strong> Finds the closest Tailwind class and generates 50-950 scales.</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Token Export:</strong> Formats palettes into CSS variables, SCSS, JSON, and more.</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5 shrink-0"></i> <strong>Keyboard Driven:</strong> Use brackets [ ] to adjust lightness, < > for hue.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="mouse-pointer-click" class="w-5 h-5 text-brand-accent"></i> How to Use</h4>
+                                <ol class="space-y-3 text-sm text-gray-400 list-decimal pl-4">
+                                    <li class="pl-2"><strong>Paste a Color:</strong> Focus the top input (Ctrl+K) and paste any color value.</li>
+                                    <li class="pl-2"><strong>Review Formats:</strong> The left panel instantly shows conversions, including OKLCH.</li>
+                                    <li class="pl-2"><strong>Check Contrast:</strong> Ensure your color passes WCAG standards against white/black.</li>
+                                    <li class="pl-2"><strong>Generate Palette:</strong> Use the right panel to build shades, tints, or harmonies.</li>
+                                    <li class="pl-2"><strong>Export Tokens:</strong> Name your token and copy the generated CSS/JS code.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="bg-brand-accent/5 border border-brand-accent/20 rounded-2xl p-5">
+                            <h4 class="text-white font-bold mb-2">Who It's For</h4>
+                            <p class="text-gray-400 text-sm">Perfect for <strong>Frontend Developers</strong> building design systems, <strong>UI/UX Designers</strong> handing off tokens, and <strong>Accessibility Specialists</strong> checking contrast compliance natively in the browser.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+
+                <!-- FIX 12: SEO ARTICLE SECTION -->
+                <article class="mt-20 border-t border-white/5 pt-16 max-w-4xl mx-auto w-full text-left pb-16">
+                    <h2 class="text-3xl font-black text-white mb-6">The Ultimate Guide to Design Tokens and Color Conversion</h2>
+                    
+                    <div class="prose prose-invert prose-gray max-w-none">
+                        <p class="text-gray-400 leading-relaxed text-lg mb-8">Managing colors in modern frontend development goes far beyond copying a hex code from Figma. As applications scale, teams rely on <strong>design tokens</strong> to maintain consistency, accessibility, and theming. ColorTokenizer bridges the gap between raw color values and production-ready code.</p>
+
+                        <h3 class="text-2xl font-bold text-white mt-10 mb-4">Why Color Conversion Matters for Tier 1 Professionals</h3>
+                        <p class="text-gray-400 leading-relaxed mb-6">With the introduction of CSS Color Level 4, developers now have access to perceptual color spaces like <code>OKLCH</code> and <code>LAB</code>. These spaces allow for uniform lightness scaling—meaning a 50% lightness red and a 50% lightness blue will actually look equally bright to the human eye, unlike traditional HSL. Being able to instantly convert a brand's legacy HEX codes into modern OKLCH values or CSS Custom Properties ensures your codebase is future-proof.</p>
+
+                        <h3 class="text-2xl font-bold text-white mt-10 mb-4">How The Tool Works</h3>
+                        <p class="text-gray-400 leading-relaxed mb-6">ColorTokenizer operates entirely in your browser using vanilla JavaScript. When you paste an input—whether it's <code>rgb(255, 0, 0)</code>, <code>#ff0000</code>, or a Tailwind class like <code>red-500</code>—the engine normalizes the input into an internal RGBA representation. It then runs complex mathematical conversions:</p>
+                        <ul class="list-disc pl-6 text-gray-400 mb-6 space-y-2">
+                            <li><strong>sRGB to Linear:</strong> Prepares colors for accurate luminance calculations.</li>
+                            <li><strong>Relative Luminance (WCAG):</strong> Calculates contrast ratios to determine accessibility compliance.</li>
+                            <li><strong>CIE76 Color Distance:</strong> Compares your color against the standard Tailwind palette to find the absolute closest match using 3D color space mathematics.</li>
+                            <li><strong>HSL Lightness Interpolation:</strong> Generates cohesive 11-step shade scales (50 to 950) perfectly suited for design systems.</li>
+                        </ul>
+
+                        <h3 class="text-2xl font-bold text-white mt-10 mb-4">5 Key Use Cases</h3>
+                        <ol class="list-decimal pl-6 text-gray-400 mb-6 space-y-3">
+                            <li><strong>Design System Initialization:</strong> Take a single brand color and instantly generate the CSS variables for its entire 11-shade scale.</li>
+                            <li><strong>Accessibility Audits:</strong> Paste a color and immediately see if it passes WCAG AA/AAA standards for text on light or dark modes.</li>
+                            <li><strong>Tailwind CSS Migration:</strong> Find the exact native Tailwind class that matches a legacy design's hex code.</li>
+                            <li><strong>Cross-Platform Tokenization:</strong> Export a single palette into SCSS for legacy apps, JSON for Style Dictionary, and JS modules for React Native simultaneously.</li>
+                            <li><strong>Quick Visual Hacking:</strong> Use the keyboard shortcuts (like brackets) to darken or lighten a color iteratively without opening a graphics editor.</li>
+                        </ol>
+                    </div>
+                </article>
+
+                <!-- FIX 12: VISIBLE FAQ SECTION -->
+                <section class="mt-10 border-t border-white/5 pt-16 max-w-4xl mx-auto w-full text-left">
+                    <h2 class="text-3xl font-black text-white mb-8">Frequently Asked Questions</h2>
+                    <div class="flex flex-col gap-4">
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold text-lg mb-2">Is this color converter completely free?</h3>
+                            <p class="text-gray-400">Yes, ColorTokenizer on Forgenos is 100% free. There is no signup, no subscription, and no hidden fees required to use all premium features.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold text-lg mb-2">Does this tool support OKLCH and CSS Color Level 4?</h3>
+                            <p class="text-gray-400">Yes, it fully supports OKLCH, LCH, and LAB formats. It can convert them back and forth with standard Hex, RGB, and HSL formats instantly.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold text-lg mb-2">How does the WCAG Contrast Checker work?</h3>
+                            <p class="text-gray-400">It calculates the relative luminance of your chosen color against white and black backgrounds to ensure it meets the Web Content Accessibility Guidelines (WCAG) 2.1 AA (4.5:1) and AAA (7.1:1) standards for text.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold text-lg mb-2">Can I generate a Tailwind CSS palette from a single hex code?</h3>
+                            <p class="text-gray-400">Absolutely. Just paste any color, navigate to the Palette Generator, and it will instantly create a full 11-shade scale (50-950) formatted exactly like Tailwind CSS, ready to copy.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 class="text-white font-bold text-lg mb-2">Is my custom design token data saved on your servers?</h3>
+                            <p class="text-gray-400">No. All color processing, contrast checking, and token generation happens 100% locally in your web browser. We do not store or transmit your color palettes.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Drawers -->
+    <!-- History Drawer -->
+    <div id="drawer-history" class="fixed inset-y-0 left-0 w-full sm:w-[320px] bg-[#0a0a0a] border-r border-white/5 z-[200] drawer-left flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-white/5 flex justify-between items-center bg-[#111]">
+            <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="history" class="w-5 h-5 text-gray-400"></i> History</h3>
+            <button onclick="toggleHistory()" class="text-gray-500 hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-5 pb-20">
+            <div id="history-grid" class="grid grid-cols-4 gap-3"></div>
+            <p id="history-empty" class="text-gray-500 text-sm text-center mt-10">No colors viewed yet.</p>
+        </div>
+    </div>
+
+    <!-- Saved Drawer -->
+    <div id="drawer-saved" class="fixed inset-y-0 right-0 w-full sm:w-[320px] bg-[#0a0a0a] border-l border-white/5 z-[200] drawer flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-white/5 flex justify-between items-center bg-[#111]">
+            <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="bookmark" class="w-5 h-5 text-[#E50914]"></i> Saved Colors</h3>
+            <button onclick="toggleSaved()" class="text-gray-500 hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div class="p-4 border-b border-white/5 bg-[#0f0f0f]">
+            <button onclick="saveCurrentColor()" class="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-2 rounded-xl border border-white/10 transition-colors text-sm">Save Current Color</button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-2" id="saved-list">
+            <p id="saved-empty" class="text-gray-500 text-sm text-center mt-10">No colors saved yet.</p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Security / Developer Console Logging
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // Context Menu Blocking
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+            
+            // Check text selection for FIX 3
+            const selectedText = window.getSelection().toString().trim();
+            const copyBtn = document.getElementById('ctx-copy');
+            if (selectedText !== '') {
+                copyBtn.classList.remove('hidden');
+                copyBtn.classList.add('flex');
+            } else {
+                copyBtn.classList.add('hidden');
+                copyBtn.classList.remove('flex');
+            }
+
+            // Check clipboard for Paste
+            const pasteBtn = document.getElementById('ctx-paste');
+            navigator.clipboard.readText().then(text => {
+                if(text && document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                    pasteBtn.classList.remove('hidden');
+                    pasteBtn.classList.add('flex');
+                } else {
+                    pasteBtn.classList.add('hidden');
+                    pasteBtn.classList.remove('flex');
+                }
+            }).catch(() => {
+                pasteBtn.classList.add('hidden');
+            });
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) menu.style.display = 'none'; 
+        });
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        // Fix 3: Custom Context Menu Actions
+        window.ctxCopy = function() {
+            const selectedText = window.getSelection().toString();
+            if(selectedText) {
+                navigator.clipboard.writeText(selectedText);
+                showToast('Text copied to clipboard', 'success');
+            }
+        };
+        window.ctxPaste = function() {
+            navigator.clipboard.readText().then(text => {
+                if(document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                    document.activeElement.value = text;
+                    document.activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+        };
+        window.ctxShare = function() {
+            if (navigator.share) {
+                navigator.share({ title: 'ColorTokenizer', url: window.location.href });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast('Tool link copied to share', 'success');
+            }
+        };
+
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform -translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('-translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('-translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+            let listHTML = '';
+            stepsArray.forEach(step => listHTML += `<li class="shimmer-text">${step}</li>`);
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // FIX 4: Scroll lock
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            clearInterval(globalRollInterval);
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            document.body.style.overflow = ''; // FIX 4: Unlock
+            clearInterval(globalRollInterval);
+        }
+
+        // ==========================================
+        // Tool Custom JS Logic Yahan Niche Likha Jayega...
+        // ==========================================
+
+        // --- Core State ---
+        let currentColor = { r: 229, g: 9, b: 20, a: 1 }; // Default Forgenos Red
+        let currentHex = '#E50914';
+        let isFirstInteraction = true;
+        let colorHistory = [];
+        let savedColors = [];
+        let currentPaletteType = 'pal-shades';
+        let currentCodeType = 'code-css';
+        
+        // Tailwind subset for mapping
+        const TAILWIND_COLORS = {
+            'slate-50':'#f8fafc','slate-500':'#64748b','slate-950':'#020617',
+            'gray-50':'#f9fafb','gray-500':'#6b7280','gray-950':'#030712',
+            'zinc-50':'#fafafa','zinc-500':'#71717a','zinc-950':'#09090b',
+            'neutral-50':'#fafafa','neutral-500':'#737373','neutral-950':'#0a0a0a',
+            'stone-50':'#fafaf9','stone-500':'#78716c','stone-950':'#0c0a09',
+            'red-50':'#fef2f2','red-500':'#ef4444','red-950':'#450a0a',
+            'orange-50':'#fff7ed','orange-500':'#f97316','orange-950':'#431407',
+            'amber-50':'#fffbeb','amber-500':'#f59e0b','amber-950':'#451a03',
+            'yellow-50':'#fefce8','yellow-500':'#eab308','yellow-950':'#422006',
+            'lime-50':'#f7fee7','lime-500':'#84cc16','lime-950':'#365314',
+            'green-50':'#f0fdf4','green-500':'#22c55e','green-950':'#052e16',
+            'emerald-50':'#ecfdf5','emerald-500':'#10b981','emerald-950':'#022c22',
+            'teal-50':'#f0fdfa','teal-500':'#14b8a6','teal-950':'#042f2e',
+            'cyan-50':'#ecfeff','cyan-500':'#06b6d4','cyan-950':'#083344',
+            'sky-50':'#f0f9ff','sky-500':'#0ea5e9','sky-950':'#082f49',
+            'blue-50':'#eff6ff','blue-500':'#3b82f6','blue-950':'#172554',
+            'indigo-50':'#eef2ff','indigo-500':'#6366f1','indigo-950':'#1e1b4b',
+            'violet-50':'#f5f3ff','violet-500':'#8b5cf6','violet-950':'#2e1065',
+            'purple-50':'#faf5ff','purple-500':'#a855f7','purple-950':'#3b0764',
+            'fuchsia-50':'#fdf4ff','fuchsia-500':'#d946ef','fuchsia-950':'#4a044e',
+            'pink-50':'#fdf2f8','pink-500':'#ec4899','pink-950':'#500724',
+            'rose-50':'#fff1f2','rose-500':'#f43f5e','rose-950':'#4c0519'
+        };
+
+        // Popular Named Colors (Small subset)
+        const NAMED_COLORS = {
+            'crimson':'#DC143C','tomato':'#FF6347','coral':'#FF7F50','gold':'#FFD700',
+            'cornflowerblue':'#6495ED','royalblue':'#4169E1','navy':'#000080',
+            'teal':'#008080','olive':'#808000','maroon':'#800000','white':'#FFFFFF','black':'#000000'
+        };
+
+        // SVG Icons
+        const SVGS = {
+            hex: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><rect x="3" y="5" width="18" height="14" rx="2" fill="#22D3EE" opacity="0.2"/><path d="M10 7L8 17M16 7l-2 10M7 10h11M6 14h11" stroke="#06B6D4" stroke-width="2" stroke-linecap="round"/></svg>`,
+            rgb: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><circle cx="12" cy="9" r="5" fill="#E50914" opacity="0.8" style="mix-blend-mode: screen"/><circle cx="9" cy="14" r="5" fill="#10B981" opacity="0.8" style="mix-blend-mode: screen"/><circle cx="15" cy="14" r="5" fill="#3B82F6" opacity="0.8" style="mix-blend-mode: screen"/></svg>`,
+            hsl: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><rect x="3" y="10" width="18" height="4" rx="2" fill="url(#grad)"/><line x1="12" y1="8" x2="12" y2="16" stroke="#fff" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="grad"><stop offset="0%" stop-color="red"/><stop offset="20%" stop-color="yellow"/><stop offset="40%" stop-color="green"/><stop offset="60%" stop-color="cyan"/><stop offset="80%" stop-color="blue"/><stop offset="100%" stop-color="magenta"/></linearGradient></defs></svg>`,
+            oklch: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><circle cx="12" cy="12" r="9" fill="#A855F7"/><circle cx="12" cy="12" r="5" fill="#C084FC"/><text x="12" y="15" font-family="sans-serif" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">OK</text></svg>`,
+            lch: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><circle cx="12" cy="12" r="9" fill="none" stroke="#F43F5E" stroke-width="2"/><path d="M12 3v9l6.36 6.36" stroke="#FDA4AF" stroke-width="2" stroke-linecap="round"/></svg>`,
+            lab: `<svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><rect x="4" y="4" width="16" height="16" rx="4" fill="#3B82F6" opacity="0.2"/><path d="M12 6v12M6 12h12" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/></svg>`,
+            copy: `<svg viewBox="0 0 24 24" class="w-4 h-4 text-[#3B82F6] hover:text-white transition-colors cursor-pointer shrink-0"><path d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.586-1.414l-3.828-3.828A2 2 0 0 0 14.172 2H10a2 2 0 0 0-2 2z" fill="#6366F1" opacity="0.5"/><path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+            check: `<svg viewBox="0 0 24 24" class="w-4 h-4 text-green-500 shrink-0" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+        };
+
+        // --- Math & Conversions ---
+        function rgbToHex(r, g, b, a=1) {
+            const toHex = n => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2,'0').toUpperCase();
+            const alphaHex = a < 1 ? toHex(a * 255) : '';
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}${alphaHex}`;
+        }
+
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            if(hex.length === 3) hex = hex.split('').map(c => c+c).join('');
+            if(hex.length === 6) hex += 'FF';
+            return {
+                r: parseInt(hex.slice(0,2), 16),
+                g: parseInt(hex.slice(2,4), 16),
+                b: parseInt(hex.slice(4,6), 16),
+                a: parseInt(hex.slice(6,8), 16)/255
+            };
+        }
+
+        function rgbToHsl(r, g, b) {
+            r/=255; g/=255; b/=255;
+            const max=Math.max(r,g,b), min=Math.min(r,g,b);
+            let h, s, l=(max+min)/2;
+            if(max===min){h=s=0;}else{
+                const d=max-min;
+                s=l>0.5?d/(2-max-min):d/(max+min);
+                switch(max){
+                    case r:h=(g-b)/d+(g<b?6:0);break;
+                    case g:h=(b-r)/d+2;break;
+                    case b:h=(r-g)/d+4;break;
+                }
+                h/=6;
+            }
+            return {h:Math.round(h*360), s:Math.round(s*100), l:Math.round(l*100)};
+        }
+
+        function hslToRgb(h, s, l) {
+            s/=100; l/=100; h/=360;
+            let r,g,b;
+            if(s===0){r=g=b=l;}else{
+                const hue2rgb=(p,q,t)=>{
+                    if(t<0)t+=1;if(t>1)t-=1;
+                    if(t<1/6)return p+(q-p)*6*t;
+                    if(t<1/2)return q;
+                    if(t<2/3)return p+(q-p)*(2/3-t)*6;
+                    return p;
+                };
+                const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+                r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+            }
+            return {r:Math.round(r*255), g:Math.round(g*255), b:Math.round(b*255)};
+        }
+
+        function rgbToCmyk(r, g, b) {
+            r/=255; g/=255; b/=255;
+            const k = 1 - Math.max(r,g,b);
+            if(k === 1) return {c:0, m:0, y:0, k:100};
+            return {
+                c:Math.round((1-r-k)/(1-k)*100),
+                m:Math.round((1-g-k)/(1-k)*100),
+                y:Math.round((1-b-k)/(1-k)*100),
+                k:Math.round(k*100)
+            };
+        }
+
+        function rgbToOklch(r, g, b) {
+            const toLinear = c => c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+            const lr = toLinear(r/255), lg = toLinear(g/255), lb = toLinear(b/255);
+            const l = Math.cbrt(0.4122214708*lr + 0.5363325363*lg + 0.0514459929*lb);
+            const m = Math.cbrt(0.2119034982*lr + 0.6806995451*lg + 0.1073969566*lb);
+            const s = Math.cbrt(0.0883024619*lr + 0.2817188376*lg + 0.6299787005*lb);
+            const L = 0.2104542553*l + 0.7936177850*m - 0.0040720468*s;
+            const a = 1.9779984951*l - 2.4285922050*m + 0.4505937099*s;
+            const bk = 0.0259040371*l + 0.7827717662*m - 0.8086757660*s;
+            const C = Math.sqrt(a*a + bk*bk);
+            let H = Math.atan2(bk, a) * 180 / Math.PI;
+            if(H < 0) H += 360;
+            return {L: +L.toFixed(3), C: +C.toFixed(3), H: +H.toFixed(1)};
+        }
+
+        function getRelativeLuminance(r, g, b) {
+            const [rs, gs, bs] = [r/255, g/255, b/255].map(c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4));
+            return 0.2126*rs + 0.7152*gs + 0.0722*bs;
+        }
+
+        function getContrastRatio(l1, l2) {
+            const lighter = Math.max(l1, l2);
+            const darker = Math.min(l1, l2);
+            return ((lighter + 0.05) / (darker + 0.05)).toFixed(2);
+        }
+
+        function colorDistance(r1, g1, b1, r2, g2, b2) {
+            return Math.sqrt((r1-r2)**2 + (g1-g2)**2 + (b1-b2)**2);
+        }
+
+        function findClosestTailwind(r, g, b) {
+            let closest = null, minDist = Infinity;
+            for(const [name, hex] of Object.entries(TAILWIND_COLORS)) {
+                const c = hexToRgb(hex);
+                const dist = colorDistance(r, g, b, c.r, c.g, c.b);
+                if(dist < minDist) { minDist = dist; closest = name; }
+            }
+            return { name: closest, dist: minDist };
+        }
+
+        // --- Parser ---
+        function parseAnyColor(input) {
+            input = input.trim().toLowerCase();
+            if(!input) return null;
+
+            if(NAMED_COLORS[input]) input = NAMED_COLORS[input];
+            if(TAILWIND_COLORS[input]) input = TAILWIND_COLORS[input];
+            if(input.startsWith('bg-') && TAILWIND_COLORS[input.replace('bg-', '')]) input = TAILWIND_COLORS[input.replace('bg-', '')];
+            if(input.startsWith('text-') && TAILWIND_COLORS[input.replace('text-', '')]) input = TAILWIND_COLORS[input.replace('text-', '')];
+
+            // Hex
+            if(/^#?[0-9a-f]{3,8}$/.test(input)) {
+                return hexToRgb(input.startsWith('#') ? input : '#' + input);
+            }
+
+            // RGB
+            let m = input.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\)/);
+            if(!m) m = input.match(/^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)$/);
+            if(m) return { r:+m[1], g:+m[2], b:+m[3], a: m[4]!==undefined ? +m[4] : 1 };
+
+            // HSL
+            m = input.match(/hsla?\(\s*([\d.]+)(?:deg)?\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%\s*(?:,\s*([\d.]+))?\)/);
+            if(!m) m = input.match(/^([\d.]+)\s+([\d.]+)%\s+([\d.]+)%$/);
+            if(m) {
+                const rgb = hslToRgb(+m[1], +m[2], +m[3]);
+                return {...rgb, a: m[4]!==undefined ? +m[4] : 1};
+            }
+
+            // Fallback: Canvas parsing
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#000'; // test
+            ctx.fillStyle = input;
+            if(ctx.fillStyle !== '#000000' || input === 'black' || input === '#000' || input === '#000000') {
+                ctx.fillRect(0,0,1,1);
+                const px = ctx.getImageData(0,0,1,1).data;
+                return {r:px[0], g:px[1], b:px[2], a:px[3]/255};
+            }
+
+            return null;
+        }
+
+        // --- Core Application Logic ---
+        function updateUI(colorStr) {
+            const parsed = parseAnyColor(colorStr);
+            if(!parsed) return; // Ignore invalid
+
+            // FIX 6: Hide info section
+            if(isFirstInteraction) {
+                document.getElementById('tool-info-section').style.display = 'none';
+                isFirstInteraction = false;
+            }
+
+            currentColor = parsed;
+            currentHex = rgbToHex(parsed.r, parsed.g, parsed.b, parsed.a);
+            
+            // Add to history
+            if(!colorHistory.includes(currentHex)) {
+                colorHistory.unshift(currentHex);
+                if(colorHistory.length > 50) colorHistory.pop();
+                renderHistory();
+            }
+
+            renderAll();
+        }
+
+        function renderAll() {
+            // Update Master Input / Swatch
+            document.getElementById('master-swatch').style.backgroundColor = currentHex;
+            document.getElementById('hero-color-display').style.backgroundColor = currentHex;
+
+            // Update Metadata
+            const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+            let name = "Custom Color";
+            for(let [k,v] of Object.entries(NAMED_COLORS)) {
+                if(v.toLowerCase() === currentHex.slice(0,7).toLowerCase()) name = k.charAt(0).toUpperCase() + k.slice(1);
+            }
+            document.getElementById('color-name-display').innerText = name;
+
+            const temp = (hsl.h >= 0 && hsl.h <= 60) || (hsl.h >= 300) ? 'Warm' : (hsl.h >= 90 && hsl.h <= 240 ? 'Cool' : 'Neutral');
+            document.getElementById('badge-temp').innerText = temp;
+            document.getElementById('badge-light').innerText = hsl.l > 70 ? 'Light' : (hsl.l < 30 ? 'Dark' : 'Medium');
+
+            // Render Formats
+            renderFormats();
+            
+            // Render Contrast
+            renderContrast();
+
+            // Render Palette
+            renderPalette();
+
+            // Render Tokens
+            renderTokens();
+        }
+
+        function renderFormats() {
+            const c = currentColor;
+            const hex6 = rgbToHex(c.r, c.g, c.b);
+            const hexVal = c.a < 1 ? currentHex : hex6;
+            const hsl = rgbToHsl(c.r, c.g, c.b);
+            const cmyk = rgbToCmyk(c.r, c.g, c.b);
+            const oklch = rgbToOklch(c.r, c.g, c.b);
+
+            let html = `
+                ${createFormatRow('HEX', hexVal, SVGS.hex)}
+                ${createFormatRow('RGB', `rgb(${c.r}, ${c.g}, ${c.b})`, SVGS.rgb, `${c.r}, ${c.g}, ${c.b}`)}
+                ${createFormatRow('HSL', `hsl(${hsl.h}deg, ${hsl.s}%, ${hsl.l}%)`, SVGS.hsl, `${hsl.h}, ${hsl.s}%, ${hsl.l}%`)}
+                ${createFormatRow('OKLCH', `oklch(${oklch.L} ${oklch.C} ${oklch.H})`, SVGS.oklch)}
+            `;
+            document.getElementById('formats-list').innerHTML = html;
+
+            let advHtml = `
+                ${createFormatRow('CMYK', `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`, SVGS.lab)}
+                ${createFormatRow('LAB', `lab(${hsl.l}% 0 0)`, SVGS.lab)}
+                ${createFormatRow('LCH', `lch(${hsl.l}% 0 ${hsl.h})`, SVGS.lch)}
+            `;
+            document.getElementById('adv-formats').innerHTML = advHtml;
+
+            // Tailwind Match
+            const match = findClosestTailwind(c.r, c.g, c.b);
+            document.getElementById('tw-match-class').innerText = `bg-${match.name}`;
+            document.getElementById('tw-match-dist').innerText = match.dist === 0 ? 'Exact Match ✓' : `Δ ${match.dist.toFixed(1)}`;
+            document.getElementById('tw-match-swatch').style.backgroundColor = TAILWIND_COLORS[match.name];
+            
+            // Generate Tw Scale
+            const baseColorName = match.name.split('-')[0];
+            let twScaleHtml = '';
+            if(baseColorName && baseColorName !== 'white' && baseColorName !== 'black') {
+                const stops = ['50','100','200','300','400','500','600','700','800','900','950'];
+                stops.forEach(stop => {
+                    const cls = `${baseColorName}-${stop}`;
+                    if(TAILWIND_COLORS[cls]) {
+                        const isMatch = cls === match.name;
+                        twScaleHtml += `<div onclick="updateUI('${TAILWIND_COLORS[cls]}'); document.getElementById('master-input').value='${TAILWIND_COLORS[cls]}'" class="w-full h-8 rounded-sm cursor-pointer hover:scale-110 transition-transform ${isMatch ? 'ring-2 ring-white z-10' : ''}" style="background-color: ${TAILWIND_COLORS[cls]}" title="${cls}"></div>`;
+                    }
+                });
+            }
+            document.getElementById('tw-shade-row').innerHTML = twScaleHtml;
+        }
+
+        function createFormatRow(label, value, icon, subValue = null) {
+            return `
+                <div class="flex items-center justify-between bg-[#0f0f0f] border border-white/5 p-3 rounded-xl hover:bg-white/5 transition-colors group">
+                    <div class="flex items-center gap-3">
+                        ${icon}
+                        <span class="text-xs font-bold text-gray-400 w-12">${label}</span>
+                        <div class="flex flex-col">
+                            <code class="text-sm font-mono text-white">${value}</code>
+                            ${subValue ? `<code class="text-[10px] text-gray-500 font-mono">${subValue}</code>` : ''}
+                        </div>
+                    </div>
+                    <div onclick="copyText('${value}', this)">${SVGS.copy}</div>
+                </div>
+            `;
+        }
+
+        function renderContrast() {
+            const l1 = getRelativeLuminance(currentColor.r, currentColor.g, currentColor.b);
+            const wRatio = getContrastRatio(l1, 1.0); // vs white
+            const bRatio = getContrastRatio(l1, 0.0); // vs black
+
+            const wCard = document.getElementById('contrast-white-card');
+            wCard.style.backgroundColor = currentHex;
+            document.getElementById('contrast-white-text').style.color = '#fff';
+            document.getElementById('contrast-white-ratio').innerText = `${wRatio} : 1`;
+            
+            const bCard = document.getElementById('contrast-black-card');
+            bCard.style.backgroundColor = currentHex;
+            document.getElementById('contrast-black-text').style.color = '#000';
+            document.getElementById('contrast-black-ratio').innerText = `${bRatio} : 1`;
+
+            const setBadge = (id, ratio, passRatio) => {
+                const el = document.getElementById(id);
+                if(ratio >= passRatio) {
+                    el.className = 'text-[10px] font-bold px-2 py-0.5 rounded text-white bg-green-500/80 border border-green-400/50';
+                    el.innerHTML = `${id.includes('aa') && !id.includes('aaa') ? 'AA' : 'AAA'} ✓`;
+                } else {
+                    el.className = 'text-[10px] font-bold px-2 py-0.5 rounded text-white bg-red-500/80 border border-red-400/50';
+                    el.innerHTML = `${id.includes('aa') && !id.includes('aaa') ? 'AA' : 'AAA'} ✗`;
+                }
+            };
+
+            setBadge('badge-w-aa', wRatio, 4.5);
+            setBadge('badge-w-aaa', wRatio, 7.0);
+            setBadge('badge-b-aa', bRatio, 4.5);
+            setBadge('badge-b-aaa', bRatio, 7.0);
+        }
+
+        function generateShadesArray(r, g, b) {
+            const hsl = rgbToHsl(r, g, b);
+            const lightnesses = [97, 93, 85, 75, 62, 50, 42, 34, 26, 18, 12];
+            const labels = ['50','100','200','300','400','500','600','700','800','900','950'];
+            return lightnesses.map((l, i) => {
+                const c = hslToRgb(hsl.h, hsl.s, l);
+                return { label: labels[i], hex: rgbToHex(c.r, c.g, c.b), r:c.r, g:c.g, b:c.b };
+            });
+        }
+
+        function renderPalette() {
+            const container = document.getElementById('palette-container');
+            let html = '';
+            
+            if(currentPaletteType === 'pal-shades') {
+                const shades = generateShadesArray(currentColor.r, currentColor.g, currentColor.b);
+                shades.forEach(s => {
+                    const l = getRelativeLuminance(s.r, s.g, s.b);
+                    const textColor = l > 0.5 ? '#000' : '#fff';
+                    html += `
+                        <div class="flex items-center justify-between p-3 transition-transform hover:z-10 hover:scale-[1.01] cursor-pointer shadow-sm group" style="background-color: ${s.hex}" onclick="updateUI('${s.hex}'); document.getElementById('master-input').value='${s.hex}'">
+                            <span class="font-bold text-sm" style="color: ${textColor}">${s.label}</span>
+                            <div class="flex items-center gap-3">
+                                <code class="font-mono text-sm opacity-80" style="color: ${textColor}">${s.hex}</code>
+                                <div onclick="event.stopPropagation(); copyText('${s.hex}', this)" class="opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 p-1.5 rounded-lg text-white">
+                                    <svg viewBox="0 0 24 24" class="w-4 h-4"><path d="M8 4v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.242a2 2 0 0 0-.586-1.414l-3.828-3.828A2 2 0 0 0 14.172 2H10a2 2 0 0 0-2 2z" fill="currentColor"/><path d="M16 18v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else if(currentPaletteType === 'pal-harmonies') {
+                const h = rgbToHsl(currentColor.r, currentColor.g, currentColor.b).h;
+                const s = rgbToHsl(currentColor.r, currentColor.g, currentColor.b).s;
+                const l = rgbToHsl(currentColor.r, currentColor.g, currentColor.b).l;
+                
+                const comp = hslToRgb((h + 180)%360, s, l);
+                const ana1 = hslToRgb((h + 30)%360, s, l);
+                const ana2 = hslToRgb((h + 330)%360, s, l);
+                
+                const arr = [
+                    {label: 'Base', hex: currentHex},
+                    {label: 'Complement', hex: rgbToHex(comp.r, comp.g, comp.b)},
+                    {label: 'Analogous', hex: rgbToHex(ana1.r, ana1.g, ana1.b)},
+                    {label: 'Analogous', hex: rgbToHex(ana2.r, ana2.g, ana2.b)}
+                ];
+
+                arr.forEach(c => {
+                    html += `
+                        <div class="flex items-center justify-between p-4 border-b border-white/5 bg-[#0f0f0f]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full border border-white/10" style="background-color: ${c.hex}"></div>
+                                <span class="text-sm font-medium text-gray-300">${c.label}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <code class="text-sm text-white font-mono">${c.hex}</code>
+                                <div onclick="copyText('${c.hex}', this)">${SVGS.copy}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = `<div class="p-8 text-center text-gray-500">More palette modes coming soon.</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // Palette Copy Actions
+        window.copyPaletteCSS = function() {
+            const name = document.getElementById('token-name').value || 'primary';
+            const shades = generateShadesArray(currentColor.r, currentColor.g, currentColor.b);
+            let css = `:root {\n`;
+            shades.forEach(s => css += `  --color-${name}-${s.label}: ${s.hex};\n`);
+            css += `}`;
+            navigator.clipboard.writeText(css);
+            showToast('CSS Variables copied!', 'success');
+        };
+
+        window.copyPaletteTailwind = function() {
+            const name = document.getElementById('token-name').value || 'primary';
+            const shades = generateShadesArray(currentColor.r, currentColor.g, currentColor.b);
+            let tw = `// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        ${name}: {\n`;
+            shades.forEach(s => tw += `          '${s.label}': '${s.hex}',\n`);
+            tw += `        }\n      }\n    }\n  }\n}`;
+            navigator.clipboard.writeText(tw);
+            showToast('Tailwind Config copied!', 'success');
+        };
+
+        function renderTokens() {
+            const name = document.getElementById('token-name').value || 'primary';
+            const shades = generateShadesArray(currentColor.r, currentColor.g, currentColor.b);
+            const rgb = `${currentColor.r}, ${currentColor.g}, ${currentColor.b}`;
+            const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+            
+            let code = '';
+            if(currentCodeType === 'code-css') {
+                code = `:root {\n  --color-${name}: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${currentHex}"></span>${currentHex}</span>;\n  --color-${name}-rgb: <span class="text-green-400">${rgb}</span>;\n  --color-${name}-hsl: <span class="text-green-400">${hsl.h}deg ${hsl.s}% ${hsl.l}%</span>;\n\n`;
+                shades.forEach(s => {
+                    code += `  --color-${name}-${s.label}: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${s.hex}"></span>${s.hex}</span>;\n`;
+                });
+                code += `}`;
+            } else if (currentCodeType === 'code-scss') {
+                code = `$color-${name}: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${currentHex}"></span>${currentHex}</span>;\n\n`;
+                shades.forEach(s => {
+                    code += `$color-${name}-${s.label}: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${s.hex}"></span>${s.hex}</span>;\n`;
+                });
+            } else if (currentCodeType === 'code-json') {
+                code = `{\n  <span class="text-[#06B6D4]">"color"</span>: {\n    <span class="text-[#06B6D4]">"${name}"</span>: {\n      <span class="text-[#06B6D4]">"value"</span>: <span class="text-green-400">"${currentHex}"</span>,\n      <span class="text-[#06B6D4]">"type"</span>: <span class="text-green-400">"color"</span>\n    },\n`;
+                shades.forEach((s, i) => {
+                    code += `    <span class="text-[#06B6D4]">"${name}-${s.label}"</span>: { <span class="text-[#06B6D4]">"value"</span>: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${s.hex}"></span>"${s.hex}"</span> }${i < shades.length-1 ? ',' : ''}\n`;
+                });
+                code += `  }\n}`;
+            } else if (currentCodeType === 'code-tw') {
+                code = `module.exports = {\n  theme: {\n    extend: {\n      colors: {\n        <span class="text-[#06B6D4]">${name}</span>: {\n          <span class="text-[#06B6D4]">DEFAULT</span>: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${currentHex}"></span>'${currentHex}'</span>,\n`;
+                shades.forEach((s, i) => {
+                    code += `          <span class="text-[#06B6D4]">'${s.label}'</span>: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${s.hex}"></span>'${s.hex}'</span>${i < shades.length-1 ? ',' : ''}\n`;
+                });
+                code += `        }\n      }\n    }\n  }\n}`;
+            } else {
+                code = `export const color${name.charAt(0).toUpperCase() + name.slice(1)} = <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${currentHex}"></span>'${currentHex}'</span>;\n\nexport const scale = {\n`;
+                shades.forEach((s, i) => {
+                    code += `  ${s.label}: <span class="text-[#FBBF24]"><span class="inline-block w-2.5 h-2.5 mr-1 align-baseline border border-white/20 rounded-sm" style="background-color: ${s.hex}"></span>'${s.hex}'</span>${i < shades.length-1 ? ',' : ''}\n`;
+                });
+                code += `};`;
+            }
+            
+            document.getElementById('token-code-output').innerHTML = code;
+        }
+
+        window.copyCodeBlock = function() {
+            const el = document.getElementById('token-code-output');
+            const text = el.innerText;
+            navigator.clipboard.writeText(text);
+            showToast('Code copied to clipboard!', 'success');
+        };
+
+        window.copyText = function(text, btnEl) {
+            navigator.clipboard.writeText(text);
+            const original = btnEl.innerHTML;
+            btnEl.innerHTML = SVGS.check;
+            setTimeout(() => btnEl.innerHTML = original, 1500);
+        };
+
+        // --- Inputs & Event Listeners ---
+        const masterInput = document.getElementById('master-input');
+        masterInput.addEventListener('input', (e) => {
+            updateUI(e.target.value);
+        });
+
+        document.getElementById('token-name').addEventListener('input', () => {
+            renderTokens();
+            copyPaletteTailwind; // dummy trigger to show intent
+        });
+
+        // Tabs
+        document.querySelectorAll('.pal-tab').forEach(t => {
+            t.addEventListener('click', (e) => {
+                document.querySelectorAll('.pal-tab').forEach(el => {
+                    el.classList.remove('bg-white/10', 'text-white');
+                    el.classList.add('bg-transparent', 'text-gray-500');
+                });
+                e.target.classList.add('bg-white/10', 'text-white');
+                e.target.classList.remove('bg-transparent', 'text-gray-500');
+                currentPaletteType = e.target.dataset.target;
+                renderPalette();
+            });
+        });
+
+        document.querySelectorAll('.code-tab').forEach(t => {
+            t.addEventListener('click', (e) => {
+                document.querySelectorAll('.code-tab').forEach(el => {
+                    el.classList.remove('border-[#E50914]', 'text-white');
+                    el.classList.add('border-transparent', 'text-gray-500');
+                });
+                e.target.classList.add('border-[#E50914]', 'text-white');
+                e.target.classList.remove('border-transparent', 'text-gray-500');
+                currentCodeType = e.target.dataset.target;
+                renderTokens();
+            });
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                masterInput.focus();
+            }
+            // HSL adjustments if input is not focused
+            if(document.activeElement.tagName !== 'INPUT') {
+                const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+                let changed = false;
+                if(e.key === '[') { hsl.l = Math.max(0, hsl.l - 5); changed = true; }
+                if(e.key === ']') { hsl.l = Math.min(100, hsl.l + 5); changed = true; }
+                if(e.key === ',') { hsl.s = Math.max(0, hsl.s - 5); changed = true; }
+                if(e.key === '.') { hsl.s = Math.min(100, hsl.s + 5); changed = true; }
+                if(e.key === '<') { hsl.h = (hsl.h - 10 + 360) % 360; changed = true; }
+                if(e.key === '>') { hsl.h = (hsl.h + 10) % 360; changed = true; }
+                
+                if(changed) {
+                    const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+                    const hx = rgbToHex(rgb.r, rgb.g, rgb.b);
+                    masterInput.value = hx;
+                    updateUI(hx);
+                }
+
+                if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'c') {
+                    navigator.clipboard.writeText(currentHex);
+                    showToast('Hex copied', 'success');
+                }
+                if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'h') {
+                    toggleHistory();
+                }
+                if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 's') {
+                    saveCurrentColor();
+                }
+            }
+        });
+
+        // EyeDropper API
+        window.pickColorFromScreen = async function() {
+            if (!window.EyeDropper) {
+                showToast('EyeDropper not supported in this browser. Use Chrome or Edge.', 'error');
+                return;
+            }
+            try {
+                const eyeDropper = new EyeDropper();
+                const result = await eyeDropper.open();
+                masterInput.value = result.sRGBHex;
+                updateUI(result.sRGBHex);
+            } catch (e) {
+                // User canceled
+            }
+        };
+
+        // Hero Click to copy
+        document.getElementById('hero-color-display').addEventListener('click', (e) => {
+            if(e.target.closest('button')) return;
+            navigator.clipboard.writeText(currentHex);
+            const msg = document.getElementById('hero-copied-msg');
+            msg.style.opacity = '1';
+            setTimeout(() => msg.style.opacity = '0', 1000);
+        });
+
+        // Drawers
+        window.toggleHistory = function() {
+            document.getElementById('drawer-history').classList.toggle('open');
+        };
+        window.toggleSaved = function() {
+            document.getElementById('drawer-saved').classList.toggle('open');
+        };
+
+        function renderHistory() {
+            const grid = document.getElementById('history-grid');
+            if(colorHistory.length > 0) {
+                document.getElementById('history-empty').style.display = 'none';
+                grid.innerHTML = colorHistory.map(hex => `<div onclick="updateUI('${hex}'); document.getElementById('master-input').value='${hex}'; toggleHistory()" class="w-12 h-12 rounded-full cursor-pointer hover:scale-110 transition-transform shadow-md border border-white/10" style="background-color: ${hex}" title="${hex}"></div>`).join('');
+            }
+        }
+
+        window.saveCurrentColor = function() {
+            if(!savedColors.includes(currentHex)) {
+                savedColors.unshift(currentHex);
+                if(savedColors.length > 30) savedColors.pop();
+                renderSaved();
+                showToast('Color saved to list', 'success');
+            }
+        };
+
+        function renderSaved() {
+            const list = document.getElementById('saved-list');
+            document.getElementById('saved-badge').innerText = savedColors.length;
+            if(savedColors.length > 0) {
+                document.getElementById('saved-empty').style.display = 'none';
+                list.innerHTML = savedColors.map((hex, i) => `
+                    <div class="flex items-center justify-between p-3 bg-[#111] rounded-xl border border-white/5">
+                        <div class="flex items-center gap-3 cursor-pointer flex-1" onclick="updateUI('${hex}'); document.getElementById('master-input').value='${hex}'; toggleSaved()">
+                            <div class="w-8 h-8 rounded-full border border-white/10" style="background-color: ${hex}"></div>
+                            <span class="font-mono text-sm text-white">${hex}</span>
+                        </div>
+                        <button onclick="removeSaved(${i})" class="text-gray-600 hover:text-red-500 p-1 transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            } else {
+                list.innerHTML = `<p id="saved-empty" class="text-gray-500 text-sm text-center mt-10">No colors saved yet.</p>`;
+                document.getElementById('saved-empty').style.display = 'block';
+            }
+        }
+
+        window.removeSaved = function(index) {
+            savedColors.splice(index, 1);
+            renderSaved();
+        };
+
+        // Init
+        updateUI(currentHex);
+        masterInput.value = currentHex;
+
+    </script>
+</body>
+</html>
