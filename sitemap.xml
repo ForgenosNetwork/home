@@ -148,7 +148,24 @@
   <priority>0.8</priority>
     
 </url>
-
+   <url>
+  <loc>https://forgenos.com/braintraining/click-speed-test</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+<url>
+  <loc>https://forgenos.com/braintraining/memory-test</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+  <url>
+  <loc>https://forgenos.com/braintraining/iq-test</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
 
 
 
