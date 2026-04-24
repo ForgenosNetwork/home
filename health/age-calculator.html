@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+       <title>Age Calculator – Exact Age & Life Stats | Forgenos</title>
+    <meta name="description" content="Free online age calculator — calculate your exact age in years, months, days, and live seconds instantly. No signup required, works in your browser.">
+    <meta name="keywords" content="age calculator free, free age calculator online, age calculator tool, exact age calculator, age calculator online no signup, best free age calculator online, age calculator without software, age calculator in browser, free age calculator for students, instant age calculator online, age calculator mobile friendly, age calculator secure private, how to calculate exact age online free, best age calculator 2026, chronological age calculator, date of birth calculator, how old am i calculator, date difference calculator, days alive calculator, free age calculator like timeanddate, Forgenos age calculator, forgenos.com age calculator, open source age calculator online, what is the best free age calculator online, can I calculate my age for free online">
+    
+    <meta property="og:title" content="Age Calculator – Exact Age & Life Stats | Forgenos">
+    <meta property="og:description" content="Free online age calculator — calculate your exact age in years, months, days, and live seconds instantly. No signup required, works in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/health/age-calculator">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/health/img/tool_8.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Age Calculator Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Age Calculator – Exact Age & Life Stats | Forgenos">
+    <meta name="twitter:description" content="Free online age calculator — calculate your exact age in years, months, days, and live seconds instantly. No signup required, works in your browser.">
+    <meta name="twitter:image" content="https://forgenos.com/health/img/tool_8.webp">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+    
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+    
+    <link rel="canonical" href="https://forgenos.com/health/age-calculator">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Age Calculator & Life Stats",
+      "url": "https://forgenos.com/health/age-calculator",
+      "description": "Calculate your exact age down to the second. Find date differences, track life milestones, and discover interesting facts about your birth date.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored"
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this age calculator completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the live age ticker work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our age calculator uses your device's built-in clock and JavaScript Date APIs to continuously calculate the difference between your birthdate and the current millisecond, updating the display in real-time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my birthdate data saved or shared?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All calculations happen entirely in your browser. Your birthdate data never leaves your device and is not saved to any server, ensuring complete privacy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I calculate the days between two specific dates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Use the 'Date Difference' tab to select a Start Date and an End Date. It will instantly show you the exact number of days, weeks, months, and even business days between them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are leap years handled in the calculation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our tool uses the native JavaScript Date object, which automatically and perfectly accounts for leap years, varying month lengths, and time changes."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Health",
+          "item": "https://forgenos.com/health"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Age Calculator",
+          "item": "https://forgenos.com/health/age-calculator"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                        mono: ['"Courier New"', 'monospace'], // Added per instructions
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #141414; /* FIX 8: Match page bg to sidebar */
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        /* Enable selection ONLY on designated outputs */
+        .selectable {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Brand Logo Text Style */
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        /* FIX 1 & 9 - Sidebar Stability */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .sidebar-icon {
+            min-width: 24px; min-height: 24px;
+            width: 24px; height: 24px;
+            opacity: 1 !important; visibility: visible !important;
+            flex-shrink: 0;
+        }
+        .nav-label {
+            opacity: 0; max-width: 0; transform: translateX(-10px); 
+            transition: opacity 0.3s ease, max-width 0.3s ease, transform 0.3s ease; 
+            white-space: nowrap; overflow: hidden;
+        }
+        #sidebar:hover .nav-label { opacity: 1; max-width: 200px; transform: translateX(0); }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Tool Loading Overlay System */
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* Custom UI Enhancements for AgeForge */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Pulse Animation for Live Dot */
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 211, 238, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+        }
+        .live-dot {
+            animation: pulse-dot 2s infinite;
+        }
+
+        /* Confetti Container */
+        #confetti-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 50; overflow: hidden;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Birthday Glow */
+        .birthday-glow {
+            animation: bdayGlow 3s infinite alternate;
+        }
+        @keyframes bdayGlow {
+            0% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.1); }
+            100% { box-shadow: 0 0 40px rgba(229, 9, 20, 0.4); }
+        }
+    </style>
+</head>
+<body class="antialiased text-[#e5e5e5]">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- FIX 3: CUSTOM RIGHT CLICK CONTEXT MENU -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div id="ctx-copy" style="display:none;" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="document.execCommand('copy'); window.closeContextMenu(); showToast('Copied to clipboard', 'success');">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selection
+        </div>
+        <div id="ctx-paste" style="display:none;" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="pasteFromClipboard(); window.closeContextMenu();">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste Here
+        </div>
+        
+        <div id="ctx-divider-1" style="display:none;" class="h-[1px] bg-white/5 my-1.5"></div>
+
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="shareTool(); window.closeContextMenu()">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share AgeForge
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <!-- FIX 2: Removed Trending -->
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen relative">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <!-- FIX 2: Removed Trending -->
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="file-text" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="image" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div id="confetti-container"></div>
+
+            <div class="flex-1 px-4 sm:px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left max-w-6xl mx-auto">
+                
+                <!-- Back Button -->
+                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section (FIX 12: Hybrid H1) -->
+                <div class="mb-8 text-left w-full">
+                    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">Age Calculator | Free Exact Age & Life Stats Tool</h1>
+                    <p class="text-gray-500 text-sm md:text-lg mt-3 font-medium max-w-2xl">Calculate your exact age in years, months, days, and watch your seconds tick live. Zero data tracking.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI TOOL WORKSPACE ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-8">
+                    
+                    <!-- TAB NAVIGATION -->
+                    <div class="w-full flex flex-wrap border-b border-white/10 gap-2 sm:gap-6 mb-2">
+                        <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active h-14 flex items-center gap-2 px-2 sm:px-4 text-white font-bold border-b-2 border-brand-accent transition-all">
+                            <!-- Birthday Calendar Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" class="w-5 h-5 shrink-0">
+                                <path stroke="#E50914" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7z"/>
+                                <path stroke="#E50914" stroke-linecap="round" stroke-linejoin="round" d="M16 3v4M8 3v4"/>
+                                <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M12 11v4M10 15h4"/>
+                            </svg>
+                            <span class="text-sm sm:text-base">My Age</span>
+                        </button>
+                        
+                        <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn h-14 flex items-center gap-2 px-2 sm:px-4 text-gray-500 hover:text-gray-300 font-bold border-b-2 border-transparent transition-all">
+                            <!-- Compare Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 shrink-0">
+                                <rect x="3" y="4" width="7" height="16" rx="1" stroke="#3B82F6" stroke-width="2"/>
+                                <rect x="14" y="4" width="7" height="16" rx="1" stroke="#3B82F6" stroke-width="2"/>
+                                <path d="M11 12h2" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span class="text-sm sm:text-base hidden sm:inline">Date Difference</span>
+                            <span class="text-sm sm:text-base sm:hidden">Compare</span>
+                        </button>
+
+                        <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn h-14 flex items-center gap-2 px-2 sm:px-4 text-gray-500 hover:text-gray-300 font-bold border-b-2 border-transparent transition-all">
+                            <!-- Age Clock Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 shrink-0">
+                                <circle cx="12" cy="12" r="9" stroke="#06B6D4" stroke-width="2"/>
+                                <path d="M12 7v5l3.5 2" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span class="text-sm sm:text-base hidden sm:inline">Age on Date</span>
+                            <span class="text-sm sm:text-base sm:hidden">On Date</span>
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: MY AGE -->
+                    <div id="tab-1" class="w-full flex flex-col gap-6">
+                        
+                        <!-- Input Section -->
+                        <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col items-center">
+                            <label class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-4 w-full text-left">Your Date of Birth</label>
+                            
+                            <div class="w-full flex flex-col sm:flex-row gap-4 mb-4">
+                                <input type="date" id="t1-birthdate" class="flex-1 bg-[#050505] border border-white/15 focus:border-brand-accent outline-none text-white font-mono text-lg rounded-xl px-4 py-4 w-full transition-colors cursor-pointer" max="2099-12-31">
+                                <button onclick="calculateMyAge()" class="bg-brand-accent hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all sm:w-auto w-full flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-brand-accent/50 focus:ring-offset-2 focus:ring-offset-[#0a0a0a]">
+                                    Calculate <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="w-full text-left">
+                                <span class="text-gray-500 text-xs font-mono" id="t1-clock">Today: Loading...</span>
+                            </div>
+                        </div>
+
+                        <!-- Results Container (Hidden Default) -->
+                        <div id="t1-results" class="w-full hidden flex-col gap-6 transform opacity-0 translate-y-10 transition-all duration-700">
+                            
+                            <!-- Hero Age Card -->
+                            <div class="w-full bg-[#0d0d0d] border border-white/5 rounded-3xl p-6 sm:p-10 flex flex-col items-center shadow-xl relative overflow-hidden" id="hero-age-card">
+                                
+                                <div class="flex flex-wrap justify-center items-end gap-4 sm:gap-8 mb-6 relative z-10 w-full">
+                                    <div class="flex flex-col items-center">
+                                        <span id="hero-years" class="text-5xl sm:text-[80px] font-black font-mono text-brand-accent leading-none">0</span>
+                                        <span class="text-gray-500 text-sm font-bold uppercase tracking-widest mt-2">Years</span>
+                                    </div>
+                                    <span class="text-gray-600 font-black text-2xl pb-6 hidden sm:block">·</span>
+                                    <div class="flex flex-col items-center">
+                                        <span id="hero-months" class="text-5xl sm:text-[60px] font-black font-mono text-[#06B6D4] leading-none">0</span>
+                                        <span class="text-gray-500 text-sm font-bold uppercase tracking-widest mt-2">Months</span>
+                                    </div>
+                                    <span class="text-gray-600 font-black text-2xl pb-6 hidden sm:block">·</span>
+                                    <div class="flex flex-col items-center">
+                                        <span id="hero-days" class="text-5xl sm:text-[60px] font-black font-mono text-[#FBBF24] leading-none">0</span>
+                                        <span class="text-gray-500 text-sm font-bold uppercase tracking-widest mt-2">Days</span>
+                                    </div>
+                                </div>
+                                
+                                <p id="hero-sentence" class="text-xl sm:text-2xl font-semibold text-white text-center selectable z-10">You are exactly 0 years old.</p>
+                                
+                                <!-- Export Actions -->
+                                <div class="absolute top-4 right-4 flex gap-2 z-20">
+                                    <button onclick="copyAgeSummary()" title="Copy Text" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors outline-none focus:border-brand-accent focus:border">
+                                        <!-- Copy SVG -->
+                                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" class="w-4 h-4">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="#6366F1"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="#3B82F6"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Live Ticker -->
+                            <div class="w-full bg-[#050505] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col gap-4 relative overflow-hidden">
+                                <div class="flex items-center gap-3">
+                                    <h3 class="text-gray-400 font-bold uppercase tracking-widest text-sm">Your age right now</h3>
+                                    <div class="w-2 h-2 rounded-full bg-[#22D3EE] live-dot"></div>
+                                </div>
+                                
+                                <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 sm:gap-x-6 font-mono w-full">
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="tick-yr" class="text-2xl sm:text-3xl font-bold text-white">0</span>
+                                        <span class="text-gray-500 text-sm">yrs</span>
+                                    </div>
+                                    <span class="text-gray-700 hidden sm:inline">·</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="tick-mo" class="text-2xl sm:text-3xl font-bold text-white">0</span>
+                                        <span class="text-gray-500 text-sm">mo</span>
+                                    </div>
+                                    <span class="text-gray-700 hidden sm:inline">·</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span id="tick-d" class="text-2xl sm:text-3xl font-bold text-white">0</span>
+                                        <span class="text-gray-500 text-sm">d</span>
+                                    </div>
+                                    <span class="text-gray-700 hidden lg:inline">·</span>
+                                    
+                                    <div class="w-full lg:w-auto mt-2 lg:mt-0 flex items-baseline gap-x-4 gap-y-2 sm:gap-x-6">
+                                        <div class="flex items-baseline gap-1">
+                                            <span id="tick-h" class="text-2xl sm:text-3xl font-bold text-white">00</span>
+                                            <span class="text-gray-500 text-sm">h</span>
+                                        </div>
+                                        <span class="text-gray-700">·</span>
+                                        <div class="flex items-baseline gap-1">
+                                            <span id="tick-m" class="text-2xl sm:text-3xl font-bold text-white">00</span>
+                                            <span class="text-gray-500 text-sm">min</span>
+                                        </div>
+                                        <span class="text-gray-700">·</span>
+                                        <div class="flex items-baseline gap-1">
+                                            <span id="tick-s" class="text-4xl sm:text-5xl font-black text-brand-accent">00</span>
+                                            <span class="text-gray-500 text-sm">sec</span>
+                                        </div>
+                                        <div id="tick-ms-box" class="hidden items-baseline gap-1 ml-2">
+                                            <span id="tick-ms" class="text-xl sm:text-2xl font-bold text-gray-500">000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-2 flex items-center">
+                                    <label class="flex items-center gap-2 cursor-pointer text-gray-500 hover:text-gray-300 text-xs font-bold transition-colors">
+                                        <input type="checkbox" id="ms-toggle" onchange="toggleMs()" class="rounded border-gray-600 bg-black text-brand-accent focus:ring-brand-accent focus:ring-offset-black">
+                                        Show milliseconds (M)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Extended Stats Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Days -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors relative group">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Days Lived</h4>
+                                        <!-- Days SVG -->
+                                        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 opacity-50"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#F97316" stroke-width="2"/><text x="12" y="16" font-family="Courier" font-size="10" font-weight="bold" fill="#FBBF24" text-anchor="middle">DAY</text></svg>
+                                    </div>
+                                    <div class="text-3xl font-bold font-mono text-[#FBBF24] mb-1 selectable" id="stat-days">0</div>
+                                    <p class="text-gray-500 text-xs">Including leap years</p>
+                                </div>
+                                <!-- Weeks -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Weeks</h4>
+                                    </div>
+                                    <div class="text-3xl font-bold font-mono text-[#06B6D4] mb-1 selectable" id="stat-weeks">0</div>
+                                    <p class="text-gray-500 text-xs" id="stat-weeks-sub">and 0 extra days</p>
+                                </div>
+                                <!-- Months -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Months</h4>
+                                    </div>
+                                    <div class="text-3xl font-bold font-mono text-[#3B82F6] mb-1 selectable" id="stat-tmonths">0</div>
+                                    <p class="text-gray-500 text-xs">Since birth</p>
+                                </div>
+                                <!-- Hours -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Hours</h4>
+                                    </div>
+                                    <div class="text-3xl font-bold font-mono text-[#10B981] mb-1 selectable" id="stat-hours">0</div>
+                                    <p class="text-gray-500 text-xs">Approximate</p>
+                                </div>
+                                <!-- Minutes -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Minutes</h4>
+                                    </div>
+                                    <div class="text-3xl font-bold font-mono text-[#A855F7] mb-1 selectable" id="stat-mins">0</div>
+                                    <p class="text-gray-500 text-xs">Life experience</p>
+                                </div>
+                                <!-- Seconds (Live) -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.02] transition-colors overflow-hidden relative">
+                                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                                    <div class="flex justify-between items-start mb-2 relative z-10">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest flex items-center gap-2">Total Seconds <div class="w-1.5 h-1.5 rounded-full bg-brand-accent live-dot"></div></h4>
+                                    </div>
+                                    <div class="text-2xl sm:text-3xl font-bold font-mono text-brand-accent mb-1 relative z-10 selectable" id="stat-secs">0</div>
+                                    <p class="text-gray-500 text-xs relative z-10">And counting...</p>
+                                </div>
+                            </div>
+
+                            <!-- Milestone Tracker -->
+                            <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-2xl p-6">
+                                <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <!-- Milestone SVG -->
+                                    <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5"><path d="M5 4h14M12 4v16m0 0l-4-4m4 4l4-4" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Life Milestones
+                                </h3>
+                                <div class="flex gap-3 overflow-x-auto pb-4 hide-scroll" id="milestones-container">
+                                    <!-- Dynamic -->
+                                </div>
+                            </div>
+
+                            <!-- Birthday & Zodiac Split -->
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                
+                                <!-- Birthday Card -->
+                                <div class="bg-[#050505] border border-white/5 rounded-2xl p-6 flex flex-col gap-6 relative" id="bday-card">
+                                    <div id="bday-glow" class="absolute inset-0 rounded-2xl pointer-events-none hidden birthday-glow"></div>
+                                    
+                                    <div class="relative z-10">
+                                        <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2">Next Birthday</h4>
+                                        <div class="text-2xl font-bold text-white mb-1" id="bday-date">Jan 1, 2027</div>
+                                        <div class="text-brand-accent font-mono font-bold" id="bday-countdown">In 0 days</div>
+                                    </div>
+                                    
+                                    <div class="h-px w-full bg-white/5 relative z-10"></div>
+                                    
+                                    <div class="relative z-10 grid grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="text-gray-500 font-bold text-[10px] uppercase tracking-widest mb-1">Born On</h4>
+                                            <div class="text-white font-semibold flex items-center gap-2" id="bday-dow">
+                                                Monday
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-gray-500 font-bold text-[10px] uppercase tracking-widest mb-1">Life Stage</h4>
+                                            <div class="text-[#22D3EE] font-semibold" id="bday-stage">Adult</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Zodiac & Birth Info -->
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                                    <h4 class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-4">Zodiac & Birth Signs</h4>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="bg-[#141414] p-3 rounded-xl border border-white/5 flex flex-col gap-1">
+                                            <span class="text-[10px] text-gray-500 uppercase font-bold">Western Zodiac</span>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xl" id="z-w-icon">♈</span>
+                                                <span class="text-white font-semibold text-sm" id="z-w-name">Aries</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-[#141414] p-3 rounded-xl border border-white/5 flex flex-col gap-1">
+                                            <span class="text-[10px] text-gray-500 uppercase font-bold">Chinese Zodiac</span>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xl">🐉</span>
+                                                <span class="text-white font-semibold text-sm" id="z-c-name">Dragon</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-[#141414] p-3 rounded-xl border border-white/5 flex flex-col gap-1">
+                                            <span class="text-[10px] text-gray-500 uppercase font-bold">Birth Stone</span>
+                                            <span class="text-white font-semibold text-sm" id="z-stone">Diamond</span>
+                                        </div>
+                                        <div class="bg-[#141414] p-3 rounded-xl border border-white/5 flex flex-col gap-1">
+                                            <span class="text-[10px] text-gray-500 uppercase font-bold">Birth Flower</span>
+                                            <span class="text-white font-semibold text-sm" id="z-flower">Daisy</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> <!-- End Tab 1 -->
+
+                    <!-- TAB 2: DATE DIFFERENCE -->
+                    <div id="tab-2" class="w-full hidden flex-col gap-6">
+                        <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-4">
+                            
+                            <div class="flex-1 w-full">
+                                <label class="text-gray-400 text-xs font-bold uppercase mb-2 block">Start Date</label>
+                                <input type="date" id="t2-start" class="bg-[#050505] border border-white/15 focus:border-[#3B82F6] outline-none text-white font-mono text-lg rounded-xl px-4 py-4 w-full transition-colors cursor-pointer">
+                            </div>
+
+                            <button onclick="swapDates()" class="mt-6 hidden lg:flex w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 items-center justify-center text-[#3B82F6] transition-transform hover:rotate-180 shrink-0 outline-none focus:ring-2 focus:ring-[#3B82F6]">
+                                <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+                            </button>
+
+                            <button onclick="swapDates()" class="lg:hidden w-full py-2 flex items-center justify-center text-[#3B82F6] text-sm font-bold gap-2 bg-white/5 rounded-lg outline-none focus:bg-white/10">
+                                <i data-lucide="arrow-up-down" class="w-4 h-4"></i> Swap Dates
+                            </button>
+
+                            <div class="flex-1 w-full">
+                                <label class="text-gray-400 text-xs font-bold uppercase mb-2 block">End Date</label>
+                                <input type="date" id="t2-end" class="bg-[#050505] border border-white/15 focus:border-[#3B82F6] outline-none text-white font-mono text-lg rounded-xl px-4 py-4 w-full transition-colors cursor-pointer">
+                            </div>
+
+                            <div class="w-full lg:w-auto mt-6 lg:mt-6">
+                                <button onclick="calculateDiff()" class="bg-[#3B82F6] hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all w-full flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-[#3B82F6]/50">
+                                    Compare <i data-lucide="calculator" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Presets -->
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setDiffPreset('ny')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-400 hover:text-white transition-colors">Today → New Year</button>
+                            <button onclick="setDiffPreset('xmas')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-400 hover:text-white transition-colors">Today → Christmas</button>
+                            <button onclick="setDiffPreset('100')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-400 hover:text-white transition-colors">Today + 100 Days</button>
+                        </div>
+
+                        <!-- Diff Results -->
+                        <div id="t2-results" class="w-full hidden flex-col gap-6 transform opacity-0 translate-y-10 transition-all duration-700">
+                            <div class="bg-[#0d0d0d] border border-white/5 rounded-3xl p-8 text-center">
+                                <h3 class="text-gray-500 font-bold uppercase tracking-widest text-sm mb-4">Total Difference</h3>
+                                <div class="text-4xl sm:text-6xl font-black font-mono text-[#3B82F6] mb-2 selectable" id="diff-days-large">0 Days</div>
+                                <p class="text-xl text-white font-semibold" id="diff-natural">That is 0 years, 0 months, and 0 days.</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 text-center">
+                                    <span class="text-xs text-gray-500 font-bold uppercase">Weeks</span>
+                                    <div class="text-xl font-mono text-white mt-1" id="diff-w">0</div>
+                                </div>
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 text-center">
+                                    <span class="text-xs text-gray-500 font-bold uppercase">Months</span>
+                                    <div class="text-xl font-mono text-white mt-1" id="diff-m">0</div>
+                                </div>
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 text-center">
+                                    <span class="text-xs text-gray-500 font-bold uppercase">Years</span>
+                                    <div class="text-xl font-mono text-white mt-1" id="diff-y">0</div>
+                                </div>
+                                <div class="bg-[#0a0a0a] border border-white/5 rounded-xl p-4 text-center relative overflow-hidden group">
+                                    <span class="text-xs text-gray-500 font-bold uppercase block relative z-10">Business Days</span>
+                                    <div class="text-xl font-mono text-[#10B981] mt-1 relative z-10" id="diff-biz">0</div>
+                                    <div class="absolute inset-0 bg-[#10B981]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End Tab 2 -->
+
+                    <!-- TAB 3: AGE ON DATE -->
+                    <div id="tab-3" class="w-full hidden flex-col gap-6">
+                        <div class="w-full bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-end gap-4">
+                            <div class="flex-1 w-full">
+                                <label class="text-gray-400 text-xs font-bold uppercase mb-2 block">Your Birthdate</label>
+                                <input type="date" id="t3-birth" class="bg-[#050505] border border-white/15 focus:border-[#06B6D4] outline-none text-white font-mono text-lg rounded-xl px-4 py-4 w-full transition-colors cursor-pointer">
+                            </div>
+                            <div class="flex-1 w-full mt-4 md:mt-0">
+                                <label class="text-gray-400 text-xs font-bold uppercase mb-2 block">Target Date</label>
+                                <input type="date" id="t3-target" class="bg-[#050505] border border-white/15 focus:border-[#06B6D4] outline-none text-white font-mono text-lg rounded-xl px-4 py-4 w-full transition-colors cursor-pointer">
+                            </div>
+                            <div class="w-full md:w-auto mt-4 md:mt-0">
+                                <button onclick="calculateAgeOn()" class="bg-[#06B6D4] hover:bg-cyan-500 text-[#050505] font-bold py-4 px-8 rounded-xl transition-all w-full flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-[#06B6D4]/50">
+                                    Find Age <i data-lucide="search" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="t3-results" class="w-full hidden transform opacity-0 translate-y-10 transition-all duration-700">
+                            <div class="bg-gradient-to-br from-[#0a0a0a] to-[#050505] border border-[#06B6D4]/20 rounded-3xl p-8 text-center relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-[#06B6D4]/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                                <h3 class="text-gray-400 font-bold uppercase tracking-widest text-sm mb-4">On that date:</h3>
+                                <p class="text-2xl sm:text-3xl font-semibold text-white mb-6" id="aod-sentence">You will be 0 years old.</p>
+                                
+                                <div class="inline-flex items-center gap-6 bg-[#141414] border border-white/5 rounded-2xl p-4 px-6">
+                                    <div class="text-center">
+                                        <span class="block text-xl font-mono text-white" id="aod-y">0</span>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Years</span>
+                                    </div>
+                                    <div class="w-px h-8 bg-white/10"></div>
+                                    <div class="text-center">
+                                        <span class="block text-xl font-mono text-white" id="aod-m">0</span>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Months</span>
+                                    </div>
+                                    <div class="w-px h-8 bg-white/10"></div>
+                                    <div class="text-center">
+                                        <span class="block text-xl font-mono text-white" id="aod-d">0</span>
+                                        <span class="text-[10px] text-gray-500 uppercase font-bold">Days</span>
+                                    </div>
+                                </div>
+
+                                <div id="aod-school" class="mt-6 text-[#06B6D4] font-bold text-sm hidden">
+                                    📚 School Stage: <span id="aod-school-val">Kindergarten</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End Tab 3 -->
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- FIX 7 & 10: Tool Info Section (Hides on submit) -->
+                <section id="tool-info-section" class="mt-16 w-full text-left bg-white/[0.02] border border-white/5 rounded-3xl p-8 transition-all">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-3">About AgeForge</h2>
+                        <p class="text-gray-400 leading-relaxed max-w-3xl">AgeForge is a professional-grade chronological calculator designed to compute exact age down to the second. It securely processes dates entirely in your browser using local Javascript Date APIs to ensure 100% privacy while providing detailed life stats, milestone tracking, and date comparisons.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <h3 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="star" class="w-4 h-4 text-brand-accent"></i> Key Features</h3>
+                            <ul class="text-gray-400 text-sm space-y-2">
+                                <li>• Exact years, months, and days calculation.</li>
+                                <li>• Real-time ticking seconds counter.</li>
+                                <li>• 100% private: no server uploads.</li>
+                                <li>• Compare dates and calculate business days.</li>
+                                <li>• Automatic milestone tracker & birthday countdown.</li>
+                                <li>• Zodiac signs, birth stones, and flowers.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="mouse-pointer-click" class="w-4 h-4 text-brand-accent"></i> How to Use</h3>
+                            <ol class="text-gray-400 text-sm space-y-2 list-decimal pl-4">
+                                <li>Select "My Age" from the top tabs.</li>
+                                <li>Enter your accurate Date of Birth.</li>
+                                <li>Click Calculate to reveal your exact stats.</li>
+                                <li>Toggle milliseconds for the live ticker.</li>
+                                <li>Use other tabs for specific date comparisons.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold mb-2">Who is this for?</h3>
+                        <p class="text-gray-400 text-sm">Perfect for professionals filling out exact age requirements for applications, parents tracking baby ages in weeks/months, or anyone curious about how many days or seconds they have been alive.</p>
+                    </div>
+                </section>
+
+                <!-- FIX 12: SEO Article (Visible always, below tool) -->
+                <article class="mt-20 w-full text-left prose prose-invert max-w-none prose-p:text-gray-400 prose-headings:text-white prose-a:text-brand-accent">
+                    <h2 class="text-3xl font-bold mb-6">The Importance of Exact Age Calculation in the Modern World</h2>
+                    
+                    <p>When someone asks, "How old are you?", the standard response is a simple number representing years. However, in many professional, legal, and personal contexts, knowing your chronological age in merely years is insufficient. An exact age calculator bridges this gap, providing precision down to the months, days, and even seconds.</p>
+
+                    <h3 class="text-2xl font-bold mt-8 mb-4 border-b border-white/10 pb-2">Why Standard Subtraction Fails</h3>
+                    <p>A common mistake when calculating age is simply subtracting the birth year from the current year. This mathematical shortcut ignores leap years, varying month lengths (28 to 31 days), and the specific day of the month the birth occurred on. For example, if you were born on December 31, 2000, and today is January 1, 2024, a simple year subtraction (2024 - 2000) suggests you are 24. In reality, you are exactly 23 years and 1 day old. Our tool uses standard chronological algorithms to process leap years (like 2024) and uneven months perfectly, guaranteeing absolute accuracy.</p>
+
+                    <h3 class="text-2xl font-bold mt-8 mb-4 border-b border-white/10 pb-2">5 Key Use Cases for a Date Difference Calculator</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-400">
+                        <li><strong>Government and Legal Applications:</strong> Passport renewals, visa applications, and retirement processing (like FIRE calculations) strictly require age in exact years, months, and days.</li>
+                        <li><strong>Pediatric Health and Development:</strong> For infants and toddlers, development is tracked in weeks and months, not years. Parents and pediatricians rely on exact days-alive calculations.</li>
+                        <li><strong>Financial Planning:</strong> Calculating exact days until retirement, maturity dates of bonds, or life insurance premium brackets.</li>
+                        <li><strong>Event Planning:</strong> The "Date Difference" function is vital for project managers calculating business days remaining until a deadline, excluding weekends.</li>
+                        <li><strong>Personal Milestones:</strong> Tracking unique life moments, such as exactly when you will reach 10,000 days alive or 1 billion seconds.</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mt-8 mb-4 border-b border-white/10 pb-2">The Technology Behind AgeForge</h3>
+                    <p>AgeForge is built on a decentralized, client-side architecture. This means the tool relies on your device's internal clock and browser engine to perform the calculations via JavaScript. By doing this, we ensure that your birthdate—a sensitive piece of personally identifiable information (PII)—is never transmitted across the internet or stored on external servers. The live ticker updates dynamically by constantly comparing the UNIX timestamp of your birth to the current timestamp, recalculating milliseconds seamlessly without refreshing the page.</p>
+                </article>
+
+                <!-- FIX 12: Visible FAQ Section -->
+                <section class="mt-16 pt-16 border-t border-white/10 w-full text-left">
+                    <h2 class="text-3xl font-bold text-white mb-8">Frequently Asked Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-[#0a0a0a] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold text-lg mb-2">Is this age calculator completely free?</h3>
+                            <p class="text-gray-400">Yes, this tool on Forgenos is 100% free. No signup, no subscription, and no hidden fees are required to use any feature, including the live ticker.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold text-lg mb-2">How does the live age ticker work?</h3>
+                            <p class="text-gray-400">Our age calculator uses your device's built-in clock and JavaScript Date APIs to continuously calculate the difference between your birthdate and the current millisecond, updating the display in real-time.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold text-lg mb-2">Is my birthdate data saved or shared?</h3>
+                            <p class="text-gray-400">No. All calculations happen entirely in your browser. Your birthdate data never leaves your device and is not saved to any server, ensuring complete privacy.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold text-lg mb-2">Can I calculate the days between two specific dates?</h3>
+                            <p class="text-gray-400">Yes! Use the 'Date Difference' tab to select a Start Date and an End Date. It will instantly show you the exact number of days, weeks, months, and even business days between them.</p>
+                        </div>
+                        <div class="bg-[#0a0a0a] rounded-2xl p-6 border border-white/5">
+                            <h3 class="text-white font-bold text-lg mb-2">How are leap years handled in the calculation?</h3>
+                            <p class="text-gray-400">Our tool uses the native JavaScript Date object, which automatically and perfectly accounts for leap years, varying month lengths, and daylight saving time changes.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Professional Minimal Footer -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left bg-[#141414]">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+
+        // Context Menu Logic
+        document.oncontextmenu = function(e) {
+            if (e.target.closest('input')) return true; // Allow native menu on inputs
+            e.preventDefault();
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+
+                // FIX 3: Copy/Paste logic inside context menu
+                const sel = window.getSelection().toString().trim();
+                document.getElementById('ctx-copy').style.display = sel !== '' ? 'flex' : 'none';
+                
+                navigator.clipboard.readText().then(text => {
+                    document.getElementById('ctx-paste').style.display = text && document.activeElement.tagName === 'INPUT' ? 'flex' : 'none';
+                    document.getElementById('ctx-divider-1').style.display = (sel || (text && document.activeElement.tagName === 'INPUT')) ? 'block' : 'none';
+                }).catch(() => {
+                    document.getElementById('ctx-paste').style.display = 'none';
+                });
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if(document.activeElement.tagName === 'INPUT') {
+                    document.activeElement.value = text;
+                }
+            } catch (err) {
+                console.error('Failed to read clipboard');
+            }
+        }
+
+        // ==========================================
+        // System Toasts (Professional)
+        // ==========================================
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        // ==========================================
+        // Mobile Menu Logic
+        // ==========================================
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            
+            const isHidden = menu.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // ==========================================
+        // Global Loading System (FIX 4)
+        // ==========================================
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            
+            document.body.style.overflow = 'hidden'; // FIX 4 Scroll lock
+            
+            if(!stepsArray || stepsArray.length === 0) {
+                stepsArray = ['Processing request...'];
+            }
+
+            let listHTML = '';
+            stepsArray.forEach(step => {
+                listHTML += `<li class="shimmer-text">${step}</li>`;
+            });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+            document.body.style.overflow = ''; // FIX 4 Unlock scroll
+        }
+
+        // ==========================================
+        // TOOL SPECIFIC JAVASCRIPT LOGIC Yahan Niche Likha Jayega...
+        // ==========================================
+
+        // Update live clock below input
+        setInterval(() => {
+            const clock = document.getElementById('t1-clock');
+            if(clock) {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false };
+                clock.textContent = "Today: " + now.toLocaleDateString('en-US', options).replace(',', ' |');
+            }
+        }, 1000);
+
+        // Pre-fill dates
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${yyyy}-${mm}-${dd}`;
+            
+            document.getElementById('t2-start').value = todayStr;
+            
+            const savedBDay = localStorage.getItem('forgenos_bday');
+            if(savedBDay) {
+                document.getElementById('t1-birthdate').value = savedBDay;
+                document.getElementById('t3-birth').value = savedBDay;
+            }
+            
+            // Shortcuts binding
+            document.addEventListener('keydown', handleShortcuts);
+        });
+
+        // Tabs Logic
+        function switchTab(tabNum) {
+            // Hide all tabs
+            [1, 2, 3].forEach(n => {
+                document.getElementById(`tab-${n}`).classList.add('hidden');
+                document.getElementById(`tab-${n}`).classList.remove('flex');
+                const btn = document.getElementById(`tab-btn-${n}`);
+                btn.classList.remove('border-brand-accent', 'text-white');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            // Show selected tab
+            document.getElementById(`tab-${tabNum}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabNum}`).classList.add('flex');
+            const activeBtn = document.getElementById(`tab-btn-${tabNum}`);
+            activeBtn.classList.remove('border-transparent', 'text-gray-500');
+            activeBtn.classList.add('border-brand-accent', 'text-white');
+        }
+
+        // Safe Date Parsing
+        function parseDateLocal(dateStr) {
+            if(!dateStr) return null;
+            const [y, m, d] = dateStr.split('-');
+            return new Date(y, m - 1, d);
+        }
+
+        // Core Calculation Engines
+        function calcAge(birthDate, toDate = new Date()) {
+            let years = toDate.getFullYear() - birthDate.getFullYear();
+            let months = toDate.getMonth() - birthDate.getMonth();
+            let days = toDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(toDate.getFullYear(), toDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            return { years, months, days };
+        }
+
+        function calcAllUnits(birthDate) {
+            const now = new Date();
+            const ms = now - birthDate;
+            const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(days / 7);
+            const extraDays = days % 7;
+            const ageObj = calcAge(birthDate);
+            const months = ageObj.years * 12 + ageObj.months;
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+            const minutes = Math.floor(ms / (1000 * 60));
+            const seconds = Math.floor(ms / 1000);
+            return { days, weeks, extraDays, months, hours, minutes, seconds, msTotal: ms };
+        }
+
+        // Formatting
+        const numFmt = (num) => Intl.NumberFormat('en-US').format(num);
+
+        // Animation
+        function countUp(el, target, duration = 800) {
+            if(!el) return;
+            const start = performance.now();
+            const update = (now) => {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = numFmt(Math.round(eased * target));
+                if (progress < 1) requestAnimationFrame(update);
+                else el.textContent = numFmt(target);
+            };
+            requestAnimationFrame(update);
+        }
+
+        // Confetti logic
+        function launchConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = ''; // clear existing
+            const colors = ['#E50914','#FBBF24','#10B981','#3B82F6','#A855F7'];
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position:absolute;
+                    width:8px; height:8px;
+                    left:${Math.random() * 100}%;
+                    top:-20px;
+                    background:${colors[Math.floor(Math.random()*colors.length)]};
+                    border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+                    animation: confettiFall ${1.5 + Math.random() * 2}s ease-in forwards;
+                    animation-delay: ${Math.random() * 0.5}s;
+                `;
+                container.appendChild(particle);
+                setTimeout(() => particle.remove(), 4000);
+            }
+        }
+
+        // Ticker Logic
+        let tickerInterval = null;
+        let msInterval = null;
+        let currentBirthDateObj = null;
+
+        function startTicker(birthDate) {
+            if (tickerInterval) clearInterval(tickerInterval);
+            currentBirthDateObj = birthDate;
+            
+            const update = () => {
+                const now = new Date();
+                const units = calcAllUnits(birthDate);
+                const age = calcAge(birthDate, now);
+                
+                document.getElementById('tick-yr').textContent = age.years;
+                document.getElementById('tick-mo').textContent = age.months;
+                document.getElementById('tick-d').textContent = age.days;
+                
+                const h = now.getHours();
+                const m = now.getMinutes();
+                const s = now.getSeconds();
+                
+                document.getElementById('stat-secs').textContent = numFmt(units.seconds);
+                document.getElementById('tick-s').textContent = String(s).padStart(2, '0');
+                document.getElementById('tick-m').textContent = String(m).padStart(2, '0');
+                document.getElementById('tick-h').textContent = String(h).padStart(2, '0');
+            };
+            
+            update(); // run immediately
+            tickerInterval = setInterval(update, 1000);
+            
+            // Restart MS ticker if active
+            if(document.getElementById('ms-toggle').checked) {
+                toggleMs(true);
+            }
+        }
+
+        function toggleMs(forceStart = false) {
+            const chk = document.getElementById('ms-toggle');
+            const box = document.getElementById('tick-ms-box');
+            if (chk.checked || forceStart) {
+                box.classList.remove('hidden');
+                box.classList.add('flex');
+                if(msInterval) clearInterval(msInterval);
+                msInterval = setInterval(() => {
+                    if(!currentBirthDateObj) return;
+                    const ms = Date.now() - currentBirthDateObj.getTime();
+                    document.getElementById('tick-ms').textContent = (ms % 1000).toString().padStart(3, '0');
+                }, 80); // Fast update
+            } else {
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+                clearInterval(msInterval);
+            }
+        }
+
+        // Info helpers
+        const DAYS_OF_WEEK = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        
+        function getZodiac(m, d) {
+            const signs = [
+                { name:'Capricorn', symbol:'♑', end:[1,19] },
+                { name:'Aquarius', symbol:'♒', end:[2,18] },
+                { name:'Pisces', symbol:'♓', end:[3,20] },
+                { name:'Aries', symbol:'♈', end:[4,19] },
+                { name:'Taurus', symbol:'♉', end:[5,20] },
+                { name:'Gemini', symbol:'♊', end:[6,20] },
+                { name:'Cancer', symbol:'♋', end:[7,22] },
+                { name:'Leo', symbol:'♌', end:[8,22] },
+                { name:'Virgo', symbol:'♍', end:[9,22] },
+                { name:'Libra', symbol:'♎', end:[10,22] },
+                { name:'Scorpio', symbol:'♏', end:[11,21] },
+                { name:'Sagittarius', symbol:'♐', end:[12,21] },
+                { name:'Capricorn', symbol:'♑', end:[12,31] }
+            ];
+            for (const s of signs) {
+                if (m < s.end[0] || (m === s.end[0] && d <= s.end[1])) return s;
+            }
+            return signs[0];
+        }
+
+        function getChineseZodiac(year) {
+            const animals = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+            return animals[(year - 1900 + 12000) % 12]; // ensure positive modulo
+        }
+
+        const STONES = ['Garnet','Amethyst','Aquamarine','Diamond','Emerald','Pearl','Ruby','Peridot','Sapphire','Opal','Topaz','Turquoise'];
+        const FLOWERS = ['Carnation','Violet','Daffodil','Daisy','Lily of the Valley','Rose','Larkspur','Gladiolus','Aster','Marigold','Chrysanthemum','Narcissus'];
+
+        function buildMilestones(birthDate) {
+            const units = calcAllUnits(birthDate);
+            const msBirth = birthDate.getTime();
+            const now = Date.now();
+            
+            const list = [
+                { label: '1,000 days', value: 1000, unit: 'days', ms: msBirth + 1000*86400000 },
+                { label: '10,000 days', value: 10000, unit: 'days', ms: msBirth + 10000*86400000 },
+                { label: 'Quarter Century', value: 25, unit: 'years', ms: new Date(birthDate.getFullYear()+25, birthDate.getMonth(), birthDate.getDate()).getTime() },
+                { label: '1 Billion Secs', value: 1000000000, unit: 'seconds', ms: msBirth + 1000000000*1000 },
+                { label: 'Half Century', value: 50, unit: 'years', ms: new Date(birthDate.getFullYear()+50, birthDate.getMonth(), birthDate.getDate()).getTime() },
+            ];
+
+            let html = '';
+            list.forEach(m => {
+                const passed = now >= m.ms;
+                let timeText = '';
+                let colorClass = '';
+                
+                if(passed) {
+                    const daysAgo = Math.floor((now - m.ms)/86400000);
+                    timeText = daysAgo === 0 ? "Today!" : `${numFmt(daysAgo)} days ago`;
+                    colorClass = "border-[#10B981] text-[#10B981] bg-[#10B981]/10";
+                } else {
+                    const daysLeft = Math.ceil((m.ms - now)/86400000);
+                    timeText = `In ${numFmt(daysLeft)} days`;
+                    colorClass = "border-[#FBBF24] text-[#FBBF24] bg-[#FBBF24]/10";
+                }
+                
+                html += `
+                    <div class="shrink-0 rounded-xl border px-4 py-3 flex flex-col gap-1 ${colorClass}">
+                        <span class="font-bold text-sm whitespace-nowrap">${m.label} ${passed ? '✓' : ''}</span>
+                        <span class="text-xs opacity-80">${timeText}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('milestones-container').innerHTML = html;
+        }
+
+        // ==========================================
+        // MAIN ACTION 1: CALCULATE MY AGE
+        // ==========================================
+        function calculateMyAge() {
+            const dateStr = document.getElementById('t1-birthdate').value;
+            if(!dateStr) { showToast('Please enter your birthdate', 'error'); return; }
+            
+            const bDate = parseDateLocal(dateStr);
+            if(bDate > new Date()) { showToast('Birthdate cannot be in the future', 'error'); return; }
+
+            localStorage.setItem('forgenos_bday', dateStr);
+            document.getElementById('t3-birth').value = dateStr;
+
+            // FIX 1 & 4: Loading Overlay logic
+            showToolLoading(['Analyzing timeline...', 'Calculating metrics...', 'Aligning clock...'], 800);
+
+            setTimeout(() => {
+                // Hide info section (FIX 6)
+                document.getElementById('tool-info-section').style.display = 'none';
+
+                const age = calcAge(bDate);
+                const units = calcAllUnits(bDate);
+                
+                // Show Results container
+                const res = document.getElementById('t1-results');
+                res.classList.remove('hidden');
+                res.classList.remove('opacity-0', 'translate-y-10');
+                
+                // Populate Hero
+                countUp(document.getElementById('hero-years'), age.years);
+                setTimeout(() => countUp(document.getElementById('hero-months'), age.months), 150);
+                setTimeout(() => countUp(document.getElementById('hero-days'), age.days), 300);
+                
+                document.getElementById('hero-sentence').textContent = `You are ${age.years} years, ${age.months} months, and ${age.days} days old.`;
+                
+                // Populate Stats
+                countUp(document.getElementById('stat-days'), units.days);
+                countUp(document.getElementById('stat-weeks'), units.weeks);
+                document.getElementById('stat-weeks-sub').textContent = `and ${units.extraDays} extra days`;
+                countUp(document.getElementById('stat-tmonths'), units.months);
+                countUp(document.getElementById('stat-hours'), units.hours);
+                countUp(document.getElementById('stat-mins'), units.minutes);
+                
+                // Populate Milestones
+                buildMilestones(bDate);
+                
+                // Birthday Logic
+                const today = new Date();
+                const bMonth = bDate.getMonth();
+                const bDay = bDate.getDate();
+                let nextB = new Date(today.getFullYear(), bMonth, bDay);
+                
+                if (today.getMonth() === bMonth && today.getDate() === bDay) {
+                    // Birthday Celebration Mode!
+                    launchConfetti();
+                    document.getElementById('bday-glow').classList.remove('hidden');
+                    document.getElementById('bday-date').innerHTML = '🎂 Today!';
+                    document.getElementById('bday-countdown').textContent = `Happy ${age.years}th Birthday!`;
+                    document.getElementById('hero-sentence').innerHTML = `You are exactly <strong>${age.years}</strong> years old today! 🎉`;
+                } else {
+                    document.getElementById('bday-glow').classList.add('hidden');
+                    if (nextB < today) nextB.setFullYear(today.getFullYear() + 1);
+                    const diffDays = Math.ceil((nextB - today)/(1000*60*60*24));
+                    document.getElementById('bday-date').textContent = nextB.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+                    document.getElementById('bday-countdown').textContent = `In ${numFmt(diffDays)} days`;
+                }
+                
+                document.getElementById('bday-dow').textContent = DAYS_OF_WEEK[bDate.getDay()];
+                
+                let stage = 'Senior';
+                if(age.years < 5) stage = 'Toddler';
+                else if(age.years < 13) stage = 'Child';
+                else if(age.years < 20) stage = 'Teenager';
+                else if(age.years < 60) stage = 'Adult';
+                document.getElementById('bday-stage').textContent = stage;
+
+                // Zodiacs
+                const wz = getZodiac(bMonth + 1, bDay);
+                document.getElementById('z-w-icon').textContent = wz.symbol;
+                document.getElementById('z-w-name').textContent = wz.name;
+                document.getElementById('z-c-name').textContent = getChineseZodiac(bDate.getFullYear());
+                document.getElementById('z-stone').textContent = STONES[bMonth];
+                document.getElementById('z-flower').textContent = FLOWERS[bMonth];
+
+                // Start Ticker
+                startTicker(bDate);
+
+                hideToolLoading();
+
+                // FIX 5: Smooth scroll to results
+                setTimeout(() => {
+                    res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            }, 2400);
+        }
+
+        // ==========================================
+        // ACTION 2: DATE DIFFERENCE
+        // ==========================================
+        function swapDates() {
+            const start = document.getElementById('t2-start').value;
+            const end = document.getElementById('t2-end').value;
+            document.getElementById('t2-start').value = end;
+            document.getElementById('t2-end').value = start;
+        }
+        function setDiffPreset(type) {
+            const today = new Date();
+            let target = new Date();
+            if(type === 'ny') target = new Date(today.getFullYear() + 1, 0, 1);
+            if(type === 'xmas') target = new Date(today.getFullYear(), 11, 25);
+            if(target < today && type === 'xmas') target = new Date(today.getFullYear() + 1, 11, 25);
+            if(type === '100') target.setDate(target.getDate() + 100);
+            
+            const mm = String(target.getMonth() + 1).padStart(2, '0');
+            const dd = String(target.getDate()).padStart(2, '0');
+            document.getElementById('t2-end').value = `${target.getFullYear()}-${mm}-${dd}`;
+        }
+        function calculateDiff() {
+            const d1Str = document.getElementById('t2-start').value;
+            const d2Str = document.getElementById('t2-end').value;
+            
+            if(!d1Str || !d2Str) { showToast('Please select both dates', 'error'); return; }
+            
+            let d1 = parseDateLocal(d1Str);
+            let d2 = parseDateLocal(d2Str);
+            
+            showToolLoading(['Comparing dates...', 'Calculating difference...'], 600);
+            
+            setTimeout(() => {
+                document.getElementById('tool-info-section').style.display = 'none';
+
+                let isPast = d1 > d2;
+                if(isPast) { const temp = d1; d1 = d2; d2 = temp; }
+                
+                const ms = d2 - d1;
+                const days = Math.floor(ms / 86400000);
+                const age = calcAge(d1, d2);
+                
+                let bDays = 0;
+                let cur = new Date(d1);
+                while(cur < d2) {
+                    if(cur.getDay() !== 0 && cur.getDay() !== 6) bDays++;
+                    cur.setDate(cur.getDate() + 1);
+                }
+
+                const res = document.getElementById('t2-results');
+                res.classList.remove('hidden');
+                res.classList.remove('opacity-0', 'translate-y-10');
+                
+                countUp(document.getElementById('diff-days-large'), days);
+                const dirStr = isPast ? "ago" : "difference";
+                document.getElementById('diff-natural').textContent = `That is ${age.years} years, ${age.months} months, and ${age.days} days ${dirStr}.`;
+                
+                countUp(document.getElementById('diff-w'), Math.floor(days/7));
+                countUp(document.getElementById('diff-m'), age.years*12 + age.months);
+                countUp(document.getElementById('diff-y'), age.years);
+                countUp(document.getElementById('diff-biz'), bDays);
+
+                hideToolLoading();
+                setTimeout(() => res.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+            }, 1200);
+        }
+
+        // ==========================================
+        // ACTION 3: AGE ON DATE
+        // ==========================================
+        function calculateAgeOn() {
+            const bStr = document.getElementById('t3-birth').value;
+            const tStr = document.getElementById('t3-target').value;
+            
+            if(!bStr || !tStr) { showToast('Please select both dates', 'error'); return; }
+            
+            const b = parseDateLocal(bStr);
+            const t = parseDateLocal(tStr);
+            
+            showToolLoading(['Time traveling...', 'Calculating age...'], 600);
+            
+            setTimeout(() => {
+                document.getElementById('tool-info-section').style.display = 'none';
+                const res = document.getElementById('t3-results');
+                res.classList.remove('hidden');
+                res.classList.remove('opacity-0', 'translate-y-10');
+
+                if(t < b) {
+                    document.getElementById('aod-sentence').textContent = "Not yet born on this date.";
+                    document.getElementById('aod-y').textContent = "0";
+                    document.getElementById('aod-m').textContent = "0";
+                    document.getElementById('aod-d').textContent = "0";
+                    document.getElementById('aod-school').classList.add('hidden');
+                } else {
+                    const age = calcAge(b, t);
+                    const isFuture = t > new Date();
+                    document.getElementById('aod-sentence').textContent = `You ${isFuture ? 'will be' : 'were'} exactly ${age.years} years old.`;
+                    
+                    countUp(document.getElementById('aod-y'), age.years);
+                    countUp(document.getElementById('aod-m'), age.months);
+                    countUp(document.getElementById('aod-d'), age.days);
+                    
+                    const sc = document.getElementById('aod-school');
+                    if(age.years >= 5 && age.years <= 18) {
+                        sc.classList.remove('hidden');
+                        let g = age.years === 5 ? "Kindergarten" : `Grade ${age.years - 5}`;
+                        document.getElementById('aod-school-val').textContent = g;
+                    } else {
+                        sc.classList.add('hidden');
+                    }
+                }
+                
+                hideToolLoading();
+                setTimeout(() => res.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+            }, 1200);
+        }
+
+        // Share/Copy
+        function copyAgeSummary() {
+            const ageText = document.getElementById('hero-sentence').textContent;
+            const copyText = `I just calculated my exact age: ${ageText}\nFind out yours at: https://forgenos.com/tools/age-calculator`;
+            
+            navigator.clipboard.writeText(copyText).then(() => {
+                showToast('Copied to clipboard!', 'success');
+            }).catch(() => {
+                // Fallback
+                const t = document.createElement('textarea');
+                t.value = copyText;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                document.body.removeChild(t);
+                showToast('Copied to clipboard!', 'success');
+            });
+        }
+
+        function shareTool() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Age Calculator - Forgenos',
+                    text: 'Calculate your exact age down to the second!',
+                    url: window.location.href,
+                }).catch(console.error);
+            } else {
+                copyAgeSummary();
+            }
+        }
+
+        // Keyboard Shortcuts
+        function handleShortcuts(e) {
+            if(e.target.tagName === 'INPUT') return;
+            if(e.key === '1') switchTab(1);
+            if(e.key === '2') switchTab(2);
+            if(e.key === '3') switchTab(3);
+            if(e.key.toLowerCase() === 'm') {
+                const cb = document.getElementById('ms-toggle');
+                if(cb) { cb.checked = !cb.checked; toggleMs(); }
+            }
+            if(e.key.toLowerCase() === 'c' && !document.getElementById('t1-results').classList.contains('hidden')) {
+                copyAgeSummary();
+            }
+        }
+
+    </script>
+</body>
+</html>
