@@ -165,28 +165,12 @@
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* FIX 3 - Shimmer Skeleton Animation */
-        .skeleton-bg {
-            background: linear-gradient(
-                90deg,
-                #1a1a1a 0%,
-                #1a1a1a 35%,
-                #2a2a2a 50%,
-                #1a1a1a 65%,
-                #1a1a1a 100%
-            );
-            background-size: 200% 100%;
-            animation: shimmerSlide 1.6s ease-in-out infinite;
-        }
-        @keyframes shimmerSlide {
-            0%   { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
+        .skeleton-bg { background: #1c1c1c; animation: skeletonPulse 1.8s ease-in-out infinite; }
+        @keyframes skeletonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* FIX 4 - Rolling Text Mobile Fix */
-        .rolling-wrapper-inline { height: 1.1em; overflow: hidden; position: relative; display: inline-flex; vertical-align: bottom; min-width: 0; max-width: 100%; }
+        .rolling-wrapper-inline { height: 1.1em; overflow: hidden; position: relative; display: inline-flex; vertical-align: bottom; }
         .rolling-list-inline { margin: 0; padding: 0; list-style: none; will-change: transform; display: flex; flex-direction: column; width: 100%; }
-        .rolling-list-inline li { height: 1.1em; display: flex; align-items: center; white-space: nowrap; min-width: 0; }
+        .rolling-list-inline li { height: 1.1em; display: flex; align-items: center; white-space: nowrap; }
 
         .premium-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -258,15 +242,20 @@
             background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
         }
 
-        /* FIX 1 - Announcement Popup Upgrade */
-        body.announce-active { overflow: hidden; }
-        body.announce-active #main-container,
-        body.announce-active #sidebar,
-        body.announce-active header {
-            filter: blur(6px) brightness(0.5);
-            transition: filter 0.4s ease;
-            pointer-events: none;
+        #announcement-popup {
+            position: fixed; bottom: 24px; right: 24px; z-index: 9000; max-width: 360px; width: calc(100% - 48px);
+            background: #1a1a1c; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); display: none; flex-direction: column; overflow: hidden;
         }
+        #ap-img { width: 100%; height: 160px; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .ap-content { padding: 20px; }
+        #ap-cat { display: inline-block; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #E50914; background: rgba(229,9,20,0.1); padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; }
+        #ap-title { color: white; font-size: 18px; font-weight: bold; margin: 0; line-height: 1.2; }
+        #ap-desc { color: #9ca3af; font-size: 13px; margin-top: 6px; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .ap-actions { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+        #ap-btn { width: 100%; background: #E50914; color: white; font-weight: bold; padding: 12px; border-radius: 12px; transition: transform 0.2s; background 0.2s; text-align: center; cursor: pointer; border: none; }
+        #ap-btn:hover { background: #ff0f1b; transform: scale(1.02); }
+        #ap-dismiss { color: #6b7280; background: transparent; font-size: 12px; border: none; cursor: pointer; padding: 8px; transition: color 0.2s; font-weight: 500; }
+        #ap-dismiss:hover { color: white; }
 
         #smooth-scroll-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999;
@@ -334,19 +323,16 @@
     </div>
 
     <script>
-        // FIX 1 - Announcement Popup Upgrade
         const announcementConfig = {
-            enabled: true,
-            id: 'announce_tool_v1.1',
-            delaySeconds: 4,
-            triggerOnScroll: true,
-            scrollThreshold: 120,
-            image: 'https://forgenos.com/health/img/tool_8.webp',
-            category: 'New Tool Launch',
-            title: 'ATS-Ghost is Live',
-            description: 'Beat any ATS system. Paste your resume and job description — our local algorithm gives you a match score, missing keywords, and rewrite suggestions. 100% private.',
-            buttonText: 'Try It Free',
-            buttonLink: '/dev/ats-ghost-resume-checker'
+            enabled: false, 
+            id: 'announce_v1', 
+            delaySeconds: 6,
+            image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop',
+            category: 'New Update',
+            title: 'NeuralForge AI Beta',
+            description: 'Experience the next generation of decentralized AI processing directly in your browser.',
+            buttonText: 'Open Tool',
+            buttonLink: 'https://forgenos.com/tool-page'
         };
 
         const forgenosLogoImg = "https://forgenos.com/assets/logo2.png";
@@ -354,7 +340,7 @@
         const forgenosLogoMark = `
             <div class="flex items-center">
                 <div class="relative w-12 h-12 md:w-14 md:h-14 shrink-0 flex items-center justify-center bg-transparent">
-                    <div class="absolute inset-0 skeleton-bg rounded-md skeleton-loader"></div>
+                    <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                     <img src="${forgenosLogoImg}" 
                          alt="Logo"
                          loading="lazy" 
@@ -372,16 +358,16 @@
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             
-            <div id="announcement-popup" role="dialog" aria-modal="true" aria-labelledby="ap-title" style="display: none; opacity: 0; transform: translate(-50%, calc(-50% + 12px)); transition: opacity 0.4s ease, transform 0.4s ease;" class="fixed top-1/2 left-1/2 z-[200] max-w-xl w-[calc(100%-2rem)] bg-[#141414] border border-white/10 rounded-2xl shadow-2xl p-6 flex-col sm:grid sm:grid-cols-2 gap-6">
-                <button id="ap-dismiss" aria-label="Close announcement" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"><i data-lucide="x" class="w-5 h-5"></i></button>
-                <div class="flex flex-col justify-center order-2 sm:order-1 mt-4 sm:mt-0">
-                    <span id="ap-cat" class="bg-[#E50914]/10 text-[#E50914] border border-[#E50914]/30 text-xs font-medium px-3 py-1 rounded-full w-max mb-3"></span>
-                    <h3 id="ap-title" class="text-white text-xl font-bold leading-tight"></h3>
-                    <p id="ap-desc" class="text-gray-400 text-sm leading-relaxed mt-2"></p>
-                    <button id="ap-btn" aria-label="Open Announcement" class="w-full bg-[#E50914] text-white font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition mt-4"></button>
-                </div>
-                <div class="order-1 sm:order-2 w-full aspect-video sm:h-full sm:aspect-auto rounded-xl overflow-hidden skeleton-bg relative">
-                    <img id="ap-img" src="" alt="Announcement" loading="lazy" decoding="async" onload="this.parentElement.classList.remove('skeleton-bg'); this.classList.remove('opacity-0');" class="w-full h-full object-cover opacity-0 transition-opacity duration-300">
+            <div id="announcement-popup" role="dialog" aria-modal="true" aria-labelledby="ap-title">
+                <img id="ap-img" src="" alt="Announcement" loading="lazy" decoding="async" onload="this.parentElement.style.animation = 'none';">
+                <div class="ap-content">
+                    <span id="ap-cat"></span>
+                    <h3 id="ap-title"></h3>
+                    <p id="ap-desc"></p>
+                    <div class="ap-actions">
+                        <button id="ap-btn" aria-label="Open Announcement"></button>
+                        <button id="ap-dismiss" aria-label="Dismiss Announcement">Dismiss</button>
+                    </div>
                 </div>
             </div>
 
@@ -417,7 +403,7 @@
                 <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar" aria-label="Sidebar Navigation">
                     <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="window.handleNavClick('home')" aria-label="Go to Home">
                         <div class="relative w-14 h-14 shrink-0 flex items-center justify-center bg-transparent">
-                            <div class="absolute inset-0 skeleton-bg rounded-md skeleton-loader"></div>
+                            <div class="absolute inset-0 bg-[#222] animate-pulse rounded-md skeleton-loader"></div>
                             <img src="${forgenosLogoImg}" 
                                  alt="Logo" 
                                  loading="lazy"
@@ -437,6 +423,7 @@
                 <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-20 md:pt-0 pb-0" id="main-container">
                     <div id="view-content" class="flex-1 pb-10 relative"></div>
                     
+                    <!-- INLINE FIX: Display none added to prevent FOUC / footer flash -->
                     <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0" style="display: none;">
                         <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                             <div class="flex flex-col gap-4">
@@ -453,16 +440,13 @@
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Company</h4>
-                                    <a href="/aboutus" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">About Us</a>
-                                    <a href="/contact" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Contact</a>
+                                    <span onclick="window.handleNavClick('about')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">About Us</span>
+                                    <span onclick="window.handleNavClick('contact')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Contact</span>
                                 </div>
                                 <div class="flex flex-col gap-4">
                                     <h4 class="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
-                                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</a>
-                                    <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</a>
-                                    
-
-
+                                    <span onclick="window.handleNavClick('privacy')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Privacy Policy</span>
+                                    <span onclick="window.handleNavClick('terms')" class="text-gray-400 hover:text-white text-sm transition-colors cursor-pointer">Terms of Service</span>
                                 </div>
                             </div>
                         </div>
@@ -478,6 +462,7 @@
                 </main>
             </div>
 
+            <!-- MODALS -->
             <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-create-title" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 md:p-8">
                 <div class="bg-[#141414] w-full max-w-6xl h-[90vh] rounded-3xl border border-white/10 flex flex-col overflow-hidden shadow-2xl scale-95 opacity-0">
                     <div class="px-6 md:px-8 py-5 border-b border-white/5 flex justify-between items-center bg-[#1c1c1e] shrink-0">
@@ -622,16 +607,13 @@
             document.body.classList.remove('scroll-locked');
         };
 
-        // FIX 1 - Announcement Popup Upgrade
         window.checkAndShowAnnouncement = function() {
             if (!announcementConfig.enabled) return;
 
             const seenId = localStorage.getItem('forgenos_seen_announce');
             if (seenId === announcementConfig.id) return;
 
-            let triggered = false;
-
-            const showPopup = () => {
+            setTimeout(() => {
                 const popup = document.getElementById('announcement-popup');
                 if (!popup) return;
 
@@ -639,6 +621,7 @@
                 if (keys.length > 10) {
                     localStorage.removeItem(keys[0]);
                 }
+                localStorage.setItem('forgenos_seen_announce', announcementConfig.id);
 
                 document.getElementById('ap-img').src = announcementConfig.image;
                 document.getElementById('ap-cat').textContent = announcementConfig.category;
@@ -652,33 +635,11 @@
                 };
                 document.getElementById('ap-dismiss').onclick = window.dismissPopup;
 
-                document.body.classList.add('announce-active');
-                
-                popup.style.display = window.innerWidth >= 640 ? 'grid' : 'flex';
+                popup.style.display = 'flex';
                 void popup.offsetWidth; 
-                popup.style.opacity = '1';
-                popup.style.transform = 'translate(-50%, -50%)';
+                popup.style.animation = 'popupSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards';
                 window.lockScroll();
-            };
 
-            const handleScroll = () => {
-                if (window.scrollY > (announcementConfig.scrollThreshold || 120) && !triggered) {
-                    triggered = true;
-                    window.removeEventListener('scroll', handleScroll);
-                    showPopup();
-                }
-            };
-
-            if (announcementConfig.triggerOnScroll) {
-                window.addEventListener('scroll', handleScroll, { passive: true });
-            }
-
-            setTimeout(() => {
-                if (!triggered) {
-                    triggered = true;
-                    window.removeEventListener('scroll', handleScroll);
-                    showPopup();
-                }
             }, announcementConfig.delaySeconds * 1000);
         };
 
@@ -686,11 +647,9 @@
             const popup = document.getElementById('announcement-popup');
             if (popup) {
                 popup.style.opacity = '0';
-                popup.style.transform = 'translate(-50%, calc(-50% + 12px))';
-                setTimeout(() => popup.style.display = 'none', 400);
+                popup.style.pointerEvents = 'none';
+                setTimeout(() => popup.style.display = 'none', 300);
             }
-            document.body.classList.remove('announce-active');
-            localStorage.setItem('forgenos_seen_announce', announcementConfig.id);
             window.unlockScroll();
         };
 
@@ -1372,10 +1331,10 @@
         window.renderHome = function() {
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-12 md:pt-16 pb-8 text-left max-w-5xl">
-                    <h1 class="flex flex-wrap items-baseline gap-x-2 leading-tight text-[clamp(1.6rem,4vw,2.8rem)] md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up">
+                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
                         <span>The Ultimate All in One</span>
-                        <span class="rolling-wrapper-inline min-w-[180px] md:min-w-[260px] text-brand-accent">
-                            <ul class="rolling-list-inline" id="heroRollingList">
+                        <span class="rolling-wrapper-inline min-w-[200px] md:minw-[320px]">
+                            <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
                                 <li>Toolkit</li><li>Dashboard</li><li>Partner</li><li>Resource</li><li>Experience</li><li aria-hidden="true">Toolkit</li>
                             </ul>
                         </span>
@@ -1545,7 +1504,7 @@
             window.tryCreateIcons();
         };
 
-       window.renderSettings = function() { 
+        window.renderSettings = function() { 
             const isPC = window.innerWidth >= 1024;
             document.getElementById('view-content').innerHTML = `
                 <div class="pt-32 pb-20 px-6 md:px-16 max-w-5xl mx-auto text-left">
@@ -1680,6 +1639,25 @@
             }
         };
 
+        window.renderPolicyPage = function(view) { 
+            const policies = {
+                privacy: { title: 'Privacy Policy', content: `<h2>Introduction</h2><p>Welcome to FORGENOS. We strictly respect your privacy and are deeply committed to protecting your personal data in accordance with modern security standards.</p><h2>Data Storage</h2><p>FORGENOS operates primarily using local storage. This means your "Saved Tools" and "Projects" are stored locally on your device and are never uploaded to our servers unless you explicitly opt-in for our cloud sync features.</p><h2>Cookies & Telemetry</h2><p>We use only essential cookies required to ensure the site functions correctly. We do not track or sell your browsing habits to third-party ad networks.</p>` },
+                terms: { title: 'Terms of Service', content: `<h2>Agreement</h2><p>By accessing the FORGENOS directory, you immediately agree to be bound by these terms. If you do not agree, please discontinue use of the site immediately.</p><h2>License & Usage</h2><p>Permission is granted to use the tools directory for personal, non-commercial use. You may absolutely not scrape our proprietary data, attempt to reverse-engineer our platform, or redistribute it without explicit written permission.</p>` },
+                about: { title: 'About FORGENOS', content: `<p>FORGENOS is a premier directory designed exclusively for the digital vanguard. We curate the most efficient, powerful, and innovative tools across the sectors of Finance, Development, and Cognitive science.</p><p>Our fundamental mission is to empower creators, developers, and everyday individuals to build their ultimate digital workflow with speed, privacy, and precision.</p>` },
+                contact: { title: 'Contact Us', content: `<p>Have a suggestion, found a bug, or need enterprise support? Reach out to our core team below.</p><div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl mt-8 space-y-4 max-w-xl border border-white/10"><p><strong>Email:</strong> hello@forgenos.com</p><p><strong>Business:</strong> partnership@forgenos.com</p></div>` },
+                disclaimer: { title: 'Legal Disclaimer', content: `<p>The information provided by FORGENOS is strictly for general informational purposes only. All software and tools listed in this directory are third-party products.</p><p>We are not responsible for the performance, security, or financial results of any linked tool. Always conduct your own independent research and due diligence before inputting sensitive data or payment information into any third-party application.</p>` }
+            };
+
+            const policy = policies[view];
+            document.getElementById('view-content').innerHTML = `
+                <div class="pt-32 pb-20 px-6 md:px-16 max-w-4xl mx-auto min-h-[60vh]">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-12 text-left">${policy.title}</h1>
+                    <div class="policy-content text-left w-full">
+                        ${policy.content}
+                    </div>
+                </div>`;
+            window.tryCreateIcons();
+        };
 
         window.renderSavedView = function() { 
             const tools = toolsData.filter(t => savedTools.includes(t.id));
