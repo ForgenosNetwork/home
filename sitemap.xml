@@ -184,6 +184,25 @@
   <priority>0.8</priority>
     
 </url>
+  <url>
+  <loc>https://forgenos.com/health/water-intake-calculator</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+  <url>
+  <loc>https://forgenos.com/health/sleep-cycle-calculator</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+  <url>
+  <loc>https://forgenos.com/health/health-score-calculator</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
+
 
 
 
