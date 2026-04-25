@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Sleep Cycle Calculator – Sleep Debt Tracker | Forgenos</title>
+    <meta name="description" content="Free sleep cycle calculator to find your optimal bedtime. Calculate sleep debt instantly with no signup. Wake up refreshed using 90-minute sleep science.">
+    <meta name="keywords" content="sleep cycle calculator free, free sleep cycle calculator online, sleep cycle calculator tool, optimal bedtime calculator, sleep cycle calculator online no signup, best free sleep cycle calculator online, sleep cycle calculator without software, sleep cycle calculator in browser, free sleep calculator for students, sleep calculator no registration, instant sleep calculator online, sleep calculator mobile friendly, sleep debt tracker secure private, how to calculate sleep cycles online free, best sleep calculator 2026, sleep debt tracker for free no login, free sleep tracker like sleep cycle, sleep calculator without subscription, Forgenos sleep calculator, forgenos.com sleep tracker, open source sleep calculator online, what is the best free sleep calculator online, can I track sleep debt for free online, how do I calculate bedtimes without software, is there a free sleep cycle calculator online">
+    
+    <meta property="og:title" content="Sleep Cycle Calculator – Sleep Debt Tracker | Forgenos">
+    <meta property="og:description" content="Free sleep cycle calculator to find your optimal bedtime. Calculate sleep debt instantly with no signup. Wake up refreshed using 90-minute sleep science.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgenos.com/health/sleep-cycle-calculator">
+    <meta property="og:site_name" content="Forgenos">
+    <meta property="og:image" content="https://forgenos.com/health/tool_10.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sleep Cycle Calculator Free Tool by Forgenos">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_CA">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sleep Cycle Calculator – Sleep Debt Tracker | Forgenos">
+    <meta name="twitter:description" content="Free sleep cycle calculator to find your optimal bedtime. Calculate sleep debt instantly with no signup. Wake up refreshed using 90-minute sleep science.">
+    <meta name="twitter:image" content="https://forgenos.com/health/tool_10.webp">
+    <meta name="twitter:site" content="@forgenos">
+    <meta name="twitter:creator" content="@forgenos">
+
+    <meta name="author" content="Forgenos">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#141414">
+    <meta name="language" content="English">
+    <meta name="copyright" content="Forgenos 2026">
+    <meta name="category" content="Free Online Tools">
+    <meta name="coverage" content="Worldwide">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="content-language" content="en-US">
+
+    <link rel="canonical" href="https://forgenos.com/health/sleep-cycle-calculator">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SleepForge Cycle Calculator",
+      "url": "https://forgenos.com/health/sleep-cycle-calculator",
+      "description": "Calculate your optimal bedtime and wake times based on 90-minute sleep cycles. Track your sleep debt and optimize recovery with personalized scientific insights.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Forgenos",
+        "url": "https://forgenos.com"
+      },
+      "featureList": [
+        "Free to use",
+        "No signup required",
+        "Works in browser",
+        "Mobile friendly",
+        "Instant processing",
+        "Private and secure",
+        "No data stored"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this sleep cycle calculator completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the sleep cycle calculator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses the scientifically established 90-minute sleep cycle model. It counts backwards from your wake time or forwards from your bedtime in 90-minute intervals to find optimal points where you will be in the lightest stage of sleep, reducing grogginess."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is sleep debt and how is it calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sleep debt is the accumulated amount of sleep you've missed relative to your body's ideal needs. The tool calculates this by comparing your actual sleep duration to your ideal duration over the past 7 days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my sleep logs safe and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. This tool runs entirely in your web browser. No data is ever sent to our servers or stored externally. Your sleep debt logs remain locally on your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is waking up mid-cycle bad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Waking up during the deep sleep phase of a cycle causes sleep inertia—a feeling of intense grogginess and disorientation that can impair cognitive function for hours."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forgenos.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Health",
+          "item": "https://forgenos.com/health"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SleepForge Cycle Calculator",
+          "item": "https://forgenos.com/health/sleep-cycle-calculator"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#141414',
+                        'brand-surface': '#1e1e1e',
+                        'brand-accent': '#E50914', 
+                        'brand-glow': 'rgba(229, 9, 20, 0.5)',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        logo: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #141414;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        
+        .brand-logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        #tool-loading-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #tool-loading-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .rolling-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .rolling-viewport {
+            height: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .rolling-list {
+            list-style: none;
+            will-change: transform;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rolling-list li {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0.2) 90%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmerSweep 2.5s linear infinite;
+        }
+
+        @keyframes shimmerSweep { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        
+        @media (max-width: 640px) {
+            .rolling-viewport { height: 2.2rem; }
+            .rolling-list li { height: 2.2rem; font-size: 1.3rem; }
+        }
+
+        /* FIX 1 & FIX 9 — Sidebar Expand Logic */
+        #sidebar {
+            width: 5.5rem;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background-color: #141414;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100 !important;
+        }
+        #sidebar:hover { width: 17.5rem; box-shadow: 15px 0 40px rgba(0,0,0,0.9); }
+        .nav-label { opacity: 0; max-width: 0; overflow: hidden; transition: all 0.3s ease; white-space: nowrap; display: inline-block; vertical-align: middle; }
+        #sidebar:hover .nav-label { opacity: 1; max-width: 200px; transform: translateX(0); }
+        .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
+        #sidebar:hover .logo-text { opacity: 1; }
+        
+        /* Ensure sidebar icons have explicit dimensions and always stay visible */
+        .sidebar-icon {
+            width: 24px !important;
+            height: 24px !important;
+            min-width: 24px !important;
+            min-height: 24px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        /* Specific Tool Overrides */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
+        .courier-font { font-family: 'Courier New', Courier, monospace; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sleep cycle SVG hover glow */
+        .result-card { transition: all 0.2s ease; }
+        .result-card:hover { transform: translateY(-3px); }
+        
+        /* Accordion transition */
+        .accordion-content { transition: max-height 0.4s ease-in-out; overflow: hidden; max-height: 0; }
+        .accordion-content.expanded { max-height: 500px; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.rotated { transform: rotate(180deg); }
+        
+        /* Tooltip */
+        .custom-tooltip { visibility: hidden; opacity: 0; transition: opacity 0.2s; }
+        .result-card:hover .custom-tooltip { visibility: visible; opacity: 1; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- JS WARNING (Security) -->
+    <noscript>
+        <style>
+            body{overflow:hidden}
+            #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px}
+            #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px}
+            #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6}
+        </style>
+        <div id="nsw">
+            <div>
+                <h1>⚠️ Access Restricted</h1>
+                <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Global Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
+    <!-- FIX 3 — Handled in JavaScript at bottom -->
+    <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+        <div id="ctx-copy" style="display:none;" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="document.execCommand('copy'); window.closeContextMenu()">
+            <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Selection
+        </div>
+        <div id="ctx-paste" style="display:none;" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="handleCustomPaste(); window.closeContextMenu()">
+            <i data-lucide="clipboard-paste" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste
+        </div>
+        <div id="ctx-share" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : alert('Share not supported on desktop browser without web share API. Just copy the URL!'); window.closeContextMenu()">
+            <i data-lucide="share-2" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Share Page
+        </div>
+
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
+            <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#E50914]/10 hover:text-[#E50914] transition-all group" onclick="location.reload()">
+            <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#E50914] transition-colors"></i> Refresh
+        </div>
+        
+        <div class="h-[1px] bg-white/5 my-1.5"></div>
+        
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="location.href='/index.html'; window.closeContextMenu()">
+            <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
+        </div>
+        <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
+            <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
+        </div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="tool-loading-overlay">
+        <div class="rolling-wrapper">
+            <div class="rolling-viewport" id="tool-viewport">
+                <ul class="rolling-list" id="tool-rolling-list">
+                    <!-- Dynamic Text -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 w-full z-[100] bg-[#141414] border-b border-white/5 px-5 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+            <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+            <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-white/80"><i data-lucide="menu" class="w-7 h-7"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Side Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-[#0a0a0a] z-[120] transform translate-x-full transition-transform duration-300 flex flex-col p-8 overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center cursor-pointer" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-10 h-10 object-contain scale-110">
+                <span class="ml-3 text-xl font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="p-2 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1">
+            <a href="/index.html#home" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="home" class="w-5 h-5"></i> Home
+            </a>
+            <a href="/index.html#projects" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="folder-heart" class="w-5 h-5"></i> My Toolkits
+            </a>
+            <!-- FIX 2: Trending removed from sidebar -->
+            <a href="/index.html#finance" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i> Finance
+            </a>
+            <a href="/index.html#dev" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="code-2" class="w-5 h-5"></i> Dev Tools
+            </a>
+            <a href="/index.html#student" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Study Zone
+            </a>
+            <a href="/index.html#brain" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="brain-circuit" class="w-5 h-5"></i> Brain Training
+            </a>
+            <a href="/index.html#health" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart-pulse" class="w-5 h-5"></i> Health
+            </a>
+            <a href="/index.html#pdf" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="file-text" class="w-5 h-5"></i> PDF Magic
+            </a>
+            <a href="/index.html#image" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="image" class="w-5 h-5"></i> Image Lab
+            </a>
+            <a href="/index.html#saved" class="flex items-center gap-4 py-3.5 px-4 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white font-medium transition-all">
+                <i data-lucide="heart" class="w-5 h-5"></i> My List
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="flex min-h-screen">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-[100] bg-[#141414] border-r border-white/5" id="sidebar">
+            <div class="h-24 w-[17.5rem] flex items-center pl-4 cursor-pointer border-b border-white/5 shrink-0" onclick="location.href='/index.html'">
+                <img src="https://blaeqin-sudo.github.io/toolnoxdemo/logo2.png" alt="Logo" class="w-14 h-14 object-contain scale-110">
+                <span class="logo-text ml-3 text-[22px] font-bold brand-logo-text tracking-[0.05em] mt-[2px]">FORGENOS</span>
+            </div>
+
+            <nav class="flex-1 flex flex-col gap-2 py-10 px-4 overflow-y-auto">
+                <a href="/index.html#home" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="home" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Home</span>
+                </a>
+                <a href="/index.html#projects" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="folder-heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My Toolkits</span>
+                </a>
+                <!-- FIX 2: Trending removed from sidebar -->
+                <a href="/index.html#finance" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="dollar-sign" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Finance</span>
+                </a>
+                <a href="/index.html#dev" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="code-2" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Dev Tools</span>
+                </a>
+                <a href="/index.html#student" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="graduation-cap" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Study Zone</span>
+                </a>
+                <a href="/index.html#brain" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="brain-circuit" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Brain Training</span>
+                </a>
+                <a href="/index.html#health" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart-pulse" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Health</span>
+                </a>
+                <a href="/index.html#pdf" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="file-text" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">PDF Magic</span>
+                </a>
+                <a href="/index.html#image" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="image" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">Image Lab</span>
+                </a>
+                <a href="/index.html#saved" class="flex items-center px-4 h-14 rounded-2xl text-gray-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <i data-lucide="heart" class="sidebar-icon group-hover:text-white transition-colors"></i>
+                    <span class="nav-label ml-4 font-bold text-sm">My List</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-[5.5rem] w-full relative min-h-screen flex flex-col pt-24 md:pt-0">
+            
+            <div class="flex-1 px-4 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
+                
+                <!-- Back Button -->
+                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
+                </a>
+
+                <!-- Tool Title Section -->
+                <div class="mb-10 text-left w-full">
+                    <!-- FIX 12: H1 TAG — HYBRID FORMAT -->
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">SleepForge | Free Sleep Cycle Calculator</h1>
+                    <p class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Discover your optimal bedtime. Align with 90-minute sleep cycles to wake up refreshed, and track your sleep debt without leaving your browser.</p>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
+                <!-- ========================================== -->
+                <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left gap-8">
+                    
+                    <!-- Main Tool Container (Seamless Dark Theme) -->
+                    <div class="w-full bg-[#050505] rounded-3xl border border-white/5 flex flex-col overflow-hidden">
+                        
+                        <!-- TAB HEADERS -->
+                        <div class="flex border-b border-white/10 overflow-x-auto hide-scrollbar">
+                            <button onclick="switchTab('wake')" id="tab-wake" class="flex-1 min-w-[120px] h-20 px-4 flex flex-col items-center justify-center gap-1 border-b-[3px] border-brand-accent text-white hover:bg-white/5 transition-all">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6"><circle cx="12" cy="12" r="5" fill="#F97316"/><path d="M12 2v2m0 16v2m8-10h2M2 12h2m13.66-7.07l1.41-1.41M4.93 19.07l1.41-1.41m0-11.32L4.93 4.93m14.14 14.14l-1.41-1.41" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span class="font-bold text-sm">Wake Up</span>
+                            </button>
+                            <button onclick="switchTab('bedtime')" id="tab-bedtime" class="flex-1 min-w-[120px] h-20 px-4 flex flex-col items-center justify-center gap-1 border-b-[3px] border-transparent text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-all">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#3B82F6"/><path d="M18 6l1-1 1 1-1 1z" fill="#6366F1"/></svg>
+                                <span class="font-bold text-sm">Bedtime</span>
+                            </button>
+                            <button onclick="switchTab('debt')" id="tab-debt" class="flex-1 min-w-[120px] h-20 px-4 flex flex-col items-center justify-center gap-1 border-b-[3px] border-transparent text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-all">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6"><circle cx="12" cy="12" r="10" fill="none" stroke="#E50914" stroke-width="2"/><path d="M8 12h8" stroke="#E50914" stroke-width="2" stroke-linecap="round"/><path d="M12 16l-3-3m3 3l3-3" stroke="#991B1B" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span class="font-bold text-sm">Sleep Debt</span>
+                            </button>
+                        </div>
+
+                        <div class="p-5 md:p-8">
+                            
+                            <!-- SCIENCE BANNER -->
+                            <div class="bg-purple-900/10 border border-purple-500/20 rounded-xl px-5 py-4 mb-8 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                                <div class="bg-purple-500/20 p-2 rounded-lg shrink-0">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2" class="w-6 h-6"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-purple-200 font-medium">Sleep cycles last ~90 minutes each. Waking at the <span class="font-bold text-purple-400">END</span> of a cycle = refreshed. Waking <span class="font-bold text-red-400">MID-CYCLE</span> = groggy.</p>
+                                    <p class="text-xs text-purple-400/80 mt-1">SleepForge calculates times that align with cycle completion.</p>
+                                </div>
+                            </div>
+
+                            <!-- TAB 1: WAKE UP CALC -->
+                            <div id="content-wake" class="tab-content active space-y-8">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    <!-- Inputs -->
+                                    <div class="space-y-6 bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl">
+                                        <div>
+                                            <label class="block text-gray-400 text-sm font-bold mb-3 uppercase tracking-wider">I need to wake up at:</label>
+                                            <div class="flex items-center gap-3 w-full">
+                                                <input type="number" id="w-hour" min="1" max="12" value="07" class="w-full bg-[#141414] border border-white/10 rounded-xl px-4 py-4 text-center text-3xl font-bold courier-font outline-none focus:border-brand-accent transition-colors" onchange="formatTimeInput(this)">
+                                                <span class="text-2xl font-bold text-gray-500">:</span>
+                                                <input type="number" id="w-min" min="0" max="59" value="00" class="w-full bg-[#141414] border border-white/10 rounded-xl px-4 py-4 text-center text-3xl font-bold courier-font outline-none focus:border-brand-accent transition-colors" onchange="formatTimeInput(this, true)">
+                                                <button id="w-ampm" class="bg-[#141414] border border-white/10 hover:border-brand-accent rounded-xl px-6 py-4 text-xl font-bold transition-all w-24" onclick="toggleAMPM(this); processCalculation('wake')">AM</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="flex justify-between text-gray-400 text-sm font-bold mb-3 uppercase tracking-wider">
+                                                <span>Time to fall asleep</span>
+                                                <span id="w-latency-val" class="text-brand-accent">14 min</span>
+                                            </label>
+                                            <input type="range" id="w-latency" min="5" max="60" step="1" value="14" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent" oninput="document.getElementById('w-latency-val').innerText = this.value + ' min'; processCalculation('wake')">
+                                            <p class="text-xs text-gray-500 mt-2">Average adult takes 10-20 minutes.</p>
+                                        </div>
+
+                                        <button onclick="triggerLoadingAndCalculate('wake')" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors mt-4">
+                                            Calculate Bedtimes →
+                                        </button>
+                                    </div>
+
+                                    <!-- Results Grid container -->
+                                    <div class="flex flex-col gap-4" id="w-results-container" style="display:none;">
+                                        <h3 class="text-xl font-bold">Go to sleep at one of these times:</h3>
+                                        <div id="w-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                            <!-- Cards injected by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 2: BEDTIME CALC -->
+                            <div id="content-bedtime" class="tab-content space-y-8">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    <div class="space-y-6 bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl">
+                                        <div>
+                                            <label class="block text-gray-400 text-sm font-bold mb-3 uppercase tracking-wider">I'm going to sleep at:</label>
+                                            <div class="flex items-center gap-3 w-full">
+                                                <input type="number" id="b-hour" min="1" max="12" value="10" class="w-full bg-[#141414] border border-white/10 rounded-xl px-4 py-4 text-center text-3xl font-bold courier-font outline-none focus:border-brand-accent transition-colors" onchange="formatTimeInput(this)">
+                                                <span class="text-2xl font-bold text-gray-500">:</span>
+                                                <input type="number" id="b-min" min="0" max="59" value="30" class="w-full bg-[#141414] border border-white/10 rounded-xl px-4 py-4 text-center text-3xl font-bold courier-font outline-none focus:border-brand-accent transition-colors" onchange="formatTimeInput(this, true)">
+                                                <button id="b-ampm" class="bg-[#141414] border border-white/10 hover:border-brand-accent rounded-xl px-6 py-4 text-xl font-bold transition-all w-24" onclick="toggleAMPM(this); processCalculation('bedtime')">PM</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="flex justify-between text-gray-400 text-sm font-bold mb-3 uppercase tracking-wider">
+                                                <span>Time to fall asleep</span>
+                                                <span id="b-latency-val" class="text-brand-accent">14 min</span>
+                                            </label>
+                                            <input type="range" id="b-latency" min="5" max="60" step="1" value="14" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent" oninput="document.getElementById('b-latency-val').innerText = this.value + ' min'; processCalculation('bedtime')">
+                                        </div>
+
+                                        <button onclick="triggerLoadingAndCalculate('bedtime')" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors mt-4">
+                                            Calculate Wake Times →
+                                        </button>
+
+                                        <!-- Morning Assessment Card -->
+                                        <div id="b-assessment" class="hidden mt-4 bg-white/5 border border-white/10 p-4 rounded-xl">
+                                            <!-- Assessment injected by JS -->
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col gap-4" id="b-results-container" style="display:none;">
+                                        <h3 class="text-xl font-bold">Set your alarm for one of these times:</h3>
+                                        <div id="b-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                            <!-- Cards injected by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SHARED CYCLE VISUALIZER (Hidden initially) -->
+                            <div id="cycle-visualizer-container" class="mt-10 p-6 bg-[#0a0a0a] border border-white/5 rounded-2xl hidden">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2" class="w-6 h-6"><path d="M2 12c2.5-6 5-6 7.5 0s5 6 7.5 0 2.5-6 5-6"/></svg>
+                                    <h3 class="text-lg font-bold">Your sleep cycle pattern tonight</h3>
+                                </div>
+                                <div class="relative w-full h-[180px] overflow-hidden" id="hypnogram-svg">
+                                    <!-- SVG Generated by JS -->
+                                </div>
+                                <p class="text-xs text-gray-500 mt-4 italic">REM periods lengthen with each cycle — most vivid dreaming happens in cycles 4 and 5.</p>
+                            </div>
+
+
+                            <!-- TAB 3: SLEEP DEBT TRACKER -->
+                            <div id="content-debt" class="tab-content space-y-8">
+                                
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl text-sm text-gray-300">
+                                    <p><strong class="text-white">What is sleep debt?</strong> It's the cumulative shortfall from your ideal sleep. Missing 1 hour per night for 5 nights creates 5 hours of sleep debt — affecting mood, cognition, and immunity significantly.</p>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    
+                                    <!-- Debt Inputs -->
+                                    <div class="space-y-6 bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl">
+                                        <div>
+                                            <label class="flex justify-between text-gray-400 text-sm font-bold mb-3 uppercase tracking-wider">
+                                                <span>My ideal sleep per night:</span>
+                                                <span id="ideal-sleep-val" class="text-brand-accent">8.0 hours</span>
+                                            </label>
+                                            <input type="range" id="ideal-sleep" min="6" max="10" step="0.5" value="8" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent" oninput="updateIdealSleep(this.value)">
+                                        </div>
+
+                                        <div class="pt-4 border-t border-white/5">
+                                            <h4 class="text-sm font-bold mb-4 text-gray-300">Last 7 Days Sleep Log</h4>
+                                            <div id="debt-log-container" class="space-y-3">
+                                                <!-- Log rows generated by JS -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Debt Results -->
+                                    <div class="space-y-6">
+                                        
+                                        <div id="debt-hero" class="bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl flex flex-col items-center text-center">
+                                            <!-- Hero Content Generated By JS -->
+                                        </div>
+
+                                        <div id="debt-recovery-plan" class="bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl hidden">
+                                            <h4 class="font-bold text-white mb-4 flex items-center gap-2">
+                                                <i data-lucide="activity" class="w-5 h-5 text-brand-accent"></i> How to recover
+                                            </h4>
+                                            <ul id="debt-plan-list" class="space-y-3 text-sm text-gray-400 list-disc pl-5">
+                                                <!-- Plan JS -->
+                                            </ul>
+                                        </div>
+
+                                        <div class="bg-[#0a0a0a] border border-white/5 p-6 rounded-2xl hidden" id="debt-chart-container">
+                                            <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wide text-gray-400">7-Day Chart vs Ideal</h4>
+                                            <div id="debt-svg-chart" class="w-full h-32 relative"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- ACTIONS & EXTRAS (Visible below tabs when calculated) -->
+                            <div id="tool-actions-panel" class="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 hidden">
+                                <button onclick="copySchedule()" class="flex-1 flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                                    <i data-lucide="copy" class="w-5 h-5"></i> Copy Schedule
+                                </button>
+                                <button onclick="downloadReport()" class="flex-1 flex items-center justify-center gap-2 bg-brand-accent/20 hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-accent/30 hover:border-brand-accent font-bold py-3 px-6 rounded-xl transition-all">
+                                    <i data-lucide="download" class="w-5 h-5"></i> Save Image
+                                </button>
+                            </div>
+                            
+                            <!-- HYGIENE TIPS (Context aware) -->
+                            <div id="hygiene-tips" class="mt-6 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 hidden">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" class="w-5 h-5 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"><path d="M9 18h6M10 22h4M15 8.94C15 7.15 13.88 5.76 12 5.76c-1.88 0-3 1.39-3 3.18a3.18 3.18 0 0 0 1.25 2.52C11.53 12.38 12 13.1 12 14v1c0 1.1.9 2 2 2h0c1.1 0 2-.9 2-2v-1c0-.9.47-1.62 1.75-2.54A3.18 3.18 0 0 0 15 8.94Z"/></svg>
+                                    <h4 class="font-bold text-white">Sleep Hygiene Tips for You</h4>
+                                </div>
+                                <ul id="tips-list" class="space-y-3 text-sm text-gray-400 list-disc pl-5"></ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- SLEEP SCIENCE INSIGHTS ACCORDION -->
+                    <div class="w-full bg-[#0a0a0a] rounded-2xl border border-white/5 overflow-hidden">
+                        <button onclick="toggleAccordion('insights-content', 'insights-icon')" class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors">
+                            <span class="font-bold text-lg">Sleep Science Insights</span>
+                            <i data-lucide="chevron-down" id="insights-icon" class="w-5 h-5 text-gray-500 accordion-icon"></i>
+                        </button>
+                        <div id="insights-content" class="accordion-content bg-[#050505]">
+                            <div class="p-6 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                    <h5 class="font-bold text-purple-400 mb-2">The 90-Minute Rule</h5>
+                                    <p class="text-sm text-gray-400">A complete cycle takes ~90 mins: N1, N2 (light), N3 (deep), and REM. Waking at the end of a cycle drastically reduces sleep inertia (grogginess).</p>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                    <h5 class="font-bold text-red-400 mb-2">Sleep Debt is Real</h5>
+                                    <p class="text-sm text-gray-400">Mild restriction (6hrs/night) for 2 weeks produces cognitive deficits equivalent to staying awake for 24 hours straight—even if you feel you've adapted.</p>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                    <h5 class="font-bold text-amber-400 mb-2">Weekend Catch-up Limits</h5>
+                                    <p class="text-sm text-gray-400">Sleeping in on weekends helps short-term but creates 'social jet lag'. A consistent wake time 7 days a week is more effective for circadian health.</p>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                    <h5 class="font-bold text-blue-400 mb-2">REM Sleep Matters</h5>
+                                    <p class="text-sm text-gray-400">REM (dreaming phase) increases in later cycles. Cutting sleep short eliminates disproportionately more REM, affecting memory and emotion regulation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========================================== -->
+                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
+                <!-- ========================================== -->
+
+                <!-- FIX 7 & FIX 10: Tool Info Section (Visible before submit) -->
+                <div id="pre-submit-info" class="mt-12 w-full bg-[#050505] border border-white/5 rounded-3xl p-8 lg:p-10 transition-opacity">
+                    <h2 class="text-2xl font-black mb-6 text-white tracking-tight">Understanding Sleep Cycles</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3 text-gray-300">What this tool does</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed mb-6">Sleep is not just about logging hours; it's about completing cycles. Waking up in the middle of deep sleep causes 'sleep inertia'—that intense grogginess. SleepForge uses established chronobiology formulas to calculate exact bedtimes and wake times that align with natural 90-minute sleep cycle completions, helping you wake up refreshed even on fewer hours.</p>
+
+                            <h3 class="text-lg font-bold mb-3 text-gray-300">Who It's For</h3>
+                            <ul class="text-sm text-gray-500 space-y-2 list-disc pl-5">
+                                <li>Professionals dealing with early morning meetings.</li>
+                                <li>Students pulling late nights who need to optimize limited sleep.</li>
+                                <li>Shift workers managing irregular sleep schedules.</li>
+                                <li>Anyone feeling tired despite sleeping 8 hours.</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-bold mb-3 text-gray-300">Key Features</h3>
+                            <ul class="text-sm text-gray-500 space-y-2 list-disc pl-5 mb-6">
+                                <li>Calculates 6 optimal bedtimes based on wake targets.</li>
+                                <li>Customizable sleep latency (time it takes to fall asleep).</li>
+                                <li>Built-in 7-day Sleep Debt Tracker.</li>
+                                <li>Visual Hypnogram generation to understand sleep architecture.</li>
+                                <li>100% private, client-side processing (no data leaves your device).</li>
+                            </ul>
+
+                            <h3 class="text-lg font-bold mb-3 text-gray-300">How to Use</h3>
+                            <ol class="text-sm text-gray-500 space-y-2 list-decimal pl-5">
+                                <li>Select the <strong>Wake Up</strong> tab if you know your alarm time, or <strong>Bedtime</strong> if you are going to sleep now.</li>
+                                <li>Enter the time and adjust your fall-asleep delay.</li>
+                                <li>Click Calculate to see your options. Aim for the green "Recommended" 5-cycle block (7.5 hours).</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIX 12: SEO Article Section -->
+                <article class="mt-16 pt-10 border-t border-white/5 text-gray-400 space-y-6 text-sm leading-relaxed w-full">
+                    <h2 class="text-2xl font-black text-white">The Science of Sleep Cycles and Sleep Debt</h2>
+                    <p>In today's fast-paced environment, sleep is often the first sacrifice professionals make to keep up with demands. However, the paradigm of simply "getting 8 hours" is scientifically outdated. The human brain does not rest linearly; it cycles through highly structured phases. Understanding and leveraging these sleep cycles is the core principle behind the SleepForge calculator, a tool designed to maximize recovery efficiency for high-performing individuals.</p>
+                    
+                    <h3 class="text-xl font-bold text-gray-200 mt-6">How Sleep Cycles Work</h3>
+                    <p>A typical sleep cycle lasts approximately 90 minutes. During this time, the brain descends through Stage 1 and Stage 2 (light sleep) into Stage 3 (deep, slow-wave sleep), before ascending rapidly back into REM (Rapid Eye Movement) sleep. </p>
+                    <p>Deep sleep is responsible for physical restoration, immune system strengthening, and tissue repair. REM sleep, which becomes more dominant in the later cycles of the night, is crucial for cognitive functions like memory consolidation, emotional regulation, and complex problem-solving. Waking up during the deep sleep phase forces the brain to transition too abruptly, causing a phenomenon known as "sleep inertia." This is the profound grogginess that can impair cognitive performance for hours, making you feel exhausted even if you slept for an adequate total duration.</p>
+                    
+                    <h3 class="text-xl font-bold text-gray-200 mt-6">Strategic Application (Use Cases)</h3>
+                    <p>By using the SleepForge calculator, you can strategically time your alarms to coincide with the end of a sleep cycle (typically the REM or light sleep phase). Here are common scenarios where this yields immediate benefits:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>The Late Night Pivot:</strong> If you must stay up late to finish a project and have to wake up at 7:00 AM, sleeping for 4.5 hours (3 full cycles) will often leave you feeling more alert than sleeping for 5.5 hours (waking mid-cycle).</li>
+                        <li><strong>Optimizing Naps:</strong> A strategic 20-minute nap prevents you from entering deep sleep, while a full 90-minute nap completes one cycle. Anything in between (like a 45-minute nap) risks severe sleep inertia.</li>
+                        <li><strong>Beating Jet Lag:</strong> By calculating forward cycles, travelers can establish anchor sleep periods in new time zones that align with local mornings, easing the circadian transition.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-gray-200 mt-6">Understanding and Managing Sleep Debt</h3>
+                    <p>The Sleep Debt Tracker embedded in this tool addresses the chronic accumulation of sleep loss. Sleep debt is the difference between the amount of sleep you actually get and the amount you theoretically need (usually 7-9 hours for adults). Research indicates that accumulating just one hour of sleep debt per night for a week results in cognitive impairments equivalent to staying awake for 24 hours straight.</p>
+                    <p>Recovery cannot be achieved in a single weekend "sleep-in," which often disrupts the circadian rhythm further (social jet lag). True recovery requires a consistent, gradual addition of 30 to 60 minutes of sleep per night over several days. SleepForge provides a quantitative metric to track this deficit, removing the guesswork from recovery protocols.</p>
+                </article>
+
+                <!-- FIX 12: Visible FAQ Section -->
+                <section id="faq" class="mt-16 w-full">
+                    <h3 class="text-2xl font-black text-white mb-6">Frequently Asked Questions</h3>
+                    <div class="space-y-4">
+                        <div class="bg-[#050505] p-5 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-gray-200">Is this sleep cycle calculator completely free?</h4>
+                            <p class="text-sm text-gray-500 mt-2">Yes, this tool on Forgenos is 100% free. No signup, no subscription, no hidden fees.</p>
+                        </div>
+                        <div class="bg-[#050505] p-5 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-gray-200">How does the sleep cycle calculator work?</h4>
+                            <p class="text-sm text-gray-500 mt-2">It uses the scientifically established 90-minute sleep cycle model. It counts backwards from your wake time or forwards from your bedtime in 90-minute intervals to find optimal points where you will be in the lightest stage of sleep.</p>
+                        </div>
+                        <div class="bg-[#050505] p-5 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-gray-200">What is sleep debt and how is it calculated?</h4>
+                            <p class="text-sm text-gray-500 mt-2">Sleep debt is the accumulated amount of sleep you've missed relative to your body's ideal needs. The tool calculates this by comparing your actual sleep duration to your ideal duration over the past 7 days.</p>
+                        </div>
+                        <div class="bg-[#050505] p-5 rounded-xl border border-white/5">
+                            <h4 class="font-bold text-gray-200">Are my sleep logs safe and private?</h4>
+                            <p class="text-sm text-gray-500 mt-2">Absolutely. This tool runs entirely in your web browser. No data is ever sent to our servers or stored externally. Your sleep debt logs remain locally on your device.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Professional Minimal Footer (About this Tool) -->
+                <div class="mt-20 pt-10 border-t border-white/5 w-full text-left">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 opacity-60 hover:opacity-100 transition-opacity w-full">
+                        <div class="flex flex-col lg:col-span-5 text-left">
+                            <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">About this Module</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-sm">This module is part of the FORGENOS decentralized tool ecosystem. It runs locally on your browser to ensure maximum performance and 100% data privacy.</p>
+                        </div>
+                        
+                        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Security Architecture</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-gray-600"></i> End-to-End Local Processing</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="server-off" class="w-4 h-4 text-gray-600"></i> No External Server Logs</li>
+                                    <li class="flex items-center gap-3"><i data-lucide="lock" class="w-4 h-4 text-gray-600"></i> SSL Encrypted Connection</li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-4">Support & Legal</h4>
+                                <ul class="text-sm text-gray-500 space-y-3 font-medium">
+                                    <li><a href="/index.html#about" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Documentation</a></li>
+                                    <li><a href="/index.html#contact" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Report an Issue</a></li>
+                                    <li><a href="/index.html#terms" class="hover:text-brand-accent transition-colors flex items-center gap-3"><i data-lucide="scale" class="w-4 h-4"></i> Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Footer Simple -->
+            <footer class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+                <div class="flex gap-6">
+                    <i data-lucide="twitter" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                    <i data-lucide="github" class="w-4 h-4 text-gray-600 cursor-pointer hover:text-brand-accent"></i>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Icons Initialization
+        lucide.createIcons();
+
+        // ==========================================
+        // ENHANCED SECURITY SCRIPT (PRO LEVEL)
+        // ==========================================
+        console.log("%cSTOP!", "color: #E50914; font-size: 50px; font-weight: 900; text-shadow: 2px 2px 0 #000; font-family: sans-serif;");
+        console.log("%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a FORGENOS feature or 'hack' someone's account, it is a scam and will give them access to your account.", "color: #a3a3a3; font-size: 16px; font-family: sans-serif;");
+        console.log("%cFORGENOS ENGINE PROTECTED.", "color: white; font-size: 12px; font-weight: bold; background: #E50914; padding: 4px 8px; border-radius: 4px; margin-top: 10px;");
+
+        // FIX 3: Context menu logic
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); 
+            if (window.innerWidth < 1024) return false;
+
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) {
+                let x = e.clientX, y = e.clientY; 
+                if(x + 220 > window.innerWidth) x -= 220; 
+                if(y + 300 > window.innerHeight) y -= 300; 
+                
+                menu.style.top = y + 'px'; 
+                menu.style.left = x + 'px'; 
+                menu.style.display = 'block'; 
+                
+                // Show Copy if text selected
+                const sel = window.getSelection().toString().trim();
+                document.getElementById('ctx-copy').style.display = sel !== '' ? 'flex' : 'none';
+
+                // Check Clipboard
+                if(navigator.clipboard && navigator.clipboard.readText) {
+                    navigator.clipboard.readText().then(text => {
+                        document.getElementById('ctx-paste').style.display = text.trim() !== '' ? 'flex' : 'none';
+                    }).catch(() => {
+                        document.getElementById('ctx-paste').style.display = 'none';
+                    });
+                }
+            }
+            return false;
+        };
+
+        document.addEventListener('click', (e) => { 
+            const menu = document.getElementById('custom-context-menu');
+            if (menu && !e.target.closest('#custom-context-menu')) {
+                menu.style.display = 'none'; 
+            }
+        });
+        
+        window.closeContextMenu = function() { 
+            const menu = document.getElementById('custom-context-menu'); 
+            if(menu) menu.style.display = 'none'; 
+        };
+
+        async function handleCustomPaste() {
+            try {
+                const text = await navigator.clipboard.readText();
+                const activeEl = document.activeElement;
+                if(activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+                    activeEl.value = activeEl.value.substring(0, activeEl.selectionStart) + text + activeEl.value.substring(activeEl.selectionEnd);
+                }
+            } catch (err) {
+                console.error("Paste failed", err);
+            }
+        }
+
+        document.onkeydown = function(e) { 
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; } 
+            if ((e.ctrlKey || e.metaKey) && ['u','U','s','S','p','P'].includes(e.key)) { e.preventDefault(); return false; }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        };
+
+        // System Toasts
+        function showToast(message, type = 'normal') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#1a1a1c] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
+            let icon = type === 'success' ? 'check-circle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}" class="text-brand-accent w-5 h-5"></i> <span class="font-bold">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            if (!menu || !overlay) return;
+            const isHidden = menu.classList.contains('translate-x-full');
+            if (isHidden) {
+                document.body.style.overflow = 'hidden'; 
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth; 
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+            } else {
+                document.body.style.overflow = ''; 
+                overlay.classList.remove('opacity-100');
+                menu.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        let globalRollInterval;
+        function showToolLoading(stepsArray, durationPerStep = 1200) {
+            const overlay = document.getElementById('tool-loading-overlay');
+            const rollingList = document.getElementById('tool-rolling-list');
+            document.body.style.overflow = 'hidden'; // FIX 4 Scroll Lock
+
+            if(!stepsArray || stepsArray.length === 0) stepsArray = ['Processing request...'];
+
+            let listHTML = '';
+            stepsArray.forEach(step => { listHTML += `<li class="shimmer-text">${step}</li>`; });
+            listHTML += `<li class="shimmer-text" aria-hidden="true">${stepsArray[0]}</li>`;
+            
+            rollingList.innerHTML = listHTML;
+            overlay.classList.add('visible');
+            
+            let currentIndex = 0;
+            const totalItems = stepsArray.length + 1;
+            rollingList.style.transition = 'none';
+            rollingList.style.transform = `translateY(0px)`;
+            
+            clearInterval(globalRollInterval);
+            
+            setTimeout(() => {
+                globalRollInterval = setInterval(() => {
+                    currentIndex++;
+                    const liElements = rollingList.querySelectorAll('li');
+                    if(liElements.length === 0) return;
+                    
+                    const itemHeight = liElements[0].getBoundingClientRect().height;
+                    rollingList.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                    rollingList.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                    if (currentIndex === totalItems - 1) {
+                        setTimeout(() => {
+                            rollingList.style.transition = 'none';
+                            currentIndex = 0;
+                            rollingList.style.transform = `translateY(0px)`;
+                        }, 500); 
+                    }
+                }, durationPerStep);
+            }, 100);
+        }
+
+        function hideToolLoading() {
+            const overlay = document.getElementById('tool-loading-overlay');
+            overlay.classList.remove('visible');
+            clearInterval(globalRollInterval);
+            document.body.style.overflow = ''; // Release scroll lock
+        }
+
+        // ==========================================
+        // Tool Custom JS Logic Yahan Niche Likha Jayega...
+        // ==========================================
+        
+        const CYCLE_MINUTES = 90;
+        let currentActiveTab = 'wake';
+        let currentScheduleMode = 'wake'; // wake or bedtime
+        let lastResults = [];
+
+        // UI Interactions
+        function switchTab(tabId) {
+            currentActiveTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`content-${tabId}`).classList.add('active');
+
+            // Reset tab styling
+            ['wake', 'bedtime', 'debt'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                btn.classList.remove('border-brand-accent', 'text-white');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+
+            // Activate new tab
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.remove('border-transparent', 'text-gray-500');
+            activeBtn.classList.add('border-brand-accent', 'text-white');
+
+            // Hide/show extra panels based on context
+            if(tabId === 'debt') {
+                document.getElementById('cycle-visualizer-container').classList.add('hidden');
+                document.getElementById('tool-actions-panel').classList.add('hidden');
+                document.getElementById('hygiene-tips').classList.add('hidden');
+            } else {
+                // Keep hidden until calculate pressed for wake/bedtime
+                const hasResults = document.getElementById(`${tabId.charAt(0)}-results-container`).style.display !== 'none';
+                if(hasResults) {
+                    document.getElementById('cycle-visualizer-container').classList.remove('hidden');
+                    document.getElementById('tool-actions-panel').classList.remove('hidden');
+                    document.getElementById('hygiene-tips').classList.remove('hidden');
+                }
+            }
+        }
+
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            content.classList.toggle('expanded');
+            icon.classList.toggle('rotated');
+        }
+
+        function formatTimeInput(input, isMin = false) {
+            let val = parseInt(input.value);
+            if(isNaN(val)) val = isMin ? 0 : 12;
+            if(isMin) {
+                if(val > 59) val = 59;
+                if(val < 0) val = 0;
+            } else {
+                if(val > 12) val = 12;
+                if(val < 1) val = 1;
+            }
+            input.value = val.toString().padStart(2, '0');
+        }
+
+        function toggleAMPM(btn) {
+            btn.innerText = btn.innerText === 'AM' ? 'PM' : 'AM';
+        }
+
+        // Logic core functions
+        function getMinutesFromInputs(hId, mId, ampmId) {
+            let h = parseInt(document.getElementById(hId).value) || 12;
+            let m = parseInt(document.getElementById(mId).value) || 0;
+            let ampm = document.getElementById(ampmId).innerText;
+            
+            if (h === 12) h = 0;
+            if (ampm === 'PM') h += 12;
+            return (h * 60) + m;
+        }
+
+        function minutesToTimeStr(minutes) {
+            const h24 = Math.floor(minutes / 60) % 24;
+            const m = minutes % 60;
+            const ampm = h24 < 12 ? 'AM' : 'PM';
+            const h12 = h24 % 12 || 12;
+            return `${h12}:${m.toString().padStart(2,'0')} ${ampm}`;
+        }
+
+        function getCycleQuality(cycles) {
+            switch(cycles) {
+                case 6: return { label:'Max Recovery', color:'#FBBF24', bg:'bg-amber-900/20', border:'border-amber-500/30' };
+                case 5: return { label:'Optimal', color:'#10B981', bg:'bg-green-900/20', border:'border-brand-accent/50', rec:true, textColor:'text-green-400' };
+                case 4: return { label:'Sufficient', color:'#06B6D4', bg:'bg-teal-900/20', border:'border-teal-500/30' };
+                case 3: return { label:'Minimal', color:'#FBBF24', bg:'bg-amber-900/20', border:'border-amber-500/30' };
+                case 2: return { label:'Very Short', color:'#F97316', bg:'bg-orange-900/20', border:'border-orange-500/30' };
+                case 1: return { label:'Nap Only', color:'#94A3B8', bg:'bg-gray-900/20', border:'border-gray-500/30' };
+                default: return { label:'Unknown', color:'#ffffff' };
+            }
+        }
+
+        function triggerLoadingAndCalculate(mode) {
+            currentScheduleMode = mode;
+            // FIX 4: Max 5 words
+            showToolLoading(['Analyzing cycles...', 'Aligning rhythms...', 'Finding optimal time...'], 800);
+            setTimeout(() => {
+                processCalculation(mode);
+                hideToolLoading();
+                
+                // FIX 6: Hide info section
+                const info = document.getElementById('pre-submit-info');
+                if(info) info.style.display = 'none';
+
+                // FIX 5: Auto scroll to result
+                const resultContainer = document.getElementById(`${mode.charAt(0)}-results-container`);
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 2400);
+        }
+
+        function processCalculation(mode) {
+            let latency, baseMins, results;
+            if(mode === 'wake') {
+                latency = parseInt(document.getElementById('w-latency').value) || 14;
+                baseMins = getMinutesFromInputs('w-hour', 'w-min', 'w-ampm');
+                results = [];
+                for(let n=6; n>=1; n--) {
+                    const totalSleep = n * CYCLE_MINUTES;
+                    const bedtimeMins = ((baseMins - totalSleep - latency) % 1440 + 1440) % 1440;
+                    results.push({ cycles: n, hours: totalSleep/60, timeMins: bedtimeMins, timeStr: minutesToTimeStr(bedtimeMins) });
+                }
+                renderGrid('w-grid', results);
+                document.getElementById('w-results-container').style.display = 'flex';
+                
+            } else if (mode === 'bedtime') {
+                latency = parseInt(document.getElementById('b-latency').value) || 14;
+                baseMins = getMinutesFromInputs('b-hour', 'b-min', 'b-ampm');
+                results = [];
+                for(let n=6; n>=1; n--) {
+                    const totalSleep = n * CYCLE_MINUTES;
+                    const wakeMins = (baseMins + latency + totalSleep) % 1440;
+                    results.push({ cycles: n, hours: totalSleep/60, timeMins: wakeMins, timeStr: minutesToTimeStr(wakeMins) });
+                }
+                renderGrid('b-grid', results);
+                document.getElementById('b-results-container').style.display = 'flex';
+                
+                // Morning Assessment
+                const h24 = Math.floor(baseMins / 60) % 24;
+                const assess = document.getElementById('b-assessment');
+                assess.classList.remove('hidden');
+                if (h24 >= 19 && h24 < 22) {
+                    assess.innerHTML = `<p class="text-sm text-green-400 font-bold"><i data-lucide="check-circle" class="inline w-4 h-4 mr-1"></i> Early bedtime. Well-aligned with circadian rhythm. Cortisol will rise naturally with morning light.</p>`;
+                } else if (h24 >= 22 || h24 === 0) { // 10pm-12am
+                    assess.innerHTML = `<p class="text-sm text-green-400 font-bold"><i data-lucide="check-circle" class="inline w-4 h-4 mr-1"></i> Ideal window. Most adults' circadian rhythm peaks for sleep in this range.</p>`;
+                } else if (h24 >= 1 && h24 < 2) {
+                    assess.innerHTML = `<p class="text-sm text-amber-400 font-bold"><i data-lucide="alert-triangle" class="inline w-4 h-4 mr-1"></i> Late bedtime. You may miss peak deep sleep early on. Consider moving earlier gradually.</p>`;
+                } else {
+                    assess.innerHTML = `<p class="text-sm text-red-400 font-bold"><i data-lucide="alert-triangle" class="inline w-4 h-4 mr-1"></i> Very late. Significant circadian misalignment. Deep sleep quality is reduced.</p>`;
+                }
+                lucide.createIcons();
+            }
+
+            lastResults = results;
+            document.getElementById('cycle-visualizer-container').classList.remove('hidden');
+            document.getElementById('tool-actions-panel').classList.remove('hidden');
+            document.getElementById('hygiene-tips').classList.remove('hidden');
+            renderHypnogram(5); // Default to 5 cycles drawing
+            updateHygieneTips(mode, baseMins);
+        }
+
+        function renderGrid(containerId, results) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            results.forEach(res => {
+                const q = getCycleQuality(res.cycles);
+                const isRec = q.rec;
+                const scaleClass = isRec ? "scale-[1.02] md:scale-[1.05] z-10 shadow-[0_0_20px_rgba(229,9,20,0.15)]" : "opacity-90 hover:opacity-100";
+                
+                let html = `
+                    <div class="result-card bg-[#141414] border ${q.border} rounded-xl p-4 flex flex-col items-center justify-center text-center relative cursor-default ${scaleClass}">
+                        ${isRec ? `<div class="absolute -top-3 bg-brand-accent text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Recommended</div>` : ''}
+                        
+                        <div class="text-[10px] uppercase font-bold text-gray-500 mb-1 tracking-widest">${res.cycles} Cycles</div>
+                        <div class="text-2xl md:text-3xl font-black courier-font mb-1 ${q.textColor || 'text-white'}">${res.timeStr}</div>
+                        <div class="text-xs text-gray-400 font-medium">${res.hours} hours total</div>
+                        
+                        <div class="mt-3 ${q.bg} border ${q.border} px-3 py-1 rounded-full text-[10px] font-bold" style="color:${q.color}">${q.label}</div>
+                        
+                        <div class="custom-tooltip absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-[#050505] border border-white/10 rounded-lg p-3 text-xs text-left z-20 shadow-xl">
+                            ${currentScheduleMode === 'wake' ? 'Wake up' : 'Sleep'} at this time to complete ${res.cycles} full cycles (Light &rarr; Deep &rarr; REM).
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        function renderHypnogram(cycles) {
+            const svgW = 600, svgH = 160;
+            const stageH = svgH / 4;
+            const totalMinutes = cycles * 90;
+
+            const stages = [];
+            for (let c = 0; c < cycles; c++) {
+                const cycleStart = c * (totalMinutes / cycles);
+                const cycleEnd = (c + 1) * (totalMinutes / cycles);
+                const cycleW = (cycleEnd - cycleStart) / totalMinutes * svgW;
+                const xStart = cycleStart / totalMinutes * svgW;
+
+                stages.push(
+                    { x1: xStart, y1: stageH * 0.5, x2: xStart + cycleW * 0.3, y2: stageH * 2.5 },
+                    { x1: xStart + cycleW * 0.3, y1: stageH * 2.5, x2: xStart + cycleW * 0.5, y2: stageH * 2.5 },
+                    { x1: xStart + cycleW * 0.5, y1: stageH * 2.5, x2: xStart + cycleW * 0.8, y2: stageH * 1.0 },
+                    { x1: xStart + cycleW * 0.8, y1: stageH * 1.0, x2: xStart + cycleW, y2: stageH * 0.5 }
+                );
+            }
+
+            let pathD = `M ${stages[0].x1} ${stages[0].y1}`;
+            stages.forEach(s => { pathD += ` L ${s.x2} ${s.y2}`; });
+
+            const svg = `
+                <svg viewBox="0 0 ${svgW} ${svgH}" width="100%" height="100%" preserveAspectRatio="none">
+                    <rect x="0" y="0" width="${svgW}" height="${stageH}" fill="rgba(255,255,255,0.03)"/>
+                    <text x="10" y="${stageH/2 + 4}" fill="#a3a3a3" font-size="10" font-weight="bold">AWAKE</text>
+                    
+                    <rect x="0" y="${stageH}" width="${svgW}" height="${stageH}" fill="rgba(59,130,246,0.06)"/>
+                    <text x="10" y="${stageH + stageH/2 + 4}" fill="#a3a3a3" font-size="10" font-weight="bold">LIGHT</text>
+                    
+                    <rect x="0" y="${stageH*2}" width="${svgW}" height="${stageH}" fill="rgba(168,85,247,0.08)"/>
+                    <text x="10" y="${stageH*2 + stageH/2 + 4}" fill="#a3a3a3" font-size="10" font-weight="bold">DEEP</text>
+                    
+                    <rect x="0" y="${stageH*3}" width="${svgW}" height="${stageH}" fill="rgba(99,102,241,0.06)"/>
+                    <text x="10" y="${stageH*3 + stageH/2 + 4}" fill="#a3a3a3" font-size="10" font-weight="bold">REM</text>
+                    
+                    <path d="${pathD}" fill="none" stroke="#A855F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- Wake Marker -->
+                    <line x1="${svgW - 2}" y1="0" x2="${svgW - 2}" y2="${svgH}" stroke="#E50914" stroke-width="2" stroke-dasharray="4 3"/>
+                    <text x="${svgW - 8}" y="14" fill="#E50914" font-size="10" font-weight="bold" text-anchor="end">ALARM ✓</text>
+                </svg>
+            `;
+            document.getElementById('hypnogram-svg').innerHTML = svg;
+        }
+
+        // DEBT TRACKER LOGIC
+        let idealSleepHours = parseFloat(localStorage.getItem('sleepforge_ideal')) || 8.0;
+        let sleepLog = JSON.parse(localStorage.getItem('sleepforge_log')) || generateDefaultLog();
+
+        function updateIdealSleep(val) {
+            idealSleepHours = parseFloat(val);
+            document.getElementById('ideal-sleep-val').innerText = idealSleepHours.toFixed(1) + ' hours';
+            localStorage.setItem('sleepforge_ideal', idealSleepHours);
+            renderDebtTracker();
+        }
+
+        function generateDefaultLog() {
+            const arr = [];
+            const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            const today = new Date().getDay();
+            for(let i=6; i>=0; i--) {
+                let d = (today - i);
+                if (d < 0) d += 7;
+                arr.push({ id: i, day: days[d], h: 7, m: 0 }); // default to 7 hours
+            }
+            return arr;
+        }
+
+        function updateLogEntry(index, type, val) {
+            sleepLog[index][type] = parseInt(val) || 0;
+            localStorage.setItem('sleepforge_log', JSON.stringify(sleepLog));
+            renderDebtTracker();
+        }
+
+        function renderDebtTracker() {
+            const container = document.getElementById('debt-log-container');
+            container.innerHTML = '';
+            
+            let totalDebt = 0;
+            const chartData = [];
+
+            sleepLog.forEach((log, idx) => {
+                const actual = log.h + (log.m / 60);
+                const deficit = idealSleepHours - actual;
+                const dailyDebt = Math.max(0, deficit);
+                totalDebt += dailyDebt;
+                
+                chartData.push({ day: log.day, actual: actual, ideal: idealSleepHours });
+
+                let deficitHTML = '';
+                if(deficit <= -0.1) {
+                    deficitHTML = `<span class="text-green-500 font-bold text-xs"><i data-lucide="check" class="inline w-3 h-3"></i> +${Math.abs(deficit).toFixed(1)}h</span>`;
+                } else if(deficit > 0.1) {
+                    deficitHTML = `<span class="text-red-500 font-bold text-xs">-${deficit.toFixed(1)}h</span>`;
+                } else {
+                    deficitHTML = `<span class="text-teal-500 font-bold text-xs">= Target</span>`;
+                }
+
+                const html = `
+                    <div class="flex items-center justify-between bg-[#141414] p-3 rounded-lg border border-white/5">
+                        <span class="text-sm font-bold w-12 text-gray-400">${log.day}</span>
+                        <div class="flex gap-2 items-center flex-1 mx-4">
+                            <select class="bg-[#050505] border border-white/10 text-white text-xs p-2 rounded outline-none w-16" onchange="updateLogEntry(${idx}, 'h', this.value)">
+                                ${[...Array(13).keys()].map(i => `<option value="${i}" ${log.h===i?'selected':''}>${i}h</option>`).join('')}
+                            </select>
+                            <select class="bg-[#050505] border border-white/10 text-white text-xs p-2 rounded outline-none w-16" onchange="updateLogEntry(${idx}, 'm', this.value)">
+                                <option value="0" ${log.m===0?'selected':''}>0m</option>
+                                <option value="15" ${log.m===15?'selected':''}>15m</option>
+                                <option value="30" ${log.m===30?'selected':''}>30m</option>
+                                <option value="45" ${log.m===45?'selected':''}>45m</option>
+                            </select>
+                        </div>
+                        <div class="text-right w-16">${deficitHTML}</div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+            lucide.createIcons();
+
+            // Render Hero
+            const hero = document.getElementById('debt-hero');
+            const planEl = document.getElementById('debt-recovery-plan');
+            const planList = document.getElementById('debt-plan-list');
+            
+            if (totalDebt <= 0) {
+                hero.innerHTML = `
+                    <div class="bg-green-500/20 text-green-500 p-3 rounded-full mb-4"><i data-lucide="check-circle" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-bold text-gray-300">No sleep debt ✓</h3>
+                    <div class="text-4xl font-black text-green-500 my-2 courier-font">0h</div>
+                    <p class="text-sm text-gray-400 mt-2">You're well rested! Keep maintaining this schedule.</p>
+                `;
+                planEl.classList.add('hidden');
+            } else {
+                let badge = '', color = '', hColor = '';
+                if(totalDebt <= 2) { badge = "Mild debt — one good night helps"; color = "bg-amber-900/30 text-amber-500 border-amber-500/30"; hColor = "text-amber-500"; }
+                else if(totalDebt <= 5) { badge = "Moderate debt — affects mood/focus"; color = "bg-orange-900/30 text-orange-500 border-orange-500/30"; hColor = "text-orange-500"; }
+                else if(totalDebt <= 8) { badge = "High debt — significant impairment"; color = "bg-red-900/30 text-red-500 border-red-500/30"; hColor = "text-red-500"; }
+                else { badge = "Severe debt — seek to recover ASAP"; color = "bg-red-950 text-red-600 border-red-600/50"; hColor = "text-red-600"; }
+
+                const h = Math.floor(totalDebt);
+                const m = Math.round((totalDebt - h) * 60);
+                
+                hero.innerHTML = `
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Your Sleep Debt:</h3>
+                    <div class="text-4xl md:text-5xl font-black ${hColor} my-3 courier-font drop-shadow-[0_0_15px_rgba(229,9,20,0.2)]">${h}h ${m}m</div>
+                    <div class="mt-2 text-[11px] font-bold uppercase tracking-wider border px-3 py-1 rounded-full ${color}">${badge}</div>
+                    
+                    <!-- Cognitive scale -->
+                    <div class="w-full mt-6 px-4">
+                        <div class="flex justify-between text-[10px] text-gray-500 mb-1 font-bold uppercase">
+                            <span>Sharp</span><span>Normal</span><span>Foggy</span><span>Impaired</span>
+                        </div>
+                        <div class="h-2 w-full rounded-full overflow-hidden flex relative">
+                            <div class="h-full bg-green-500 w-1/4"></div>
+                            <div class="h-full bg-teal-500 w-1/4"></div>
+                            <div class="h-full bg-amber-500 w-1/4"></div>
+                            <div class="h-full bg-red-500 w-1/4"></div>
+                            <!-- Marker -->
+                            <div class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_8px_rgba(255,255,255,1)]" style="left: ${Math.min(98, (totalDebt/8)*100)}%"></div>
+                        </div>
+                    </div>
+                `;
+
+                // Recovery plan
+                planEl.classList.remove('hidden');
+                let planArr = [];
+                if(totalDebt <= 2) {
+                    planArr = ["Go to bed 30 minutes earlier tonight.", "Keep a consistent wake time — even on weekends.", "Avoid caffeine after 2 PM today."];
+                } else if(totalDebt <= 5) {
+                    planArr = ["Add 1 hour of sleep tonight and tomorrow.", "Sleep in max 1 hour on the weekend (more disrupts rhythm).", "Recovery takes 3-5 days of consistent sleep."];
+                } else {
+                    planArr = ["Add 1-1.5 hours of sleep per night for the next week.", "A 20-30 minute nap before 3 PM can help short-term.", "Full recovery may take 1-2 weeks of consistent sleep."];
+                }
+                planList.innerHTML = planArr.map(p => `<li>${p}</li>`).join('');
+            }
+            lucide.createIcons();
+            
+            // Draw Debt Chart
+            const chartC = document.getElementById('debt-chart-container');
+            if(totalDebt > 0 || sleepLog.some(l => l.h + l.m/60 !== idealSleepHours)) {
+                chartC.classList.remove('hidden');
+                drawDebtChart(chartData);
+            } else {
+                chartC.classList.add('hidden');
+            }
+        }
+
+        function drawDebtChart(data) {
+            const svgW = 600, svgH = 120;
+            const barW = svgW / 14;
+            const maxVal = Math.max(10, idealSleepHours + 2);
+            
+            let html = `<svg viewBox="0 0 ${svgW} ${svgH}" width="100%" height="100%" preserveAspectRatio="none">`;
+            
+            // Ideal line
+            const idealY = svgH - (idealSleepHours / maxVal) * svgH;
+            html += `<line x1="0" y1="${idealY}" x2="${svgW}" y2="${idealY}" stroke="#A855F7" stroke-width="2" stroke-dasharray="4 4" />`;
+            html += `<text x="5" y="${idealY - 5}" fill="#A855F7" font-size="10" font-weight="bold">IDEAL</text>`;
+
+            data.forEach((d, i) => {
+                const xPos = i * (svgW/7) + (svgW/14) - (barW/2);
+                const barH = (d.actual / maxVal) * svgH;
+                const yPos = svgH - barH;
+                
+                let fill = '#3B82F6'; // Default Blue
+                if(d.actual < idealSleepHours) fill = '#E50914'; // Red if debt
+                if(d.actual >= idealSleepHours + 0.5) fill = '#10B981'; // Green surplus
+                
+                html += `<rect x="${xPos}" y="${yPos}" width="${barW}" height="${barH}" fill="${fill}" rx="2" opacity="0.8"/>`;
+                html += `<text x="${xPos + barW/2}" y="${svgH - 5}" fill="#a3a3a3" font-size="10" text-anchor="middle">${d.day}</text>`;
+            });
+            html += `</svg>`;
+            document.getElementById('debt-svg-chart').innerHTML = html;
+        }
+
+        function updateHygieneTips(mode, baseMins) {
+            const list = document.getElementById('tips-list');
+            let tips = [];
+            const h24 = Math.floor(baseMins / 60) % 24;
+
+            if (mode === 'bedtime' && (h24 >= 0 && h24 < 3)) {
+                tips.push("Shift bedtime earlier by 15 minutes every 3-4 days.");
+                tips.push("Morning sunlight within 30 minutes of waking resets your clock.");
+            }
+            
+            const totalDebt = sleepLog.reduce((acc, l) => acc + Math.max(0, idealSleepHours - (l.h + l.m/60)), 0);
+            if (totalDebt > 3) {
+                tips.push("Set a consistent wake time — same time every day, even weekends.");
+                tips.push("Avoid screens 1 hour before bed (blue light delays melatonin).");
+            }
+            
+            // Always add general ones
+            tips.push("The 20-minute nap: set alarm for 20 min to stay in light sleep.");
+            tips.push("Alcohol reduces REM sleep — avoid within 3 hours of bedtime.");
+            
+            // Only take unique max 4
+            tips = [...new Set(tips)].slice(0, 4);
+            list.innerHTML = tips.map(t => `<li>${t}</li>`).join('');
+        }
+
+        function copySchedule() {
+            if(!lastResults || lastResults.length === 0) return;
+            const rec = lastResults.find(r => r.cycles === 5) || lastResults[1];
+            
+            let text = `My optimal sleep times (90-min cycles):\n`;
+            if(currentScheduleMode === 'wake') {
+                const h = document.getElementById('w-hour').value;
+                const m = document.getElementById('w-min').value;
+                const ampm = document.getElementById('w-ampm').innerText;
+                text += `Wake up at ${h}:${m} ${ampm} → Best bedtimes:\n`;
+                lastResults.slice(0, 3).forEach(r => {
+                    text += `• ${r.cycles} cycles: ${r.timeStr} (${r.hours}h) ${r.cycles===5?'← Recommended':''}\n`;
+                });
+            } else {
+                const h = document.getElementById('b-hour').value;
+                const m = document.getElementById('b-min').value;
+                const ampm = document.getElementById('b-ampm').innerText;
+                text += `Sleep at ${h}:${m} ${ampm} → Best alarm times:\n`;
+                lastResults.slice(-3).reverse().forEach(r => {
+                    text += `• ${r.cycles} cycles: ${r.timeStr} (${r.hours}h) ${r.cycles===5?'← Recommended':''}\n`;
+                });
+            }
+            text += `\nCalculated with SleepForge: forgenos.com/health/sleep-cycle-calculator`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Schedule copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('Failed to copy. Try selecting the text.', 'normal');
+            });
+        }
+
+        function downloadReport() {
+            showToast('Generating Sleep Report image...', 'normal');
+            // Create offscreen canvas to generate the image
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 360;
+            const ctx = canvas.getContext('2d');
+            
+            // BG
+            ctx.fillStyle = '#141414';
+            ctx.fillRect(0, 0, 600, 360);
+            
+            // Header Gradient
+            const grd = ctx.createLinearGradient(0, 0, 600, 0);
+            grd.addColorStop(0, "rgba(59, 130, 246, 0.2)");
+            grd.addColorStop(1, "rgba(168, 85, 247, 0.2)");
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 600, 80);
+            
+            // Text Header
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 24px sans-serif';
+            ctx.fillText('SleepForge Report', 30, 45);
+            
+            ctx.font = '14px sans-serif';
+            ctx.fillStyle = '#a3a3a3';
+            ctx.fillText('Optimal ' + (currentScheduleMode==='wake'?'Bedtimes':'Wake Times'), 30, 65);
+
+            // Data
+            if(lastResults && lastResults.length > 0) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 20px "Courier New"';
+                let y = 130;
+                
+                const showResults = currentScheduleMode === 'wake' ? lastResults.slice(0,3) : lastResults.slice(-3).reverse();
+                
+                showResults.forEach(r => {
+                    ctx.fillStyle = r.cycles === 5 ? '#10B981' : '#e5e5e5';
+                    ctx.fillText(`${r.timeStr}  —  ${r.cycles} cycles (${r.hours}h)`, 30, y);
+                    if(r.cycles === 5) {
+                        ctx.font = 'bold 12px sans-serif';
+                        ctx.fillText('RECOMMENDED', 400, y - 5);
+                        ctx.font = 'bold 20px "Courier New"';
+                    }
+                    y += 40;
+                });
+            }
+
+            // Branding footer
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(0, 320, 600, 40);
+            ctx.fillStyle = '#a3a3a3';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText('forgenos.com/health/sleep-cycle-calculator', 30, 345);
+
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = 'sleepforge-schedule.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('Report downloaded successfully!', 'success');
+            }, 500);
+        }
+
+        // Init
+        document.getElementById('ideal-sleep').value = idealSleepHours;
+        document.getElementById('ideal-sleep-val').innerText = idealSleepHours.toFixed(1) + ' hours';
+        renderDebtTracker();
+
+    </script>
+</body>
+</html>
