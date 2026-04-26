@@ -232,6 +232,12 @@
   <priority>0.8</priority>
     
 </url>
+  <url>
+  <loc>https://forgenos.com/Imagelab/image-compressor</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+    
+</url>
 
 
 
