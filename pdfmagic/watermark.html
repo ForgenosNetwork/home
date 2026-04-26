@@ -152,8 +152,7 @@
       ]
     }
     </script>
-    
-    
+        
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -212,6 +211,7 @@
             filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.8));
         }
 
+        /* Tool Loading Overlay System */
         #tool-loading-overlay {
             position: fixed;
             inset: 0;
@@ -312,16 +312,16 @@
         .logo-text { opacity: 0; transition: opacity 0.2s ease; white-space: nowrap; }
         #sidebar:hover .logo-text { opacity: 1; }
         
-        /* CORRECTED SVG ICON SIZE FOR SIDEBAR - STOPS SHRINKING */
-        #sidebar a svg {
-            width: 24px !important;
-            height: 24px !important;
-            min-width: 24px !important;
-            min-height: 24px !important;
+        /* 100% FIXED SVG ICON SIZE FOR SIDEBAR - WILL NOT SHRINK EVER */
+        #sidebar a svg, #sidebar a i {
+            width: 1.5rem !important; /* 24px */
+            height: 1.5rem !important; /* 24px */
+            min-width: 1.5rem !important;
+            min-height: 1.5rem !important;
+            flex-shrink: 0 !important;
+            display: block !important;
             opacity: 1 !important;
             visibility: visible !important;
-            flex-shrink: 0;
-            display: block;
         }
 
         /* Custom Scrollbar */
@@ -607,7 +607,6 @@
                 <!-- ========================================== -->
                 <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left mb-16">
                     
-                    <!-- Modified: Flex alignment changed to items-start to prevent blank stretch -->
                     <div class="flex flex-col lg:flex-row gap-6 w-full items-start relative">
                         
                         <!-- COLUMN 1: UPLOAD & SETTINGS (Left) -->
@@ -638,10 +637,10 @@
                                 </div>
                             </div>
 
-                            <!-- Settings Container with Click Lock Instead of pointer-events-none -->
+                            <!-- Settings Container -->
                             <div id="settings-container" class="flex flex-col gap-4 transition-opacity duration-300 opacity-50 relative">
                                 
-                                <!-- Physical overlay to block clicks before upload. Good UI feedback. -->
+                                <!-- Lock Overlay -->
                                 <div id="settings-lock" class="absolute inset-0 z-50 cursor-pointer" onclick="showToast('Please drop a PDF first!', 'info')"></div>
                                 
                                 <!-- 1. Watermark Text -->
@@ -872,7 +871,6 @@
                         </div>
 
                         <!-- COLUMN 2: LIVE PREVIEW (Center) -> COMPACT WHEN IDLE -->
-                        <!-- Modified min-h to h-auto so it stays small initially -->
                         <div id="preview-panel" class="flex-1 min-w-0 flex flex-col items-center bg-[#0d0d0d] border border-white/5 rounded-2xl p-4 lg:p-6 shadow-inner relative z-0 transition-all duration-300 h-auto">
                             
                             <div class="w-full flex items-center justify-between mb-4">
@@ -1414,6 +1412,9 @@
                     reader.readAsArrayBuffer(file);
                 });
 
+                // CREATE A COPY OF BUFFER FOR PDF.JS TO AVOID DETACHING ORIGINAL
+                const pdfJsBuffer = currentArrayBuffer.slice(0);
+
                 // SAFE INITIALIZATION OF PDF JS
                 const pdfLibRef = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
                 if (!pdfLibRef) {
@@ -1421,7 +1422,7 @@
                 }
                 pdfLibRef.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-                const loadingTask = pdfLibRef.getDocument({ data: currentArrayBuffer });
+                const loadingTask = pdfLibRef.getDocument({ data: pdfJsBuffer });
                 currentPdfDoc = await loadingTask.promise;
                 totalPages = currentPdfDoc.numPages;
                 
@@ -1437,13 +1438,9 @@
                 btnProcess.disabled = false;
                 updateProcessButton();
 
-                // SHOW PREVIEW (Dynamic Height Fix)
+                // SHOW PREVIEW (Dynamic Height Fix - Removed min-h)
                 previewPlaceholder.classList.add('hidden');
                 previewCanvasWrapper.classList.remove('hidden');
-                
-                // Set flex-1 on preview panel only AFTER pdf is uploaded
-                const previewPanel = document.getElementById('preview-panel');
-                previewPanel.classList.replace('h-auto', 'min-h-[400px]');
                 
                 if(totalPages > 1) pageNav.classList.replace('hidden', 'flex');
                 
@@ -1858,7 +1855,8 @@
                     throw new Error("Core PDF generation library is not loaded properly.");
                 }
 
-                const pdfDoc = await PDFLib.PDFDocument.load(currentArrayBuffer);
+                // FIX FOR DETACHED ARRAYBUFFER: Pass a fresh copy to pdfLib using slice(0)
+                const pdfDoc = await PDFLib.PDFDocument.load(currentArrayBuffer.slice(0));
                 
                 const PDF_FONTS = {
                     'Helvetica': PDFLib.StandardFonts.Helvetica,
@@ -2023,9 +2021,6 @@
             previewPlaceholder.classList.remove('hidden');
             previewCanvasWrapper.classList.add('hidden');
             pageNav.classList.replace('flex', 'hidden');
-            
-            const previewPanel = document.getElementById('preview-panel');
-            previewPanel.classList.replace('min-h-[400px]', 'h-auto');
             
             document.getElementById('output-settings').classList.remove('hidden');
             btnProcess.parentElement.classList.remove('hidden');
