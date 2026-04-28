@@ -360,7 +360,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -526,9 +526,7 @@
                     <h1 id="tool-title" class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">SalaryLens | Free Salary Negotiation Calculator</h1>
                 </div>
 
-                <!-- ═══════════════════════════════════════════════════════════════ -->
-                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
-                <!-- ═══════════════════════════════════════════════════════════════ -->
+                
                 <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left mt-6">
                     
                     <!-- SECTION 7 - Privacy Badge -->
@@ -873,6 +871,8 @@
                     <h2 class="text-2xl font-bold text-white mb-6">Why Professionals Need a Salary Negotiation Calculator</h2>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">In today's competitive job market across the US, UK, CA, and AU, understanding your true market value is critical. A standard base salary only tells a fraction of the story. For Tier 1 professionals, total compensation (TC) encompasses base pay, target bonuses, and crucially, equity grants like RSUs or stock options. Evaluating a job offer without normalizing these variables leads to money left on the table.</p>
                     <p class="text-gray-400 text-sm leading-relaxed mb-8">This free salary negotiation calculator provides a secure, completely private environment to benchmark your compensation against market data. By modeling your "negotiation envelope", you can walk into performance reviews or recruiter calls with extreme confidence and mathematical backing.</p>
+                    <div id="related-tools-container"></div> 
+
 
                     <h3 class="text-xl font-bold text-white mb-4">How Total Compensation Normalization Works</h3>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">The core logic behind offer evaluation is annualization. To compare a heavy-equity tech offer against a high-base finance offer, everything must be broken down to a 1-year equivalent. Our calculator applies the standard formula: <code class="bg-white/10 px-2 py-1 rounded text-[#E50914]">Annual TC = Base Salary + (Base * Bonus %) + (Total Equity / Vesting Years)</code>. By applying this uniformly to your current package, the market bounds, and your target ask, you create a direct apples-to-apples comparison.</p>
@@ -1400,5 +1400,7 @@ Generated privately via forgenos-salarylens`;
         });
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(33, 'finance'); </script> 
 </body>
 </html>
