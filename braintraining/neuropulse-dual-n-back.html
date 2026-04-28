@@ -367,7 +367,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -599,6 +599,7 @@
                             
                             <div class="space-y-4 text-gray-400 text-sm md:text-base font-medium max-w-2xl mb-10 leading-relaxed">
                                 <p>Welcome to NEUROPULSE. This protocol tracks your continuous working memory capacity.</p>
+                              <div id="related-tools-container"></div> 
                                 <ul class="list-disc pl-5 space-y-2 text-gray-300">
                                     <li>You will be presented with a sequence of <span class="text-white font-bold">visual locations</span> and <span class="text-white font-bold">audio tones</span> simultaneously.</li>
                                     <li>Your task is to identify when the current location or tone matches the one presented exactly <span class="text-brand-accent font-tech font-bold px-1 bg-brand-accent/10 rounded">N</span> steps earlier.</li>
@@ -1401,5 +1402,7 @@
         });
 
     </script>
+  <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(13, 'brain'); </script> 
 </body>
 </html>
