@@ -348,7 +348,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -781,14 +781,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- FIX 7: Professional Tool Info Section (Hides on submit) -->
+              
                 <div id="tool-info-section" class="mt-12 w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-8 lg:p-10 shadow-lg">
                     <h2 class="text-2xl font-black text-white uppercase tracking-wider mb-2">How It Works</h2>
                     <p class="text-gray-400 text-sm mb-8 max-w-3xl leading-relaxed">The Cognitive Bias Forensic Simulator is a local mental environment designed to expose flawed reasoning patterns. Test your decision-making against psychological blind spots and build bias-resistant intelligence.</p>
+                  <div id="related-tools-container"></div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                         <div class="flex flex-col gap-3">
@@ -1517,5 +1514,7 @@
         });
 
     </script>
+  <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(14, 'brain'); </script> 
 </body>
 </html>
