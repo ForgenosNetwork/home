@@ -350,7 +350,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -529,10 +529,7 @@
                     <p id="tool-desc" class="text-gray-500 text-sm md:text-base mt-3 font-medium max-w-2xl">A professional suite to instantly translate and visualize binary, hexadecimal, octal, decimal, and ASCII data. All processing is 100% local and secure.</p>
                 </header>
 
-                <!-- ========================================== -->
-                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
-                <!-- ========================================== -->
-                <!-- FIX 10 - TOOL FIRST, INFO BELOW -->
+                
                 <div id="ai-tool-workspace" class="w-full text-white flex flex-col items-start justify-start text-left mb-16 relative">
                     
                     <!-- Top Bar -->
@@ -996,13 +993,10 @@
                     </div>
 
                 </div>
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- FIX 10 & 12 - SEO Article & FAQs (Hides on use) -->
+                
                 <article id="seo-info-section" class="w-full text-left mt-8 bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 md:p-10 transition-opacity duration-500">
                     <section class="mb-10">
+                        <div id="related-tools-container"></div> 
                         <h2 class="text-xl md:text-2xl font-bold text-white mb-4">Why This Tool Matters for Developers</h2>
                         <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-4">
                             Computer science students, software developers, and embedded systems engineers work with different number systems daily. Whether you are debugging hex memory addresses, reading binary network packets, converting ASCII text to binary strings, or understanding bitwise operations, flipping between bases is a constant requirement. The <strong>NumForge Number System Converter</strong> replaces multiple single-purpose tools with one unified, instant dashboard.
@@ -1891,5 +1885,8 @@
         updateCounts([]);
         
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(36, 'dev'); </script> 
+                                        
 </body>
 </html>
