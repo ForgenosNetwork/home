@@ -309,7 +309,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -523,11 +523,10 @@
                 <div class="mb-10 text-left w-full">
                     <h1 id="tool-title" class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none uppercase">STRESSSHIELD</h1>
                     <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-2xl">Cognitive Reframe Defense Engine. Log stressors, identify distortions, and fortify your mental shield.</p>
+                  <div id="related-tools-container"></div>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
-                <!-- ========================================== -->
+               
                 <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left bg-[#050505] rounded-3xl p-6 md:p-10 border border-white/5 shadow-2xl relative overflow-hidden">
                     
                     <style>
@@ -1381,5 +1380,7 @@
         }
 
     </script>
+  <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(20, 'health'); </script> 
 </body>
 </html>
