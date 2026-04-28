@@ -355,13 +355,12 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
     </noscript>
 
-    <!-- Global Toast Notifications -->
     <div id="toast-container" class="fixed top-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
     <!-- CUSTOM RIGHT CLICK CONTEXT MENU (FIX 3: Share, Copy, Paste) -->
@@ -1032,6 +1031,7 @@
                         <p class="text-gray-400 leading-relaxed mb-8 max-w-4xl">
                             Dual N-Back is one of the only cognitive training exercises with peer-reviewed evidence for improving fluid intelligence and expanding working memory capacity. It requires you to track two independent streams of information (position and sound) and continuously update your memory buffer.
                         </p>
+                        <div id="related-tools-container"></div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <!-- Key Features -->
@@ -2172,5 +2172,7 @@
         document.addEventListener('DOMContentLoaded', initApp);
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(51, 'brain'); </script> 
 </body>
 </html>
