@@ -391,7 +391,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -867,16 +867,13 @@
                                     <li>Click "Calculate & Build Schedule" to generate your plan.</li>
                                     <li>Review the generated charts and amortization table.</li>
                                 </ol>
+                                <div id="related-tools-container"></div>
                             </div>
                         </div>
                     </section>
 
                 </div>
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- FIX 12: SEO ARTICLE SECTION -->
+                
                 <article class="mt-20 pt-10 border-t border-white/5 w-full text-left">
                     <div class="max-w-4xl">
                         <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Understanding Loan Amortization and EMI Strategies</h2>
@@ -1564,6 +1561,11 @@
             showToast('CSV Exported Successfully', 'success');
         }
 
+    </script>
+    <script src="/tools-data.js"></script>
+    <script src="/related-tools.js"></script>
+    <script>
+        showRelatedTools(28, 'finance'); 
     </script>
 </body>
 </html>
