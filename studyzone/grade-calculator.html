@@ -375,7 +375,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -1078,16 +1078,13 @@
                     </div>
 
                 </div>
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- FIX 12: Article and FAQ Section -->
+                
                 <article class="mt-20 pt-16 border-t border-white/5 w-full text-left max-w-4xl mx-auto">
                     <h2 class="text-3xl font-black text-white mb-6">Mastering Your Grades: The Ultimate Guide to GPA Tracking</h2>
                     
                     <div class="prose prose-invert max-w-none text-gray-400 leading-relaxed space-y-6">
                         <p>Navigating the academic landscape requires more than just studying hard; it requires studying smart. One of the most overlooked aspects of academic success is proactive grade tracking. Forgenos built GradeForge to serve as a comprehensive, privacy-first grade calculator for college and high school students across Tier 1 countries. Whether you are aiming for the Dean's List or just trying to calculate the final grade needed to pass, understanding the math behind your transcript is empowering.</p>
+                        <div id="related-tools-container"></div> 
 
                         <h3 class="text-xl font-bold text-white mt-10 mb-4">Why Proactive GPA Tracking Matters</h3>
                         <p>Most students wait until the end of the semester to look at their cumulative GPA. By that time, the opportunity to make adjustments has passed. A robust semester GPA calculator allows you to model different outcomes. For instance, if you are struggling in Organic Chemistry but excelling in Literature, seeing the weighted impact of a 4-credit science course versus a 3-credit humanities course helps you allocate your study time effectively.</p>
@@ -1991,5 +1988,7 @@
         updateRightSidebar();
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(40, 'student'); </script> 
 </body>
 </html>
