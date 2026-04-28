@@ -351,7 +351,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -615,6 +615,7 @@
                         <div class="flex flex-col gap-4">
                             <h2 class="text-white text-2xl font-black tracking-tight">What is Deepwork Weaver?</h2>
                             <p class="text-gray-400 text-sm leading-relaxed max-w-3xl">Deepwork Weaver is an advanced cognitive focus tracking tool designed to gamify and protect your productivity. By creating a visual "fabric" of your work session, it incentivizes distraction-free work blocks and logs interruptions to help you build unbreakable focus habits.</p>
+                          <div id="related-tools-container"></div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1014,9 +1015,7 @@
             document.body.style.overflow = '';
         }
 
-        // ==========================================
-        // TOOL SPECIFIC JAVASCRIPT LOGIC: DEEPWORK WEAVER
-        // ==========================================
+        
         
         document.addEventListener('DOMContentLoaded', () => {
             // Update Shell Meta securely
@@ -1456,5 +1455,7 @@
         });
 
     </script>
+  <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(10, 'student'); </script> 
 </body>
 </html>
