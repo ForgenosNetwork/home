@@ -360,7 +360,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+               <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -975,6 +975,7 @@
                     
                     <div class="prose prose-invert prose-p:text-gray-400 prose-h3:text-white prose-a:text-brand-accent max-w-none">
                         <p class="text-lg mb-6">In today's digital workflow, the PDF (Portable Document Format) is ubiquitous. However, extracting usable text from PDFs is notoriously frustrating. Formatting breaks, line returns appear in the middle of sentences, and copying from large documents often crashes simple viewers. A dedicated <strong>PDF text extractor</strong> solves these issues, and doing it locally in your browser offers unparalleled advantages for Tier 1 professionals, students, and everyday users.</p>
+                        <div id="related-tools-container"></div> 
 
                         <h3 class="text-xl font-bold mt-10 mb-4 border-b border-white/10 pb-2">The Privacy Advantage of Browser-Based Extraction</h3>
                         <p class="mb-4">Most free online PDF to Text converters require you to upload your file to their server. For financial reports, legal contracts, confidential academic research, or unreleased manuscripts, uploading to an unknown server is a massive security risk. </p>
@@ -1842,5 +1843,7 @@
         }
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(60, 'pdf'); </script> 
 </body>
 </html>
