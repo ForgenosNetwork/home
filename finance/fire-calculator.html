@@ -989,6 +989,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> Independent Investors</li>
                                 <li class="flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> Financial Planners</li>
                             </ul>
+                            <div id="related-tools-container"></div>
                         </div>
                     </div>
                 </div>
@@ -1964,6 +1965,11 @@
             svgGroup.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
         });
 
+    </script>
+    <script src="/tools-data.js"></script>
+    <script src="/related-tools.js"></script>
+    <script>
+        showRelatedTools(25, 'finance'); 
     </script>
 </body>
 </html>
