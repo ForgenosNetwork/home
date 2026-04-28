@@ -454,13 +454,12 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
     </noscript>
 
-    <!-- Global Toast Notifications -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
     <!-- CUSTOM RIGHT CLICK CONTEXT MENU -->
@@ -901,6 +900,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="related-tools-container"></div> 
 
                         <article class="mt-10 w-full max-w-4xl border-t border-white/5 pt-16 text-left">
                             <h2 class="text-3xl font-bold text-white mb-6">Why Typing Speed Matters in 2026</h2>
@@ -1962,5 +1962,7 @@
         });
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(43, 'student'); </script> 
 </body>
 </html>
