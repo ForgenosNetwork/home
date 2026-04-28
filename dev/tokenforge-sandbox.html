@@ -339,7 +339,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -696,7 +696,8 @@
                 <div id="tool-info-section" class="mt-20 pt-10 border-t border-white/5 w-full text-left transition-all duration-500">
                     <div class="mb-12">
                         <h2 class="text-2xl font-black text-white uppercase tracking-wider mb-4">Ultimate Local JWT Forensics</h2>
-                        <p class="text-gray-400 text-base leading-relaxed max-w-3xl">This completely free online tool allows developers, security researchers, and engineers to decode, inspect, and verify JSON Web Tokens (JWT) directly in the browser. Zero server communication ensures your sensitive tokens and secrets never leave your device.</p>
+                        <p class="text-gray-400 text-base leading-relaxed max-w-3xl">This completely free online tool allows developers, security researchers, and engineers to decode, inspect, and verify JSON Web Tokens (JWT) directly in the browser. Zero server communication ensures your sensitive tokens and secrets never leave your device.</p>'
+                        <div id="related-tools-container"></div> 
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -1326,5 +1327,7 @@
 
         });
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(5, 'dev'); </script> 
 </body>
 </html>
