@@ -296,7 +296,7 @@
     <!-- JS WARNING -->
     <noscript>
         <style> body{overflow:hidden} #nsw{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:9999999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px} #nsw h1{color:#E50914;font-size:3rem;font-weight:900;margin-bottom:15px} #nsw p{color:#a3a3a3;font-size:1.2rem;max-width:600px;line-height:1.6} </style>
-        <div id="nsw"><div><h1>⚠️ Access Restricted</h1><p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings.</p></div></div>
+        <div id="nsw"><div><h2>⚠️ JavaScript Required</h2><p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings.</p></div></div>
     </noscript>
 
     <!-- Global Toast Notifications -->
@@ -720,16 +720,14 @@
 
                     </div>
                 </div>
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- TOOL INFO SECTION -->
+                
                 <div id="tool-info-section" class="mt-20 pt-10 border-t border-white/10 w-full text-left">
                     <article>
                         <div class="prose prose-invert max-w-none">
                             <h2 class="text-3xl font-black text-white mb-6">Why You Need a Debt Payoff Strategy</h2>
                             <p class="text-gray-400 leading-relaxed mb-6">Paying minimums on multiple debts is mathematically designed to keep you trapped for decades. The Forgenos DebtSlayer is an advanced, privacy-first command center that shifts power back to you. By applying proven methodologies like the <strong>Avalanche</strong> and <strong>Snowball</strong> methods, you visualize the exact day you become debt-free and see exactly how much money you save in interest. Designed for Tier 1 professionals, this tool calculates complex amortization schedules entirely in your browser—ensuring your sensitive financial data remains strictly local and private.</p>
+                            <div id="related-tools-container"></div> 
+
 
                             <h3 class="text-xl font-bold text-white mt-10 mb-4">Core Features</h3>
                             <ul class="list-disc pl-5 text-gray-400 space-y-2 mb-8">
@@ -1482,5 +1480,7 @@
         window.onload = () => { document.getElementById('debt-rows-container').appendChild(createDebtRow()); updateTopStatsLive(); lucide.createIcons(); };
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(32, 'finance'); </script> 
 </body>
 </html>
