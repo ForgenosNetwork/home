@@ -334,7 +334,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+               <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -763,6 +763,7 @@
                             <p class="text-gray-400 text-sm mt-3 leading-relaxed max-w-4xl">
                                 REGEXDRILL is an advanced execution profiling and ReDoS (Regular Expression Denial of Service) detection engine. It evaluates your regex patterns against simulated synthetic payloads to benchmark performance and identify catastrophic backtracking risks before they cause server downtime or application freezing.
                             </p>
+                            <div id="related-tools-container"></div>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -1466,5 +1467,7 @@
             showToast("JSON report downloaded.", "success");
         }
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(7, 'dev'); </script> 
 </body>
 </html>
