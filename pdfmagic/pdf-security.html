@@ -372,7 +372,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -800,6 +800,7 @@
                     <div class="mb-10">
                         <h2 class="text-3xl font-black text-white uppercase tracking-tight mb-3">Why Forgenos is the Ultimate PDF Protector</h2>
                         <p class="text-gray-400 text-base max-w-3xl leading-relaxed">Most free PDF tools upload your sensitive documents to remote servers, exposing you to massive privacy risks. Forgenos uses advanced client-side processing, meaning your PDF never leaves your device. We provide enterprise-level AES security entirely for free.</p>
+                      <div id="related-tools-container"></div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
@@ -1395,5 +1396,7 @@
             });
         });
     </script>
+  <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(23, 'pdf'); </script> 
 </body>
 </html>
