@@ -382,16 +382,14 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
     </noscript>
 
-    <!-- Global Toast Notifications -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- FIX 3 — RIGHT-CLICK CONTEXT MENU -->
     <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
         <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
             <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
@@ -930,11 +928,8 @@
                 </div>
                 <div id="collection-overlay" class="fixed inset-0 bg-black/40 z-[140] hidden opacity-0 transition-opacity" onclick="toggleCollection()"></div>
 
-                <!-- ========================================== -->
-                <!-- ⬆️ AI TOOL ENDS HERE ⬆️ -->
-                <!-- ========================================== -->
-
-                <!-- FIX 6, 7 & 12 — TOOL INFO & SEO ARTICLE -->
+                
+                <div id="related-tools-container"></div>
                 <section id="tool-info" class="mt-8 pt-8 border-t border-white/10 w-full text-left bg-[#141414]">
                     <div class="max-w-4xl mx-auto">
                         <article class="prose prose-invert max-w-none text-gray-300">
@@ -1948,5 +1943,7 @@
         }
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(37, 'dev'); </script>
 </body>
 </html>
