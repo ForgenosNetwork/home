@@ -350,7 +350,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -824,10 +824,10 @@
                             <li><strong>Cross-Platform Tokenization:</strong> Export a single palette into SCSS for legacy apps, JSON for Style Dictionary, and JS modules for React Native simultaneously.</li>
                             <li><strong>Quick Visual Hacking:</strong> Use the keyboard shortcuts (like brackets) to darken or lighten a color iteratively without opening a graphics editor.</li>
                         </ol>
+                        <div id="related-tools-container"></div> 
                     </div>
                 </article>
 
-                <!-- FIX 12: VISIBLE FAQ SECTION -->
                 <section class="mt-10 border-t border-white/5 pt-16 max-w-4xl mx-auto w-full text-left">
                     <h2 class="text-3xl font-black text-white mb-8">Frequently Asked Questions</h2>
                     <div class="flex flex-col gap-4">
@@ -1737,5 +1737,7 @@
         masterInput.value = currentHex;
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(38, 'dev'); </script> 
 </body>
 </html>
