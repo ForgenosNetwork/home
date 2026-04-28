@@ -384,7 +384,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue.</p>
             </div>
         </div>
@@ -703,6 +703,7 @@
                                 JsonVault operates on a strict <strong>offline-first architecture</strong>. When you paste your data into the editor, the entire parsing, validation, and formatting process is executed locally using your browser's JavaScript engine. Absolutely no data is transmitted over the internet, and no server logs are ever created. You get the speed and responsiveness of a native desktop application, with the convenience of a web-based tool.
                             </p>
                         </section>
+                        <div id="related-tools-container"></div>
 
                         <section class="mb-12">
                             <h2 class="text-2xl font-bold text-white mb-6">Real-World Professional Use Cases</h2>
@@ -1628,5 +1629,7 @@
         window.addEventListener('DOMContentLoaded', init);
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(34, 'dev'); </script> 
 </body>
 </html>
