@@ -413,7 +413,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -1159,6 +1159,7 @@
                         <header class="mb-10">
                             <h2 class="text-3xl font-black text-white mb-4">The Complete Guide to Spaced Repetition and Memory Mastery</h2>
                             <p class="text-lg text-gray-400">Discover how utilizing a spaced repetition flashcard app can permanently alter how you learn, retain, and recall complex information across any professional or academic field.</p>
+                            <div id="related-tools-container"></div> 
                         </header>
 
                         <!-- Table of Contents -->
@@ -1419,10 +1420,7 @@
             document.body.style.overflow = ''; // FIX 4: Remove scroll lock
         }
 
-        // ==========================================
-        // Tool Custom JS Logic Yahan Niche Likha Jayega...
-        // FLASHMATRIX CORE LOGIC
-        // ==========================================
+       
 
         const DECK_COLORS = [
             { id: 'red', val: '#EF4444' }, { id: 'orange', val: '#F97316' }, 
@@ -2402,5 +2400,7 @@
         };
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(45, 'student'); </script>
 </body>
 </html>
