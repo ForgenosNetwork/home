@@ -363,7 +363,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -626,6 +626,7 @@
                             <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-3xl">
                                 The CircadiaSync Alignment Engine dynamically calculates your optimal daily routines based on your natural wake time. Align your sunlight exposure, caffeine intake, and fasting windows with your biological clock for peak energy and deeper sleep.
                             </p>
+                           <div id="related-tools-container"></div> 
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <!-- Features -->
@@ -1214,5 +1215,7 @@
         }
 
     </script>
+   <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(16, 'health'); </script> 
 </body>
 </html>
