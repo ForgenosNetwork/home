@@ -345,13 +345,12 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
     </noscript>
 
-    <!-- Global Toast Notifications -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
     <!-- CUSTOM RIGHT CLICK CONTEXT MENU (NO View Source) -->
@@ -644,6 +643,7 @@
                         <div class="flex flex-col gap-3">
                             <h2 class="text-2xl font-black text-white uppercase tracking-tight">Accelerate Your Cognition</h2>
                             <p class="text-gray-400 leading-relaxed max-w-3xl">VELOCITYREAD is an advanced Rapid Serial Visual Presentation (RSVP) engine. It eliminates eye saccades (movement) by presenting words sequentially at their Optimal Recognition Point (ORP), allowing you to read up to 3x faster with maximum comprehension.</p>
+                            <div id="related-tools-container"></div>
                         </div>
             
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1270,5 +1270,7 @@
         btnSlower.addEventListener('click', () => changeSpeed(-50));
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(9, 'student'); </script> 
 </body>
 </html>
