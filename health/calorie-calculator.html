@@ -361,7 +361,7 @@
         </style>
         <div id="nsw">
             <div>
-                <h1>⚠️ Access Restricted</h1>
+                <h2>⚠️ JavaScript Required</h2>
                 <p>JavaScript is required to run the FORGENOS Engine securely. Please enable JavaScript in your browser settings to continue browsing.</p>
             </div>
         </div>
@@ -754,17 +754,15 @@
 
                                 <h3 class="text-xl font-bold text-white mb-4 mt-8 flex items-center gap-2"><i data-lucide="users" class="text-brand-accent"></i> Who It's For</h3>
                                 <p class="text-gray-400 text-sm leading-relaxed">Athletes, bodybuilders, fitness enthusiasts, and anyone looking to manage their weight scientifically. Whether you want an aggressive cut, a lean bulk, or just to maintain your current physique, this tool provides the mathematical baseline you need.</p>
+                                <div id="related-tools-container"></div> 
                             </div>
                         </div>
                     </div>
 
 
-                    <!-- ========================================== -->
-                    <!-- LIVE RESULTS SECTION -->
-                    <!-- ========================================== -->
+                  
                     <div id="results-section" class="w-full hidden flex-col gap-10 mt-12 pt-12 border-t border-white/10 opacity-0 transform translate-y-10 transition-all duration-700 text-left">
                         
-                        <!-- Header Action -->
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                             <div>
                                 <h2 class="text-3xl font-black text-white tracking-tight">Your Nutrition Profile</h2>
@@ -2068,5 +2066,7 @@
         applyUnitUI();
 
     </script>
+    <script src="/tools-data.js"></script> <script src="/related-tools.js"></script> <script> 
+showRelatedTools(27, 'health'); </script> 
 </body>
 </html>
