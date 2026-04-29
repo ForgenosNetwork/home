@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Privacy Protocol | Forgenos Systems</title>
+    <meta name="description" content="Read the comprehensive Privacy Policy of Forgenos Systems. Understand our commitment to zero-data retention and local-first browser processing.">
+    <meta name="robots" content="index, follow">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Exo+2:wght@800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'brand-bg': '#141414', 'brand-accent': '#E50914' },
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #141414; color: #e5e5e5; -webkit-font-smoothing: antialiased; }
+        .brand-logo-text { font-family: 'Exo 2', sans-serif; letter-spacing: 0.05em; background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .document-content h2 { color: #ffffff; font-size: 1.5rem; font-weight: 800; margin-top: 3rem; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .document-content p { color: #9ca3af; font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .document-content ul { color: #9ca3af; font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem; list-style-type: disc; padding-left: 1.5rem; }
+        .document-content li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="selection:bg-brand-accent/30 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Sticky Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#141414]/90 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center cursor-pointer group">
+                <img src="https://forgenos.com/assets/logo2.png" alt="Forgenos Logo" class="w-10 h-10 object-contain scale-110 group-hover:opacity-80 transition-opacity">
+                <span class="ml-3 text-xl font-bold brand-logo-text mt-[2px]">FORGENOS</span>
+            </a>
+            <a href="/index.html#home" class="hidden md:flex items-center gap-2 text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full transition-colors border border-white/10">
+                Explore Dashboard <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-4xl mx-auto px-6 pt-40 pb-24 w-full text-left">
+        
+        <header class="mb-16 border-b border-white/5 pb-12">
+            <div class="inline-block px-3 py-1 bg-brand-accent/10 border border-brand-accent/20 rounded-lg text-xs font-black uppercase tracking-widest text-brand-accent mb-6">Legal Documentation</div>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 leading-tight">Privacy Protocol</h1>
+            <p class="text-lg text-gray-500 font-medium">Effective Date: April 2026</p>
+        </header>
+
+        <article class="document-content">
+            <p>
+                At Forgenos Systems, we view data privacy not as a compliance requirement, but as a fundamental engineering standard. Our entire infrastructure has been designed from the ground up to eliminate unnecessary data collection. This document outlines exactly how our platform interacts with your information.
+            </p>
+
+            <h2>1. Local-First Processing Architecture</h2>
+            <p>
+                The cornerstone of the Forgenos platform is our Local-First Processing Engine. Unlike traditional web applications that mandate uploading your files to remote cloud servers, our utilities process data directly within your device's browser sandbox using technologies like WebAssembly (WASM) and local JavaScript execution.
+            </p>
+            <ul>
+                <li><strong>Document & Media Tools:</strong> When you compress an image or protect a PDF, the file never leaves your computer's RAM.</li>
+                <li><strong>Financial Calculators:</strong> Your salary details, investment portfolios, and debt structures are computed locally. We have no visibility into your financial status.</li>
+                <li><strong>Developer Utilities:</strong> Cryptographic operations, JWT decoding, and JSON formatting occur securely within your active session without external API calls.</li>
+            </ul>
+
+            <h2>2. Zero Data Retention Policy</h2>
+            <p>
+                Because our platform does not utilize a traditional user account system or backend database for processing, we maintain a strict Zero Data Retention Policy regarding your input data. Once you close a utility page or refresh your browser, any data you entered into that specific tool is instantly and permanently destroyed from the active memory.
+            </p>
+
+            <h2>3. Local Storage and Telemetry</h2>
+            <p>
+                To provide a seamless user experience, we utilize your browser's native Local Storage capabilities. This is strictly used to save non-sensitive application state data, such as:
+            </p>
+            <ul>
+                <li>Your selected UI theme (Dark/Light mode preferences).</li>
+                <li>Your customized toolkit collections ("My Projects").</li>
+                <li>Your list of pinned or favorite tools.</li>
+            </ul>
+            <p>
+                This preference data remains exclusively on your hard drive and is never synchronized to our servers. We do not employ invasive tracking pixels or fingerprinting technologies to monitor your behavior across our platform.
+            </p>
+
+            <h2>4. Advertising and Analytics Transparency</h2>
+            <p>
+                To sustain the development and hosting of the Forgenos directory as a free resource, we utilize third-party advertising networks, specifically Google AdSense. 
+            </p>
+            <p>
+                Google AdSense uses cookies to serve advertisements based on your prior visits to our website or other websites on the internet. Google's use of advertising cookies enables it and its partners to serve ads to our users based on their browsing history. You may opt out of personalized advertising by visiting Google's <a href="https://myadcenter.google.com/" target="_blank" class="text-brand-accent hover:underline">Ad Center</a>.
+            </p>
+
+            <h2>5. Changes to the Privacy Protocol</h2>
+            <p>
+                As we expand our infrastructure—particularly with our upcoming integration of local Artificial Intelligence modules—we may periodically update this protocol. Any changes will be reflected on this page with an updated effective date. However, our core commitment to Local-First processing will never change.
+            </p>
+        </article>
+
+        <div class="mt-20 pt-10 border-t border-white/10">
+            <a href="/index.html" class="inline-flex items-center gap-2 text-white font-bold hover:text-brand-accent transition-colors">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i> Return to Dashboard
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Standard Footer -->
+    <footer class="bg-[#111111] border-t border-white/5 py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">&copy; 2026 Forgenos Systems. Redefining Digital Utility.</p>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="/terms.html" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+                <a href="/about.html" class="text-gray-500 hover:text-white transition-colors">About Us</a>
+                <a href="/contact.html" class="text-gray-500 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
