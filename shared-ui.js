@@ -63,7 +63,7 @@ function renderForgenosUI() {
     // 3. GLOBAL FOOTER[cite: 6]
     const footerHTML = `
         <div class="py-8 px-6 md:px-10 lg:px-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 shrink-0 text-left bg-[#141414]">
-            <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 FORGENOS ENGINE. Protected Content.</p>
+            <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 Forgenos.</p>
             <div class="flex gap-6">
                 <a href="https://twitter.com/forgenos" target="_blank" class="text-gray-600 hover:text-brand-accent transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
                 <a href="https://github.com/forgenos" target="_blank" class="text-gray-600 hover:text-brand-accent transition-colors"><i data-lucide="github" class="w-4 h-4"></i></a>
