@@ -250,6 +250,26 @@
   <priority>0.8</priority>
     
 </url>
+  <url>
+  <loc>https://forgenos.com/about.html</loc>
+  <lastmod>2026-04-29</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://forgenos.com/contact.html</loc>
+  <lastmod>2026-04-29</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://forgenos.com/privacy-policy.html</loc>
+  <lastmod>2026-04-29</lastmod>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://forgenos.com/terms-of-service.html</loc>
+  <lastmod>2026-04-29</lastmod>
+  <priority>0.50</priority>
+</url>
 
 
 
