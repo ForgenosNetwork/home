@@ -47,6 +47,14 @@
             background-color: #1c1c1e;
         }
         .premium-input::placeholder { color: #6b7280; }
+        
+        /* Disabled form styles */
+        .disabled-form-area {
+            filter: blur(8px);
+            opacity: 0.4;
+            pointer-events: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body class="selection:bg-brand-accent/30 selection:text-white flex flex-col min-h-screen">
@@ -54,32 +62,43 @@
     <!-- Sticky Navbar -->
     <nav class="fixed top-0 w-full z-50 bg-[#141414]/90 backdrop-blur-md border-b border-white/5">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/index.html" class="flex items-center cursor-pointer group">
+            <a href="index.html" class="flex items-center cursor-pointer group">
                 <img src="https://forgenos.com/assets/logo2.png" alt="Forgenos Logo" class="w-10 h-10 object-contain scale-110 group-hover:opacity-80 transition-opacity">
                 <span class="ml-3 text-xl font-bold brand-logo-text mt-[2px]">FORGENOS</span>
             </a>
-            <a href="/index.html#home" class="hidden md:flex items-center gap-2 text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full transition-colors border border-white/10">
+            <a href="index.html#home" class="hidden md:flex items-center gap-2 text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full transition-colors border border-white/10">
                 Explore Dashboard <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="flex-1 max-w-4xl mx-auto px-6 pt-36 pb-24 w-full">
         
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6 leading-tight">Global Command Center.</h1>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6 leading-tight">Transmission Center.</h1>
             <p class="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-                Whether you are an enterprise looking for architectural integration, a developer reporting a critical bug, or a user with a brilliant feature request, our communication channels are open.
+                Have a feature request, bug report, or partnership idea? Send us a secure message directly through this portal. No external email required.
             </p>
         </div>
 
-        <!-- Right Column: Form -->
         <div id="formContainer" class="bg-[#1c1c1e] p-8 md:p-12 rounded-[2.5rem] border border-white/5 shadow-2xl relative overflow-hidden max-w-3xl mx-auto">
+            
+            <div class="absolute inset-0 z-50 bg-[#141414]/60 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 rounded-[2.5rem]">
+                <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-2xl">
+                    <i data-lucide="server-cog" class="w-10 h-10 text-gray-400 animate-pulse"></i>
+                </div>
+                <h3 class="text-3xl font-black text-white mb-3 tracking-tight">Portal Offline</h3>
+                <p class="text-gray-400 text-base max-w-md leading-relaxed mb-6">
+                    Our communication nodes are currently undergoing scheduled security upgrades. This transmission portal will be restored shortly.
+                </p>
+                <div class="px-4 py-2 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent rounded-lg text-xs font-bold uppercase tracking-widest">
+                    Maintenance Mode Active
+                </div>
+            </div>
+
             <div class="absolute top-0 right-0 w-64 h-64 bg-brand-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
             
-            <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-6 relative z-10">
-                <!-- FormSubmit Settings -->
+            <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-6 relative z-10 disabled-form-area">
                 <input type="hidden" name="_subject" value="New Priority Inquiry - Forgenos">
                 <input type="hidden" name="_template" value="box">
                 <input type="hidden" name="_captcha" value="false">
@@ -87,61 +106,56 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Full Name</label>
-                        <input type="text" name="name" required class="premium-input" placeholder="Enter your name">
+                        <input type="text" name="name" disabled class="premium-input" placeholder="Enter your name">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Email Address</label>
-                        <input type="email" name="email" required class="premium-input" placeholder="you@company.com">
+                        <input type="email" name="email" disabled class="premium-input" placeholder="you@example.com">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Department</label>
-                    <select name="department" required class="premium-input appearance-none cursor-pointer">
+                    <select name="department" disabled class="premium-input appearance-none">
                         <option value="General Support">General Support & Feedback</option>
                         <option value="Bug Report">Technical Bug Report</option>
-                        <option value="Feature Request">Request a New Tool/Feature</option>
-                        <option value="Partnership">Business & Partnership</option>
                     </select>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Message Payload</label>
-                    <textarea name="message" rows="5" required class="premium-input resize-none" placeholder="Provide detailed information regarding your inquiry..."></textarea>
+                    <textarea name="message" rows="5" disabled class="premium-input resize-none" placeholder="Provide detailed information regarding your inquiry..."></textarea>
                 </div>
 
                 <div class="pt-4">
-                    <button id="submitBtn" type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-black py-4 rounded-xl transition-all transform active:scale-95 shadow-xl text-lg flex items-center justify-center gap-2">
+                    <button id="submitBtn" type="button" disabled class="w-full bg-white text-black font-black py-4 rounded-xl transition-all shadow-xl text-lg flex items-center justify-center gap-2">
                         Transmit Message <i data-lucide="send" class="w-5 h-5"></i>
                     </button>
                 </div>
             </form>
         </div>
-
-        <!-- Success Panel (Hidden by default) -->
         <div id="successPanel" class="hidden bg-[#1c1c1e] p-16 rounded-[2.5rem] border border-white/5 shadow-2xl relative overflow-hidden max-w-3xl mx-auto text-center">
             <div class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/20">
-                <i data-lucide="shield-check" class="w-10 h-10 text-white animate-pulse"></i>
+                <i data-lucide="shield-check" class="w-10 h-10 text-brand-accent animate-pulse"></i>
             </div>
             <h2 class="text-4xl font-bold mb-4 text-white">Transmission Successful!</h2>
             <p class="text-gray-400 mb-10 leading-relaxed text-lg">
                 Your message has been securely delivered to our core team. We will review your inquiry and respond to your email address shortly.
             </p>
-            <a href="/index.html" class="inline-block px-10 py-4 bg-brand-accent text-white font-bold rounded-2xl hover:scale-105 transition-all">
+            <a href="index.html" class="inline-block px-10 py-4 bg-brand-accent text-white font-bold rounded-2xl hover:scale-105 transition-all">
                 Return to Dashboard
             </a>
         </div>
 
     </main>
 
-    <!-- Standard Footer -->
     <footer class="bg-[#111111] border-t border-white/5 py-10">
         <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">&copy; 2026 Forgenos Systems. Redefining Digital Utility.</p>
             <div class="flex gap-6 text-sm font-medium">
-                <a href="/privacy-policy" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="/terms-of-service" class="text-gray-500 hover:text-white transition-colors">Terms</a>
-                <a href="/about" class="text-gray-500 hover:text-white transition-colors">About Us</a>
+                <a href="privacy-policy.html" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="terms-of-service.html" class="text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+                <a href="about.html" class="text-gray-500 hover:text-white transition-colors">About Us</a>
             </div>
         </div>
     </footer>
@@ -149,7 +163,6 @@
     <script>
         lucide.createIcons();
 
-        // AJAX FormSubmit Logic
         function submitContactForm(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -158,8 +171,9 @@
             btn.innerHTML = '<span class="animate-spin mr-2">🌀</span> Transmitting...';
             btn.disabled = true;
 
-            // FormSubmit AJAX Endpoint
-            fetch("https://formsubmit.co/ajax/mojjvorz", {
+            const ENDPOINT = "https://formsubmit.co/ajax/YOUR_EMAIL_HERE@gmail.com";
+
+            fetch(ENDPOINT, {
                 method: 'POST',
                 body: formData,
                 headers: { 'Accept': 'application/json' }
@@ -187,7 +201,6 @@
             });
         }
 
-        // Security Script
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = e => {
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
