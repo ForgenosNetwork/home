@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>About Forgenos | The Premier Digital Infrastructure</title>
+    <meta name="description" content="Learn about Forgenos Systems, our mission to build a secure, local-first digital workspace, and our upcoming AI integration modules.">
+    <meta name="robots" content="index, follow">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Exo+2:wght@800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'brand-bg': '#141414', 'brand-accent': '#E50914' },
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #141414; color: #e5e5e5; -webkit-font-smoothing: antialiased; }
+        .hero-gradient { background: linear-gradient(135deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-logo-text { font-family: 'Exo 2', sans-serif; letter-spacing: 0.05em; background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="selection:bg-brand-accent/30 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Sticky Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#141414]/90 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center cursor-pointer group">
+                <img src="https://forgenos.com/assets/logo2.png" alt="Forgenos Logo" class="w-10 h-10 object-contain scale-110 group-hover:opacity-80 transition-opacity">
+                <span class="ml-3 text-xl font-bold brand-logo-text mt-[2px]">FORGENOS</span>
+            </a>
+            <a href="/index.html#home" class="hidden md:flex items-center gap-2 text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full transition-colors border border-white/10">
+                Explore Dashboard <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-4xl mx-auto px-6 pt-40 pb-24 text-left">
+        
+        <header class="mb-20">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 hero-gradient leading-tight">Engineering the future of digital productivity.</h1>
+            <p class="text-xl text-gray-400 leading-relaxed font-medium">
+                We did not set out to build just another directory of online tools. Our mission was to architect a secure, high-performance sanctuary for your data—an infrastructure where speed meets absolute privacy.
+            </p>
+        </header>
+
+        <article class="space-y-16">
+            <section>
+                <h2 class="text-3xl font-bold text-white mb-6 tracking-tight">The Core Problem</h2>
+                <div class="space-y-4 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        In the modern digital landscape, free utilities almost always come with a hidden cost. The vast majority of online PDF editors, financial calculators, and image compressors operate on a client-server model. This means that to use their services, you are forced to upload your sensitive financial spreadsheets, confidential legal documents, and personal photographs to remote servers located across the globe.
+                    </p>
+                    <p>
+                        Once your data leaves your device, you lose control over it. It becomes vulnerable to server breaches, unauthorized data harvesting, and invasive tracking algorithms. We recognized that professionals, developers, and students needed a better way to work—a way that didn't compromise their digital sovereignty.
+                    </p>
+                </div>
+            </section>
+
+            <section class="bg-[#1c1c1e] border border-white/5 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <h2 class="text-3xl font-bold text-white mb-6 tracking-tight flex items-center gap-3">
+                    <i data-lucide="cpu" class="text-brand-accent w-8 h-8"></i> The Forgenos Architecture
+                </h2>
+                <div class="space-y-4 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        At Forgenos Systems, we flipped the traditional operational model. We engineered our entire suite of over 60 utility modules to function strictly on a <strong>Local-First Architecture</strong>. 
+                    </p>
+                    <p>
+                        By leveraging advanced WebAssembly (WASM) and modern browser capabilities, we brought the processing power directly to your machine. Whether you are compressing a massive image archive, generating complex JSON schemas, or running heavy cryptographic algorithms, the computational heavy lifting is done by your own hardware. Your private data never traverses the internet, ensuring zero-latency performance and military-grade privacy.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-white mb-6 tracking-tight">The Horizon: Decentralized AI</h2>
+                <div class="space-y-4 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        Our current directory is merely the foundation. The next evolution of the Forgenos Engine is centered around decentralized, browser-side Artificial Intelligence.
+                    </p>
+                    <p>
+                        We are actively developing and integrating lightweight Large Language Models (LLMs) and neural vision processors that will operate entirely within your local environment. Imagine having a professional-grade AI assistant summarizing your documents, generating code, and analyzing data without ever sending a single byte of your proprietary information to a corporate cloud server. 
+                    </p>
+                    <p>
+                        By combining local AI with our existing suite of developer, finance, and cognitive tools, Forgenos is positioned to become the ultimate, single-window operating system for the modern digital creator.
+                    </p>
+                </div>
+            </section>
+        </article>
+
+        <div class="mt-20 pt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p class="text-gray-500 font-medium">Ready to optimize your workflow?</p>
+            <a href="/index.html" class="w-full sm:w-auto bg-brand-accent hover:bg-red-700 text-white font-bold px-8 py-4 rounded-xl text-center transition-all shadow-lg shadow-red-500/20 active:scale-95">
+                Launch Forgenos Engine
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Standard Footer -->
+    <footer class="bg-[#111111] border-t border-white/5 py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">&copy; 2026 Forgenos Systems. Redefining Digital Utility.</p>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="/privacy.html" class="text-gray-500 hover:text-white transition-colors">Privacy</a>
+                <a href="/terms.html" class="text-gray-500 hover:text-white transition-colors">Terms</a>
+                <a href="/contact.html" class="text-gray-500 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
