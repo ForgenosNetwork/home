@@ -81,6 +81,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="tools.js"></script>
+    <script src="forgenos-router.js"></script>
 
     <script>
         tailwind.config = {
@@ -1144,7 +1145,7 @@
                             <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
-                                <a href="${tool.link || '/pagename'}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
+                                <button onclick="window.loadSPA('${tool.link || '/pagename'}', event)" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></button>
                                 <button aria-label="Save to list" onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
