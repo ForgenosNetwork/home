@@ -44,9 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     
-    <!-- YAHAN TOOLS DATA AUR ROUTER ADD KIYA GAYA HAI -->
     <script src="tools.js"></script>
-    <script src="forgenos-router.js"></script>
 
     <script>
         tailwind.config = {
@@ -436,16 +434,20 @@
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.forward(); window.closeContextMenu()">
                     <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
                 </div>
+                
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#f97316]/10 hover:text-[#f97316] transition-all group" onclick="location.reload()">
                     <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#f97316] transition-colors"></i> Refresh
                 </div>
+                
                 <div id="ctx-copy-btn" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxCopyText(); window.closeContextMenu()">
                     <i data-lucide="copy" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Copy Text
                 </div>
                 <div id="ctx-paste-btn" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxPasteText(); window.closeContextMenu()">
                     <i data-lucide="clipboard" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Paste
                 </div>
+                
                 <div class="h-[1px] bg-white/5 my-1.5"></div>
+                
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.handleNavClick('home'); window.closeContextMenu()">
                     <i data-lucide="home" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Home Page
                 </div>
@@ -455,7 +457,9 @@
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.print(); window.closeContextMenu()">
                     <i data-lucide="camera" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Save / Screenshot
                 </div>
+                
                 <div class="h-[1px] bg-white/5 my-1.5"></div>
+                
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
                     <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
                 </div>
@@ -631,9 +635,98 @@
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
 
+        // 🌟 NEW IFRAME SPA ROUTER 🌟
+        window.loadSPA = function(url, event) {
+            if(event) { event.preventDefault(); event.stopPropagation(); }
+            window.triggerPageLoader();
+            
+            let fetchUrl = url;
+            if (!fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
+                fetchUrl = fetchUrl + ".html";
+            }
+
+            // Push to history securely without breaking SPA
+            history.pushState({ view: 'spa', path: fetchUrl }, '', '#run=' + encodeURIComponent(fetchUrl));
+
+            const dashboard = document.getElementById('view-content');
+            
+            // Hide Footer inside dashboard View
+            const footer = document.getElementById('main-footer');
+            if(footer) footer.style.display = 'none';
+
+            dashboard.innerHTML = `
+                <div class="px-0 sm:px-6 md:px-10 py-4 md:py-8 max-w-[1600px] mx-auto animate-fade-up flex flex-col h-[calc(100vh-80px)]">
+                    <div class="hidden sm:flex items-center justify-between mb-4">
+                        <button onclick="window.handleNavClick('home')" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group">
+                            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to Dashboard
+                        </button>
+                        <div class="flex items-center gap-2 bg-brand-accent/10 border border-brand-accent/20 px-3 py-1.5 rounded-lg text-brand-accent shadow-inner">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span class="text-[10px] font-black tracking-widest uppercase">Secure Sandbox</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 w-full bg-[#0a0a0a] sm:rounded-3xl border-y sm:border border-white/5 overflow-hidden relative shadow-2xl">
+                        <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-[#141414] z-10">
+                            <div class="w-12 h-12 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div>
+                            <p class="text-gray-400 mt-4 font-bold text-xs tracking-widest uppercase">Loading Tool...</p>
+                        </div>
+                        <iframe src="${fetchUrl}" id="tool-iframe" class="w-full h-full border-none opacity-0 transition-opacity duration-500 bg-[#141414]" allow="clipboard-read; clipboard-write"></iframe>
+                    </div>
+                </div>
+            `;
+            
+            if (window.lucide) lucide.createIcons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const iframe = document.getElementById('tool-iframe');
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Hide Purana Sidebar and Mobile Header from the tool
+                    const sidebar = doc.getElementById('sidebar');
+                    if (sidebar) sidebar.style.display = 'none';
+                    
+                    const mobileHeader = doc.querySelector('header');
+                    if (mobileHeader) mobileHeader.style.display = 'none';
+
+                    // Fix Layout margins inside tool to perfectly fit the iframe
+                    const mainContainer = doc.getElementById('main-container') || doc.querySelector('main');
+                    if (mainContainer) {
+                        mainContainer.style.setProperty('margin-left', '0', 'important');
+                        mainContainer.style.setProperty('padding-top', '0', 'important');
+                    }
+                    
+                    // Hide Back buttons inside tool so user uses the new integrated one
+                    const backLinks = doc.querySelectorAll('a[href*="index.html"], button[onclick*="loadSPA"]');
+                    backLinks.forEach(el => el.style.display = 'none');
+
+                    // Hide tool footer to keep it clean
+                    const toolFooter = doc.getElementById('main-footer');
+                    if (toolFooter) toolFooter.style.display = 'none';
+                    
+                } catch(e) {
+                    console.log("Iframe cross-origin restriction (local test). This will work perfectly on your live server.");
+                }
+                
+                document.getElementById('iframe-loader').style.display = 'none';
+                iframe.style.opacity = '1';
+            };
+        };
+
+        // Popstate Handle for Native Back Button support
         window.addEventListener('popstate', (e) => { 
-            if(e.state && e.state.view) window.handleNavClick(e.state.view, true); 
-            else window.handleNavClick('home', true); 
+            if(window.location.hash.startsWith('#run=')) {
+                const url = decodeURIComponent(window.location.hash.replace('#run=', ''));
+                window.loadSPA(url, null);
+            } else if(e.state && e.state.view) {
+                window.handleNavClick(e.state.view, true); 
+            } else {
+                const hash = window.location.hash.substring(1);
+                if(hash && hash !== 'run=') window.handleNavClick(hash, true);
+                else window.handleNavClick('home', true); 
+            }
         });
         
         window.handleNavClick = function(view, isPopState=false) {
@@ -737,20 +830,6 @@
             window.tryCreateIcons();
         };
 
-        window.toggleMobileMenu = function() {
-            const m = document.getElementById('mobile-menu');
-            const o = document.getElementById('mobile-menu-overlay');
-            if(m.classList.contains('translate-x-full')) {
-                window.lockScroll();
-                o.classList.remove('hidden'); void o.offsetWidth; o.classList.add('opacity-100');
-                m.classList.remove('translate-x-full');
-            } else {
-                window.unlockScroll();
-                o.classList.remove('opacity-100'); m.classList.add('translate-x-full');
-                setTimeout(() => o.classList.add('hidden'), 300);
-            }
-        };
-
         window.performInlineSearch = function() {
             const input = document.getElementById('inline-search-input');
             const clearBtn = document.getElementById('inline-search-clear');
@@ -852,7 +931,6 @@
             });
         };
 
-        // --- FULLY UPDATED CREATE CARD FUNCTION WITH LOADSPA ---
         window.createCard = function(tool, isSelectMode = false, isPinnedSection = false) {
             const isSaved = savedTools.includes(tool.id);
             const isPinned = pinnedTools.includes(tool.id);
@@ -922,7 +1000,6 @@
             </div>`;
         };
 
-        // --- FULLY UPDATED TOOL DETAIL PAGE WITH LOADSPA ---
         window.renderToolDetailPage = function(id) {
             const tool = typeof toolsData !== 'undefined' ? toolsData.find(t => t.id === id) : null;
             if(!tool) return window.handleNavClick('home');
@@ -1046,7 +1123,6 @@
             if(typeof gsap !== 'undefined') gsap.from(".seo-content > *", { opacity: 0, y: 15, duration: 0.8, stagger: 0.15, ease: "power2.out", delay: 0.2 });
         };
 
-        // --- FULLY UPDATED PROFESSIONAL HOME PAGE ---
         window.renderHome = function() {
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 text-left max-w-5xl">
@@ -1095,7 +1171,6 @@
                     <div class="px-6 md:px-16 py-10 md:py-16">
             `;
 
-            // Display Pinned tools if any
             if (pinnedTools.length > 0) {
                 const pTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => pinnedTools.includes(t.id)) : [];
                 html += `
@@ -1112,7 +1187,6 @@
                     </section>`;
             }
 
-            // 1. Explore Categories Grid
             html += `
                 <section class="animate-fade-up mb-16 md:mb-24">
                     <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
@@ -1132,7 +1206,6 @@
                 </section>
             `;
 
-            // 2. Trending Tools
             let trendingTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => t.tags && t.tags.includes('trending')).slice(0,4) : [];
             if(trendingTools.length === 0 && typeof toolsData !== 'undefined') trendingTools = toolsData.slice(0,4);
             
@@ -1148,7 +1221,6 @@
                 </section>`;
             }
 
-            // 3. CTA Banner
             html += `
                 <section class="animate-fade-up mt-10 mb-10 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-accent/20 to-[#141414] border border-brand-accent/30 p-10 md:p-16 text-center flex flex-col items-center shadow-[0_20px_50px_rgba(249,115,22,0.15)]">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
@@ -1572,6 +1644,15 @@
         window.onload = () => {
             const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
             
+            // Check for SPA Tool URL First
+            if (window.location.hash && window.location.hash.startsWith('#run=')) {
+                const url = decodeURIComponent(window.location.hash.replace('#run=', ''));
+                document.getElementById('app-root').classList.remove('opacity-0');
+                window.renderSidebar(); 
+                window.loadSPA(url, null);
+                return; // Stop here so it doesn't load home page
+            }
+
             let initialView = 'home';
             if (window.location.hash) {
                 const hashView = window.location.hash.substring(1);
