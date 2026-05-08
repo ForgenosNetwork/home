@@ -624,6 +624,12 @@
             'image': 'text-fuchsia-400 drop-shadow-[0_0_8px_rgba(232,121,249,0.8)]'
         };
 
+        const heroSlides = [
+            { id: 25, tag: "New", title: 'Fire<span class="text-brand-accent">Calc</span> ', subtitle: "Calculate your financial independence timeline and safe withdrawal rates.", desc: "Plan your early retirement with precision using our secure, free calculator.", img: "https://forgenos.com/finance/img/tool_5.webp" },
+            { id: 16, tag: "Health", title: 'Circadia<span class="text-brand-accent">Synic</span> ', subtitle: "Optimize your sleep cycles for peak energy and focus.", desc: "Calibrate your internal clock for maximum productivity and recovery.", img: "https://forgenos.com/health/img/tool_1.jpg" },
+            { id: 23, tag: "PDF", title: 'PDF<span class="text-brand-accent">Protect</span>', subtitle: "Add or remove passwords from your PDF files securely.", desc: "Keep your sensitive documents safe. Everything happens directly in your browser.", img: "https://forgenos.com/pdfmagic/img/tool_1.webp" }
+        ];
+
         let savedTools = JSON.parse(localStorage.getItem('forgenos_saved')) || [];
         let pinnedTools = JSON.parse(localStorage.getItem('forgenos_pinned')) || []; 
         let myProjects = JSON.parse(localStorage.getItem('forgenos_projects')) || [];
@@ -635,14 +641,17 @@
         let selectedToolsForProject = [];
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
+        let heroInterval = null;
+        let currentHeroIndex = 0;
 
-        // 🌟 NEW NATIVE SPA ROUTER (NO IFRAME, FULL INTEGRATION) 🌟
+        // 🌟 NEW 100% NATIVE SPA ROUTER (FIXED JS EXECUTION & URL) 🌟
         window.launchNativeSPA = async function(url, toolId, event) {
             if(event) { event.preventDefault(); event.stopPropagation(); }
             window.triggerPageLoader();
             
-            // Clean hash URL for SEO & Sharing
-            history.pushState({ view: 'run-tool', id: toolId }, '', '#run-' + toolId);
+            // Clean URL formatting (e.g. #/imagelab/image-format-converter.html)
+            let toolPath = url.startsWith('/') ? url.substring(1) : url;
+            history.pushState({ view: 'run-tool', id: toolId }, '', '#/' + toolPath);
 
             const dashboard = document.getElementById('view-content');
             const footer = document.getElementById('main-footer');
@@ -661,11 +670,10 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 
-                // Fetch purely the workspace (avoids CSS/Head clashes completely)
+                // Fetch purely the workspace
                 const workspace = doc.getElementById('ai-tool-workspace') || doc.querySelector('main');
                 
                 if (workspace) {
-                    // Inject natively into dashboard without borders/sandboxes
                     dashboard.innerHTML = `
                         <div class="px-6 md:px-16 py-8 animate-fade-up w-full max-w-[1400px] mx-auto min-h-screen">
                             <button onclick="window.handleNavClick('tool-${toolId}')" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm font-bold mb-8 group">
@@ -681,55 +689,68 @@
                     if (window.lucide) lucide.createIcons();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                    // Clean up old dynamic scripts
+                    // Clean up old scripts
                     document.querySelectorAll('.spa-dynamic-script').forEach(s => s.remove());
 
-                    // Execute tool-specific scripts safely
-                    const scripts = doc.querySelectorAll('script');
-                    scripts.forEach(script => {
+                    const scripts = Array.from(doc.querySelectorAll('script'));
+                    
+                    // 1. Load External Scripts Sequentially (Wait for them)
+                    for (let script of scripts) {
                         const src = script.getAttribute('src');
-                        // Skip common scripts that index.html already has
-                        if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('related-tools.js') || src.includes('tools-data.js') || src.includes('forgenos-router.js'))) {
-                            return;
+                        if (src && !src.includes('tailwind') && !src.includes('lucide') && !src.includes('gsap') && !src.includes('lenis') && !src.includes('tools.js') && !src.includes('shared-ui.js') && !src.includes('related-tools.js') && !src.includes('tools-data.js')) {
+                            await new Promise(resolve => {
+                                const newScript = document.createElement('script');
+                                newScript.className = 'spa-dynamic-script';
+                                newScript.src = src;
+                                newScript.onload = resolve;
+                                newScript.onerror = resolve; // continue even if fails
+                                document.body.appendChild(newScript);
+                            });
                         }
-                        
-                        const newScript = document.createElement('script');
-                        newScript.className = 'spa-dynamic-script';
-                        if (src) {
-                            newScript.src = src;
-                        } else {
-                            // Extract inline script and force bypass DOMContentLoaded (because DOM is already loaded)
-                            let code = script.innerHTML;
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1()');
-                            code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1()');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
-                            newScript.innerHTML = code;
+                    }
+
+                    // 2. Load Inline Scripts
+                    for (let script of scripts) {
+                        if (!script.getAttribute('src')) {
+                            const newScript = document.createElement('script');
+                            newScript.className = 'spa-dynamic-script';
+                            newScript.innerHTML = script.innerHTML;
+                            document.body.appendChild(newScript);
                         }
-                        document.body.appendChild(newScript);
-                    });
+                    }
+
+                    // 3. MAGIC TRICK: Dispatch DOMContentLoaded so the tool actually starts running!
+                    setTimeout(() => {
+                        window.dispatchEvent(new Event('DOMContentLoaded'));
+                        document.dispatchEvent(new Event('DOMContentLoaded'));
+                    }, 150);
                     
                 } else {
                     throw new Error("ai-tool-workspace ID not found in tool file.");
                 }
             } catch (err) {
                 console.error("Native SPA Load Error:", err);
-                // Fallback direct navigation
+                // Normal redirect fallback if anything fails
                 window.location.href = url;
             }
         };
 
-        // Popstate Handle for Native Back Button support
+        // Popstate Engine
         window.addEventListener('popstate', (e) => { 
-            if(window.location.hash.startsWith('#run-')) {
-                const toolId = parseInt(window.location.hash.replace('#run-', ''));
-                const tool = toolsData.find(t => t.id === toolId);
-                if(tool) window.launchNativeSPA(tool.link, tool.id, null);
+            if(window.location.hash.startsWith('#/')) {
+                const urlPath = '/' + window.location.hash.replace('#/', '').split('?')[0]; 
+                let tool = toolsData.find(t => t.link && (t.link === urlPath || t.link === urlPath.replace('.html', '')));
+                
+                if(tool) {
+                    window.launchNativeSPA(tool.link, tool.id, null);
+                } else {
+                    window.launchNativeSPA(urlPath, 999, null);
+                }
             } else if(e.state && e.state.view) {
                 window.handleNavClick(e.state.view, true); 
             } else {
                 const hash = window.location.hash.substring(1);
-                if(hash && !hash.startsWith('run-')) window.handleNavClick(hash, true);
+                if(hash && !hash.startsWith('/')) window.handleNavClick(hash, true);
                 else window.handleNavClick('home', true); 
             }
         });
@@ -745,6 +766,8 @@
             currentView = view;
             window.renderSidebar();
             window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            if(heroInterval) { clearInterval(heroInterval); heroInterval = null; }
             
             const container = document.getElementById('view-content');
             
@@ -1143,6 +1166,8 @@
         };
 
         window.renderHome = function() {
+            window.startHeroCarousel();
+            
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 text-left max-w-5xl">
                     <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
@@ -1186,6 +1211,30 @@
                             ${categoriesList.map(cat => `<button aria-label="Category: ${cat.title}" onclick="window.handleNavClick('${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</button>`).join('')}
                         </div>
                     </div>
+                    
+                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-16 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
+                        <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
+                            ${heroSlides.map((slide, i) => `
+                            <div class="hero-slide min-w-full h-full relative skeleton-bg">
+                                <img src="${slide.img}" fetchpriority="${i === 0 ? 'high' : 'auto'}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${slide.title.replace(/<[^>]*>?/gm, '')}">
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
+                                <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
+                                    <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(229,9,20,0.4)]">${slide.tag}</span>
+                                    <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
+                                    <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
+                                    <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
+                                    <div class="flex gap-3 md:gap-4 pt-2">
+                                        <button aria-label="Launch ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                                    </div>
+                                </div>
+                            </div>`).join('')}
+                        </div>
+                        <div class="absolute bottom-6 md:bottom-8 right-6 md:right-10 z-30 flex gap-2">
+                            ${heroSlides.map((_, i) => `<div class="hero-dot w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(229,9,20,0.8)]' : 'bg-white/30'}"></div>`).join('')}
+                        </div>
+                    </section>
 
                     <div class="px-6 md:px-16 py-10 md:py-16">
             `;
@@ -1660,13 +1709,30 @@
               .to(svgs, { scale: 1, filter: 'none', duration: 0.35, delay: 0.25, ease: 'power2.out' });
         };
 
-        // 🌟 NEW NATIVE SPA ROUTER (NO IFRAME, FULL INTEGRATION) 🌟
+        window.startHeroCarousel = function() {
+            if (heroInterval) clearInterval(heroInterval);
+            const slider = document.getElementById('hero-slider');
+            const dots = document.querySelectorAll('.hero-dot');
+            if(!slider) return;
+            
+            heroInterval = setInterval(() => {
+                currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+                if(typeof gsap !== 'undefined') gsap.to(slider, { xPercent: -100 * currentHeroIndex, duration: 1, ease: "expo.inOut" });
+                dots.forEach((dot, i) => {
+                    if(i === currentHeroIndex) { dot.classList.add('w-8', 'bg-brand-accent'); dot.classList.remove('w-2', 'bg-white/30'); }
+                    else { dot.classList.add('w-2', 'bg-white/30'); dot.classList.remove('w-8', 'bg-brand-accent'); }
+                });
+            }, 6000);
+        };
+
+        // 🌟 NATIVE SPA ROUTER (NO IFRAME, FULL INTEGRATION, CLEAN URLS) 🌟
         window.launchNativeSPA = async function(url, toolId, event) {
             if(event) { event.preventDefault(); event.stopPropagation(); }
             window.triggerPageLoader();
             
-            // Clean hash URL for SEO & Sharing
-            history.pushState({ view: 'run-tool', id: toolId }, '', '#run-' + toolId);
+            // Clean hash URL for SEO & Sharing (e.g. #/imagelab/image-format-converter)
+            let toolPath = url.startsWith('/') ? url.substring(1) : url;
+            history.pushState({ view: 'run-tool', id: toolId }, '', '#/' + toolPath);
 
             const dashboard = document.getElementById('view-content');
             const footer = document.getElementById('main-footer');
@@ -1708,30 +1774,38 @@
                     // Clean up old dynamic scripts
                     document.querySelectorAll('.spa-dynamic-script').forEach(s => s.remove());
 
-                    // Execute tool-specific scripts safely
-                    const scripts = doc.querySelectorAll('script');
-                    scripts.forEach(script => {
+                    const scripts = Array.from(doc.querySelectorAll('script'));
+                    
+                    // 1. Load External Scripts Sequentially (Wait for them)
+                    for (let script of scripts) {
                         const src = script.getAttribute('src');
-                        // Skip common scripts that index.html already has
-                        if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('related-tools.js') || src.includes('tools-data.js') || src.includes('forgenos-router.js'))) {
-                            return;
+                        if (src && !src.includes('tailwind') && !src.includes('lucide') && !src.includes('gsap') && !src.includes('lenis') && !src.includes('tools.js') && !src.includes('shared-ui.js') && !src.includes('related-tools.js') && !src.includes('tools-data.js') && !src.includes('forgenos-router.js')) {
+                            await new Promise(resolve => {
+                                const newScript = document.createElement('script');
+                                newScript.className = 'spa-dynamic-script';
+                                newScript.src = src;
+                                newScript.onload = resolve;
+                                newScript.onerror = resolve; // continue even if fails
+                                document.body.appendChild(newScript);
+                            });
                         }
-                        
-                        const newScript = document.createElement('script');
-                        newScript.className = 'spa-dynamic-script';
-                        if (src) {
-                            newScript.src = src;
-                        } else {
-                            // Extract inline script and force bypass DOMContentLoaded (because DOM is already loaded)
-                            let code = script.innerHTML;
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1()');
-                            code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1()');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
-                            newScript.innerHTML = code;
+                    }
+
+                    // 2. Load Inline Scripts
+                    for (let script of scripts) {
+                        if (!script.getAttribute('src')) {
+                            const newScript = document.createElement('script');
+                            newScript.className = 'spa-dynamic-script';
+                            newScript.innerHTML = script.innerHTML;
+                            document.body.appendChild(newScript);
                         }
-                        document.body.appendChild(newScript);
-                    });
+                    }
+
+                    // 3. MAGIC TRICK: Dispatch DOMContentLoaded so the tool actually starts running!
+                    setTimeout(() => {
+                        window.dispatchEvent(new Event('DOMContentLoaded'));
+                        document.dispatchEvent(new Event('DOMContentLoaded'));
+                    }, 150);
                     
                 } else {
                     throw new Error("ai-tool-workspace ID not found in tool file.");
@@ -1746,10 +1820,11 @@
         window.onload = () => {
             const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
             
-            // Check for SPA Tool URL First
-            if (window.location.hash && window.location.hash.startsWith('#run-')) {
-                const toolId = parseInt(window.location.hash.replace('#run-', ''));
-                const tool = toolsData.find(t => t.id === toolId);
+            // Check for Native SPA Tool URL First (Clean URL Support)
+            if (window.location.hash && window.location.hash.startsWith('#/')) {
+                const urlPath = '/' + window.location.hash.replace('#/', '').split('?')[0]; 
+                let tool = toolsData.find(t => t.link && (t.link === urlPath || t.link === urlPath.replace('.html', '')));
+                
                 if(tool) {
                     document.getElementById('app-root').classList.remove('opacity-0');
                     window.renderSidebar(); 
