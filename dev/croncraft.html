@@ -40,6 +40,12 @@
     <meta name="coverage" content="Worldwide">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
+
 
     <link rel="canonical" href="https://forgenos.com/dev/croncraft">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
@@ -459,9 +465,7 @@
             <div class="flex-1 px-4 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left max-w-[1200px] mx-auto">
                 
                 <!-- Back Button -->
-                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6 text-sm font-bold w-max">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                </a>
+               
 
                 <!-- H1 Tag Hybrid Format (FIX 12A) -->
                 <div class="mb-8 text-left w-full">
