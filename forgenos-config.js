@@ -8,7 +8,7 @@ const FORGENOS_CONFIG = {
     // Home page ka Top Section kahan dikhega?
     // Options: 'left', 'center', 'right'
     layout: {
-        alignment: 'left' 
+        alignment: 'center' 
     },
 
     // === 🔠 HERO TEXT SETTINGS ===
