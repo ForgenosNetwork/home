@@ -27,7 +27,7 @@
 
     <!-- DYNAMIC THEME COLOR INJECTION -->
     <script>
-        // Set CSS Variables dynamically from config file
+        // Set CSS Variables dynamically from config file (Logo is safely hardcoded to orange inside UI)
         const configHex = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.brandColor) ? FORGENOS_CONFIG.brandColor : '#f97316';
         let r = parseInt(configHex.slice(1, 3), 16), g = parseInt(configHex.slice(3, 5), 16), b = parseInt(configHex.slice(5, 7), 16);
         document.documentElement.style.setProperty('--brand-color', configHex);
@@ -115,7 +115,8 @@
         
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; display: none; }
 
-        .forgenos-shape-left { fill: var(--brand-color); transform-origin: center; }
+        /* LOGO COLOR HARDCODED TO ORANGE */
+        .forgenos-shape-left { fill: #f97316; transform-origin: center; }
         .forgenos-shape-right { stroke: #ffffff; fill: none; stroke-width: 7; stroke-linejoin: miter; stroke-linecap: round; transform-origin: center; }
         .brand-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: 0.04em; background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding-bottom: 0.1em; display: inline-block; line-height: 1.1; }
 
@@ -186,6 +187,16 @@
         }
         @keyframes loaderFlow { 0% { background-position: 100% 0; } 100% { background-position: -200% 0; } }
         
+        /* Loading Wave Animation */
+        @keyframes waveDots {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+        .dot-wave { animation: waveDots 1.2s infinite ease-in-out; }
+        .dot-1 { animation-delay: 0s; }
+        .dot-2 { animation-delay: 0.15s; }
+        .dot-3 { animation-delay: 0.3s; }
+
         body.privacy-blur { filter: blur(15px); }
 
         .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -248,10 +259,11 @@
 
         const forgenosLogoMark = `
             <div class="flex items-center group" onclick="if(window.playLogoAnim) window.playLogoAnim(); window.navigateSmoothly('/', 'home')" style="cursor:pointer">
+                <!-- WIDENED LOGO -->
                 <div class="relative w-10 h-10 md:w-11 md:h-11 shrink-0 flex items-center justify-center bg-transparent z-10">
-                    <svg viewBox="0 0 100 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible; transform: scale(1.15);">
-                        <polygon class="forgenos-shape-left" points="26,52 48,40 48,78 26,90" style="fill:var(--brand-color);transform-origin:center"/>
-                        <polygon class="forgenos-shape-right" points="52,18 74,30 74,68 52,56" style="stroke:#ffffff;fill:none;stroke-width:7;stroke-linejoin:miter;stroke-linecap:round;transform-origin:center"/>
+                    <svg viewBox="0 0 110 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible; transform: scale(1.15);">
+                        <polygon class="forgenos-shape-left" points="22,52 46,40 46,78 22,90" style="fill:#f97316;transform-origin:center"/>
+                        <polygon class="forgenos-shape-right" points="54,18 78,30 78,68 54,56" style="stroke:#ffffff;fill:none;stroke-width:7;stroke-linejoin:miter;stroke-linecap:round;transform-origin:center"/>
                     </svg>
                 </div>
                 <div class="flex flex-col justify-center ml-2.5 md:ml-3" style="padding-top:2px">
@@ -671,19 +683,19 @@
             
             const container = document.getElementById('view-content');
             
-            // INSTANT LOADING SETUP (Fast White Pulse)
+            // INSTANT LOADING SETUP (Fast White Wave Loader)
             container.classList.remove('pb-10');
             container.classList.add('flex', 'flex-col'); 
             container.style.opacity = '1';
             
             container.innerHTML = `
                 <div id="iframe-skeleton" class="absolute inset-0 flex flex-col items-center justify-center bg-[#141414] z-0">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0s;"></div>
-                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0.15s;"></div>
-                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0.3s;"></div>
+                    <div class="flex items-center gap-2.5 mb-6">
+                        <div class="w-3 h-3 bg-white rounded-full dot-wave dot-1"></div>
+                        <div class="w-3 h-3 bg-white rounded-full dot-wave dot-2"></div>
+                        <div class="w-3 h-3 bg-white rounded-full dot-wave dot-3"></div>
                     </div>
-                    <p class="text-white font-bold text-sm tracking-wide opacity-80 animate-pulse">Loading workspace...</p>
+                    <p class="text-white/90 font-black text-sm md:text-base tracking-[0.3em] animate-pulse transition-all">Loading workspace...</p>
                 </div>
                 <iframe id="seamless-tool-frame" src="${url}" class="w-full flex-1 border-none min-h-[calc(100vh-140px)] relative z-10 opacity-0 transition-opacity duration-300" allow="clipboard-read; clipboard-write; camera; microphone"></iframe>
             `;
@@ -1205,6 +1217,14 @@
 
         window.renderHome = function() {
             // Get data from CMS config
+            const align = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.layout && FORGENOS_CONFIG.layout.alignment) ? FORGENOS_CONFIG.layout.alignment : 'left';
+            const textAlignClass = align === 'center' ? 'text-center mx-auto' : align === 'right' ? 'text-right ml-auto' : 'text-left';
+            const flexJustifyClass = align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : 'justify-start';
+
+            let titleClasses = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.titleSize) ? FORGENOS_CONFIG.hero.titleSize : 'text-4xl md:text-6xl';
+            let effectClass = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.effect) ? FORGENOS_CONFIG.hero.effect : 'animate-fade-up';
+            let words = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.rollingWords) ? FORGENOS_CONFIG.hero.rollingWords : ['Toolkit', 'Dashboard', 'Partner', 'Resource', 'Experience'];
+
             let cSliderTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.sliderToolIds) ? FORGENOS_CONFIG.sliderToolIds : [25];
             let cTrendingTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.trendingToolIds) ? FORGENOS_CONFIG.trendingToolIds : [24, 30, 46, 62];
             
@@ -1215,21 +1235,22 @@
             if(trendingData.length === 0 && typeof toolsData !== 'undefined') trendingData = toolsData.slice(0, 4);
 
             let html = `
-                <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 text-left max-w-5xl">
-                    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
+                <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 max-w-5xl w-full ${textAlignClass}">
+                    <h1 class="${titleClasses} font-black text-white tracking-tighter mb-4 ${effectClass} flex flex-wrap ${flexJustifyClass} items-center gap-x-3 gap-y-1 w-full">
                         <span>The Ultimate All in One</span>
-                        <span class="rolling-wrapper-inline min-w-[200px] md:minw-[320px]">
+                        <span class="rolling-wrapper-inline min-w-[200px] md:minw-[320px] text-left">
                             <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
-                                <li>Toolkit</li><li>Dashboard</li><li>Partner</li><li>Resource</li><li>Experience</li><li aria-hidden="true">Toolkit</li>
+                                ${words.map(w => `<li>${w}</li>`).join('')}
+                                <li aria-hidden="true">${words[0]}</li>
                             </ul>
                         </span>
                     </h1>
 
-                  <p class="text-gray-400 text-base md:text-lg font-medium max-w-2xl mb-8 animate-fade-up leading-relaxed" style="animation-delay: 0.05s">
+                  <p class="text-gray-400 text-base md:text-lg font-medium max-w-2xl mb-8 ${effectClass} leading-relaxed ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}" style="animation-delay: 0.05s">
                    The definitive arsenal for your digital productivity. A curated collection of precision engineered tools covering everything from visual processing to technical development optimized for uncompromised performance and security.
                 </p> 
 
-                   <div class="relative max-w-2xl animate-fade-up text-left mt-8" style="animation-delay: 0.1s">
+                   <div class="relative max-w-2xl ${effectClass} mt-8 ${align === 'center' ? 'mx-auto text-left' : align === 'right' ? 'ml-auto text-left' : 'text-left'}" style="animation-delay: 0.1s">
                         <div class="relative group">
                             <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
                             <input type="text" id="inline-search-input" aria-label="Search Tools" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(var(--brand-rgb),0.2)] placeholder-gray-400" autocomplete="off" oninput="window.performInlineSearch()">
@@ -1252,8 +1273,8 @@
                 </div>
 
                 <div id="home-main-content">
-                    <div class="px-6 md:px-16 pb-8 text-left max-w-5xl">
-                        <div class="flex flex-wrap justify-start gap-3 animate-fade-up" style="animation-delay: 0.2s">
+                    <div class="px-6 md:px-16 pb-8 max-w-5xl w-full ${textAlignClass}">
+                        <div class="flex flex-wrap ${flexJustifyClass} gap-3 ${effectClass}" style="animation-delay: 0.2s">
                             ${categoriesList.map(cat => `<button aria-label="Category: ${cat.title}" onclick="window.navigateSmoothly('/#${cat.id}', '${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</button>`).join('')}
                         </div>
                     </div>
@@ -1290,7 +1311,7 @@
                         </div>
                     </div>
 
-                    <div class="px-6 md:px-16 py-4 md:py-8">
+                    <div class="px-6 md:px-16 py-4 md:py-8 text-left">
             `;
 
             if (pinnedTools.length > 0) {
