@@ -238,7 +238,7 @@
         };
 
         const forgenosLogoMark = `
-            <div class="flex items-center" onclick="window.playLogoAnim()" style="cursor:pointer">
+            <div class="flex items-center" onclick="window.handleNavClick('home')" style="cursor:pointer">
                 <div class="relative w-10 h-10 md:w-12 md:h-12 shrink-0 flex items-center justify-center bg-transparent z-10">
                     <svg viewBox="0 0 100 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible">
                         <polygon class="forgenos-shape-left" points="26,52 48,40 48,78 26,90" style="fill:#f97316;transform-origin:center"/>
@@ -304,7 +304,9 @@
             <div class="flex min-h-screen">
                 <!-- MAIN CONTENT WRAPPER -->
                 <main class="flex-1 w-full relative min-h-screen flex flex-col pt-28 md:pt-32 pb-0" id="main-container">
-                    <div id="view-content" class="flex-1 pb-10 relative"></div>
+                    
+                    <!-- YAHAN SARA CONTENT CHANGE HOGA -->
+                    <div id="view-content" class="flex-1 pb-10 relative transition-opacity duration-300"></div>
                     
                     <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0" style="display: none;">
                         <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -476,12 +478,8 @@
         let lenisInstance; 
         
         window.tryCreateIcons = function() {
-            try {
-                if(typeof lucide !== 'undefined' && lucide.createIcons) {
-                    lucide.createIcons();
-                }
-            } catch(e) {
-                console.error("Lucide icon generation error:", e);
+            if(typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
             }
         };
 
@@ -640,55 +638,99 @@
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
 
-        // 🌟 NATIVE TOOL ROUTER (SECURE IFRAME ISOLATION) 🌟
-        window.loadToolInIframe = function(url, toolId, event) {
-            if(event) { event.preventDefault(); event.stopPropagation(); }
+        // --- NEW SMOOTH NAVIGATION SYSTEM (PJAX) ---
+        window.loadPageContent = async function(url, isPopState = false) {
             window.triggerPageLoader();
             
-            // Clean hash URL for SEO & Sharing
-            history.pushState({ view: 'run-tool', id: toolId }, '', '#run-' + toolId);
-
-            const dashboard = document.getElementById('view-content');
-            const footer = document.getElementById('main-footer');
-            if(footer) footer.style.display = 'none';
-
-            let fetchUrl = url;
-            if (!fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
-                fetchUrl = fetchUrl + ".html";
-            }
-            
-            dashboard.innerHTML = `
-                <div class="px-4 md:px-8 py-4 animate-fade-up w-full max-w-[1600px] mx-auto min-h-screen flex flex-col">
-                    <button onclick="window.handleNavClick('tool-${toolId}')" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm font-bold mb-4 group w-max">
-                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to Details
-                    </button>
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Page not found');
+                
+                const htmlString = await response.text();
+                
+                // Parse the new HTML
+                const parser = new DOMParser();
+                const newDoc = parser.parseFromString(htmlString, 'text/html');
+                
+                // Get the main content of the new page (assuming it's in a <main id="view-content"> or similar)
+                // For your tools, you need to wrap the tool content in an element with id="view-content"
+                const newContent = newDoc.getElementById('view-content');
+                const newTitle = newDoc.title;
+                
+                if (newContent) {
+                    const container = document.getElementById('view-content');
                     
-                    <div id="native-tool-mount" class="w-full flex-1 relative bg-[#ffffff] border border-white/10 rounded-2xl overflow-hidden min-h-[75vh]">
-                        <iframe src="${fetchUrl}" class="absolute inset-0 w-full h-full border-none bg-white" allow="clipboard-read; clipboard-write; camera; microphone" sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-popups"></iframe>
-                    </div>
-                </div>
-            `;
-            
-            window.tryCreateIcons();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Smooth transition
+                    container.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        container.innerHTML = newContent.innerHTML;
+                        document.title = newTitle;
+                        
+                        // Execute any scripts in the new content
+                        const scripts = container.querySelectorAll('script');
+                        scripts.forEach(oldScript => {
+                            const newScript = document.createElement('script');
+                            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                            oldScript.parentNode.replaceChild(newScript, oldScript);
+                        });
+
+                        container.style.opacity = '1';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.tryCreateIcons();
+                        
+                        // Update URL without full reload
+                        if (!isPopState) {
+                            history.pushState({ url: url }, newTitle, url);
+                        }
+                    }, 300); // Wait for fade out
+                    
+                } else {
+                    // Fallback if 'view-content' ID is not found in the target page
+                    window.location.href = url;
+                }
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                window.location.href = url; // Fallback to normal navigation on error
+            }
         };
 
-        // Popstate Handle for Native Back Button support
-        window.addEventListener('popstate', (e) => { 
-            if(window.location.hash.startsWith('#run-')) {
-                const toolId = parseInt(window.location.hash.replace('#run-', ''));
-                if (typeof toolsData !== 'undefined') {
-                    const tool = toolsData.find(t => t.id === toolId);
-                    if(tool) window.loadToolInIframe(tool.link, tool.id, null);
+        // Intercept clicks on links
+        document.addEventListener('click', function(e) {
+            // Find the closest anchor tag
+            const target = e.target.closest('a');
+            
+            if (target && target.href) {
+                const url = new URL(target.href);
+                
+                // Only intercept internal links (same origin) and not hash links or links meant to open in new tabs
+                if (url.origin === window.location.origin && 
+                    !target.getAttribute('target') && 
+                    !target.hasAttribute('download') &&
+                    !url.pathname.endsWith('.zip') && // Add other extensions to ignore if needed
+                    url.pathname !== window.location.pathname) {
+                    
+                    e.preventDefault();
+                    window.loadPageContent(target.href);
                 }
+            }
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (e) => { 
+            if(e.state && e.state.url) {
+                window.loadPageContent(e.state.url, true);
             } else if(e.state && e.state.view) {
                 window.handleNavClick(e.state.view, true); 
             } else {
                 const hash = window.location.hash.substring(1);
-                if(hash && !hash.startsWith('run-')) window.handleNavClick(hash, true);
+                if(hash) window.handleNavClick(hash, true);
                 else window.handleNavClick('home', true); 
             }
         });
+        // ---------------------------------------------
         
         window.handleNavClick = function(view, isPopState=false) {
             if(currentView === view && view !== 'projects' && view !== 'home') return;
@@ -929,6 +971,12 @@
 
             const cardGlowClass = (!isSelectMode && isPinnedSection) ? 'pinned-glow' : '';
 
+            // Standardize URL for native redirection
+            let fetchUrl = tool.link || '';
+            if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
+                fetchUrl = fetchUrl + ".html";
+            }
+
             return `
             <div class="premium-card ${cardGlowClass} rounded-2xl overflow-hidden flex flex-col group ${isSelectMode && isSelected ? 'border-brand-accent ring-1 ring-brand-accent' : ''}" onclick="${cardAction}" style="${isDisabled ? 'filter: grayscale(100%); pointer-events: auto;' : ''}">
                 <div class="card-image-wrapper ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'} skeleton-bg" onclick="${clickImageAction}">
@@ -968,7 +1016,8 @@
                         ${isDisabled ? 
                             `<button aria-label="Tool Disabled" disabled class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 opacity-40 cursor-not-allowed pointer-events-none rounded-xl text-xs md:text-sm font-bold transition-all text-white"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</button>` 
                             : 
-                            `<button aria-label="Launch Tool" onclick="window.loadToolInIframe('${tool.link || ''}', ${tool.id}, event)" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white shadow-lg"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</button>`
+                            // YEH HAI WO MAIN LINK JO SEEDHA REDIRECT KAREGA, LEKIN HUMARA SCRIPT ISKO PAKAD LEGA
+                            `<a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-2 py-2 md:py-3 bg-white/5 hover:bg-white hover:text-black rounded-xl text-xs md:text-sm font-bold transition-all text-white shadow-lg"><i data-lucide="external-link" class="w-3 h-3 md:w-4 md:h-4"></i> Open</a>`
                         }
                     </div>` : ''}
                 </div>
@@ -989,6 +1038,12 @@
             else if(tool.category === 'image') categoryColor = "text-fuchsia-400 border-fuchsia-400/20 bg-fuchsia-400/5";
 
             const isSaved = savedTools.includes(tool.id);
+
+            // Standardize URL for native redirection
+            let fetchUrl = tool.link || '';
+            if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
+                fetchUrl = fetchUrl + ".html";
+            }
 
             document.getElementById('view-content').innerHTML = `
                 <div class="px-6 md:px-16 py-8">
@@ -1019,7 +1074,7 @@
                             <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
-                                <button onclick="window.loadToolInIframe('${tool.link || ''}', ${tool.id}, event)" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></button>
+                                <a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
                                 <button aria-label="Save to list" onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
@@ -1618,20 +1673,6 @@
 
         window.onload = () => {
             const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
-            
-            // Check for SPA Tool URL First
-            if (window.location.hash && window.location.hash.startsWith('#run-')) {
-                const toolId = parseInt(window.location.hash.replace('#run-', ''));
-                if (typeof toolsData !== 'undefined') {
-                    const tool = toolsData.find(t => t.id === toolId);
-                    if(tool) {
-                        document.getElementById('app-root').classList.remove('opacity-0');
-                        window.renderSidebar(); 
-                        window.loadToolInIframe(tool.link, tool.id, null);
-                        return; // Stop here so it doesn't load home page
-                    }
-                }
-            }
 
             let initialView = 'home';
             if (window.location.hash) {
