@@ -2,7 +2,7 @@ const FORGENOS_CONFIG = {
     // === 🎨 THEME COLOR SETTINGS ===
     // Logo hamesha Orange rahega. Ye color buttons, links, glow aur slider ke liye hai.
     // Aap isko badal sakte hain (eg: '#3b82f6' for Blue, '#10b981' for Green)
-    brandColor: '#FA8F42', 
+    brandColor: '#F96B06', 
 
     // === 📐 LAYOUT ALIGNMENT ===
     // Home page ka Top Section kahan dikhega?
