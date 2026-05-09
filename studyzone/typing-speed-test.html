@@ -39,6 +39,11 @@
     <meta name="coverage" content="Worldwide">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
 
     <link rel="canonical" href="https://forgenos.com/studyzone/typing-speed-test">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
@@ -530,11 +535,7 @@
             
             <div class="flex-1 px-4 sm:px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
                 
-                <!-- Back Button -->
-                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                </a>
-
+            
                 <!-- FIX 12: H1 Format Hybrid -->
                 <div class="mb-10 text-left w-full flex flex-col items-start gap-4">
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tighter leading-tight">TypeForge | Typing Speed Test</h1>
