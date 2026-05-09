@@ -239,14 +239,15 @@
 
         const forgenosLogoMark = `
             <div class="flex items-center" onclick="window.navigateSmoothly('/', 'home')" style="cursor:pointer">
-                <div class="relative w-10 h-10 md:w-12 md:h-12 shrink-0 flex items-center justify-center bg-transparent z-10">
+                <!-- LOGO SIZE INCREASED -->
+                <div class="relative w-12 h-12 md:w-14 md:h-14 shrink-0 flex items-center justify-center bg-transparent z-10">
                     <svg viewBox="0 0 100 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible">
                         <polygon class="forgenos-shape-left" points="26,52 48,40 48,78 26,90" style="fill:#f97316;transform-origin:center"/>
                         <polygon class="forgenos-shape-right" points="52,18 74,30 74,68 52,56" style="stroke:#ffffff;fill:none;stroke-width:7;stroke-linejoin:miter;stroke-linecap:round;transform-origin:center"/>
                     </svg>
                 </div>
-                <div class="flex flex-col justify-center ml-2 md:ml-3" style="padding-top:2px">
-                    <span class="text-xl md:text-[22px] font-bold brand-logo-text tracking-[0.04em]" style="background:linear-gradient(180deg,#ffffff 0%,#a0a0aa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;line-height:1.1;padding-bottom:0.1em">Forgenos</span>
+                <div class="flex flex-col justify-center ml-3 md:ml-4" style="padding-top:2px">
+                    <span class="text-2xl md:text-3xl font-black brand-logo-text tracking-[0.04em]" style="background:linear-gradient(180deg,#ffffff 0%,#a0a0aa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;line-height:1.1;padding-bottom:0.1em">Forgenos</span>
                 </div>
             </div>
         `;
@@ -275,17 +276,17 @@
             <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
             <!-- FIXED TOP HEADER -->
-            <header id="main-header" class="fixed top-0 left-0 w-full z-[100] bg-[#141414]/85 backdrop-blur-md border-b border-white/5 px-4 md:px-8 py-4 md:py-5 flex items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
+            <header id="main-header" class="fixed top-0 left-0 w-full z-[100] bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 px-4 md:px-8 py-4 md:py-6 flex items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
                 <div class="flex items-center cursor-pointer shrink-0" onclick="window.navigateSmoothly('/', 'home')" aria-label="Go to Home">
                     ${forgenosLogoMark}
                 </div>
                 
                 <!-- PILLS NAVIGATION -->
-                <nav id="desktop-nav" class="hidden md:flex flex-1 items-center overflow-x-auto hide-scroll ml-6 md:ml-auto gap-3 pr-4 justify-end"></nav>
+                <nav id="desktop-nav" class="hidden xl:flex flex-1 items-center overflow-x-auto hide-scroll ml-6 md:ml-auto gap-3 pr-4 justify-end"></nav>
                 
                 <!-- MOBILE MENU BUTTON -->
-                <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="md:hidden ml-auto p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
-                    <i data-lucide="menu" class="w-7 h-7"></i>
+                <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="xl:hidden ml-auto p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
                 </button>
             </header>
 
@@ -303,10 +304,10 @@
 
             <div class="flex min-h-screen">
                 <!-- MAIN CONTENT WRAPPER -->
-                <main class="flex-1 w-full relative min-h-screen flex flex-col pt-28 md:pt-32 pb-0" id="main-container">
+                <main class="flex-1 w-full relative min-h-screen flex flex-col pt-[90px] md:pt-[110px] pb-0" id="main-container">
                     
                     <!-- YAHAN SARA CONTENT CHANGE HOGA -->
-                    <div id="view-content" class="flex-1 pb-10 relative transition-opacity duration-300"></div>
+                    <div id="view-content" class="flex-1 pb-10 relative w-full h-full"></div>
                     
                     <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0" style="display: none;">
                         <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -639,7 +640,6 @@
         let currentOpenProjectId = null;
 
         // --- 🌟 THE MAGIC: SEAMLESS INVISIBLE IFRAME NAVIGATION 🌟 ---
-        // Ye function tumhara URL change karega, tool load karega, aur double sidebar ko gayab kar dega bina kisi clash ke!
         window.navigateSmoothly = function(url, targetView = null) {
             
             // Home page ya internal hash links ke liye (No Iframe needed)
@@ -659,75 +659,75 @@
             window.triggerPageLoader();
             
             const container = document.getElementById('view-content');
-            container.style.opacity = '0';
             
-            setTimeout(() => {
-                // Iframe ko perfect fit karne ke liye bottom padding hata dete hain
-                container.classList.remove('pb-10');
-                
-                // 100% Invisible, Borderless Iframe Mount
-                container.innerHTML = `
-                    <iframe id="seamless-tool-frame" src="${url}" class="w-full border-none h-[calc(100vh-112px)] md:h-[calc(100vh-128px)]" style="display:block;" allow="clipboard-read; clipboard-write; camera; microphone"></iframe>
-                `;
-                
-                const iframe = document.getElementById('seamless-tool-frame');
-                
-                iframe.onload = () => {
-                    try {
-                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        const iframeWin = iframe.contentWindow;
-                        
-                        // 🌟 MAGIC CSS INJECTION 🌟
-                        // Ye code Iframe ke andar ke duplicate Sidebar aur Header ko permanently hide kar dega!
-                        const style = iframeDoc.createElement('style');
-                        style.innerHTML = `
-                            #sidebar, header, #main-header, #mobile-menu, #mobile-menu-overlay, footer { display: none !important; opacity: 0 !important; visibility: hidden !important; }
-                            main { margin-left: 0 !important; padding-top: 0 !important; }
-                            body { background-color: transparent !important; }
-                            html { overflow-y: auto !important; }
-                        `;
-                        iframeDoc.head.appendChild(style);
-                        
-                        // Parent page ka Title update karo
-                        document.title = iframeDoc.title;
-                        
-                        // Iframe ke andar ke clicks ko parent handle karega (taaki SPA feel na toote)
-                        iframeWin.handleNavClick = function(v) { window.top.handleNavClick(v); };
-                        iframeWin.navigateSmoothly = function(u, v) { window.top.navigateSmoothly(u, v); };
-                        iframeWin.showToast = function(m, t) { window.top.showToast(m, t); };
-                        
-                        iframeDoc.addEventListener('click', function(e) {
-                            const link = e.target.closest('a');
-                            if (link && link.href && !link.target && !link.hasAttribute('download')) {
-                                const targetUrl = new URL(link.href);
-                                if (targetUrl.origin === window.location.origin) {
-                                    e.preventDefault();
-                                    window.top.navigateSmoothly(link.href);
-                                }
+            // INSTANT LOADING SETUP (No 300ms delay anymore)
+            container.classList.remove('pb-10');
+            container.classList.add('flex', 'flex-col'); // Fit screen perfectly
+            
+            // Spinner UI dikhao turant
+            container.innerHTML = `
+                <div id="iframe-skeleton" class="absolute inset-0 flex flex-col items-center justify-center bg-[#141414] z-0">
+                    <div class="w-12 h-12 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-gray-400 mt-4 font-bold animate-pulse">Initializing Tool Workspace...</p>
+                </div>
+                <iframe id="seamless-tool-frame" src="${url}" class="w-full flex-1 border-none min-h-[calc(100vh-140px)] relative z-10 opacity-0 transition-opacity duration-300" allow="clipboard-read; clipboard-write; camera; microphone"></iframe>
+            `;
+            
+            const iframe = document.getElementById('seamless-tool-frame');
+            
+            iframe.onload = () => {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const iframeWin = iframe.contentWindow;
+                    
+                    // 🌟 MAGIC CSS INJECTION 🌟
+                    const style = iframeDoc.createElement('style');
+                    style.innerHTML = `
+                        #sidebar, header, #main-header, #mobile-menu, #mobile-menu-overlay, footer { display: none !important; opacity: 0 !important; visibility: hidden !important; }
+                        main { margin-left: 0 !important; padding-top: 0 !important; }
+                        body { background-color: transparent !important; }
+                        html { overflow-y: auto !important; }
+                    `;
+                    iframeDoc.head.appendChild(style);
+                    
+                    document.title = iframeDoc.title;
+                    
+                    iframeWin.handleNavClick = function(v) { window.top.handleNavClick(v); };
+                    iframeWin.navigateSmoothly = function(u, v) { window.top.navigateSmoothly(u, v); };
+                    iframeWin.showToast = function(m, t) { window.top.showToast(m, t); };
+                    
+                    iframeDoc.addEventListener('click', function(e) {
+                        const link = e.target.closest('a');
+                        if (link && link.href && !link.target && !link.hasAttribute('download')) {
+                            const targetUrl = new URL(link.href);
+                            if (targetUrl.origin === window.location.origin) {
+                                e.preventDefault();
+                                window.top.navigateSmoothly(link.href);
                             }
-                        });
+                        }
+                    });
 
-                    } catch(err) {
-                        console.warn('Seamless DOM restriction (Tools will still work fine)', err);
-                    }
-                    
-                    container.style.opacity = '1';
-                    
-                    // 🌟 MAIN FIX: Browser URL Update karo natively SEO ke liye 🌟
-                    if (window.location.href !== url) {
-                        history.pushState({ isSeamless: true, url: url }, document.title, url);
-                    }
-                    
-                    currentView = 'external-tool';
-                    window.renderSidebar();
-                    
-                    // Parent page ki scrollbar band karo, Iframe apni scrolling khud handle karega (No double scrollbars)
-                    document.body.style.overflow = 'hidden';
-                    
-                    const footer = document.getElementById('main-footer');
-                    if(footer) footer.style.display = 'none';
-                };
-            }, 300);
+                } catch(err) {
+                    console.warn('Seamless DOM restriction (Tools will still work fine)', err);
+                }
+                
+                // Show tool, hide spinner
+                iframe.style.opacity = '1';
+                const skeleton = document.getElementById('iframe-skeleton');
+                if(skeleton) skeleton.remove();
+                
+                if (window.location.href !== url) {
+                    history.pushState({ isSeamless: true, url: url }, document.title, url);
+                }
+                
+                currentView = 'external-tool';
+                window.renderSidebar();
+                
+                document.body.style.overflow = 'hidden';
+                
+                const footer = document.getElementById('main-footer');
+                if(footer) footer.style.display = 'none';
+            };
         };
 
         // Standard Navigation links interception
@@ -772,6 +772,7 @@
             document.body.style.overflow = ''; 
             const container = document.getElementById('view-content');
             container.classList.add('pb-10');
+            container.classList.remove('flex', 'flex-col');
             
             const footer = document.getElementById('main-footer');
             if(footer) footer.style.display = (view === 'home') ? 'block' : 'none';
@@ -847,9 +848,9 @@
                     const activeBgClass = isActive ? 'bg-white/10 text-white border-white/20 shadow-inner' : 'bg-transparent text-gray-400 border-transparent hover:bg-white/5 hover:text-white hover:border-white/10';
 
                     return `
-                    <div onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')" aria-label="${item.label}" title="${item.label}" class="cursor-pointer flex items-center px-4 py-2 rounded-full border transition-all duration-300 group shrink-0 ${activeBgClass}">
-                        <i data-lucide="${item.icon}" class="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? activeColorClass : 'text-gray-400 group-hover:text-white'}"></i>
-                        <span class="ml-2 font-bold text-sm whitespace-nowrap transition-colors ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
+                    <div onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')" aria-label="${item.label}" title="${item.label}" class="cursor-pointer flex items-center px-5 py-2.5 rounded-full border transition-all duration-300 group shrink-0 ${activeBgClass}">
+                        <i data-lucide="${item.icon}" class="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? activeColorClass : 'text-gray-400 group-hover:text-white'}"></i>
+                        <span class="ml-2 font-bold text-[15px] whitespace-nowrap transition-colors ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
                     </div>`;
                 }).join('') + `</div>`;
             }
@@ -863,8 +864,8 @@
 
                     return `
                     <div onclick="window.navigateSmoothly('/#${item.id}', '${item.id}'); window.toggleMobileMenu();" class="cursor-pointer flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 ${activeBgClass}">
-                        <i data-lucide="${item.icon}" class="w-5 h-5 ${isActive ? activeColorClass : ''}"></i>
-                        <span class="font-bold text-base">${item.label}</span>
+                        <i data-lucide="${item.icon}" class="w-6 h-6 ${isActive ? activeColorClass : ''}"></i>
+                        <span class="font-bold text-lg">${item.label}</span>
                     </div>`;
                 }).join('');
             }
@@ -1714,6 +1715,16 @@
             let initialView = 'home';
             if (window.location.hash) {
                 const hashView = window.location.hash.substring(1);
+                
+                // 🌟 DIRECT URL LOAD FIX 🌟
+                // Agar direct tool ka link open hua hai (jisme slash / hai)
+                if (hashView.includes('/')) {
+                    window.applyImmediateSettings(); 
+                    window.renderSidebar();
+                    window.navigateSmoothly(hashView); // Seedha iframe me load hoga
+                    return; // Normal load stop kardo
+                }
+                
                 const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'pdf', 'image', 'saved', 'settings'];
                 if (validViews.includes(hashView) || hashView.startsWith('tool-')) {
                     initialView = hashView;
