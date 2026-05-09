@@ -42,6 +42,12 @@
     <meta name="coverage" content="Worldwide">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
+
     
     <!-- Canonical + Favicon -->
     <link rel="canonical" href="https://forgenos.com/dev/css-shadow-gradient-generator">
@@ -465,9 +471,7 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 w-full">
                     <div>
                         <!-- Back Button -->
-                        <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-4 text-sm font-bold w-max min-h-[44px]">
-                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                        </a>
+                       
                         <!-- Tool Title Section (FIX 12 - SEO H1) -->
                         <h1 id="tool-title" class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight capitalize">CSSForge | Free CSS Shadow Generator</h1>
                     </div>
@@ -478,9 +482,7 @@
                     </button>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
-                <!-- ========================================== -->
+               
                 <div id="ai-tool-workspace" class="w-full text-white flex flex-col items-start justify-start text-left mb-16">
                     
                     <!-- TAB NAVIGATION -->
