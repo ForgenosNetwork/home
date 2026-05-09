@@ -649,121 +649,117 @@
                 if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
                     window.location.href = url; // Standard redirect
                     return;
-                }
-                window.handleNavClick(view);
-                return;
-            }
-
+        // 🌟 NEW NATIVE SPA ROUTER (NO IFRAME, FULL INTEGRATION) 🌟
+        window.launchNativeSPA = async function(url, toolId, event) {
+            if(event) { event.preventDefault(); event.stopPropagation(); }
             window.triggerPageLoader();
             
+            // Clean hash URL for SEO & Sharing
+            history.pushState({ view: 'run-tool', id: toolId }, '', '#run-' + toolId);
+
+            const dashboard = document.getElementById('view-content');
+            const footer = document.getElementById('main-footer');
+            if(footer) footer.style.display = 'none';
+
             try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Page fetch failed');
-                
-                const htmlString = await response.text();
-                
-                // Naya page aagaya, ab usko parse karo
-                const parser = new DOMParser();
-                const newDoc = parser.parseFromString(htmlString, 'text/html');
-                
-                // Hum sirf wo hissa nikalenge jo change hona chahiye
-                // Try 1: id="view-content" dhoondo
-                let newContent = newDoc.getElementById('view-content');
-                
-                // Try 2: Agar nahi mila toh shayad aapne tools mein alag class use ki ho, for example: main-container ya .container
-                if (!newContent) {
-                    newContent = newDoc.querySelector('main') || newDoc.querySelector('.container') || newDoc.body;
+                let fetchUrl = url;
+                if (!fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
+                    fetchUrl = fetchUrl + ".html";
                 }
                 
-                const newTitle = newDoc.title;
+                const response = await fetch(fetchUrl);
+                if (!response.ok) throw new Error('Network error');
+                const html = await response.text();
                 
-                if (newContent) {
-                    const container = document.getElementById('view-content');
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // 🎯 SMARTER EXTRACTION: Sirf Tool ka Main content nikalo, sidebar/footer nahi
+                let workspace = doc.querySelector('main > div:first-child');
+                if(!workspace || !workspace.innerHTML.includes('ai-tool-workspace')) {
+                     workspace = doc.getElementById('ai-tool-workspace')?.parentElement || doc.querySelector('main');
+                }
+                
+                if (workspace) {
+                    // Agar tool mein bhi koi footer aagaya hai toh usko nikaal do
+                    const toolFooter = workspace.querySelector('footer');
+                    if(toolFooter) toolFooter.remove();
+
+                    // Inject natively into dashboard without borders/sandboxes
+                    dashboard.innerHTML = `
+                        <div class="px-2 sm:px-6 md:px-16 py-8 animate-fade-up w-full max-w-[1400px] mx-auto min-h-screen">
+                            <button onclick="window.handleNavClick('tool-${toolId}')" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm font-bold mb-8 group ml-4 sm:ml-0">
+                                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to Directory
+                            </button>
+                            
+                            <div id="native-tool-mount" class="w-full"></div>
+                        </div>
+                    `;
                     
-                    // Old content ko fade out karo
-                    container.style.opacity = '0';
+                    document.getElementById('native-tool-mount').innerHTML = workspace.innerHTML;
                     
-                    setTimeout(() => {
-                        // Naya content daalo
-                        container.innerHTML = newContent.innerHTML;
-                        document.title = newTitle;
-                        
-                        // Bahut zaruri: Naye page ke scripts ko force execute karna padta hai PJAX mein
-                        const scripts = container.querySelectorAll('script');
-                        scripts.forEach(oldScript => {
-                            const newScript = document.createElement('script');
-                            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                            if (oldScript.src) {
-                                // External script
-                                newScript.src = oldScript.src;
-                            } else {
-                                // Inline script
-                                newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-                            }
-                            oldScript.parentNode.replaceChild(newScript, oldScript);
-                        });
+                    if (window.lucide) lucide.createIcons();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                        // Naya content fade in karo
-                        container.style.opacity = '1';
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        window.tryCreateIcons();
-                        
-                        // URL History update karo (SEO aur Share ke liye mast)
-                        history.pushState({ isPjax: true, url: url }, newTitle, url);
-                        
-                        // Active tab highlight update
-                        currentView = 'external-tool';
-                        window.renderSidebar();
+                    // Clean up old dynamic scripts
+                    document.querySelectorAll('.spa-dynamic-script').forEach(s => s.remove());
 
-                        // Footer hide kar do tools mein
-                        const footer = document.getElementById('main-footer');
-                        if(footer) footer.style.display = 'none';
+                    // Execute tool-specific scripts safely
+                    const scripts = doc.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const src = script.getAttribute('src');
+                        // Skip common scripts that index.html already has
+                        if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('related-tools.js') || src.includes('tools-data.js') || src.includes('forgenos-router.js'))) {
+                            return;
+                        }
+                        
+                        const newScript = document.createElement('script');
+                        newScript.className = 'spa-dynamic-script';
+                        if (src) {
+                            newScript.src = src;
+                        } else {
+                            let code = script.innerHTML;
+                            
+                            // 🚨 BLANK PAGE FIX: Convert 'const' and 'let' to 'var' so they can be re-declared without crashing when going back and forth
+                            code = code.replace(/\bconst\s+/g, 'var ');
+                            code = code.replace(/\blet\s+/g, 'var ');
 
-                    }, 300); // 300ms ka transition time
+                            // Extract inline script and force bypass DOMContentLoaded
+                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
+                            code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
+                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
+                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
+                            newScript.innerHTML = code;
+                        }
+                        document.body.appendChild(newScript);
+                    });
                     
                 } else {
-                    // Agar samajh nahi aaya kya load karna hai toh simply redirect kar do
-                    window.location.href = url;
+                    throw new Error("Content container not found in tool file.");
                 }
-                
-            } catch (error) {
-                console.error('PJAX Error:', error);
-                window.location.href = url; // Fallback to normal navigation
+            } catch (err) {
+                console.error("Native SPA Load Error:", err);
+                // Fallback direct navigation
+                window.location.href = url;
             }
         };
 
-        // Click Event Listener: Sabhi anchor <a> tags ko pakdega
-        document.addEventListener('click', function(e) {
-            const target = e.target.closest('a');
-            
-            if (target && target.href) {
-                const url = new URL(target.href);
-                
-                // Hum sirf apni website ke internal links ko handle karenge, aur download wale links ko nahi
-                if (url.origin === window.location.origin && 
-                    !target.getAttribute('target') && 
-                    !target.hasAttribute('download') &&
-                    url.pathname !== window.location.pathname) {
-                    
-                    e.preventDefault(); // Default page reload roko
-                    window.navigateSmoothly(target.href); // Humara PJAX function chalao
-                }
-            }
-        });
-
-        // Browser ke Back/Forward buttons ke liye
+        // Popstate Handle for Native Back Button support
         window.addEventListener('popstate', (e) => { 
-            if (e.state && e.state.isPjax) {
-                window.navigateSmoothly(e.state.url);
+            if(window.location.hash.startsWith('#run-')) {
+                const toolId = parseInt(window.location.hash.replace('#run-', ''));
+                if (typeof toolsData !== 'undefined') {
+                    const tool = toolsData.find(t => t.id === toolId);
+                    if(tool) window.launchNativeSPA(tool.link, tool.id, null);
+                }
             } else if(e.state && e.state.view) {
                 window.handleNavClick(e.state.view, true); 
             } else {
                 const hash = window.location.hash.substring(1);
-                if(hash) window.handleNavClick(hash, true);
+                if(hash && !hash.startsWith('run-')) window.handleNavClick(hash, true);
                 else window.handleNavClick('home', true); 
             }
         });
-        // --------------------------------------------------------
         
         window.handleNavClick = function(view, isPopState=false) {
             if(currentView === view && view !== 'projects' && view !== 'home') return;
@@ -779,20 +775,29 @@
             
             const container = document.getElementById('view-content');
             
+            const renderView = () => {
+                try {
+                    if(view === 'home') window.renderHome();
+                    else if(view === 'settings') window.renderSettings();
+                    else if(view === 'saved') window.renderSavedView();
+                    else if(view === 'projects') window.renderProjectsView();
+                    else if(view === 'privacy') { window.location.href = '/privacy-policy'; return; } 
+                    else if(view === 'terms') { window.location.href = '/terms-of-service'; return; } 
+                    else if(view === 'about') { window.location.href = '/about'; return; } 
+                    else if(view === 'contact') { window.location.href = '/contact'; return; }
+                    else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
+                    else window.renderCategoryPage(view);
+                } catch(e) {
+                    console.error("Render Error:", e);
+                    if(view !== 'home') window.renderHome();
+                }
+            };
+
             if(typeof gsap !== 'undefined') {
                 gsap.to(container, {
                     opacity: 0, y: 20, duration: 0.2, 
                     onComplete: () => {
-                        if(view === 'home') window.renderHome();
-                        else if(view === 'settings') window.renderSettings();
-                        else if(view === 'saved') window.renderSavedView();
-                        else if(view === 'projects') window.renderProjectsView();
-                        else if(view === 'privacy') { window.location.href = '/privacy-policy'; return; } 
-                        else if(view === 'terms') { window.location.href = '/terms-of-service'; return; } 
-                        else if(view === 'about') { window.location.href = '/about'; return; } 
-                        else if(view === 'contact') { window.location.href = '/contact'; return; }
-                        else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
-                        else window.renderCategoryPage(view);
+                        renderView();
                         
                         container.style.opacity = '1';
                         gsap.to(container, { y: 0, duration: 0.4 });
@@ -806,12 +811,7 @@
                     }
                 });
             } else {
-                if(view === 'home') window.renderHome();
-                else if(view === 'settings') window.renderSettings();
-                else if(view === 'saved') window.renderSavedView();
-                else if(view === 'projects') window.renderProjectsView();
-                else if(view.startsWith('tool-')) window.renderToolDetailPage(parseInt(view.split('-')[1]));
-                else window.renderCategoryPage(view);
+                renderView();
                 
                 container.style.opacity = '1'; 
                 container.style.transform = 'translateY(0)';
