@@ -640,130 +640,150 @@
 
         // --- THE MAGIC: ADVANCED PJAX NAVIGATION SYSTEM ---
         window.navigateSmoothly = async function(url, targetView = null) {
-            // Isko direct click handlers me use karenge: window.navigateSmoothly('/dev/tool1.html')
-            
             // Internal logic ke views (home, categories, etc) jo # hash use karte hain unke liye
-            if (url.startsWith('/#') || url === '/') {
-                const view = targetView || (url === '/' ? 'home' : url.substring(2));
-                // Agar hum kisi external page par hain aur home aana chahte hain
+            if (url.includes('/#') || url === '/' || url.endsWith('/index.html') || url === window.location.origin || url === window.location.origin + '/') {
+                let view = 'home';
+                if (targetView) view = targetView;
+                else if (url.includes('/#')) view = url.split('#')[1];
+                
+                window.handleNavClick(view);
+                
+                // Update URL to match native root
                 if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
-                    window.location.href = url; // Standard redirect
-                    return;
-        // 🌟 NEW NATIVE SPA ROUTER (NO IFRAME, FULL INTEGRATION) 🌟
-        window.launchNativeSPA = async function(url, toolId, event) {
-            if(event) { event.preventDefault(); event.stopPropagation(); }
+                    history.pushState({ view: view }, '', '/index.html#' + view);
+                }
+                return;
+            }
+
             window.triggerPageLoader();
             
-            // Clean hash URL for SEO & Sharing
-            history.pushState({ view: 'run-tool', id: toolId }, '', '#run-' + toolId);
-
-            const dashboard = document.getElementById('view-content');
-            const footer = document.getElementById('main-footer');
-            if(footer) footer.style.display = 'none';
-
             try {
-                let fetchUrl = url;
-                if (!fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
-                    fetchUrl = fetchUrl + ".html";
-                }
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Page fetch failed');
                 
-                const response = await fetch(fetchUrl);
-                if (!response.ok) throw new Error('Network error');
-                const html = await response.text();
-                
+                const htmlString = await response.text();
                 const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
+                const newDoc = parser.parseFromString(htmlString, 'text/html');
                 
-                // 🎯 SMARTER EXTRACTION: Sirf Tool ka Main content nikalo, sidebar/footer nahi
-                let workspace = doc.querySelector('main > div:first-child');
-                if(!workspace || !workspace.innerHTML.includes('ai-tool-workspace')) {
-                     workspace = doc.getElementById('ai-tool-workspace')?.parentElement || doc.querySelector('main');
-                }
+                // 🎯 SMART EXTRACTION: Sirf Tool ka content nikalo bina kisi header/sidebar ke
+                let newContent = newDoc.querySelector('main > div:first-child');
+                if (!newContent) newContent = newDoc.getElementById('view-content');
+                if (!newContent) newContent = newDoc.getElementById('ai-tool-workspace')?.parentElement;
+                if (!newContent) newContent = newDoc.body;
                 
-                if (workspace) {
-                    // Agar tool mein bhi koi footer aagaya hai toh usko nikaal do
-                    const toolFooter = workspace.querySelector('footer');
-                    if(toolFooter) toolFooter.remove();
-
-                    // Inject natively into dashboard without borders/sandboxes
-                    dashboard.innerHTML = `
-                        <div class="px-2 sm:px-6 md:px-16 py-8 animate-fade-up w-full max-w-[1400px] mx-auto min-h-screen">
-                            <button onclick="window.handleNavClick('tool-${toolId}')" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm font-bold mb-8 group ml-4 sm:ml-0">
-                                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to Directory
-                            </button>
-                            
-                            <div id="native-tool-mount" class="w-full"></div>
-                        </div>
-                    `;
+                const newTitle = newDoc.title;
+                
+                if (newContent) {
+                    const container = document.getElementById('view-content');
+                    container.style.opacity = '0';
                     
-                    document.getElementById('native-tool-mount').innerHTML = workspace.innerHTML;
-                    
-                    if (window.lucide) lucide.createIcons();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                    // Clean up old dynamic scripts
-                    document.querySelectorAll('.spa-dynamic-script').forEach(s => s.remove());
-
-                    // Execute tool-specific scripts safely
-                    const scripts = doc.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const src = script.getAttribute('src');
-                        // Skip common scripts that index.html already has
-                        if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('related-tools.js') || src.includes('tools-data.js') || src.includes('forgenos-router.js'))) {
-                            return;
-                        }
+                    setTimeout(() => {
+                        container.innerHTML = newContent.outerHTML; 
+                        document.title = newTitle;
                         
-                        const newScript = document.createElement('script');
-                        newScript.className = 'spa-dynamic-script';
-                        if (src) {
-                            newScript.src = src;
-                        } else {
-                            let code = script.innerHTML;
+                        // Clean up old scripts to prevent memory leaks
+                        document.querySelectorAll('.pjax-dynamic-script').forEach(s => s.remove());
+                        
+                        // Execute tool scripts securely
+                        const scripts = newDoc.querySelectorAll('script');
+                        scripts.forEach(oldScript => {
+                            const src = oldScript.getAttribute('src');
                             
-                            // 🚨 BLANK PAGE FIX: Convert 'const' and 'let' to 'var' so they can be re-declared without crashing when going back and forth
-                            code = code.replace(/\bconst\s+/g, 'var ');
-                            code = code.replace(/\blet\s+/g, 'var ');
+                            // Skip shared libraries
+                            if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('tools-data.js'))) {
+                                return;
+                            }
+                            
+                            const newScript = document.createElement('script');
+                            newScript.className = 'pjax-dynamic-script';
+                            
+                            if (src) {
+                                newScript.src = src;
+                                document.body.appendChild(newScript);
+                            } else {
+                                let code = oldScript.innerHTML;
+                                
+                                // 🚨 FIX: Stop tool from duplicating the global UI
+                                code = code.replace(/document\.getElementById\(['"]app-root['"]\)\.innerHTML\s*\+?=\s*__UI__;/g, '');
+                                
+                                // 🚨 FIX: Force DOMContentLoaded to run instantly
+                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
+                                code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
+                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
+                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
+                                
+                                // 🚨 BLANK SCREEN FIX: Convert const/let to var to prevent crashing on repeated visits
+                                code = code.replace(/\bconst\s+/g, 'var ');
+                                code = code.replace(/\blet\s+/g, 'var ');
+                                
+                                // Wrap in Try/Catch
+                                code = `try { \n ${code} \n } catch(err) { console.warn('Forgenos Tool Engine:', err); }`;
+                                
+                                newScript.innerHTML = code;
+                                document.body.appendChild(newScript);
+                            }
+                        });
 
-                            // Extract inline script and force bypass DOMContentLoaded
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
-                            code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
-                            code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
-                            newScript.innerHTML = code;
-                        }
-                        document.body.appendChild(newScript);
-                    });
+                        container.style.opacity = '1';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        if(window.lucide) window.lucide.createIcons();
+                        
+                        history.pushState({ isPjax: true, url: url, view: 'tool-view' }, newTitle, url);
+                        currentView = 'external-tool';
+                        window.renderSidebar();
+
+                        const footer = document.getElementById('main-footer');
+                        if(footer) footer.style.display = 'none';
+
+                    }, 300);
                     
                 } else {
-                    throw new Error("Content container not found in tool file.");
+                    window.location.href = url;
                 }
-            } catch (err) {
-                console.error("Native SPA Load Error:", err);
-                // Fallback direct navigation
-                window.location.href = url;
+                
+            } catch (error) {
+                console.error('PJAX Error:', error);
+                window.location.href = url; 
             }
         };
 
-        // Popstate Handle for Native Back Button support
-        window.addEventListener('popstate', (e) => { 
-            if(window.location.hash.startsWith('#run-')) {
-                const toolId = parseInt(window.location.hash.replace('#run-', ''));
-                if (typeof toolsData !== 'undefined') {
-                    const tool = toolsData.find(t => t.id === toolId);
-                    if(tool) window.launchNativeSPA(tool.link, tool.id, null);
+        // Click Event Listener: Anchor tags ko pakadne ke liye
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('a');
+            if (target && target.href) {
+                const url = new URL(target.href);
+                if (url.origin === window.location.origin && 
+                    !target.getAttribute('target') && 
+                    !target.hasAttribute('download')) {
+                    
+                    e.preventDefault(); 
+                    window.navigateSmoothly(target.href); 
                 }
+            }
+        });
+
+        // Browser ke Back/Forward buttons ke liye
+        window.addEventListener('popstate', (e) => { 
+            if (e.state && e.state.isPjax) {
+                window.navigateSmoothly(e.state.url);
             } else if(e.state && e.state.view) {
                 window.handleNavClick(e.state.view, true); 
             } else {
                 const hash = window.location.hash.substring(1);
-                if(hash && !hash.startsWith('run-')) window.handleNavClick(hash, true);
+                if(hash) window.handleNavClick(hash, true);
                 else window.handleNavClick('home', true); 
             }
         });
         
         window.handleNavClick = function(view, isPopState=false) {
             if(currentView === view && view !== 'projects' && view !== 'home') return;
-            if(!isPopState) history.pushState({view: view}, '', '#'+view);
+            if(!isPopState) {
+                if(window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+                    history.pushState({view: view}, '', '/index.html#'+view);
+                } else {
+                    history.pushState({view: view}, '', '#'+view);
+                }
+            }
             
             const footer = document.getElementById('main-footer');
             if(footer) footer.style.display = (view === 'home') ? 'block' : 'none';
@@ -812,7 +832,6 @@
                 });
             } else {
                 renderView();
-                
                 container.style.opacity = '1'; 
                 container.style.transform = 'translateY(0)';
             }
