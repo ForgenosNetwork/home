@@ -1305,14 +1305,8 @@
             let html = `
                 <!-- TOP HERO SECTION (Title, Description, Search) -->
                 <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 max-w-5xl w-full ${textAlignClass}">
-                    <h1 class="${titleClasses} font-black text-white tracking-tighter mb-4 ${effectClass} flex flex-wrap ${flexJustifyClass} items-center gap-x-3 gap-y-1 w-full">
-                        <span>The Ultimate All in One</span>
-                        <span class="rolling-wrapper-inline min-w-[200px] md:minw-[320px] text-left">
-                            <ul class="rolling-list-inline text-brand-accent" id="heroRollingList">
-                                ${words.map(w => `<li>${w}</li>`).join('')}
-                                <li aria-hidden="true">${words[0]}</li>
-                            </ul>
-                        </span>
+                    <h1 class="${titleClasses} font-black text-white tracking-tighter mb-4 ${effectClass} leading-tight">
+                        The Ultimate All in One&#32;<span class="rolling-wrapper-inline"><ul class="rolling-list-inline text-brand-accent" id="heroRollingList"><li>Toolkit</li><li>Dashboard</li><li>Partner</li><li>Resource</li><li>Experience</li><li aria-hidden="true">Toolkit</li></ul></span>
                     </h1>
 
                   <p class="text-gray-400 text-base md:text-lg font-medium max-w-2xl mb-8 ${effectClass} leading-relaxed ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}" style="animation-delay: 0.05s">
@@ -1478,20 +1472,25 @@
             if (!list) return;
             const items = list.querySelectorAll('li');
             if (!items.length) return;
-            
-            let currentIndex = 0; const stayDuration = 2000;
+
+            let currentIndex = 0;
             clearInterval(heroTextInterval);
-            list.style.transition = 'none'; list.style.transform = `translateY(0px)`;
-            
+            list.style.transition = 'none';
+            list.style.transform = 'translateY(0px)';
+
             heroTextInterval = setInterval(() => {
                 currentIndex++;
                 const itemHeight = items[0].getBoundingClientRect().height;
                 list.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
                 list.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
                 if (currentIndex === items.length - 1) {
-                    setTimeout(() => { list.style.transition = 'none'; currentIndex = 0; list.style.transform = `translateY(0px)`; }, 500); 
+                    setTimeout(() => {
+                        list.style.transition = 'none';
+                        currentIndex = 0;
+                        list.style.transform = 'translateY(0px)';
+                    }, 500);
                 }
-            }, stayDuration);
+            }, 2000);
         };
 
         window.renderCategoryPage = function(catId) {
