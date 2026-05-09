@@ -305,7 +305,7 @@
                 <!-- MAIN CONTENT WRAPPER -->
                 <main class="flex-1 w-full relative min-h-screen flex flex-col pt-28 md:pt-32 pb-0" id="main-container">
                     
-                    <!-- YAHAN SARA CONTENT CHANGE HOGA (PJAX CONTAINER) -->
+                    <!-- YAHAN SARA CONTENT CHANGE HOGA -->
                     <div id="view-content" class="flex-1 pb-10 relative transition-opacity duration-300"></div>
                     
                     <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0" style="display: none;">
@@ -638,9 +638,11 @@
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
 
-        // --- THE MAGIC: ADVANCED PJAX NAVIGATION SYSTEM ---
-        window.navigateSmoothly = async function(url, targetView = null) {
-            // Internal logic ke views (home, categories, etc) jo # hash use karte hain unke liye
+        // --- 🌟 THE MAGIC: SEAMLESS INVISIBLE IFRAME NAVIGATION 🌟 ---
+        // Ye function tumhara URL change karega, tool load karega, aur double sidebar ko gayab kar dega bina kisi clash ke!
+        window.navigateSmoothly = function(url, targetView = null) {
+            
+            // Home page ya internal hash links ke liye (No Iframe needed)
             if (url.includes('/#') || url === '/' || url.endsWith('/index.html') || url === window.location.origin || url === window.location.origin + '/') {
                 let view = 'home';
                 if (targetView) view = targetView;
@@ -648,7 +650,6 @@
                 
                 window.handleNavClick(view);
                 
-                // Update URL to match native root
                 if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
                     history.pushState({ view: view }, '', '/index.html#' + view);
                 }
@@ -657,97 +658,79 @@
 
             window.triggerPageLoader();
             
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Page fetch failed');
+            const container = document.getElementById('view-content');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Iframe ko perfect fit karne ke liye bottom padding hata dete hain
+                container.classList.remove('pb-10');
                 
-                const htmlString = await response.text();
-                const parser = new DOMParser();
-                const newDoc = parser.parseFromString(htmlString, 'text/html');
+                // 100% Invisible, Borderless Iframe Mount
+                container.innerHTML = `
+                    <iframe id="seamless-tool-frame" src="${url}" class="w-full border-none h-[calc(100vh-112px)] md:h-[calc(100vh-128px)]" style="display:block;" allow="clipboard-read; clipboard-write; camera; microphone"></iframe>
+                `;
                 
-                // 🎯 SMART EXTRACTION: Sirf Tool ka content nikalo bina kisi header/sidebar ke
-                let newContent = newDoc.querySelector('main > div:first-child');
-                if (!newContent) newContent = newDoc.getElementById('view-content');
-                if (!newContent) newContent = newDoc.getElementById('ai-tool-workspace')?.parentElement;
-                if (!newContent) newContent = newDoc.body;
+                const iframe = document.getElementById('seamless-tool-frame');
                 
-                const newTitle = newDoc.title;
-                
-                if (newContent) {
-                    const container = document.getElementById('view-content');
-                    container.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        container.innerHTML = newContent.outerHTML; 
-                        document.title = newTitle;
+                iframe.onload = () => {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const iframeWin = iframe.contentWindow;
                         
-                        // Clean up old scripts to prevent memory leaks
-                        document.querySelectorAll('.pjax-dynamic-script').forEach(s => s.remove());
+                        // 🌟 MAGIC CSS INJECTION 🌟
+                        // Ye code Iframe ke andar ke duplicate Sidebar aur Header ko permanently hide kar dega!
+                        const style = iframeDoc.createElement('style');
+                        style.innerHTML = `
+                            #sidebar, header, #main-header, #mobile-menu, #mobile-menu-overlay, footer { display: none !important; opacity: 0 !important; visibility: hidden !important; }
+                            main { margin-left: 0 !important; padding-top: 0 !important; }
+                            body { background-color: transparent !important; }
+                            html { overflow-y: auto !important; }
+                        `;
+                        iframeDoc.head.appendChild(style);
                         
-                        // Execute tool scripts securely
-                        const scripts = newDoc.querySelectorAll('script');
-                        scripts.forEach(oldScript => {
-                            const src = oldScript.getAttribute('src');
-                            
-                            // Skip shared libraries
-                            if (src && (src.includes('tailwind') || src.includes('lucide') || src.includes('gsap') || src.includes('lenis') || src.includes('tools.js') || src.includes('shared-ui.js') || src.includes('tools-data.js'))) {
-                                return;
-                            }
-                            
-                            const newScript = document.createElement('script');
-                            newScript.className = 'pjax-dynamic-script';
-                            
-                            if (src) {
-                                newScript.src = src;
-                                document.body.appendChild(newScript);
-                            } else {
-                                let code = oldScript.innerHTML;
-                                
-                                // 🚨 FIX: Stop tool from duplicating the global UI
-                                code = code.replace(/document\.getElementById\(['"]app-root['"]\)\.innerHTML\s*\+?=\s*__UI__;/g, '');
-                                
-                                // 🚨 FIX: Force DOMContentLoaded to run instantly
-                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
-                                code = code.replace(/document\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*([a-zA-Z0-9_]+)\)/g, '$1();');
-                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*function\s*\(\)\s*\{/g, '(function(){');
-                                code = code.replace(/window\.addEventListener\(['"]DOMContentLoaded['"]\s*,\s*\(\)\s*=>\s*\{/g, '(() => {');
-                                
-                                // 🚨 BLANK SCREEN FIX: Convert const/let to var to prevent crashing on repeated visits
-                                code = code.replace(/\bconst\s+/g, 'var ');
-                                code = code.replace(/\blet\s+/g, 'var ');
-                                
-                                // Wrap in Try/Catch
-                                code = `try { \n ${code} \n } catch(err) { console.warn('Forgenos Tool Engine:', err); }`;
-                                
-                                newScript.innerHTML = code;
-                                document.body.appendChild(newScript);
+                        // Parent page ka Title update karo
+                        document.title = iframeDoc.title;
+                        
+                        // Iframe ke andar ke clicks ko parent handle karega (taaki SPA feel na toote)
+                        iframeWin.handleNavClick = function(v) { window.top.handleNavClick(v); };
+                        iframeWin.navigateSmoothly = function(u, v) { window.top.navigateSmoothly(u, v); };
+                        iframeWin.showToast = function(m, t) { window.top.showToast(m, t); };
+                        
+                        iframeDoc.addEventListener('click', function(e) {
+                            const link = e.target.closest('a');
+                            if (link && link.href && !link.target && !link.hasAttribute('download')) {
+                                const targetUrl = new URL(link.href);
+                                if (targetUrl.origin === window.location.origin) {
+                                    e.preventDefault();
+                                    window.top.navigateSmoothly(link.href);
+                                }
                             }
                         });
 
-                        container.style.opacity = '1';
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        if(window.lucide) window.lucide.createIcons();
-                        
-                        history.pushState({ isPjax: true, url: url, view: 'tool-view' }, newTitle, url);
-                        currentView = 'external-tool';
-                        window.renderSidebar();
-
-                        const footer = document.getElementById('main-footer');
-                        if(footer) footer.style.display = 'none';
-
-                    }, 300);
+                    } catch(err) {
+                        console.warn('Seamless DOM restriction (Tools will still work fine)', err);
+                    }
                     
-                } else {
-                    window.location.href = url;
-                }
-                
-            } catch (error) {
-                console.error('PJAX Error:', error);
-                window.location.href = url; 
-            }
+                    container.style.opacity = '1';
+                    
+                    // 🌟 MAIN FIX: Browser URL Update karo natively SEO ke liye 🌟
+                    if (window.location.href !== url) {
+                        history.pushState({ isSeamless: true, url: url }, document.title, url);
+                    }
+                    
+                    currentView = 'external-tool';
+                    window.renderSidebar();
+                    
+                    // Parent page ki scrollbar band karo, Iframe apni scrolling khud handle karega (No double scrollbars)
+                    document.body.style.overflow = 'hidden';
+                    
+                    const footer = document.getElementById('main-footer');
+                    if(footer) footer.style.display = 'none';
+                };
+            }, 300);
         };
 
-        // Click Event Listener: Anchor tags ko pakadne ke liye
+        // Standard Navigation links interception
         document.addEventListener('click', function(e) {
             const target = e.target.closest('a');
             if (target && target.href) {
@@ -762,9 +745,9 @@
             }
         });
 
-        // Browser ke Back/Forward buttons ke liye
+        // Browser Back/Forward buttons smoothly handled
         window.addEventListener('popstate', (e) => { 
-            if (e.state && e.state.isPjax) {
+            if (e.state && e.state.isSeamless) {
                 window.navigateSmoothly(e.state.url);
             } else if(e.state && e.state.view) {
                 window.handleNavClick(e.state.view, true); 
@@ -785,6 +768,11 @@
                 }
             }
             
+            // Wapas home aane par scrollbar aur padding thik karo
+            document.body.style.overflow = ''; 
+            const container = document.getElementById('view-content');
+            container.classList.add('pb-10');
+            
             const footer = document.getElementById('main-footer');
             if(footer) footer.style.display = (view === 'home') ? 'block' : 'none';
             
@@ -792,8 +780,6 @@
             currentView = view;
             window.renderSidebar();
             window.scrollTo({top: 0, behavior: 'smooth'});
-            
-            const container = document.getElementById('view-content');
             
             const renderView = () => {
                 try {
