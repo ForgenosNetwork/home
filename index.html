@@ -22,12 +22,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://forgenos.com/assets/favicon-square.png">
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://forgenos.com/">
-    <meta property="og:title" content="Forgenos – Free Online Tools for Everyone">
-    <meta property="og:description" content="Get elite-grade Developer, Finance, PDF, and Image utilities for free. Everything runs securely in your browser.">
-    <meta property="og:image" content="https://forgenos.com/assets/social-banner.png">
-    <meta property="og:site_name" content="FORGENOS">
+    <!-- CONNECTING THE NEW CONFIG FILE -->
+    <script src="forgenos-config.js"></script>
+
+    <!-- DYNAMIC THEME COLOR INJECTION -->
+    <script>
+        // Set CSS Variables dynamically from config file
+        const configHex = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.brandColor) ? FORGENOS_CONFIG.brandColor : '#f97316';
+        let r = parseInt(configHex.slice(1, 3), 16), g = parseInt(configHex.slice(3, 5), 16), b = parseInt(configHex.slice(5, 7), 16);
+        document.documentElement.style.setProperty('--brand-color', configHex);
+        document.documentElement.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`);
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,8 +60,8 @@
                     colors: {
                         'brand-bg': '#141414',
                         'brand-surface': '#1e1e1e',
-                        'brand-accent': '#f97316', 
-                        'brand-glow': 'rgba(249, 115, 22, 0.5)',
+                        'brand-accent': 'var(--brand-color)', 
+                        'brand-glow': 'rgba(var(--brand-rgb), 0.5)',
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -110,14 +115,14 @@
         
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; display: none; }
 
-        .forgenos-shape-left { fill: #f97316; transform-origin: center; }
+        .forgenos-shape-left { fill: var(--brand-color); transform-origin: center; }
         .forgenos-shape-right { stroke: #ffffff; fill: none; stroke-width: 7; stroke-linejoin: miter; stroke-linecap: round; transform-origin: center; }
         .brand-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: 0.04em; background: linear-gradient(180deg, #ffffff 0%, #a0a0aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding-bottom: 0.1em; display: inline-block; line-height: 1.1; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #141414; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f97316; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-color); }
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -138,16 +143,16 @@
         @media (min-width: 1024px) { 
             .premium-card:not([style*="grayscale"]):hover { 
                 transform: translateY(-8px) scale(1.02) translateZ(0); 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(249,115,22,0.5) !important; 
-                border-color: rgba(249, 115, 22, 0.4) !important; z-index: 20; 
+                box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(var(--brand-rgb),0.5) !important; 
+                border-color: rgba(var(--brand-rgb), 0.4) !important; z-index: 20; 
             } 
         }
         @media (max-width: 1023px) { 
-            .premium-card:not([style*="grayscale"]):active { transform: scale(0.98); border-color: rgba(249, 115, 22, 0.4) !important; } 
+            .premium-card:not([style*="grayscale"]):active { transform: scale(0.98); border-color: rgba(var(--brand-rgb), 0.4) !important; } 
         }
 
-        .pinned-glow { border-color: rgba(229, 9, 20, 0.6) !important; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 9, 20, 0.25), inset 0 0 15px rgba(249, 115, 22, 0.1) !important; }
-        .pinned-glow:not([style*="grayscale"]):hover { border-color: rgba(229, 9, 20, 1) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(249, 115, 22, 0.4), inset 0 0 20px rgba(249, 115, 22, 0.2) !important; }
+        .pinned-glow { border-color: rgba(var(--brand-rgb), 0.6) !important; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--brand-rgb), 0.25), inset 0 0 15px rgba(var(--brand-rgb), 0.1) !important; }
+        .pinned-glow:not([style*="grayscale"]):hover { border-color: var(--brand-color) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(var(--brand-rgb), 0.4), inset 0 0 20px rgba(var(--brand-rgb), 0.2) !important; }
 
         .card-image-wrapper { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
         .card-image { will-change: transform; transform: scale(1.01) translateZ(0); }
@@ -173,8 +178,8 @@
 
         #top-loader {
             position: fixed; top: 0; left: 0; height: 3px;
-            background: linear-gradient(90deg, #f97316, #ffffff, #f97316);
-            background-size: 200% 100%; box-shadow: 0 0 15px rgba(229, 9, 20, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(90deg, var(--brand-color), #ffffff, var(--brand-color));
+            background-size: 200% 100%; box-shadow: 0 0 15px rgba(var(--brand-rgb), 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
             width: 0%; z-index: 99999; opacity: 0;
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
             animation: loaderFlow 1s linear infinite; pointer-events: none;
@@ -199,6 +204,10 @@
             background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmerSweep 1.5s infinite linear;
         }
         @keyframes shimmerSweep { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        
+        /* Slider Snap CSS */
+        .slider-snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .slider-snap-center { scroll-snap-align: center; }
     </style>
 </head>
 <body class="antialiased opacity-0 transition-opacity duration-700 ease-in-out" id="app-root">
@@ -207,7 +216,7 @@
         <style>
             body { overflow: hidden; }
             #nsw { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999999; display: flex; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-            #nsw h1 { color: #f97316; font-size: 3rem; font-weight: 900; margin-bottom: 15px; }
+            #nsw h1 { color: var(--brand-color); font-size: 3rem; font-weight: 900; margin-bottom: 15px; }
             #nsw p { color: #a3a3a3; font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
         </style>
         <div id="nsw">
@@ -225,7 +234,7 @@
 
     <!-- MAIN UI INJECTION SCRIPT -->
     <script>
-        const announcementConfig = {
+        const announcementConfig = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.announcement) ? FORGENOS_CONFIG.announcement : {
             enabled: false, 
             id: 'announce_v1', 
             delaySeconds: 6,
@@ -241,7 +250,7 @@
             <div class="flex items-center group" onclick="if(window.playLogoAnim) window.playLogoAnim(); window.navigateSmoothly('/', 'home')" style="cursor:pointer">
                 <div class="relative w-10 h-10 md:w-11 md:h-11 shrink-0 flex items-center justify-center bg-transparent z-10">
                     <svg viewBox="0 0 100 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible; transform: scale(1.15);">
-                        <polygon class="forgenos-shape-left" points="26,52 48,40 48,78 26,90" style="fill:#f97316;transform-origin:center"/>
+                        <polygon class="forgenos-shape-left" points="26,52 48,40 48,78 26,90" style="fill:var(--brand-color);transform-origin:center"/>
                         <polygon class="forgenos-shape-right" points="52,18 74,30 74,68 52,56" style="stroke:#ffffff;fill:none;stroke-width:7;stroke-linejoin:miter;stroke-linecap:round;transform-origin:center"/>
                     </svg>
                 </div>
@@ -258,11 +267,11 @@
             <div id="announcement-popup" role="dialog" aria-modal="true" aria-labelledby="ap-title" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9000; max-width: 360px; width: calc(100% - 48px); background: #1a1a1c; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); flex-direction: column; overflow: hidden;">
                 <img id="ap-img" src="" alt="Announcement" loading="lazy" decoding="async" style="width: 100%; height: 160px; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px;">
                 <div class="p-5">
-                    <span id="ap-cat" style="display: inline-block; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; background: rgba(229,9,20,0.1); padding: 4px 8px; border-radius: 6px; margin-bottom: 8px;"></span>
+                    <span id="ap-cat" style="display: inline-block; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-color); background: rgba(var(--brand-rgb),0.1); padding: 4px 8px; border-radius: 6px; margin-bottom: 8px;"></span>
                     <h3 id="ap-title" style="color: white; font-size: 18px; font-weight: bold; margin: 0; line-height: 1.2;"></h3>
                     <p id="ap-desc" style="color: #9ca3af; font-size: 13px; margin-top: 6px; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"></p>
                     <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
-                        <button id="ap-btn" style="width: 100%; background: #f97316; color: white; font-weight: bold; padding: 12px; border-radius: 12px; transition: transform 0.2s; text-align: center; cursor: pointer; border: none;"></button>
+                        <button id="ap-btn" style="width: 100%; background: var(--brand-color); color: white; font-weight: bold; padding: 12px; border-radius: 12px; transition: transform 0.2s; text-align: center; cursor: pointer; border: none;"></button>
                         <button id="ap-dismiss" style="color: #6b7280; background: transparent; font-size: 12px; border: none; cursor: pointer; padding: 8px; font-weight: 500;">Dismiss</button>
                     </div>
                 </div>
@@ -375,7 +384,7 @@
                                 </div>
                             </div>
                             <div class="p-5 md:p-6 bg-[#111113] border-t border-white/5 shrink-0">
-                                <button onclick="window.saveProject()" aria-label="Save and Build Toolkit" class="w-full bg-brand-accent hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
+                                <button onclick="window.saveProject()" aria-label="Save and Build Toolkit" class="w-full bg-brand-accent hover:bg-opacity-80 text-white font-bold py-4 rounded-xl transition-shadow shadow-lg active:scale-95 text-sm">Build Toolkit</button>
                             </div>
                         </div>
                         
@@ -414,7 +423,7 @@
                     <p class="text-gray-400 mb-8 text-sm leading-relaxed">This curation will be permanently removed.</p>
                     <div class="flex gap-4">
                         <button aria-label="Cancel Delete" onclick="window.closeDeleteModal()" class="flex-1 py-3 md:py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold transition-colors text-sm">Cancel</button>
-                        <button id="confirm-delete-btn" aria-label="Confirm Delete" class="flex-1 py-3 md:py-4 rounded-xl bg-brand-accent hover:bg-red-600 text-white font-bold transition-shadow text-sm">Confirm</button>
+                        <button id="confirm-delete-btn" aria-label="Confirm Delete" class="flex-1 py-3 md:py-4 rounded-xl bg-brand-accent hover:bg-opacity-80 text-white font-bold transition-shadow text-sm">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -432,7 +441,7 @@
                 </div>
             </div>
 
-            <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(229,9,20,0.1)] p-2 min-w-[220px]">
+            <div id="custom-context-menu" style="display:none;position:fixed;z-index:100000;" class="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.9),_0_0_20px_rgba(var(--brand-rgb),0.1)] p-2 min-w-[220px]">
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="history.back(); window.closeContextMenu()">
                     <i data-lucide="arrow-left" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Back
                 </div>
@@ -440,8 +449,8 @@
                     <i data-lucide="arrow-right" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> Forward
                 </div>
                 
-                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-[#f97316]/10 hover:text-[#f97316] transition-all group" onclick="location.reload()">
-                    <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-[#f97316] transition-colors"></i> Refresh
+                <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-brand-accent/10 hover:text-brand-accent transition-all group" onclick="location.reload()">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-[#a3a3a3] group-hover:text-brand-accent transition-colors"></i> Refresh
                 </div>
                 
                 <div id="ctx-copy-btn" class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="window.ctxCopyText(); window.closeContextMenu()">
@@ -526,7 +535,8 @@
             const toast = document.createElement('div');
             toast.className = 'bg-[#151515] border border-white/10 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 text-white text-sm transform translate-y-20 opacity-0 transition-all duration-300';
             let icon = type === 'success' ? 'check-circle' : (type === 'alert' ? 'bell' : 'info');
-            toast.innerHTML = `<i data-lucide="${icon}" class="${type === 'alert' ? 'text-yellow-500' : 'text-brand-accent'} w-5 h-5"></i> <span class="font-semibold">${message}</span>`;
+            let color = type === 'success' ? 'text-green-500' : 'text-brand-accent';
+            toast.innerHTML = `<i data-lucide="${icon}" class="${color} w-5 h-5"></i> <span class="font-semibold">${message}</span>`;
             container.appendChild(toast);
             window.tryCreateIcons();
             requestAnimationFrame(() => toast.classList.remove('translate-y-20', 'opacity-0'));
@@ -608,13 +618,13 @@
         };
         
         const categoriesList = [
-            { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://forgenos.com/assets/finance.webp', glow: 'rgba(34,197,94,0.3)', filter: t => t.category === 'finance', homepageTools: [30, 25, 28, 29] },
-            { id: 'dev', title: 'Developer Tools', icon: 'code-2', color: 'text-blue-500', img: 'https://forgenos.com/assets/dev.webp', glow: 'rgba(59,130,246,0.3)', filter: t => t.category === 'dev', homepageTools: [34, 35, 38] },
-            { id: 'student', title: 'Study Zone', icon: 'graduation-cap', color: 'text-yellow-500', img: 'https://forgenos.com/assets/study.webp', glow: 'rgba(234,179,8,0.3)', filter: t => t.category === 'student', homepageTools: [46, 44, 42] },
-            { id: 'brain', title: 'Brain Training', icon: 'brain-circuit', color: 'text-purple-500', img: 'https://forgenos.com/assets/brain.webp', glow: 'rgba(168,85,247,0.3)', filter: t => t.category === 'brain', homepageTools: [47, 48, 50] },
-            { id: 'health', title: 'Health & Wellness', icon: 'heart-pulse', color: 'text-rose-400', img: 'https://forgenos.com/assets/health.webp', glow: 'rgba(251,113,133,0.3)', filter: t => t.category === 'health', homepageTools: [53, 52, 54, 27] },
-            { id: 'pdf', title: 'PDF Magic', icon: 'file-text', color: 'text-cyan-400', img: 'https://forgenos.com/assets/pdfmagic.webp', glow: 'rgba(34,211,238,0.3)', filter: t => t.category === 'pdf', homepageTools: [58, 59, 57] },
-            { id: 'image', title: 'Image Lab', icon: 'image', color: 'text-fuchsia-400', img: 'https://forgenos.com/assets/imagelab.webp', glow: 'rgba(232,121,249,0.3)', filter: t => t.category === 'image', homepageTools: [24, 62, 63] }
+            { id: 'finance', title: 'Finance & Wealth', icon: 'dollar-sign', color: 'text-green-500', img: 'https://forgenos.com/assets/finance.webp', glow: 'rgba(34,197,94,0.3)', desc: 'Calculators & trackers to manage your money smartly.', filter: t => t.category === 'finance', homepageTools: [30, 25, 28, 29] },
+            { id: 'dev', title: 'Developer Tools', icon: 'code-2', color: 'text-blue-500', img: 'https://forgenos.com/assets/dev.webp', glow: 'rgba(59,130,246,0.3)', desc: 'Formatters, testing environments, and coding utilities.', filter: t => t.category === 'dev', homepageTools: [34, 35, 38] },
+            { id: 'student', title: 'Study Zone', icon: 'graduation-cap', color: 'text-yellow-500', img: 'https://forgenos.com/assets/study.webp', glow: 'rgba(234,179,8,0.3)', desc: 'Speed reading, focus planners, and academic tools.', filter: t => t.category === 'student', homepageTools: [46, 44, 42] },
+            { id: 'brain', title: 'Brain Training', icon: 'brain-circuit', color: 'text-purple-500', img: 'https://forgenos.com/assets/brain.webp', glow: 'rgba(168,85,247,0.3)', desc: 'Cognitive tests, memory games, and logic simulators.', filter: t => t.category === 'brain', homepageTools: [47, 48, 50] },
+            { id: 'health', title: 'Health & Wellness', icon: 'heart-pulse', color: 'text-rose-400', img: 'https://forgenos.com/assets/health.webp', glow: 'rgba(251,113,133,0.3)', desc: 'Nutrition calculators, sleep sync, and stress relief.', filter: t => t.category === 'health', homepageTools: [53, 52, 54, 27] },
+            { id: 'pdf', title: 'PDF Magic', icon: 'file-text', color: 'text-cyan-400', img: 'https://forgenos.com/assets/pdfmagic.webp', glow: 'rgba(34,211,238,0.3)', desc: 'Secure local PDF merging, splitting, and protection.', filter: t => t.category === 'pdf', homepageTools: [58, 59, 57] },
+            { id: 'image', title: 'Image Lab', icon: 'image', color: 'text-fuchsia-400', img: 'https://forgenos.com/assets/imagelab.webp', glow: 'rgba(232,121,249,0.3)', desc: 'Format converters, compressors, and palette extractors.', filter: t => t.category === 'image', homepageTools: [24, 62, 63] }
         ];
 
         const catColorsMap = { 
@@ -661,15 +671,19 @@
             
             const container = document.getElementById('view-content');
             
-            // INSTANT LOADING SETUP (No Delays)
+            // INSTANT LOADING SETUP (Fast White Pulse)
             container.classList.remove('pb-10');
-            container.classList.add('flex', 'flex-col'); // Fit screen perfectly
+            container.classList.add('flex', 'flex-col'); 
             container.style.opacity = '1';
             
-            // Fast Pulse Text Loading UI
             container.innerHTML = `
                 <div id="iframe-skeleton" class="absolute inset-0 flex flex-col items-center justify-center bg-[#141414] z-0">
-                    <p class="text-brand-accent font-black text-sm md:text-base tracking-[0.2em] uppercase animate-pulse">Loading Workspace...</p>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0.15s;"></div>
+                        <div class="w-2.5 h-2.5 bg-white rounded-full animate-bounce" style="animation-delay: 0.3s;"></div>
+                    </div>
+                    <p class="text-white font-bold text-sm tracking-wide opacity-80 animate-pulse">Loading workspace...</p>
                 </div>
                 <iframe id="seamless-tool-frame" src="${url}" class="w-full flex-1 border-none min-h-[calc(100vh-140px)] relative z-10 opacity-0 transition-opacity duration-300" allow="clipboard-read; clipboard-write; camera; microphone"></iframe>
             `;
@@ -712,7 +726,6 @@
                     console.warn('Seamless DOM restriction (Tools will still work fine)', err);
                 }
                 
-                // Show tool, hide spinner
                 iframe.style.opacity = '1';
                 const skeleton = document.getElementById('iframe-skeleton');
                 if(skeleton) skeleton.remove();
@@ -845,7 +858,7 @@
                 navContainer.innerHTML = `<div class="flex items-center gap-2 md:ml-auto">` +
                 navItems.map(item => {
                     const isActive = currentView === item.id || (currentView.startsWith('tool-') && typeof toolsData !== 'undefined' && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === item.id);
-                    const activeColorClass = catColorsMap[item.id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.8)]';
+                    const activeColorClass = catColorsMap[item.id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(var(--brand-rgb),0.8)]';
                     const activeBgClass = isActive ? 'bg-white/10 text-white border-white/20 shadow-inner' : 'bg-transparent text-gray-400 border-transparent hover:bg-white/5 hover:text-white hover:border-white/10';
 
                     return `
@@ -1011,7 +1024,6 @@
 
             const cardGlowClass = (!isSelectMode && isPinnedSection) ? 'pinned-glow' : '';
 
-            // Standardize URL for native redirection
             let fetchUrl = tool.link || '';
             if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
                 fetchUrl = fetchUrl + ".html";
@@ -1026,7 +1038,7 @@
                     <div class="absolute top-0 left-0 bg-[#27272a] border-b border-r border-white/10 text-gray-300 text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center gap-1">
                         <i data-lucide="ban" class="w-3 h-3 fill-gray-300 text-gray-300"></i> DISABLED
                     </div>` : (isPinnedSection ? `
-                    <div class="absolute top-0 left-0 bg-brand-accent text-white text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(249,115,22,0.5)] flex items-center gap-1">
+                    <div class="absolute top-0 left-0 bg-brand-accent text-white text-[10px] md:text-[11px] font-black px-4 py-1.5 rounded-br-2xl z-20 shadow-[0_5px_15px_rgba(var(--brand-rgb),0.5)] flex items-center gap-1">
                         <i data-lucide="tag" class="w-3 h-3 fill-white text-white"></i> PINNED
                     </div>` : `
                     <div class="absolute top-3 left-3 md:top-4 md:left-4 flex flex-col gap-2 pointer-events-none z-10">
@@ -1078,7 +1090,6 @@
 
             const isSaved = savedTools.includes(tool.id);
 
-            // Standardize URL for native redirection
             let fetchUrl = tool.link || '';
             if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) {
                 fetchUrl = fetchUrl + ".html";
@@ -1113,7 +1124,7 @@
                             <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
-                                <a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-red-600 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(229,9,20,0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
+                                <a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-opacity-80 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(var(--brand-rgb),0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
                                 <button aria-label="Save to list" onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
@@ -1139,7 +1150,7 @@
                             
                             <div class="bg-[#1c1c1e] p-6 md:p-8 rounded-3xl border border-white/5 hover:border-white/10 transition-colors text-left shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                                    <i data-lucide="zap" class="w-5 h-5 text-brand-accent drop-shadow-[0_0_8px_rgba(229,9,20,0.6)]"></i> 
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-accent drop-shadow-[0_0_8px_rgba(var(--brand-rgb),0.6)]"></i> 
                                     Why use it?
                                 </h3>
                                 <ul class="text-sm text-gray-400 space-y-3 list-disc pl-4">
@@ -1193,6 +1204,16 @@
         };
 
         window.renderHome = function() {
+            // Get data from CMS config
+            let cSliderTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.sliderToolIds) ? FORGENOS_CONFIG.sliderToolIds : [25];
+            let cTrendingTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.trendingToolIds) ? FORGENOS_CONFIG.trendingToolIds : [24, 30, 46, 62];
+            
+            let sliderData = typeof toolsData !== 'undefined' ? toolsData.filter(t => cSliderTools.includes(t.id)) : [];
+            if(sliderData.length === 0 && typeof toolsData !== 'undefined') sliderData = toolsData.slice(0, 1);
+
+            let trendingData = typeof toolsData !== 'undefined' ? toolsData.filter(t => cTrendingTools.includes(t.id)) : [];
+            if(trendingData.length === 0 && typeof toolsData !== 'undefined') trendingData = toolsData.slice(0, 4);
+
             let html = `
                 <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 text-left max-w-5xl">
                     <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 animate-fade-up flex flex-wrap justify-start items-center gap-x-3 gap-y-1">
@@ -1208,10 +1229,10 @@
                    The definitive arsenal for your digital productivity. A curated collection of precision engineered tools covering everything from visual processing to technical development optimized for uncompromised performance and security.
                 </p> 
 
-                   <div class="relative max-w-2xl animate-fade-up text-left" style="animation-delay: 0.1s">
+                   <div class="relative max-w-2xl animate-fade-up text-left mt-8" style="animation-delay: 0.1s">
                         <div class="relative group">
                             <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
-                            <input type="text" id="inline-search-input" aria-label="Search Tools" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(229,9,20,0.2)] placeholder-gray-400" autocomplete="off" oninput="window.performInlineSearch()">
+                            <input type="text" id="inline-search-input" aria-label="Search Tools" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(var(--brand-rgb),0.2)] placeholder-gray-400" autocomplete="off" oninput="window.performInlineSearch()">
                             <button onclick="window.closeInlineSearch()" aria-label="Clear Search" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
                         </div>
                     </div>
@@ -1237,16 +1258,48 @@
                         </div>
                     </div>
 
-                    <div class="px-6 md:px-16 py-10 md:py-16">
+                    <!-- 🌟 MOVED SLIDING HERO BANNER 🌟 -->
+                    <div class="relative w-full max-w-[1400px] mx-auto px-4 md:px-10 mt-4 mb-16 animate-fade-up" style="animation-delay: 0.3s">
+                        <div class="flex gap-6 overflow-x-auto slider-snap-x hide-scroll pb-6 pt-2" id="hero-slider-container">
+                            ${sliderData.map(t => {
+                                let fetchUrl = t.link || '';
+                                if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) fetchUrl += ".html";
+                                return `
+                                <div class="w-full shrink-0 slider-snap-center rounded-[2rem] bg-gradient-to-br from-[#1c1c1e] to-[#0a0a0b] border border-white/10 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center p-6 md:p-12 min-h-[340px]">
+                                    <!-- Background Glow -->
+                                    <div class="absolute top-0 right-0 w-[50%] h-full bg-brand-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
+                                    
+                                    <!-- Content Left -->
+                                    <div class="flex-1 z-10 flex flex-col items-start text-left md:pr-10 w-full mb-8 md:mb-0">
+                                        <span class="bg-brand-accent/20 text-brand-accent border border-brand-accent/30 text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest shadow-lg mb-4">FEATURED TOOL</span>
+                                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight mb-4">${t.title}</h2>
+                                        <p class="text-gray-400 text-sm md:text-base font-medium max-w-lg mb-8 leading-relaxed">${t.desc}</p>
+                                        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                                            <a href="${fetchUrl}" class="px-8 py-3.5 bg-white text-black font-black rounded-xl hover:bg-gray-200 transition-colors shadow-lg outline-none text-center">Launch Now</a>
+                                            <button onclick="window.navigateSmoothly('/#tool-${t.id}', 'tool-${t.id}')" class="px-8 py-3.5 bg-white/10 border border-white/20 text-white font-bold rounded-xl hover:bg-white/20 transition-colors outline-none text-center">Details</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Image Right -->
+                                    <div class="w-full md:w-[45%] h-48 md:h-[280px] shrink-0 relative z-10 rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-[#111] flex items-center justify-center">
+                                        <img src="${t.img}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105" alt="${t.title}">
+                                    </div>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <div class="px-6 md:px-16 py-4 md:py-8">
             `;
 
             if (pinnedTools.length > 0) {
                 const pTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => pinnedTools.includes(t.id)) : [];
                 html += `
                     <section class="animate-fade-up mb-16 md:mb-24">
-                        <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
                             <div class="flex items-center gap-4 group cursor-pointer" onclick="window.navigateSmoothly('/', 'home')">
-                                <div class="relative"><i data-lucide="pin" class="text-brand-accent w-8 h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]"></i><div class="absolute inset-0 bg-brand-accent/20 blur-xl rounded-full z-[-1]"></div></div>
+                                <i data-lucide="pin" class="text-brand-accent w-8 h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(var(--brand-rgb),0.8)]"></i>
                                 <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Pinned Arsenal</h2>
                             </div>
                         </div>
@@ -1256,49 +1309,53 @@
                     </section>`;
             }
 
+            // 🔥 DYNAMIC TRENDING TOOLS FROM CMS 🔥
+            if(trendingData.length > 0) {
+                html += `
+                <section class="animate-fade-up mb-16 md:mb-24">
+                    <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                        <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Trending Tools</h2>
+                    </div>
+                    <div class="grid-container text-left justify-start">
+                        ${trendingData.map(t => `<div>${window.createCard(t)}</div>`).join('')}
+                    </div>
+                </section>`;
+            }
+
+            // 🖼️ PREMIUM OVERLAY CATEGORIES 🖼️
             html += `
                 <section class="animate-fade-up mb-16 md:mb-24">
                     <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight">Explore Categories</h2>
+                        <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Explore Categories</h2>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                         ${categoriesList.map(cat => `
-                            <div onclick="window.navigateSmoothly('/#${cat.id}', '${cat.id}')" class="bg-[#1c1c1e] hover:bg-white/10 border border-white/5 hover:border-white/20 p-6 md:p-8 rounded-3xl cursor-pointer transition-all group flex flex-col items-center text-center shadow-lg hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:-translate-y-2">
-                                <div class="w-16 h-16 rounded-2xl bg-black/50 mb-4 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                                    <i data-lucide="${cat.icon}" class="${cat.color} w-8 h-8 drop-shadow-lg"></i>
+                            <div onclick="window.navigateSmoothly('/#${cat.id}', '${cat.id}')" class="relative overflow-hidden rounded-3xl group cursor-pointer h-[180px] md:h-[220px] shadow-lg border border-white/10 hover:border-white/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:-translate-y-1 transition-all duration-300">
+                                <img src="${cat.img}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80" loading="lazy" alt="${cat.title}">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+                                
+                                <div class="absolute inset-0 p-5 md:p-6 flex flex-col justify-end text-left z-10">
+                                    <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md mb-3 flex items-center justify-center border border-white/20 shadow-inner group-hover:bg-brand-accent/20 transition-colors">
+                                        <i data-lucide="${cat.icon}" class="${cat.color} w-5 h-5 drop-shadow-lg"></i>
+                                    </div>
+                                    <h3 class="text-white font-black text-xl mb-1 group-hover:text-brand-accent transition-colors">${cat.title}</h3>
+                                    <p class="text-gray-300 text-xs font-medium line-clamp-1">${cat.desc}</p>
                                 </div>
-                                <h3 class="text-white font-bold text-lg md:text-xl mb-1">${cat.title}</h3>
-                                <p class="text-gray-400 text-xs md:text-sm font-medium uppercase tracking-widest">${typeof toolsData !== 'undefined' ? toolsData.filter(cat.filter).length : 0} Tools</p>
                             </div>
                         `).join('')}
                     </div>
                 </section>
             `;
 
-            let trendingTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => t.tags && t.tags.includes('trending')).slice(0,4) : [];
-            if(trendingTools.length === 0 && typeof toolsData !== 'undefined') trendingTools = toolsData.slice(0,4);
-            
-            if(trendingTools.length > 0) {
-                html += `
-                <section class="animate-fade-up mb-16 md:mb-24">
-                    <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight">Trending Tools</h2>
-                    </div>
-                    <div class="grid-container text-left justify-start">
-                        ${trendingTools.map(t => `<div>${window.createCard(t)}</div>`).join('')}
-                    </div>
-                </section>`;
-            }
-
             html += `
-                <section class="animate-fade-up mt-10 mb-10 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-accent/20 to-[#141414] border border-brand-accent/30 p-10 md:p-16 text-center flex flex-col items-center shadow-[0_20px_50px_rgba(249,115,22,0.15)]">
+                <section class="animate-fade-up mt-10 mb-10 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-accent/20 to-[#141414] border border-brand-accent/30 p-10 md:p-16 text-center flex flex-col items-center shadow-[0_20px_50px_rgba(var(--brand-rgb),0.15)]">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                     <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
                     
                     <i data-lucide="zap" class="w-12 h-12 text-brand-accent mb-6"></i>
                     <h2 class="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Level Up Your Workflow</h2>
                     <p class="text-gray-300 text-base md:text-lg max-w-2xl mb-8 leading-relaxed">No signups. No subscriptions. Just pure performance. FORGENOS gives you the elite tools you need to build, manage, and optimize faster than ever.</p>
-                    <button onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('inline-search-input').focus();" class="bg-brand-accent hover:bg-white text-white hover:text-black font-black px-8 py-4 rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-sm md:text-base uppercase tracking-wider">Start Exploring</button>
+                    <button onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('inline-search-input').focus();" class="bg-brand-accent hover:bg-opacity-80 text-white font-black px-8 py-4 rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-sm md:text-base uppercase tracking-wider">Start Exploring</button>
                 </section>
             `;
 
@@ -1311,6 +1368,17 @@
                     gsap.fromTo(row, { opacity: 0, y: 30 }, { scrollTrigger: { trigger: row, start: "top 90%" }, opacity: 1, y: 0, duration: 1 }); 
                 });
             }
+            
+            // Auto-scroll slider
+            const slider = document.getElementById('hero-slider-container');
+            if (slider && slider.children.length > 1) {
+                let slideIndex = 0;
+                setInterval(() => {
+                    slideIndex = (slideIndex + 1) % slider.children.length;
+                    slider.scrollTo({ left: slider.children[slideIndex].offsetLeft, behavior: 'smooth' });
+                }, 5000);
+            }
+
             let heroTextInterval;
             const startHeroTextRolling = function() {
                 const list = document.getElementById('heroRollingList');
@@ -1691,24 +1759,6 @@
             }
             animate();
         };
-        
-        window.playLogoAnim = function() {
-            if (typeof gsap === 'undefined') return;
-            gsap.killTweensOf('.forgenos-shape-left, .forgenos-shape-right, .forgenos-logo-svg');
-            gsap.set('.forgenos-shape-left', { x: 0, y: 0 });
-            gsap.set('.forgenos-shape-right', { x: 0, y: 0 });
-            gsap.set('.forgenos-logo-svg', { scale: 1, filter: 'none' });
-            const lefts  = document.querySelectorAll('.forgenos-shape-left');
-            const rights = document.querySelectorAll('.forgenos-shape-right');
-            const svgs   = document.querySelectorAll('.forgenos-logo-svg');
-            const tl = gsap.timeline();
-            tl.to(lefts,  { x: -8, y: 8,  duration: 0.18, ease: 'power2.out' })
-              .to(rights, { x: 8,  y: -8, duration: 0.18, ease: 'power2.out' }, 0)
-              .to(lefts,  { x: 0, y: 0, duration: 0.3, ease: 'back.out(3)' })
-              .to(rights, { x: 0, y: 0, duration: 0.3, ease: 'back.out(3)' }, '-=0.3')
-              .to(svgs, { scale: 1.15, filter: 'drop-shadow(0px 0px 14px rgba(249,115,22,0.6))', duration: 0.18 }, '-=0.2')
-              .to(svgs, { scale: 1, filter: 'none', duration: 0.35, delay: 0.25, ease: 'power2.out' });
-        };
 
         window.onload = () => {
             const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
@@ -1718,12 +1768,11 @@
                 const hashView = window.location.hash.substring(1);
                 
                 // 🌟 DIRECT URL LOAD FIX 🌟
-                // Agar direct tool ka link open hua hai (jisme slash / hai)
                 if (hashView.includes('/')) {
                     window.applyImmediateSettings(); 
                     window.renderSidebar();
-                    window.navigateSmoothly(hashView); // Seedha iframe me load hoga
-                    return; // Normal load stop kardo
+                    window.navigateSmoothly(hashView); 
+                    return; 
                 }
                 
                 const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'pdf', 'image', 'saved', 'settings'];
