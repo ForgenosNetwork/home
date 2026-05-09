@@ -45,6 +45,12 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
+
 
     <link rel="canonical" href="https://forgenos.com/fire-calculator">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
@@ -488,20 +494,14 @@
             <div class="flex-1 px-4 sm:px-6 md:px-10 lg:px-12 py-8 md:py-12 flex flex-col w-full text-left allow-select">
                 
                 <!-- Back Button -->
-                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                </a>
-
+             
                 <!-- Tool Title Section -->
                 <div class="mb-10 text-left w-full">
                     <h1 id="tool-title" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">FireCalc</h1>
                     <p id="tool-desc" class="text-gray-500 text-sm md:text-lg mt-4 font-medium max-w-3xl">Professional Financial Independence & Early Retirement Calculator.</p>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- ⬇️ AI WILL GENERATE THE TOOL UI INSIDE THIS BOX ⬇️ -->
-                <!-- ========================================== -->
-                <!-- FIX 10 & 11 — TOOL FIRST, RESPONSIVE, NO HORIZONTAL SCROLL -->
+              
                 <div id="ai-tool-workspace" class="flex-1 w-full text-white flex flex-col items-start justify-start text-left overflow-x-hidden">
                     
                     <!-- HERO: FIRE MODE SELECTOR -->
