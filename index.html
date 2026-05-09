@@ -650,6 +650,12 @@
             'image': 'text-fuchsia-400 drop-shadow-[0_0_8px_rgba(232,121,249,0.8)]'
         };
 
+        const heroSlides = [
+            { id: 25, tag: "New", title: 'Fire<span class="text-brand-accent">Calc</span> ', subtitle: "Calculate your financial independence timeline and safe withdrawal rates.", desc: "Plan your early retirement with precision using our secure, free calculator.", img: "https://forgenos.com/finance/img/tool_5.webp" },
+            { id: 16, tag: "Health", title: 'Circadia<span class="text-brand-accent">Synic</span> ', subtitle: "Optimize your sleep cycles for peak energy and focus.", desc: "Calibrate your internal clock for maximum productivity and recovery.", img: "https://forgenos.com/health/img/tool_1.jpg" },
+            { id: 23, tag: "PDF", title: 'PDF<span class="text-brand-accent">Protect</span>', subtitle: "Add or remove passwords from your PDF files securely.", desc: "Keep your sensitive documents safe. Everything happens directly in your browser.", img: "https://forgenos.com/pdfmagic/img/tool_1.webp" }
+        ];
+
         let savedTools = JSON.parse(localStorage.getItem('forgenos_saved')) || [];
         let pinnedTools = JSON.parse(localStorage.getItem('forgenos_pinned')) || []; 
         let myProjects = JSON.parse(localStorage.getItem('forgenos_projects')) || [];
@@ -658,6 +664,9 @@
         };
 
         let currentView = 'home';
+        let heroInterval = null;
+        let heroTextInterval = null;
+        let currentHeroIndex = 0;
         let selectedToolsForProject = [];
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
@@ -863,6 +872,9 @@
             currentView = view;
             window.renderSidebar();
             window.scrollTo({top: 0, behavior: 'smooth'});
+
+            if(heroInterval) { clearInterval(heroInterval); heroInterval = null; }
+            if(heroTextInterval) { clearInterval(heroTextInterval); heroTextInterval = null; }
             
             const renderView = () => {
                 try {
@@ -1338,37 +1350,30 @@
                         </div>
                     </div>
 
-                    <!-- 🌟 SLIDING HERO BANNER (EXACTLY BELOW SHORT CATEGORIES) 🌟 -->
-                    <div class="relative w-full max-w-[1400px] mx-auto px-4 md:px-10 mb-16 mt-4 animate-fade-up" style="animation-delay: 0.3s">
-                        <div class="flex gap-6 overflow-x-auto slider-snap-x hide-scroll pb-6 pt-2" id="hero-slider-container">
-                            ${sliderData.map(t => {
-                                let fetchUrl = t.link || '';
-                                if (fetchUrl && !fetchUrl.endsWith('.html') && !fetchUrl.includes('#') && !fetchUrl.includes('?')) fetchUrl += ".html";
-                                return `
-                                <div class="w-full shrink-0 slider-snap-center rounded-[2rem] bg-gradient-to-br from-[#1c1c1e] to-[#0a0a0b] border border-white/10 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center p-6 md:p-12 min-h-[340px]">
-                                    <!-- Background Glow -->
-                                    <div class="absolute top-0 right-0 w-[50%] h-full bg-brand-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
-                                    
-                                    <!-- Content Left -->
-                                    <div class="flex-1 z-10 flex flex-col items-start text-left md:pr-10 w-full mb-8 md:mb-0">
-                                        <span class="bg-brand-accent/20 text-brand-accent border border-brand-accent/30 text-[10px] md:text-xs font-black px-3 py-1.5 rounded-lg tracking-widest shadow-lg mb-4">FEATURED TOOL</span>
-                                        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight mb-4">${t.title}</h2>
-                                        <p class="text-gray-400 text-sm md:text-base font-medium max-w-lg mb-8 leading-relaxed">${t.desc}</p>
-                                        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                                            <a href="${fetchUrl}" class="px-8 py-3.5 bg-white text-black font-black rounded-xl hover:bg-gray-200 transition-colors shadow-lg outline-none text-center">Launch Now</a>
-                                            <button onclick="window.navigateSmoothly('/#tool-${t.id}', 'tool-${t.id}')" class="px-8 py-3.5 bg-white/10 border border-white/20 text-white font-bold rounded-xl hover:bg-white/20 transition-colors outline-none text-center">Details</button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Image Right -->
-                                    <div class="w-full md:w-[45%] h-48 md:h-[280px] shrink-0 relative z-10 rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-[#111] flex items-center justify-center">
-                                        <img src="${t.img}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105" alt="${t.title}">
+                    <!-- 🌟 SLIDING HERO BANNER (GSAP carousel with hero-slider + hero-dot) 🌟 -->
+                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-16 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
+                        <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
+                            ${heroSlides.map((slide, i) => `
+                            <div class="hero-slide min-w-full h-full relative skeleton-bg">
+                                <img src="${slide.img}" fetchpriority="${i === 0 ? 'high' : 'auto'}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${slide.title.replace(/<[^>]*>?/gm, '')}">
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
+                                <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
+                                    <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(229,9,20,0.4)]">${slide.tag}</span>
+                                    <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
+                                    <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
+                                    <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
+                                    <div class="flex gap-3 md:gap-4 pt-2">
+                                        <button aria-label="Launch ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
                                     </div>
                                 </div>
-                                `;
-                            }).join('')}
+                            </div>`).join('')}
                         </div>
-                    </div>
+                        <div class="absolute bottom-6 md:bottom-8 right-6 md:right-10 z-30 flex gap-2">
+                            ${heroSlides.map((_, i) => `<div class="hero-dot w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(229,9,20,0.8)]' : 'bg-white/30'}"></div>`).join('')}
+                        </div>
+                    </section>
 
                     <!-- PINNED, TRENDING, OVERLAYS -->
                     <div class="px-6 md:px-16 py-4 md:py-8 text-left">
@@ -1445,41 +1450,48 @@
             window.tryCreateIcons();
 
             if(typeof gsap !== 'undefined') {
-                gsap.utils.toArray('.animate-fade-up').forEach(row => { 
-                    gsap.fromTo(row, { opacity: 0, y: 30 }, { scrollTrigger: { trigger: row, start: "top 90%" }, opacity: 1, y: 0, duration: 1 }); 
+                gsap.utils.toArray('.category-row').forEach(row => { 
+                    gsap.to(row, { scrollTrigger: { trigger: row, start: "top 90%" }, opacity: 1, y: 0, duration: 1 }); 
                 });
             }
-            
-            // Auto-scroll slider
-            const slider = document.getElementById('hero-slider-container');
-            if (slider && slider.children.length > 1) {
-                let slideIndex = 0;
-                setInterval(() => {
-                    slideIndex = (slideIndex + 1) % slider.children.length;
-                    slider.scrollTo({ left: slider.children[slideIndex].offsetLeft, behavior: 'smooth' });
-                }, 5000);
-            }
+            window.startHeroCarousel(); 
+            window.startHeroTextRolling();
+        };
 
-            let heroTextInterval;
-            const startHeroTextRolling = function() {
-                const list = document.getElementById('heroRollingList');
-                if (!list) return;
-                const items = list.querySelectorAll('li');
-                if (!items.length) return;
-                let currentIndex = 0; const stayDuration = 2000;
-                clearInterval(heroTextInterval);
-                list.style.transition = 'none'; list.style.transform = `translateY(0px)`;
-                heroTextInterval = setInterval(() => {
-                    currentIndex++;
-                    const itemHeight = items[0].getBoundingClientRect().height;
-                    list.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-                    list.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
-                    if (currentIndex === items.length - 1) {
-                        setTimeout(() => { list.style.transition = 'none'; currentIndex = 0; list.style.transform = `translateY(0px)`; }, 500); 
-                    }
-                }, stayDuration);
-            };
-            startHeroTextRolling();
+        window.startHeroCarousel = function() {
+            if (heroInterval) clearInterval(heroInterval);
+            currentHeroIndex = 0;
+            const slider = document.getElementById('hero-slider');
+            const dots = document.querySelectorAll('.hero-dot');
+            heroInterval = setInterval(() => {
+                currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+                if(typeof gsap !== 'undefined') gsap.to(slider, { xPercent: -100 * currentHeroIndex, duration: 1, ease: "expo.inOut" });
+                dots.forEach((dot, i) => {
+                    if(i === currentHeroIndex) { dot.classList.add('w-8', 'bg-brand-accent'); dot.classList.remove('w-2', 'bg-white/30'); }
+                    else { dot.classList.add('w-2', 'bg-white/30'); dot.classList.remove('w-8', 'bg-brand-accent'); }
+                });
+            }, 6000);
+        };
+
+        window.startHeroTextRolling = function() {
+            const list = document.getElementById('heroRollingList');
+            if (!list) return;
+            const items = list.querySelectorAll('li');
+            if (!items.length) return;
+            
+            let currentIndex = 0; const stayDuration = 2000;
+            clearInterval(heroTextInterval);
+            list.style.transition = 'none'; list.style.transform = `translateY(0px)`;
+            
+            heroTextInterval = setInterval(() => {
+                currentIndex++;
+                const itemHeight = items[0].getBoundingClientRect().height;
+                list.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                list.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+                if (currentIndex === items.length - 1) {
+                    setTimeout(() => { list.style.transition = 'none'; currentIndex = 0; list.style.transform = `translateY(0px)`; }, 500); 
+                }
+            }, stayDuration);
         };
 
         window.renderCategoryPage = function(catId) {
