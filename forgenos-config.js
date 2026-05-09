@@ -2,7 +2,7 @@ const FORGENOS_CONFIG = {
     // === 🎨 THEME COLOR SETTINGS ===
     // Yahan se aap poori website ka main color change kar sakte hain.
     // Default color orange hai ('#f97316'). Isko kisi bhi hex code (jaise '#3b82f6' for blue) se badlein.
-    brandColor: '#a855f7', 
+    brandColor: '#3b82f6', 
 
     // === 🖼️ HERO BANNER SLIDER ===
     // Yahan un tools ki IDs daalein jinhe aap home page ke top sliding banner mein dikhana chahte hain.
