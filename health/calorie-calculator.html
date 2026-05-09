@@ -39,6 +39,12 @@
     <meta name="coverage" content="Worldwide">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
+
 
     <link rel="canonical" href="https://forgenos.com/health/calorie-calculator">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
@@ -438,10 +444,7 @@
             
             <div class="flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12 flex flex-col w-full text-left">
                 
-                <!-- Back Button -->
-                <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-8 text-sm font-bold w-max">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                </a>
+               
 
                 <div class="mb-10 text-left w-full">
                     <h1 id="tool-title" class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-tight">Calorie Calculator & Nutrition Planner | Free TDEE Tool</h1>
