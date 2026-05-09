@@ -40,6 +40,12 @@
     <meta name="coverage" content="Worldwide">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="content-language" content="en-US">
+    <script>
+        if (window.self === window.top) {
+            window.location.replace('/index.html#' + window.location.pathname);
+        }
+    </script>
+
     
     <link rel="canonical" href="https://forgenos.com/braintraining/reaction-time-test">
     <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
@@ -435,9 +441,7 @@
                 
                 <div class="px-6 sm:px-0">
                     <!-- Back Button -->
-                    <a href="/index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6 text-sm font-bold w-max">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Directory
-                    </a>
+                 
 
                     <!-- H1 Tag Hybrid Format -->
                     <div class="mb-8 text-left w-full">
