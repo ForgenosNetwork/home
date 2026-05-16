@@ -29,7 +29,7 @@ export async function initializeAuth() {
             await fetchUserProfile();
         }
 
-        // Setup Google login with security fix
+        // Setup Google login immediately
         setupGoogleNativeAuth();
 
     } catch (error) {
@@ -40,27 +40,21 @@ export async function initializeAuth() {
     }
 }
 
-// ========== SETUP GOOGLE SYSTEM WITH EXPLICIT NONCE SYNC ==========
+// ========== SETUP GOOGLE SYSTEM (NO-NONCE BULLETPROOF FLOW) ==========
 function setupGoogleNativeAuth() {
     if (typeof google !== 'undefined' && google.accounts) {
-        
-        // 1. Ek unique static security key (nonce) generate karo takki token match ho sake
-        const secureNonce = btoa("forgenos_secure_string_" + Math.random().toString(36).substring(2, 10));
-
         google.accounts.id.initialize({
             client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
-            nonce: secureNonce, // 2. Google ko ye key pass karo
             auto_select: false,
             callback: async (response) => {
                 try {
                     if (response.credential) {
-                        window.showToast('Connecting to Security Core...', 'info');
+                        window.showToast('Connecting to Core Database...', 'info');
                         
-                        // 3. Supabase ko WAHI SAME key do verify karne ke liye
+                        // 🔥 NO NONCE COMPLICATION - DIRECT SECURE VERIFICATION
                         const { data, error } = await supabase.auth.signInWithIdToken({
                             provider: 'google',
-                            token: response.credential,
-                            nonce: secureNonce // MATCHING NONCE HANDSHAKE FIX
+                            token: response.credential
                         });
                         
                         if (error) throw error;
@@ -68,7 +62,7 @@ function setupGoogleNativeAuth() {
                     }
                 } catch (err) {
                     console.error('Supabase Core Signin Error:', err);
-                    window.showToast('Database authentication failed. Clear cache.', 'error');
+                    window.showToast('Auth Failed! Please verify Supabase Client ID.', 'error');
                 }
             }
         });
@@ -81,13 +75,7 @@ export async function loginWithGoogle() {
         window.showToast('Google services loading, please wait...', 'error');
         return;
     }
-    
-    // Prompt the account picker safely
-    google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed()) {
-            console.log('Prompt not displayed. Attempting re-render...');
-        }
-    });
+    google.accounts.id.prompt();
 }
 
 // ========== FETCH USER PROFILE & CREDITS ==========
