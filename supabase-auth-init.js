@@ -28,10 +28,6 @@ export async function initializeAuth() {
             
             await fetchUserProfile();
         }
-
-        // Setup Google login immediately
-        setupGoogleNativeAuth();
-
     } catch (error) {
         console.error('Auth initialization error:', error);
     } finally {
@@ -40,42 +36,24 @@ export async function initializeAuth() {
     }
 }
 
-// ========== SETUP GOOGLE SYSTEM (NO-NONCE BULLETPROOF FLOW) ==========
-function setupGoogleNativeAuth() {
-    if (typeof google !== 'undefined' && google.accounts) {
-        google.accounts.id.initialize({
-            client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
-            auto_select: false,
-            callback: async (response) => {
-                try {
-                    if (response.credential) {
-                        window.showToast('Connecting to Core Database...', 'info');
-                        
-                        // 🔥 NO NONCE COMPLICATION - DIRECT SECURE VERIFICATION
-                        const { data, error } = await supabase.auth.signInWithIdToken({
-                            provider: 'google',
-                            token: response.credential
-                        });
-                        
-                        if (error) throw error;
-                        window.location.reload(); 
-                    }
-                } catch (err) {
-                    console.error('Supabase Core Signin Error:', err);
-                    window.showToast('Auth Failed! Please verify Supabase Client ID.', 'error');
-                }
+// ========== LOGIN WITH GOOGLE (STANDARD BULLETPROOF FLOW) ==========
+export async function loginWithGoogle() {
+    try {
+        window.showToast('Redirecting to Google Secure Login...', 'info');
+        
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                // Yeh automatically check kar lega ki user forgenos.com par hai ya github.io par
+                redirectTo: window.location.origin 
             }
         });
+        
+        if (error) throw error;
+    } catch (error) {
+        console.error('Google login error:', error);
+        window.showToast('Google login failed', 'error');
     }
-}
-
-// ========== LOGIN WITH GOOGLE ==========
-export async function loginWithGoogle() {
-    if (typeof google === 'undefined' || !google.accounts) {
-        window.showToast('Google services loading, please wait...', 'error');
-        return;
-    }
-    google.accounts.id.prompt();
 }
 
 // ========== FETCH USER PROFILE & CREDITS ==========
