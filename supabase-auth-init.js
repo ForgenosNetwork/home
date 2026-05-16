@@ -100,20 +100,29 @@ export async function createUserProfile() {
     }
 }
 
-// ========== LOGIN WITH GOOGLE ==========
+// ========== NEW CODE FOR GOOGLE SIGN IN (SHOWS FORGENOS.COM) ==========
 export async function loginWithGoogle() {
     try {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: window.location.origin
+        // Initialize Google Client directly on Frontend
+        google.accounts.id.initialize({
+            client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com', // Teri Google Client ID
+            callback: async (response) => {
+                // Post Google Token directly to Supabase Auth
+                const { data, error } = await supabase.auth.signInWithIdToken({
+                    provider: 'google',
+                    token: response.credential,
+                });
+                
+                if (error) throw error;
+                window.location.reload(); // Page reload karke state sync ho jayegi
             }
         });
-        
-        if (error) throw error;
+
+        // Open the native Google One Tap / Login Picker Popup
+        google.accounts.id.prompt();
     } catch (error) {
-        console.error('Google login error:', error);
-        window.showToast('Google login failed', 'error');
+        console.error('Google Native Auth Error:', error);
+        window.showToast('Google Sign-In failed', 'error');
     }
 }
 
