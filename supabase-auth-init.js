@@ -29,7 +29,7 @@ export async function initializeAuth() {
             await fetchUserProfile();
         }
 
-        // 🔥 GOOGLE SECURITY FIX: Page load hote hi Google ko ek baar setup karo
+        // Setup Google login with security fix
         setupGoogleNativeAuth();
 
     } catch (error) {
@@ -40,19 +40,27 @@ export async function initializeAuth() {
     }
 }
 
-// ========== SETUP GOOGLE SYSTEM (RUNS ONLY ONCE) ==========
+// ========== SETUP GOOGLE SYSTEM WITH EXPLICIT NONCE SYNC ==========
 function setupGoogleNativeAuth() {
     if (typeof google !== 'undefined' && google.accounts) {
+        
+        // 1. Ek unique static security key (nonce) generate karo takki token match ho sake
+        const secureNonce = btoa("forgenos_secure_string_" + Math.random().toString(36).substring(2, 10));
+
         google.accounts.id.initialize({
             client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
+            nonce: secureNonce, // 2. Google ko ye key pass karo
+            auto_select: false,
             callback: async (response) => {
                 try {
                     if (response.credential) {
-                        window.showToast('Authenticating with Secure Core...', 'info');
+                        window.showToast('Connecting to Security Core...', 'info');
                         
+                        // 3. Supabase ko WAHI SAME key do verify karne ke liye
                         const { data, error } = await supabase.auth.signInWithIdToken({
                             provider: 'google',
                             token: response.credential,
+                            nonce: secureNonce // MATCHING NONCE HANDSHAKE FIX
                         });
                         
                         if (error) throw error;
@@ -60,24 +68,24 @@ function setupGoogleNativeAuth() {
                     }
                 } catch (err) {
                     console.error('Supabase Core Signin Error:', err);
-                    window.showToast('Database authentication failed.', 'error');
+                    window.showToast('Database authentication failed. Clear cache.', 'error');
                 }
             }
         });
     }
 }
 
-// ========== LOGIN WITH GOOGLE (ONLY OPENS PROMPT) ==========
+// ========== LOGIN WITH GOOGLE ==========
 export async function loginWithGoogle() {
     if (typeof google === 'undefined' || !google.accounts) {
         window.showToast('Google services loading, please wait...', 'error');
         return;
     }
     
-    // SETUP RE-CALL NAHI KARNA HAI. SIRF PROMPT TRIGGER KARNA HAI!
+    // Prompt the account picker safely
     google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            console.log('Google prompt overlay was skipped or closed.');
+        if (notification.isNotDisplayed()) {
+            console.log('Prompt not displayed. Attempting re-render...');
         }
     });
 }
