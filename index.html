@@ -1985,9 +1985,30 @@
                             btn.classList.replace('bg-white/5', 'bg-green-500/10');
                             btn.classList.replace('border-white/10', 'border-green-500/30');
 
+                            window.authState = window.authState || {};
                             window.authState.session = data.session;
                             window.authState.user = data.user;
                             window.authState.isAuthenticated = true;
+                            window.authState.credits = window.authState.credits || 50;
+
+                            // 🔥 DIRECT DOM OVERRIDE (ISSE 100% PROFILE TURANT DIKHEGI)
+                            document.getElementById('auth-login-btn')?.classList.add('hidden');
+                            document.getElementById('auth-user-profile')?.classList.remove('hidden');
+                            document.getElementById('credits-display-container')?.classList.remove('hidden');
+                            document.getElementById('credits-display-container')?.classList.add('flex');
+                            
+                            const metadata = data.user.user_metadata || {};
+                            const fullName = metadata.full_name || data.user.email.split('@')[0];
+                            if(document.getElementById('user-email-display')) document.getElementById('user-email-display').textContent = fullName;
+                            if(document.getElementById('dropdown-email')) document.getElementById('dropdown-email').textContent = data.user.email;
+                            if(document.getElementById('credits-display')) document.getElementById('credits-display').textContent = window.authState.credits;
+                            
+                            const avatarContainer = document.getElementById('user-avatar-container');
+                            if(avatarContainer) {
+                                if (metadata.avatar_url) avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">`;
+                                else avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${data.user.email.charAt(0).toUpperCase()}</span>`;
+                                avatarContainer.dataset.loadedEmail = data.user.email;
+                            }
 
                             if (window.supabaseAuth && window.supabaseAuth.fetchUserProfile) {
                                 await window.supabaseAuth.fetchUserProfile();
@@ -2007,11 +2028,10 @@
             });
 
             google.accounts.id.prompt((notification) => {
-                // BUG MIL GAYA: Agar tera browser popup open hone se rok de (isSkippedMoment/isNotDisplayed)
+                // BUG MIL GAYA: Agar tera browser popup open hone se rok de
                 if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                    triggerReliableRedirect(); // Toh fauran page redirect wala logic chalu kar do!
+                    triggerReliableRedirect(); 
                 } else if (notification.isDismissedMoment()) {
-                    // Agar user ne manually "X" dabaya hai popup par
                     btn.innerHTML = originalHTML; 
                     btn.className = originalClass; 
                 }
@@ -2184,7 +2204,7 @@
                             creditsContainer.classList.remove('hidden');
                             creditsContainer.classList.add('flex');
                         }
-                        if (creditsDisplay) creditsDisplay.textContent = window.authState.credits || 0;
+                        if (creditsDisplay) creditsDisplay.textContent = window.authState.credits || 50;
 
                         const email = window.authState.user.email || '';
                         const metadata = window.authState.user.user_metadata || {};
@@ -2197,13 +2217,13 @@
                             dropdownEmail.textContent = email;
                         }
 
-                        if (avatarContainer && !avatarContainer.dataset.loaded) {
+                        if (avatarContainer && avatarContainer.dataset.loadedEmail !== email) {
                             if (metadata.avatar_url) {
                                 avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="User Avatar">`;
                             } else {
                                 avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${email.charAt(0).toUpperCase()}</span>`;
                             }
-                            avatarContainer.dataset.loaded = 'true';
+                            avatarContainer.dataset.loadedEmail = email;
                         }
                     } else {
                         if (loginBtn) loginBtn.classList.remove('hidden');
