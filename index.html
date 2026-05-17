@@ -2055,7 +2055,20 @@
             }
 
             google.accounts.id.prompt((notification) => {
-                if (notification.isDismissedMoment() || notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    window.showToast('Connecting securely to Google...', 'info');
+                    if (typeof window.supabaseClient !== 'undefined' && window.supabaseClient) {
+                        window.supabaseClient.auth.signInWithOAuth({
+                            provider: 'google',
+                            options: { redirectTo: window.location.origin }
+                        });
+                    } else {
+                        import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm').then(({ createClient }) => {
+                            const supabase = createClient('https://pyllqiygyxunhzhibmvw.supabase.co', 'sb_publishable_rPns9_1aQ15LO6fSQJAFQw_cM0geUuf');
+                            supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
+                        });
+                    }
+                } else if (notification.isDismissedMoment()) {
                     if (btn.innerHTML.includes('Authenticating')) {
                         btn.innerHTML = originalHTML;
                         btn.className = originalClass;
