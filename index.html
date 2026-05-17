@@ -1935,92 +1935,119 @@
 
         // 🌟 BULLETPROOF GOOGLE LOGIN UI STATE MANAGER
         let googleInitialized = false;
-        let secureAuthNonce = '';
+        let rawAuthNonce = '';
 
         window.handleGoogleLoginState = async function(btn) {
             const e = window.event;
-            if (e) e.preventDefault(); // Forms ko submit hone se roke
+            if (e) e.preventDefault();
 
             const originalHTML = btn.innerHTML;
             const originalClass = btn.className;
-            
-            // 1. Loading State (Dashed Spinner as per image)
+
             btn.innerHTML = `<svg class="w-5 h-5 text-gray-300 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 4.93L7.76 7.76" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 16.24L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 19.07L7.76 16.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span class="text-gray-300">Authenticating...</span>`;
             btn.classList.add('pointer-events-none');
+            window._blockReload = true;
 
             if (typeof google === 'undefined' || !google.accounts) {
                 window.showToast('Security layer loading, please try again.', 'alert');
-                btn.innerHTML = originalHTML; btn.classList.remove('pointer-events-none');
+                btn.innerHTML = originalHTML;
+                btn.className = originalClass;
+                btn.classList.remove('pointer-events-none');
+                window._blockReload = false;
                 return;
             }
 
-            // 2. Initialize ONLY ONCE to prevent Nonce Mismatch Bug
             if (!googleInitialized) {
-                secureAuthNonce = 'forgenos_auth_' + Math.random().toString(36).substring(2, 15);
-                
+                const rawBytes = crypto.getRandomValues(new Uint8Array(16));
+                rawAuthNonce = Array.from(rawBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+
+                const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawAuthNonce));
+                const hashedNonce = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
                 google.accounts.id.initialize({
                     client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
-                    nonce: secureAuthNonce,
+                    nonce: hashedNonce,
                     auto_select: false,
+                    cancel_on_tap_outside: true,
                     callback: async (response) => {
+                        window._blockReload = true;
                         try {
-                            if (response.credential) {
-                                const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-                                const tempSupabase = createClient('https://pyllqiygyxunhzhibmvw.supabase.co', 'sb_publishable_rPns9_1aQ15LO6fSQJAFQw_cM0geUuf');
-                                
-                                const { data, error } = await tempSupabase.auth.signInWithIdToken({
-                                    provider: 'google', token: response.credential, nonce: secureAuthNonce
-                                });
-                                
-                                if (error) throw error;
+                            if (!response.credential) throw new Error('No Google credential received');
 
-                                // 3. Show Green Success State
-                                btn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated!</span>`;
-                                btn.classList.replace('bg-white/5', 'bg-green-500/10');
-                                btn.classList.replace('border-white/10', 'border-green-500/30');
+                            const supabase = window.supabaseClient;
+                            if (!supabase) throw new Error('Supabase client not initialized');
 
-                                window.authState = window.authState || {};
-                                window.authState.session = data.session;
-                                window.authState.user = data.user;
-                                window.authState.isAuthenticated = true;
-                                window.authState.credits = window.authState.credits || 50;
+                            const { data, error } = await supabase.auth.signInWithIdToken({
+                                provider: 'google',
+                                token: response.credential,
+                                nonce: rawAuthNonce
+                            });
 
-                                // 🔥 FORCE DOM OVERRIDE (Profile Turant Dikhegi)
-                                document.getElementById('auth-login-btn')?.classList.add('hidden');
-                                document.getElementById('auth-user-profile')?.classList.remove('hidden');
-                                document.getElementById('credits-display-container')?.classList.remove('hidden');
-                                document.getElementById('credits-display-container')?.classList.add('flex');
-                                
-                                const metadata = data.user.user_metadata || {};
-                                const fullName = metadata.full_name || data.user.email.split('@')[0];
-                                if(document.getElementById('user-email-display')) document.getElementById('user-email-display').textContent = fullName;
-                                if(document.getElementById('dropdown-email')) document.getElementById('dropdown-email').textContent = data.user.email;
-                                if(document.getElementById('credits-display')) document.getElementById('credits-display').textContent = window.authState.credits;
-                                
-                                const avatarContainer = document.getElementById('user-avatar-container');
-                                if(avatarContainer) {
-                                    if (metadata.avatar_url) avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">`;
-                                    else avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${data.user.email.charAt(0).toUpperCase()}</span>`;
-                                    avatarContainer.dataset.loadedEmail = data.user.email;
-                                }
+                            if (error) throw error;
 
-                                if (window.supabaseAuth && window.supabaseAuth.fetchUserProfile) {
-                                    await window.supabaseAuth.fetchUserProfile();
-                                }
-                                window.showToast('Login Successful!', 'success');
+                            btn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated!</span>`;
+                            btn.classList.remove('bg-white/5', 'border-white/10');
+                            btn.classList.add('bg-green-500/10', 'border-green-500/30');
 
-                                setTimeout(() => {
-                                    window.closeAuthModal();
-                                    setTimeout(() => { btn.innerHTML = originalHTML; btn.className = originalClass; btn.classList.remove('pointer-events-none'); }, 500);
-                                }, 1000);
+                            window.authState = window.authState || {};
+                            window.authState.session = data.session;
+                            window.authState.user = data.user;
+                            window.authState.isAuthenticated = true;
+                            window.authState.credits = window.authState.credits || 50;
+
+                            document.getElementById('auth-login-btn')?.classList.add('hidden');
+                            const profileBtn = document.getElementById('auth-user-profile');
+                            if (profileBtn) profileBtn.classList.remove('hidden');
+                            const creditsContainer = document.getElementById('credits-display-container');
+                            if (creditsContainer) { creditsContainer.classList.remove('hidden'); creditsContainer.classList.add('flex'); }
+                            const creditsEl = document.getElementById('credits-display');
+                            if (creditsEl) creditsEl.textContent = window.authState.credits;
+
+                            const metadata = data.user.user_metadata || {};
+                            const fullName = metadata.full_name || data.user.email.split('@')[0];
+                            const emailDisplayEl = document.getElementById('user-email-display');
+                            if (emailDisplayEl) emailDisplayEl.textContent = fullName;
+                            const dropdownEmailEl = document.getElementById('dropdown-email');
+                            if (dropdownEmailEl) dropdownEmailEl.textContent = data.user.email;
+
+                            const avatarContainer = document.getElementById('user-avatar-container');
+                            if (avatarContainer) {
+                                avatarContainer.innerHTML = metadata.avatar_url
+                                    ? `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">`
+                                    : `<span id="user-avatar" class="text-white text-xs font-black">${data.user.email.charAt(0).toUpperCase()}</span>`;
+                                avatarContainer.dataset.loadedEmail = data.user.email;
                             }
+
+                            if (window.supabaseAuth?.fetchUserProfile) {
+                                window.supabaseAuth.fetchUserProfile().then(() => {
+                                    if (creditsEl) creditsEl.textContent = window.authState.credits;
+                                });
+                            }
+
+                            window.showToast('Login Successful! 🎉', 'success');
+
+                            setTimeout(() => {
+                                window.closeAuthModal();
+                                setTimeout(() => {
+                                    btn.innerHTML = originalHTML;
+                                    btn.className = originalClass;
+                                    btn.classList.remove('pointer-events-none');
+                                }, 500);
+                            }, 1200);
+
                         } catch (err) {
-                            console.error("Auth Error:", err);
-                            // 🔥 SHOW RED ERROR STATE DIRECTLY (No Reload / No Redirects!)
+                            console.error('[ForgenosAuth] signInWithIdToken failed:', err);
                             btn.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-red-500 font-bold">Auth Failed</span>`;
-                            btn.classList.replace('bg-white/5', 'bg-red-500/10');
-                            btn.classList.replace('border-white/10', 'border-red-500/30');
-                            setTimeout(() => { btn.innerHTML = originalHTML; btn.className = originalClass; btn.classList.remove('pointer-events-none'); }, 3000);
+                            btn.classList.remove('bg-white/5', 'border-white/10');
+                            btn.classList.add('bg-red-500/10', 'border-red-500/30');
+                            googleInitialized = false;
+                            setTimeout(() => {
+                                btn.innerHTML = originalHTML;
+                                btn.className = originalClass;
+                                btn.classList.remove('pointer-events-none');
+                            }, 3000);
+                        } finally {
+                            window._blockReload = false;
                         }
                     }
                 });
@@ -2028,13 +2055,14 @@
             }
 
             google.accounts.id.prompt((notification) => {
-                // Agar user popup band kare toh button normal karo. NO REDIRECTS!
                 if (notification.isDismissedMoment() || notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                    if (btn.innerText.includes("Authenticating")) {
-                        btn.innerHTML = originalHTML; 
-                        btn.className = originalClass; 
+                    if (btn.innerHTML.includes('Authenticating')) {
+                        btn.innerHTML = originalHTML;
+                        btn.className = originalClass;
                         btn.classList.remove('pointer-events-none');
                     }
+                    googleInitialized = false;
+                    window._blockReload = false;
                 }
             });
         };
