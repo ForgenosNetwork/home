@@ -147,13 +147,14 @@ export async function logout() {
 }
 
 // ========== UPDATE AUTH UI ==========
+// ========== UPDATE AUTH UI ==========
 function updateAuthUI() {
     const loginBtn = document.getElementById('auth-login-btn');
     const userProfileBtn = document.getElementById('auth-user-profile');
     const creditsDisplay = document.getElementById('credits-display');
     const emailDisplay = document.getElementById('user-email-display');
     const dropdownEmail = document.getElementById('dropdown-email');
-    const avatarSpan = document.getElementById('user-avatar');
+    const avatarContainer = document.getElementById('user-avatar-container');
     
     if (window.authState.isAuthenticated) {
         if (loginBtn) loginBtn.classList.add('hidden');
@@ -162,9 +163,22 @@ function updateAuthUI() {
         
         if (window.authState.user) {
             const email = window.authState.user.email;
-            if (emailDisplay) emailDisplay.textContent = email.split('@')[0];
+            const metadata = window.authState.user.user_metadata || {};
+            
+            // 1. Google Full Name use karo, fallback prefix standard par rahega
+            if (emailDisplay) {
+                emailDisplay.textContent = metadata.full_name || email.split('@')[0];
+            }
             if (dropdownEmail) dropdownEmail.textContent = email;
-            if (avatarSpan) avatarSpan.textContent = email.charAt(0).toUpperCase();
+            
+            // 2. Google Identity Avatar / Image injection logic
+            if (avatarContainer) {
+                if (metadata.avatar_url) {
+                    avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="User Avatar">`;
+                } else {
+                    avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${email.charAt(0).toUpperCase()}</span>`;
+                }
+            }
         }
     } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
