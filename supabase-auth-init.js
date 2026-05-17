@@ -6,6 +6,29 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rPns9_1aQ15LO6fSQJAFQw_cM0geUuf';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ========== EXPOSE MAIN CLIENT TO WINDOW ==========
+// Critical: handleGoogleLoginState uses this to avoid creating a duplicate Supabase instance
+window.supabaseClient = supabase;
+
+// ========== RELOAD GUARD ==========
+// Blocks any accidental page.reload() that Supabase OAuth processing might trigger internally
+window._blockReload = false;
+(function() {
+    try {
+        const _nativeReload = window.location.reload.bind(window.location);
+        Object.defineProperty(window.location, 'reload', {
+            configurable: true,
+            value: function() {
+                if (window._blockReload) {
+                    console.warn('[ForgenosAuth] Shield: Reload blocked during active auth flow');
+                    return;
+                }
+                _nativeReload();
+            }
+        });
+    } catch(e) { /* Safari strict-mode: silently skips, native reload remains */ }
+})();
+
 // ========== GLOBAL AUTH STATE ==========
 window.authState = {
     user: null,
@@ -36,7 +59,10 @@ export async function initializeAuth() {
     }
 }
 
-// ========== LOGIN WITH GOOGLE (STANDARD BULLETPROOF FLOW) ==========
+// ========== LOGIN WITH GOOGLE (OAuth REDIRECT — NOT USED BY MODAL) ==========
+// WARNING: This function causes a full page redirect (reload by design).
+// The modal button uses handleGoogleLoginState() (GIS One Tap flow) instead.
+// Only call this as a last-resort fallback.
 export async function loginWithGoogle() {
     try {
         window.showToast('Redirecting to Google Secure Login...', 'info');
@@ -44,7 +70,6 @@ export async function loginWithGoogle() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                // Yeh automatically check kar lega ki user forgenos.com par hai ya github.io par
                 redirectTo: window.location.origin 
             }
         });
@@ -147,11 +172,11 @@ export async function logout() {
 }
 
 // ========== UPDATE AUTH UI ==========
-// ========== UPDATE AUTH UI ==========
 function updateAuthUI() {
     const loginBtn = document.getElementById('auth-login-btn');
     const userProfileBtn = document.getElementById('auth-user-profile');
     const creditsDisplay = document.getElementById('credits-display');
+    const creditsContainer = document.getElementById('credits-display-container');
     const emailDisplay = document.getElementById('user-email-display');
     const dropdownEmail = document.getElementById('dropdown-email');
     const avatarContainer = document.getElementById('user-avatar-container');
@@ -159,30 +184,31 @@ function updateAuthUI() {
     if (window.authState.isAuthenticated) {
         if (loginBtn) loginBtn.classList.add('hidden');
         if (userProfileBtn) userProfileBtn.classList.remove('hidden');
+        if (creditsContainer) { creditsContainer.classList.remove('hidden'); creditsContainer.classList.add('flex'); }
         if (creditsDisplay) creditsDisplay.textContent = window.authState.credits;
         
         if (window.authState.user) {
             const email = window.authState.user.email;
             const metadata = window.authState.user.user_metadata || {};
             
-            // 1. Google Full Name use karo, fallback prefix standard par rahega
             if (emailDisplay) {
                 emailDisplay.textContent = metadata.full_name || email.split('@')[0];
             }
             if (dropdownEmail) dropdownEmail.textContent = email;
             
-            // 2. Google Identity Avatar / Image injection logic
-            if (avatarContainer) {
+            if (avatarContainer && avatarContainer.dataset.loadedEmail !== email) {
                 if (metadata.avatar_url) {
                     avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="User Avatar">`;
                 } else {
                     avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${email.charAt(0).toUpperCase()}</span>`;
                 }
+                avatarContainer.dataset.loadedEmail = email;
             }
         }
     } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userProfileBtn) userProfileBtn.classList.add('hidden');
+        if (creditsContainer) { creditsContainer.classList.add('hidden'); creditsContainer.classList.remove('flex'); }
         if (creditsDisplay) creditsDisplay.textContent = '0';
     }
 }
