@@ -1942,18 +1942,19 @@
             btn.innerHTML = `<svg class="w-5 h-5 text-gray-300 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 4.93L7.76 7.76" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 16.24L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 19.07L7.76 16.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span class="text-gray-300">Authenticating...</span>`;
             btn.classList.add('pointer-events-none'); // Block multi-clicks
 
-            // 🔥 MASTER HACK: Prevent external scripts from reloading the page
-            window.location.reload = function() { console.log("Reload blocked to keep UI smooth!"); };
-
             if (typeof google === 'undefined' || !google.accounts) {
                 window.showToast('Security layer loading, please try again.', 'alert');
                 btn.innerHTML = originalHTML; btn.classList.remove('pointer-events-none');
                 return;
             }
 
+            // 🔥 SUPER FIX: Secure Nonce Generation (Resolves the Red "Auth Failed" Error)
+            const secureNonce = btoa(Array.from(window.crypto.getRandomValues(new Uint8Array(32))).map((b) => String.fromCharCode(b)).join(''));
+
             // 2. Direct Background Authentication (NO PAGE REFRESH)
             google.accounts.id.initialize({
                 client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
+                nonce: secureNonce, // Send nonce to Google
                 auto_select: false,
                 callback: async (response) => {
                     try {
@@ -1962,9 +1963,11 @@
                             const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
                             const tempSupabase = createClient('https://pyllqiygyxunhzhibmvw.supabase.co', 'sb_publishable_rPns9_1aQ15LO6fSQJAFQw_cM0geUuf');
                             
+                            // Send EXACT same nonce to Supabase for secure handshake
                             const { data, error } = await tempSupabase.auth.signInWithIdToken({
                                 provider: 'google',
-                                token: response.credential
+                                token: response.credential,
+                                nonce: secureNonce
                             });
                             
                             if (error) throw error;
@@ -1992,7 +1995,7 @@
                             }, 1500);
                         }
                     } catch (err) {
-                        console.error(err);
+                        console.error("Supabase Auth Error:", err);
                         // Show Red Error State
                         btn.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-red-500 font-bold">Auth Failed</span>`;
                         btn.classList.replace('bg-white/5', 'bg-red-500/10');
@@ -2007,7 +2010,12 @@
 
             // Trigger Google Popup
             google.accounts.id.prompt((notification) => {
-                // Silently handle if popup is blocked
+                // Reset button if user closes the popup manually
+                if (notification.isNotDisplayed() || notification.isSkippedMoment() || notification.isDismissedMoment()) {
+                    btn.innerHTML = originalHTML; 
+                    btn.className = originalClass; 
+                    btn.classList.remove('pointer-events-none');
+                }
             });
         };
 
