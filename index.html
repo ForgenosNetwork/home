@@ -24,7 +24,6 @@
 
     <!-- CONNECTING THE NEW CONFIG FILE -->
     <script src="forgenos-config.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <!-- DYNAMIC THEME COLOR INJECTION -->
     <script>
@@ -52,9 +51,6 @@
     
     <!-- TOOLS DATA -->
     <script src="tools.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm" type="module"></script>
-    <script src="supabase-auth-init.js" type="module"></script>
-    <script src="ai-fetch-wrapper.js" type="module"></script>
 
     <script>
         tailwind.config = {
@@ -305,46 +301,11 @@
                     ${forgenosLogoMark}
                 </div>
                 
+                <!-- PILLS NAVIGATION -->
                 <nav id="desktop-nav" class="hidden xl:flex flex-1 items-center overflow-x-auto hide-scroll ml-6 md:ml-auto gap-3 pr-4 justify-end"></nav>
                 
-                <div class="flex items-center gap-3 mr-2 md:mr-4 ml-auto xl:ml-0 relative z-[70]">
-                    <!-- CREDITS INITIALLY HIDDEN -->
-                    <div id="credits-display-container" class="hidden items-center gap-2 px-3 py-2 rounded-xl bg-[#1e1e1e] border border-white/10">
-                        <i data-lucide="coins" class="w-4 h-4 text-brand-accent"></i>
-                        <span id="credits-display" class="text-sm font-bold text-white font-sans">0</span>
-                        <span class="text-[11px] font-black uppercase tracking-wider text-gray-400 ml-0.5">Credits</span>
-                    </div>
-
-                    <!-- LOGIN BUTTON (WHITE COLOR FIX) -->
-                    <button id="auth-login-btn" onclick="window.openAuthModal()" class="px-5 py-2.5 rounded-xl bg-white text-black text-xs md:text-sm font-bold hover:bg-gray-200 transition-all uppercase tracking-wider shadow-lg">
-                        Login
-                    </button>
-
-                    <!-- USER PROFILE INITIALLY HIDDEN -->
-                    <div id="auth-user-profile" class="hidden relative group">
-                        <button class="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#1e1e1e] border border-white/10 hover:border-brand-accent/50 transition-all">
-                            <div id="user-avatar-container" class="w-6 h-6 rounded-full overflow-hidden bg-brand-accent flex items-center justify-center text-white text-xs font-black shrink-0 border border-white/10">
-                                <span id="user-avatar">U</span>
-                            </div>
-                            <span id="user-email-display" class="text-xs font-bold hidden sm:inline text-gray-300 max-w-[120px] truncate">User</span>
-                            <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
-                        </button>
-
-                        <div class="absolute right-0 mt-2 w-52 bg-[#1e1e1e] border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] p-2">
-                            <div class="px-3 py-2 border-b border-white/5">
-                                <p id="dropdown-email" class="text-xs text-gray-400 truncate">user@example.com</p>
-                            </div>
-                            <button onclick="window.openCreditsModal();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition flex items-center gap-2 font-bold">
-                                <i data-lucide="circle-dollar-sign" class="w-4 h-4 text-brand-accent"></i> Buy Credits
-                            </button>
-                            <button onclick="window.supabaseAuth.logout()" class="w-full text-left px-3 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition flex items-center gap-2 font-bold mt-1">
-                                <i data-lucide="log-out" class="w-4 h-4"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="xl:hidden p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
+                <!-- MOBILE MENU BUTTON -->
+                <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="xl:hidden ml-auto p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
                     <i data-lucide="menu" class="w-8 h-8"></i>
                 </button>
             </header>
@@ -527,78 +488,6 @@
                 
                 <div class="flex items-center gap-3 px-3.5 py-2.5 text-[#e5e5e5] cursor-pointer rounded-lg text-[13px] font-medium hover:bg-white/10 hover:text-white transition-all group" onclick="alert('FORGENOS | Premium Tool Directory\\nVersion 2.0.1\\nProtected Engine.'); window.closeContextMenu()">
                     <i data-lucide="info" class="w-4 h-4 text-[#a3a3a3] group-hover:text-white transition-colors"></i> About Forgenos
-                </div>
-            </div>
-
-            <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'auth-modal') window.closeAuthModal()">
-                <div class="w-full max-w-md mx-4 bg-[#1e1e1e] border border-white/10 rounded-3xl p-8 relative shadow-2xl">
-                    <button onclick="window.closeAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl font-black text-white mb-1 tracking-tight">Access Digital Arsenal</h2>
-                        <p class="text-gray-400 text-xs">Sign in securely to track system configurations & computing credits.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <button type="button" id="google-login-action-btn" onclick="window.handleGoogleLoginState(this)" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white font-bold hover:bg-white/10 transition flex items-center justify-center gap-3 text-sm">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                            <span>Continue with Google</span>
-                        </button>
-                        <button type="button" onclick="window.supabaseAuth.loginWithGithub()" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white font-bold hover:bg-white/10 transition flex items-center justify-center gap-3 text-sm">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            Continue with GitHub
-                        </button>
-                    </div>
-                    <div class="mt-5 p-3.5 bg-brand-accent/10 border border-brand-accent/20 rounded-2xl text-center">
-                        <p class="text-xs text-gray-300 font-medium">✨ <strong>New Accounts:</strong> Automatically loaded with 50 allocations free.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="credits-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'credits-modal') window.closeCreditsModal()">
-                <div class="w-full max-w-3xl mx-4 bg-[#141414] border border-white/10 rounded-[2rem] p-6 md:p-8 relative shadow-2xl">
-                    <button onclick="window.closeCreditsModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
-                    <div class="text-left mb-6 md:mb-8">
-                        <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Refill Computation Credits</h2>
-                        <p class="text-gray-400 text-xs md:text-sm">Acquire processing gas to scale automation across models.</p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                        <div class="p-6 bg-[#1e1e1e] border border-white/5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-md font-bold text-gray-400 uppercase tracking-widest">Starter</h3>
-                                <div class="text-3xl font-black text-white my-3">₹999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 5,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 1 Credit = ₹0.20 Value</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Standard Support</li>
-                                </ul>
-                            </div>
-                            <button class="w-full py-3 bg-white/5 hover:bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Select Tier</button>
-                        </div>
-                        <div class="p-6 bg-[#1e1e1e] border-2 border-brand-accent rounded-2xl flex flex-col justify-between relative">
-                            <div class="absolute -top-3 left-4 px-2.5 py-0.5 bg-brand-accent text-white text-[9px] font-black uppercase tracking-widest rounded-full">POPULAR CHOICE</div>
-                            <div>
-                                <h3 class="text-md font-bold text-gray-300 uppercase tracking-widest">Pro Creator</h3>
-                                <div class="text-3xl font-black text-white my-3">₹2,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 20,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Server Priority Node</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Premium Tools Access</li>
-                                </ul>
-                            </div>
-                            <button class="w-full py-3 bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(var(--brand-rgb),0.3)]">Select Tier</button>
-                        </div>
-                        <div class="p-6 bg-[#1e1e1e] border border-white/5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-md font-bold text-gray-400 uppercase tracking-widest">Enterprise</h3>
-                                <div class="text-3xl font-black text-white my-3">₹9,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 100,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> API Gateway Deployment</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Dedicated Infrastructure</li>
-                                </ul>
-                            </div>
-                            <button class="w-full py-3 bg-white/5 hover:bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Select Tier</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         `;
@@ -1315,7 +1204,7 @@
                             <h1 class="hidden md:block text-5xl font-black text-white tracking-tighter mb-4">${tool.title}</h1>
                             <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed font-medium">${tool.desc}</p>
                             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 w-full md:max-w-md">
-    <a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-opacity-80 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(var(--brand-rgb),0.3)]">Open Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
+                                <a href="${fetchUrl}" class="flex-1 flex items-center justify-center gap-3 py-3 md:py-4 bg-brand-accent hover:bg-opacity-80 text-white rounded-xl text-sm md:text-lg font-black transition-transform hover:scale-105 shadow-[0_0_20px_rgba(var(--brand-rgb),0.3)]">Launch Tool <i data-lucide="external-link" class="w-4 h-4 md:w-5 md:h-5"></i></a>
                                 <button aria-label="Save to list" onclick="window.toggleSave(event, ${tool.id})" data-save-btn="${tool.id}" class="px-6 flex items-center justify-center gap-3 py-3 md:py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl font-bold transition-all text-sm md:text-base"><i data-lucide="bookmark" class="w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${isSaved ? 'fill-brand-accent text-brand-accent' : ''}"></i> Save</button>
                             </div>
                         </div>
@@ -1469,9 +1358,9 @@
                                     <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
                                     <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
                                     <div class="flex gap-3 md:gap-4 pt-2">
-    <button aria-label="Open ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Open Now</button>
-    <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
-</div>
+                                        <button aria-label="Launch ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                        <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                                    </div>
                                 </div>
                             </div>`).join('')}
                         </div>
@@ -1892,201 +1781,6 @@
             localStorage.setItem('forgenos_projects', JSON.stringify(myProjects));
             window.closeProjectModal(); window.handleNavClick('projects'); window.showToast("Toolkit Created!", 'success');
         };
-       
-
-        // --- 🔐 SYSTEM AUTH & CREDIT MODAL WINDOW CONTROLS ---
-        window.openAuthModal = function() {
-            const modal = document.getElementById('auth-modal');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                modal.style.transition = 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-                modal.style.opacity = '1';
-                if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, duration: 0.3, ease: "power2.out" });
-            });
-        };
-
-        window.closeAuthModal = function() {
-            const modal = document.getElementById('auth-modal');
-            if (!modal) return;
-            modal.style.opacity = '0';
-            if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 0.95, duration: 0.2 });
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        };
-
-        window.openCreditsModal = function() {
-            const modal = document.getElementById('credits-modal');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                modal.style.transition = 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-                modal.style.opacity = '1';
-                if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, duration: 0.3, ease: "power2.out" });
-            });
-        };
-
-        window.closeCreditsModal = function() {
-            const modal = document.getElementById('credits-modal');
-            if (!modal) return;
-            modal.style.opacity = '0';
-            if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 0.95, duration: 0.2 });
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        };
-
-        // 🌟 BULLETPROOF GOOGLE LOGIN UI STATE MANAGER
-        let googleInitialized = false;
-        let rawAuthNonce = '';
-
-        window.handleGoogleLoginState = async function(btn) {
-            const e = window.event;
-            if (e) e.preventDefault();
-
-            const originalHTML = btn.innerHTML;
-            const originalClass = btn.className;
-
-            btn.innerHTML = `<svg class="w-5 h-5 text-gray-300 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 4.93L7.76 7.76" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 16.24L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 19.07L7.76 16.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span class="text-gray-300">Authenticating...</span>`;
-            btn.classList.add('pointer-events-none');
-            window._blockReload = true;
-
-            if (typeof google === 'undefined' || !google.accounts) {
-                window.showToast('Security layer loading, please try again.', 'alert');
-                btn.innerHTML = originalHTML;
-                btn.className = originalClass;
-                btn.classList.remove('pointer-events-none');
-                window._blockReload = false;
-                return;
-            }
-
-            if (!googleInitialized) {
-                const rawBytes = crypto.getRandomValues(new Uint8Array(16));
-                rawAuthNonce = Array.from(rawBytes).map(b => b.toString(16).padStart(2, '0')).join('');
-
-                const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawAuthNonce));
-                const hashedNonce = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-
-                google.accounts.id.initialize({
-                    client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com',
-                    nonce: hashedNonce,
-                    auto_select: false,
-                    cancel_on_tap_outside: true,
-                    callback: async (response) => {
-                        window._blockReload = true;
-                        try {
-                            if (!response.credential) throw new Error('No Google credential received');
-
-                            const supabase = window.supabaseClient;
-                            if (!supabase) throw new Error('Supabase client not initialized');
-
-                            const { data, error } = await supabase.auth.signInWithIdToken({
-                                provider: 'google',
-                                token: response.credential,
-                                nonce: rawAuthNonce
-                            });
-
-                            if (error) throw error;
-
-                            btn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated!</span>`;
-                            btn.classList.remove('bg-white/5', 'border-white/10');
-                            btn.classList.add('bg-green-500/10', 'border-green-500/30');
-
-                            window.authState = window.authState || {};
-                            window.authState.session = data.session;
-                            window.authState.user = data.user;
-                            window.authState.isAuthenticated = true;
-                            window.authState.credits = window.authState.credits || 50;
-
-                            document.getElementById('auth-login-btn')?.classList.add('hidden');
-                            const profileBtn = document.getElementById('auth-user-profile');
-                            if (profileBtn) profileBtn.classList.remove('hidden');
-                            const creditsContainer = document.getElementById('credits-display-container');
-                            if (creditsContainer) { creditsContainer.classList.remove('hidden'); creditsContainer.classList.add('flex'); }
-                            const creditsEl = document.getElementById('credits-display');
-                            if (creditsEl) creditsEl.textContent = window.authState.credits;
-
-                            const metadata = data.user.user_metadata || {};
-                            const fullName = metadata.full_name || data.user.email.split('@')[0];
-                            const emailDisplayEl = document.getElementById('user-email-display');
-                            if (emailDisplayEl) emailDisplayEl.textContent = fullName;
-                            const dropdownEmailEl = document.getElementById('dropdown-email');
-                            if (dropdownEmailEl) dropdownEmailEl.textContent = data.user.email;
-
-                            const avatarContainer = document.getElementById('user-avatar-container');
-                            if (avatarContainer) {
-                                avatarContainer.innerHTML = metadata.avatar_url
-                                    ? `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">`
-                                    : `<span id="user-avatar" class="text-white text-xs font-black">${data.user.email.charAt(0).toUpperCase()}</span>`;
-                                avatarContainer.dataset.loadedEmail = data.user.email;
-                            }
-
-                            if (window.supabaseAuth?.fetchUserProfile) {
-                                window.supabaseAuth.fetchUserProfile().then(() => {
-                                    if (creditsEl) creditsEl.textContent = window.authState.credits;
-                                });
-                            }
-
-                            window.showToast('Login Successful! 🎉', 'success');
-
-                            setTimeout(() => {
-                                window.closeAuthModal();
-                                setTimeout(() => {
-                                    btn.innerHTML = originalHTML;
-                                    btn.className = originalClass;
-                                    btn.classList.remove('pointer-events-none');
-                                }, 500);
-                            }, 1200);
-
-                        } catch (err) {
-                            console.error('[ForgenosAuth] signInWithIdToken failed:', err);
-                            btn.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-red-500 font-bold">Auth Failed</span>`;
-                            btn.classList.remove('bg-white/5', 'border-white/10');
-                            btn.classList.add('bg-red-500/10', 'border-red-500/30');
-                            googleInitialized = false;
-                            setTimeout(() => {
-                                btn.innerHTML = originalHTML;
-                                btn.className = originalClass;
-                                btn.classList.remove('pointer-events-none');
-                            }, 3000);
-                        } finally {
-                            window._blockReload = false;
-                        }
-                    }
-                });
-                googleInitialized = true;
-            }
-
-            google.accounts.id.prompt((notification) => {
-                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                    window.showToast('Connecting securely to Google...', 'info');
-                    if (typeof window.supabaseClient !== 'undefined' && window.supabaseClient) {
-                        window.supabaseClient.auth.signInWithOAuth({
-                            provider: 'google',
-                            options: { redirectTo: window.location.origin }
-                        });
-                    } else {
-                        import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm').then(({ createClient }) => {
-                            const supabase = createClient('https://pyllqiygyxunhzhibmvw.supabase.co', 'sb_publishable_rPns9_1aQ15LO6fSQJAFQw_cM0geUuf');
-                            supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
-                        });
-                    }
-                } else if (notification.isDismissedMoment()) {
-                    if (btn.innerHTML.includes('Authenticating')) {
-                        btn.innerHTML = originalHTML;
-                        btn.className = originalClass;
-                        btn.classList.remove('pointer-events-none');
-                    }
-                    googleInitialized = false;
-                    window._blockReload = false;
-                }
-            });
-        };
-
-        // Escape keys handling to close active layers
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                window.closeAuthModal();
-                window.closeCreditsModal();
-            }
-        });
 
         window.triggerDeleteProject = function(event, id) {
             if(event) { event.stopPropagation(); }
@@ -2227,56 +1921,6 @@
             window.renderSidebar(); 
             window.tryCreateIcons();
             window.checkAndShowAnnouncement();
-            
-            // 🌟 FOOLPROOF AUTH UI SYNC (Guarantees Profile DP, Name & Credits work) 🌟
-            setInterval(() => {
-                if (window.authState) {
-                    const loginBtn = document.getElementById('auth-login-btn');
-                    const userProfileBtn = document.getElementById('auth-user-profile');
-                    const creditsContainer = document.getElementById('credits-display-container');
-                    const creditsDisplay = document.getElementById('credits-display');
-                    const emailDisplay = document.getElementById('user-email-display');
-                    const dropdownEmail = document.getElementById('dropdown-email');
-                    const avatarContainer = document.getElementById('user-avatar-container');
-
-                    if (window.authState.isAuthenticated && window.authState.user) {
-                        if (loginBtn) loginBtn.classList.add('hidden');
-                        if (userProfileBtn) userProfileBtn.classList.remove('hidden');
-                        if (creditsContainer) {
-                            creditsContainer.classList.remove('hidden');
-                            creditsContainer.classList.add('flex');
-                        }
-                        if (creditsDisplay) creditsDisplay.textContent = window.authState.credits || 50;
-
-                        const email = window.authState.user.email || '';
-                        const metadata = window.authState.user.user_metadata || {};
-                        const fullName = metadata.full_name || email.split('@')[0] || 'User';
-
-                        if (emailDisplay && emailDisplay.textContent !== fullName) {
-                            emailDisplay.textContent = fullName;
-                        }
-                        if (dropdownEmail && dropdownEmail.textContent !== email) {
-                            dropdownEmail.textContent = email;
-                        }
-
-                        if (avatarContainer && avatarContainer.dataset.loadedEmail !== email) {
-                            if (metadata.avatar_url) {
-                                avatarContainer.innerHTML = `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="User Avatar">`;
-                            } else {
-                                avatarContainer.innerHTML = `<span id="user-avatar" class="text-white text-xs font-black">${email.charAt(0).toUpperCase()}</span>`;
-                            }
-                            avatarContainer.dataset.loadedEmail = email;
-                        }
-                    } else {
-                        if (loginBtn) loginBtn.classList.remove('hidden');
-                        if (userProfileBtn) userProfileBtn.classList.add('hidden');
-                        if (creditsContainer) {
-                            creditsContainer.classList.add('hidden');
-                            creditsContainer.classList.remove('flex');
-                        }
-                    }
-                }
-            }, 500);
         };
 
         window.addEventListener('resize', () => { if(appSettings.interactiveBg) window.initParticles(); });
