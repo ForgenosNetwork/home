@@ -881,24 +881,24 @@
             let greetings;
             if (hour >= 5 && hour < 12) {
                 greetings = [
-                    { main: `Good morning, ${firstName} ☀️`, sub: "What will you forge today?" },
-                    { main: `Rise and forge, ${firstName} 🔥`, sub: "Your tools are ready." },
+                    { main: `Good morning, ${firstName} `, sub: "What will you forge today?" },
+                    { main: `Rise and forge, ${firstName} `, sub: "Your tools are ready." },
                     { main: `Morning, ${firstName} — let's build something great.`, sub: "The forge is hot." }
                 ];
             } else if (hour >= 12 && hour < 17) {
                 greetings = [
-                    { main: `Good afternoon, ${firstName} ⚡`, sub: "Keep the momentum going." },
+                    { main: `Good afternoon, ${firstName} `, sub: "Keep the momentum going." },
                     { main: `Hey ${firstName}, ready to forge something great?`, sub: "Afternoon fuel: unlimited." }
                 ];
             } else if (hour >= 17 && hour < 21) {
                 greetings = [
-                    { main: `Good evening, ${firstName} 🌆`, sub: "Golden hour for great ideas." },
+                    { main: `Good evening, ${firstName} `, sub: "Golden hour for great ideas." },
                     { main: `Evening, ${firstName} — one more build?`, sub: "The best work happens now." }
                 ];
             } else {
                 greetings = [
-                    { main: `Working late, ${firstName}? 🌙`, sub: "The forge never sleeps." },
-                    { main: `Night owl mode, ${firstName} 🦉`, sub: "Best builders build in the dark." }
+                    { main: `Working late, ${firstName}? `, sub: "The forge never sleeps." },
+                    { main: `Night owl mode, ${firstName} `, sub: "Best builders build in the dark." }
                 ];
             }
             return greetings[Math.floor(Math.random() * greetings.length)];
