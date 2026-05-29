@@ -85,6 +85,7 @@
     </script>
 
     <style>
+        /* Bug 1 Fix: Mobile Font Sizing */
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 480px) { html { font-size: 15px; } }
         
@@ -126,7 +127,7 @@
 
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; display: none; }
 
-        /* Legacy Compatibility & Premium Cards */
+        /* Feature 4: Premium Modern UI Redesign */
         .premium-card {
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -231,6 +232,10 @@
         body.privacy-blur { filter: blur(15px); }
         .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Netflix Style Zoom Animation */
+        .netflix-zoom { transform: scale(50); opacity: 0; filter: blur(10px); pointer-events: none; }
+
         .category-hero-img { mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); }
 
         #smooth-scroll-overlay {
@@ -273,13 +278,18 @@
         };
 
         const forgenosLogoMark = `
-            <svg viewBox="0 0 110 100" class="w-8 h-8 shrink-0 drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]">
+            <svg viewBox="0 0 110 100" class="w-10 h-10 shrink-0 drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]">
                 <polygon points="22,52 46,40 46,78 22,90" style="fill:#f97316;"/>
                 <polygon points="54,18 78,30 78,68 54,56" style="stroke:#ffffff;fill:none;stroke-width:8;stroke-linejoin:round;stroke-linecap:round;"/>
             </svg>
         `;
 
         const __UI__ = `
+            <!-- Feature 7: Intro Animation Screen -->
+            <div id="intro-animation-screen" class="fixed inset-0 bg-[#000000] z-[99999] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+                <div id="intro-text" class="text-brand-accent font-black text-2xl md:text-5xl tracking-[0.3em] uppercase text-center transform origin-center" style="text-shadow: 0 0 20px rgba(var(--brand-rgb), 0.5);">LOADING...</div>
+            </div>
+
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             
@@ -304,9 +314,9 @@
             <!-- 1. DESKTOP SIDEBAR -->
             <aside id="desktop-sidebar" class="fixed left-0 top-0 h-screen bg-[#0f1113]/95 backdrop-blur-3xl border-r border-white/5 z-[60] hidden md:flex flex-col cursor-pointer group/sidebar">
                 <div id="sidebar-logo-area" class="h-[64px] border-b border-white/5 flex items-center relative overflow-hidden shrink-0 cursor-pointer" onclick="window.navigateSmoothly('/', 'home')">
-                    <div class="absolute left-[24px] flex items-center gap-3">
+                    <div class="absolute left-[20px] flex items-center gap-3">
                         ${forgenosLogoMark}
-                        <span class="text-xl font-semibold text-white tracking-wide sidebar-text">Forgenos</span>
+                        <span class="text-2xl font-semibold text-white tracking-wide sidebar-text">Forgenos</span>
                     </div>
                     <button onclick="closeSidebar(event)" class="absolute right-4 text-gray-500 hover:text-white opacity-0 transition-opacity hidden p-1 rounded-md bg-white/5" id="close-sidebar-btn">
                         <i data-lucide="panel-left-close" class="w-4 h-4"></i>
@@ -325,11 +335,11 @@
             <!-- Mobile Header -->
             <header class="md:hidden fixed top-0 w-full h-[64px] bg-[#0f1113]/90 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-5 z-[50]">
                 <div class="flex items-center gap-2 cursor-pointer" onclick="window.navigateSmoothly('/', 'home')">
-                    <svg viewBox="0 0 110 100" class="w-6 h-6">
+                    <svg viewBox="0 0 110 100" class="w-8 h-8">
                         <polygon points="22,52 46,40 46,78 22,90" style="fill:#f97316;"/>
                         <polygon points="54,18 78,30 78,68 54,56" style="stroke:#ffffff;fill:none;stroke-width:8;stroke-linejoin:round;stroke-linecap:round;"/>
                     </svg>
-                    <span class="text-lg font-semibold text-white tracking-wide">Forgenos</span>
+                    <span class="text-xl font-semibold text-white tracking-wide">Forgenos</span>
                 </div>
                 
                 <div class="flex items-center gap-2">
@@ -349,7 +359,7 @@
                             <button onclick="window.openCreditsModal(); window.closeMobileProfileMenu();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition flex items-center gap-2 font-bold">
                                 <i data-lucide="coins" class="w-4 h-4 text-brand-accent"></i> Buy Credits
                             </button>
-                            <button onclick="if(window.supabaseAuth && window.supabaseAuth.logout){ window.supabaseAuth.logout(); } window.closeMobileProfileMenu();" class="w-full text-left px-3 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition flex items-center gap-2 font-bold mt-1 text-xs">
+                            <button onclick="window.performLogout(); window.closeMobileProfileMenu();" class="w-full text-left px-3 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition flex items-center gap-2 font-bold mt-1 text-xs">
                                 <i data-lucide="log-out" class="w-4 h-4"></i> Logout
                             </button>
                         </div>
@@ -372,31 +382,31 @@
                     <!-- Profile Dropdown -->
                     <div id="auth-user-profile" class="hidden relative group">
                         <button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-brand-accent/50 transition-all">
-                            <div id="user-avatar-container" class="w-5 h-5 rounded-full overflow-hidden bg-brand-accent flex items-center justify-center text-white text-[10px] font-black shrink-0 border border-white/10">
+                            <div id="user-avatar-container" class="w-6 h-6 rounded-full overflow-hidden bg-brand-accent flex items-center justify-center text-white text-[10px] font-black shrink-0 border border-white/10">
                                 <span id="user-avatar">U</span>
                             </div>
-                            <span id="user-email-display" class="text-xs font-bold hidden sm:inline text-gray-300 max-w-[120px] truncate">User</span>
-                            <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
+                            <span id="user-email-display" class="text-sm font-bold hidden sm:inline text-gray-300 max-w-[120px] truncate">User</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
                         </button>
 
                         <div class="absolute right-0 mt-2 w-64 bg-[#1e1e1e] border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] p-2">
                             <div class="px-3 py-3 border-b border-white/5 flex flex-col items-center text-center">
-                                <div id="dropdown-avatar-container" class="w-10 h-10 rounded-full overflow-hidden bg-brand-accent flex items-center justify-center text-white text-sm font-black shrink-0 border-2 border-white/10 mb-2"></div>
-                                <p id="dropdown-name" class="text-sm font-bold text-white truncate w-full">User</p>
+                                <div id="dropdown-avatar-container" class="w-12 h-12 rounded-full overflow-hidden bg-brand-accent flex items-center justify-center text-white text-lg font-black shrink-0 border-2 border-white/10 mb-2"></div>
+                                <p id="dropdown-name" class="text-base font-bold text-white truncate w-full">User</p>
                                 <p id="dropdown-email" class="text-xs text-gray-400 truncate w-full mb-1">user@example.com</p>
                                 <div id="desktop-credit-ring-container"></div>
                             </div>
-                            <button onclick="window.openCreditsModal();" class="w-full text-left px-3 py-2.5 text-xs text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition flex items-center gap-2 font-bold mt-2">
+                            <button onclick="window.openCreditsModal();" class="w-full text-left px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition flex items-center gap-2 font-bold mt-2">
                                 <i data-lucide="coins" class="w-4 h-4 text-brand-accent"></i> Buy Credits
                             </button>
-                            <button onclick="if(window.supabaseAuth && window.supabaseAuth.logout){ window.supabaseAuth.logout(); }" class="w-full text-left px-3 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition flex items-center gap-2 font-bold mt-1 text-xs">
+                            <button onclick="window.performLogout();" class="w-full text-left px-3 py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition flex items-center gap-2 font-bold mt-1 text-sm">
                                 <i data-lucide="log-out" class="w-4 h-4"></i> Logout
                             </button>
                         </div>
                     </div>
 
                     <!-- Login -->
-                    <button id="auth-login-btn" onclick="window.openAuthModal()" class="bg-white hover:bg-gray-200 text-black px-5 py-1.5 rounded-lg transition-colors shadow-lg text-sm font-bold">Login</button>
+                    <button id="auth-login-btn" onclick="window.openAuthModal()" class="bg-white hover:bg-gray-200 text-black px-6 py-2 rounded-lg transition-colors shadow-lg text-sm font-bold">Login</button>
                 </div>
             </nav>
 
@@ -549,65 +559,69 @@
                 </div>
             </div>
 
-            <!-- Onboarding Modal -->
-            <div id="onboarding-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[9998] hidden opacity-0 transition-opacity duration-300" onclick="event.stopPropagation();">
-                <div class="w-full max-w-[480px] mx-4 bg-[#0f1113] border border-white/10 rounded-3xl p-8 relative shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- Full Screen Premium Onboarding Flow -->
+            <div id="onboarding-modal" class="fixed inset-0 bg-[#0f1113] flex flex-col items-center justify-center z-[99998] hidden opacity-0 transition-opacity duration-500 overflow-y-auto hide-scroll" onclick="event.stopPropagation();">
+                <div class="w-full max-w-2xl px-6 py-12 flex flex-col items-center animate-fade-up">
                    <!-- Step 1 -->
-                   <div id="onboarding-step-1" class="flex flex-col transition-all duration-300">
-                      <h2 class="text-2xl font-black text-white mb-1 text-center">Welcome to Forgenos 🔥</h2>
-                      <p class="text-gray-400 text-sm text-center mb-6">Let's personalize your experience. Who are you?</p>
-                      <div class="grid grid-cols-2 gap-3 mb-6 overflow-y-auto hide-scroll px-1 pb-1">
-                         <button onclick="window.selectOnboardingRole('Content Creator')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="video" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Content Creator</span>
+                   <div id="onboarding-step-1" class="flex flex-col items-center w-full transition-all duration-300">
+                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="sparkles" class="w-8 h-8 text-brand-accent"></i></div>
+                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Welcome to Forgenos 🔥</h2>
+                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Let's personalize your experience. Who are you?</p>
+                      
+                      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-3xl">
+                         <button onclick="window.selectOnboardingRole('Content Creator')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="video" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Content Creator</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Coder / Developer')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="code" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Developer</span>
+                         <button onclick="window.selectOnboardingRole('Coder / Developer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="code" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Developer</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Dropshipper')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="shopping-cart" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Dropshipper</span>
+                         <button onclick="window.selectOnboardingRole('Dropshipper')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="shopping-cart" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Dropshipper</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Student')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="graduation-cap" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Student</span>
+                         <button onclick="window.selectOnboardingRole('Student')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="graduation-cap" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Student</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Freelancer')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="briefcase" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Freelancer</span>
+                         <button onclick="window.selectOnboardingRole('Freelancer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="briefcase" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Freelancer</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Finance / Investor')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="trending-up" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Investor</span>
+                         <button onclick="window.selectOnboardingRole('Finance / Investor')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="trending-up" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Investor</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Founder / Startup')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="rocket" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Founder</span>
+                         <button onclick="window.selectOnboardingRole('Founder / Startup')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="rocket" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Founder</span>
                          </button>
-                         <button onclick="window.selectOnboardingRole('Other')" class="role-btn p-4 rounded-2xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center gap-2 transition-all">
-                             <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center"><i data-lucide="compass" class="w-5 h-5 text-brand-accent"></i></div>
-                             <span class="text-white text-xs font-bold">Other</span>
+                         <button onclick="window.selectOnboardingRole('Other')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="compass" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Other</span>
                          </button>
                       </div>
-                      <button onclick="window.nextOnboardingStep()" id="onboarding-next-btn" class="w-full py-3.5 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-xl transition-shadow opacity-50 cursor-not-allowed">Next &rarr;</button>
+                      <button onclick="window.nextOnboardingStep()" id="onboarding-next-btn" class="w-full max-w-sm py-4 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-2xl transition-all opacity-50 cursor-not-allowed shadow-[0_0_20px_rgba(249,115,22,0.3)] text-lg">Next Step &rarr;</button>
                    </div>
                    
                    <!-- Step 2 -->
-                   <div id="onboarding-step-2" class="hidden flex-col transition-all duration-300">
-                      <h2 class="text-2xl font-black text-white mb-1 text-center">What kind of tools do you use most?</h2>
-                      <p class="text-gray-400 text-sm text-center mb-6">Select all that apply.</p>
-                      <div class="flex flex-wrap gap-2 mb-8 justify-center">
-                         <button onclick="window.toggleOnboardingInterest(this, 'PDF Tools')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">PDF Tools</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Image Tools')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Image Tools</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'AI Writing')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">AI Writing</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Finance Calculators')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Finance Calculators</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Developer Utilities')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Developer Utilities</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Study / Productivity')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Study / Productivity</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Brain Training')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Brain Training</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Health Tools')" class="interest-btn px-4 py-2 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-bold hover:border-brand-accent transition-colors">Health Tools</button>
+                   <div id="onboarding-step-2" class="hidden flex-col items-center w-full transition-all duration-300">
+                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="layers" class="w-8 h-8 text-brand-accent"></i></div>
+                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Choose Your Arsenal</h2>
+                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Select the kinds of tools you use the most.</p>
+                      
+                      <div class="flex flex-wrap gap-3 mb-12 justify-center max-w-2xl">
+                         <button onclick="window.toggleOnboardingInterest(this, 'PDF Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">PDF Tools</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Image Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Image Tools</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'AI Writing')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">AI Writing</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Finance Calculators')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Finance Calculators</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Developer Utilities')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Developer Utilities</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Study / Productivity')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Study / Productivity</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Brain Training')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Brain Training</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Health Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Health Tools</button>
                       </div>
-                      <button onclick="window.finishOnboarding()" class="w-full py-3.5 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-xl transition-shadow">Finish Setup &rarr;</button>
+                      <button onclick="window.finishOnboarding()" class="w-full max-w-sm py-4 bg-white text-black hover:bg-gray-200 font-bold rounded-2xl transition-all shadow-xl text-lg flex items-center justify-center gap-2">Initialize System <i data-lucide="power" class="w-5 h-5"></i></button>
                    </div>
                 </div>
             </div>
@@ -677,50 +691,58 @@
                 </div>
             </div>
 
-            <div id="credits-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'credits-modal') window.closeCreditsModal()">
-                <div class="w-full max-w-3xl mx-4 bg-[#141414] border border-white/10 rounded-[2rem] p-6 md:p-8 relative shadow-2xl">
-                    <button onclick="window.closeCreditsModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
-                    <div class="text-left mb-6 md:mb-8">
-                        <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Refill Computation Credits</h2>
-                        <p class="text-gray-400 text-xs md:text-sm">Acquire processing gas to scale automation across models.</p>
+            <!-- Enhanced Premium Credits Modal -->
+            <div id="credits-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'credits-modal') window.closeCreditsModal()">
+                <div class="w-full max-w-4xl mx-4 bg-[#0a0a0c] border border-white/10 rounded-3xl relative shadow-2xl flex flex-col max-h-[90vh]">
+                    <div class="sticky top-0 z-20 bg-[#0a0a0c]/90 backdrop-blur-xl px-6 py-5 border-b border-white/5 flex justify-between items-center rounded-t-3xl">
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">Refill Computation Credits</h2>
+                            <p class="text-gray-400 text-xs md:text-sm">Acquire processing gas to scale automation across models.</p>
+                        </div>
+                        <button onclick="window.closeCreditsModal()" class="text-gray-400 hover:text-white transition p-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10"><i data-lucide="x" class="w-5 h-5"></i></button>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                        <div class="p-6 bg-[#1e1e1e] border border-white/5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-md font-bold text-gray-400 uppercase tracking-widest">Starter</h3>
-                                <div class="text-3xl font-black text-white my-3">₹999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 5,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 1 Credit = ₹0.20 Value</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Standard Support</li>
-                                </ul>
+                    
+                    <div class="p-6 md:p-8 overflow-y-auto hide-scroll flex-1">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-6 bg-[#121214] border border-white/5 rounded-2xl flex flex-col justify-between shadow-lg">
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Starter</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-400 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 5,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 1 Credit = ₹0.20 Value</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Standard Support</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl text-sm transition-all">Select Tier</button>
                             </div>
-                            <button class="w-full py-3 bg-white/5 hover:bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Select Tier</button>
-                        </div>
-                        <div class="p-6 bg-[#1e1e1e] border-2 border-brand-accent rounded-2xl flex flex-col justify-between relative">
-                            <div class="absolute -top-3 left-4 px-2.5 py-0.5 bg-brand-accent text-white text-[9px] font-black uppercase tracking-widest rounded-full">POPULAR CHOICE</div>
-                            <div>
-                                <h3 class="text-md font-bold text-gray-300 uppercase tracking-widest">Pro Creator</h3>
-                                <div class="text-3xl font-black text-white my-3">₹2,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 20,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Server Priority Node</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Premium Tools Access</li>
-                                </ul>
+                            
+                            <div class="p-6 bg-[#161310] border border-brand-accent/50 rounded-2xl flex flex-col justify-between relative shadow-[0_0_30px_rgba(249,115,22,0.15)] transform md:-translate-y-2">
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-accent text-white text-[10px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow-lg">POPULAR CHOICE</div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-300 uppercase tracking-widest">Pro Creator</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹2,999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-300 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 20,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Server Priority Node</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Premium Tools Access</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-brand-accent hover:bg-opacity-90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(var(--brand-rgb),0.4)]">Select Tier</button>
                             </div>
-                            <button class="w-full py-3 bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(var(--brand-rgb),0.3)]">Select Tier</button>
-                        </div>
-                        <div class="p-6 bg-[#1e1e1e] border border-white/5 rounded-2xl flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-md font-bold text-gray-400 uppercase tracking-widest">Enterprise</h3>
-                                <div class="text-3xl font-black text-white my-3">₹9,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <ul class="text-xs text-gray-400 space-y-2 mb-6">
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> 100,000 Credits</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> API Gateway Deployment</li>
-                                    <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-accent"></i> Dedicated Infrastructure</li>
-                                </ul>
+                            
+                            <div class="p-6 bg-[#121214] border border-white/5 rounded-2xl flex flex-col justify-between shadow-lg">
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Enterprise</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹9,999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-400 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 100,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> API Gateway Deployment</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Dedicated Infrastructure</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl text-sm transition-all">Select Tier</button>
                             </div>
-                            <button class="w-full py-3 bg-white/5 hover:bg-brand-accent text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Select Tier</button>
                         </div>
                     </div>
                 </div>
@@ -740,22 +762,19 @@
         window.lockScroll = function() { document.body.classList.add('scroll-locked'); };
         window.unlockScroll = function() { document.body.classList.remove('scroll-locked'); };
 
-        // Sidebar click listener logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('desktop-sidebar');
-            if (sidebar) {
-                sidebar.addEventListener('click', function(e) {
-                    const clickedItem = e.target.closest('.sidebar-item, #sidebar-logo-area');
-                    if (clickedItem && !document.body.classList.contains('sidebar-expanded')) {
-                        document.body.classList.add('sidebar-expanded');
-                        updateCloseButton();
-                    }
-                });
-            }
-        });
-
-        // Desktop Sidebar Peeking / Interaction Fix
+        // Desktop Sidebar Toggle Logic (Replaces body click to open)
         let isPopupOpen = false;
+        
+        window.toggleDesktopSidebar = function() {
+            if (document.body.classList.contains('sidebar-expanded')) {
+                document.body.classList.remove('sidebar-expanded');
+                updateCloseButton();
+            } else {
+                document.body.classList.add('sidebar-expanded');
+                updateCloseButton();
+            }
+        };
+
         function closeSidebar(e) {
             if(e) e.stopPropagation();
             document.body.classList.remove('sidebar-expanded');
@@ -821,6 +840,17 @@
             }
         });
 
+        // Universal Logout Function
+        window.performLogout = async function() {
+            if(window.supabaseClient) {
+                await window.supabaseClient.auth.signOut();
+            } else if(window.supabaseAuth && window.supabaseAuth.logout) {
+                window.supabaseAuth.logout();
+            }
+            window.authState = { isAuthenticated: false, user: null, session: null };
+            window.location.reload();
+        };
+
         // Onboarding Logic
         let onboardingRole = '';
         let onboardingInterests = [];
@@ -836,11 +866,20 @@
         window.selectOnboardingRole = function(role) {
             onboardingRole = role;
             document.querySelectorAll('.role-btn').forEach(btn => {
-                btn.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                btn.classList.remove('border-brand-accent', 'bg-brand-accent/20');
                 btn.classList.add('border-white/10', 'bg-[#15171a]');
+                btn.querySelector('div').classList.remove('bg-brand-accent/20');
+                btn.querySelector('div').classList.add('bg-white/5');
+                btn.querySelector('i').classList.remove('text-brand-accent');
+                btn.querySelector('i').classList.add('text-gray-400');
             });
             event.currentTarget.classList.remove('border-white/10', 'bg-[#15171a]');
-            event.currentTarget.classList.add('border-brand-accent', 'bg-brand-accent/10');
+            event.currentTarget.classList.add('border-brand-accent', 'bg-brand-accent/20');
+            event.currentTarget.querySelector('div').classList.remove('bg-white/5');
+            event.currentTarget.querySelector('div').classList.add('bg-brand-accent/20');
+            event.currentTarget.querySelector('i').classList.remove('text-gray-400');
+            event.currentTarget.querySelector('i').classList.add('text-brand-accent');
+            
             const nextBtn = document.getElementById('onboarding-next-btn');
             if(nextBtn) { nextBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }
         };
@@ -849,11 +888,11 @@
             if (onboardingInterests.includes(interest)) {
                 onboardingInterests = onboardingInterests.filter(i => i !== interest);
                 btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
-                btn.classList.add('bg-white/5', 'text-gray-300', 'border-white/20');
+                btn.classList.add('bg-[#15171a]', 'text-gray-300', 'border-white/20');
             } else {
                 onboardingInterests.push(interest);
                 btn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
-                btn.classList.remove('bg-white/5', 'text-gray-300', 'border-white/20');
+                btn.classList.remove('bg-[#15171a]', 'text-gray-300', 'border-white/20');
             }
         };
 
@@ -868,12 +907,39 @@
         window.finishOnboarding = function() {
             localStorage.setItem('forgenos_onboarded', 'true');
             localStorage.setItem('forgenos_user_profile', JSON.stringify({ role: onboardingRole, interests: onboardingInterests }));
+            
             const m = document.getElementById('onboarding-modal');
             if (m) {
                 m.style.opacity = '0';
-                setTimeout(() => m.classList.add('hidden'), 300);
+                setTimeout(() => m.classList.add('hidden'), 500);
             }
-            window.showToast("Profile saved! Welcome to Forgenos 🔥", "success");
+
+            // Netflix style intro sequence
+            const introScreen = document.getElementById('intro-animation-screen');
+            const introText = document.getElementById('intro-text');
+            introScreen.classList.remove('hidden');
+            // Slight delay to ensure modal is gone
+            setTimeout(() => {
+                introScreen.style.opacity = '1';
+                document.getElementById('app-main').style.opacity = '0'; // hide background temporarily
+                
+                setTimeout(() => {
+                    introText.classList.remove('animate-pulse');
+                    introText.textContent = 'WELCOME TO FORGENOS';
+                    introText.style.transition = 'all 1.5s cubic-bezier(0.7, 0, 0.3, 1)';
+                    
+                    setTimeout(() => {
+                        introText.classList.add('netflix-zoom');
+                        document.getElementById('app-main').style.transition = 'opacity 1.5s ease-in';
+                        document.getElementById('app-main').style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            introScreen.classList.add('hidden');
+                            window.showToast("Profile saved! Welcome to Forgenos 🔥", "success");
+                        }, 1500);
+                    }, 800);
+                }, 1500);
+            }, 100);
         };
 
         function getPersonalizedGreeting(firstName) {
@@ -881,24 +947,24 @@
             let greetings;
             if (hour >= 5 && hour < 12) {
                 greetings = [
-                    { main: `Good morning, ${firstName} `, sub: "What will you forge today?" },
-                    { main: `Rise and forge, ${firstName} `, sub: "Your tools are ready." },
-                    { main: `Morning, ${firstName} — let's build something great.`, sub: "The forge is hot." }
+                    { main: `Good morning, ${firstName} ☀️`, sub: "What will you forge today?" },
+                    { main: `Rise and forge, ${firstName} 🔥`, sub: "Your tools are ready." },
+                    { main: `Morning, ${firstName} — let's build.`, sub: "The forge is hot." }
                 ];
             } else if (hour >= 12 && hour < 17) {
                 greetings = [
-                    { main: `Good afternoon, ${firstName} `, sub: "Keep the momentum going." },
-                    { main: `Hey ${firstName}, ready to forge something great?`, sub: "Afternoon fuel: unlimited." }
+                    { main: `Good afternoon, ${firstName} ⚡`, sub: "Keep the momentum going." },
+                    { main: `Hey ${firstName}, ready to forge?`, sub: "Afternoon fuel: unlimited." }
                 ];
             } else if (hour >= 17 && hour < 21) {
                 greetings = [
-                    { main: `Good evening, ${firstName} `, sub: "Golden hour for great ideas." },
+                    { main: `Good evening, ${firstName} 🌆`, sub: "Golden hour for great ideas." },
                     { main: `Evening, ${firstName} — one more build?`, sub: "The best work happens now." }
                 ];
             } else {
                 greetings = [
-                    { main: `Working late, ${firstName}? `, sub: "The forge never sleeps." },
-                    { main: `Night owl mode, ${firstName} `, sub: "Best builders build in the dark." }
+                    { main: `Working late, ${firstName}? 🌙`, sub: "The forge never sleeps." },
+                    { main: `Night owl mode, ${firstName} 🦉`, sub: "Best builders build in the dark." }
                 ];
             }
             return greetings[Math.floor(Math.random() * greetings.length)];
@@ -920,6 +986,27 @@
                 <text x="40" y="58" text-anchor="middle" fill="#9ca3af" font-size="9" font-family="Inter" font-weight="bold">credits</text>
             </svg>`;
         }
+
+        // Feature: Auth persistence check on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkSupa = setInterval(() => {
+                if (window.supabaseClient) {
+                    clearInterval(checkSupa);
+                    window.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                        if (session) {
+                            window.authState = { isAuthenticated: true, user: session.user, session: session, credits: 50 };
+                        }
+                    });
+                    window.supabaseClient.auth.onAuthStateChange((event, session) => {
+                        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                            window.authState = { isAuthenticated: true, user: session.user, session: session, credits: 50 };
+                        } else if (event === 'SIGNED_OUT') {
+                            window.authState = { isAuthenticated: false, user: null, session: null };
+                        }
+                    });
+                }
+            }, 100);
+        });
 
         window.checkAndShowAnnouncement = function() {
             if (!announcementConfig.enabled) return;
@@ -1239,6 +1326,7 @@
                 { id: 'pdf', icon: 'file-text', label: 'PDF Magic', section: 'cat', color: 'text-cyan-400' },
                 { id: 'image', icon: 'image', label: 'Image Lab', section: 'cat', color: 'text-fuchsia-400' },
                 { id: 'saved', icon: 'bookmark', label: 'My List', section: 'cat', color: 'text-white' },
+                { id: 'toggle-sidebar', icon: 'panel-right-open', label: 'Expand Menu', section: 'bottom', action: 'window.toggleDesktopSidebar()' },
                 { id: 'settings', icon: 'settings', label: 'Settings', section: 'bottom' }
             ];
 
@@ -1252,8 +1340,9 @@
 
                 navItems.forEach(item => {
                     const isActive = currentView === item.id || (currentView.startsWith('tool-') && typeof toolsData !== 'undefined' && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === item.id);
+                    const actionHtml = item.action ? `onclick="${item.action}"` : `onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')"`;
                     const html = `
-                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')" class="sidebar-item group relative z-10 ${isActive ? 'bg-white/5' : 'hover:bg-white/5'}">
+                        <a href="javascript:void(0)" ${actionHtml} class="sidebar-item group relative z-10 ${isActive ? 'bg-white/5' : 'hover:bg-white/5'}">
                             <i data-lucide="${item.icon}" class="w-5 h-5 shrink-0 transition-colors ${isActive ? (item.color || 'text-brand-accent') : ('text-white/50 group-hover:' + (item.color || 'text-white'))}"></i>
                             <span class="sidebar-text text-sm font-medium transition-colors ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
                         </a>`;
@@ -1988,7 +2077,7 @@
             modal.style.opacity = '0'; if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 0.95, duration: 0.2 }); setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // --- GOOGLE LOGIN (Kept fully intact) ---
+        // --- GOOGLE LOGIN ---
         let googleInitialized = false; let rawAuthNonce = '';
         window.handleGoogleLoginState = async function(btn) {
             const e = window.event; if (e) e.preventDefault();
@@ -2182,6 +2271,12 @@
                     const creditsContainer = document.getElementById('credits-display-container');
 
                     if (window.authState.isAuthenticated && window.authState.user) {
+                        
+                        // Check for auto-close of auth modal if it's still open
+                        const authModal = document.getElementById('auth-modal');
+                        if(authModal && !authModal.classList.contains('hidden')) {
+                            window.closeAuthModal();
+                        }
                         
                         // Check for onboarding
                         if (!localStorage.getItem('forgenos_onboarded')) {
