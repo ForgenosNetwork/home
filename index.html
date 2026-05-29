@@ -25,17 +25,12 @@
     <script src="forgenos-config.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- DYNAMIC THEME COLOR INJECTION & OPTIMISTIC AUTH -->
+    <!-- DYNAMIC THEME COLOR INJECTION -->
     <script>
         const configHex = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.brandColor) ? FORGENOS_CONFIG.brandColor : '#f97316';
         let r = parseInt(configHex.slice(1, 3), 16), g = parseInt(configHex.slice(3, 5), 16), b = parseInt(configHex.slice(5, 7), 16);
         document.documentElement.style.setProperty('--brand-color', configHex);
         document.documentElement.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`);
-        
-        // Prevent login button flicker on refresh
-        if (localStorage.getItem('forgenos_auth_status') === 'true') {
-            document.documentElement.classList.add('optimistic-auth');
-        }
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,10 +85,7 @@
     </script>
 
     <style>
-        /* Optimistic UI Anti-Flicker */
-        html.optimistic-auth #auth-login-btn,
-        html.optimistic-auth #auth-login-btn-mobile { display: none !important; }
-
+        /* Mobile Font Sizing */
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 480px) { html { font-size: 15px; } }
         
@@ -206,10 +198,6 @@
         #desktop-sidebar { width: 80px; transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         body.sidebar-expanded #desktop-sidebar { width: 260px; }
 
-        /* Fix 1: Elegant Logo Container */
-        .sidebar-logo-container { width: 40px; transition: all 0.3s ease; overflow: hidden; white-space: nowrap; justify-content: flex-start; display: flex; align-items: center;}
-        body.sidebar-expanded .sidebar-logo-container { width: 160px; }
-
         .sidebar-item { position: relative; display: flex; align-items: center; min-height: 48px; flex-shrink: 0; border-radius: 12px; margin: 0 12px; justify-content: center; transition: all 0.3s ease; }
         body.sidebar-expanded .sidebar-item { justify-content: flex-start; padding-left: 16px; }
 
@@ -245,6 +233,11 @@
         .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* Netflix Style Zoom Animation */
+        .netflix-zoom { transform: scale(50); opacity: 0; filter: blur(10px); pointer-events: none; }
+
+        .category-hero-img { mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); }
+
         #smooth-scroll-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
@@ -285,13 +278,18 @@
         };
 
         const forgenosLogoMark = `
-            <svg viewBox="0 0 110 100" class="w-10 h-10 shrink-0 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+            <svg viewBox="0 0 110 100" class="w-11 h-11 shrink-0 drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]">
                 <polygon points="22,52 46,40 46,78 22,90" style="fill:#f97316;"/>
                 <polygon points="54,18 78,30 78,68 54,56" style="stroke:#ffffff;fill:none;stroke-width:8;stroke-linejoin:round;stroke-linecap:round;"/>
             </svg>
         `;
 
         const __UI__ = `
+            <!-- Intro Animation Screen -->
+            <div id="intro-animation-screen" class="fixed inset-0 bg-[#000000] z-[99999] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+                <div id="intro-text" class="text-brand-accent font-black text-2xl md:text-5xl tracking-[0.3em] uppercase text-center transform origin-center" style="text-shadow: 0 0 20px rgba(var(--brand-rgb), 0.5);">LOADING...</div>
+            </div>
+
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             
@@ -314,12 +312,15 @@
             <div class="top-ambient-glow"></div>
 
             <!-- 1. DESKTOP SIDEBAR -->
-            <aside id="desktop-sidebar" class="fixed left-0 top-0 h-screen bg-[#0f1113]/95 backdrop-blur-3xl border-r border-white/5 z-[60] hidden md:flex flex-col transition-all duration-300">
-                <div id="sidebar-logo-area" class="h-[64px] border-b border-white/5 flex items-center justify-center relative overflow-hidden shrink-0 transition-all duration-300">
-                    <div class="flex items-center justify-center cursor-pointer sidebar-logo-container" onclick="window.navigateSmoothly('/', 'home')">
+            <aside id="desktop-sidebar" class="fixed left-0 top-0 h-screen bg-[#0f1113]/95 backdrop-blur-3xl border-r border-white/5 z-[60] hidden md:flex flex-col group/sidebar">
+                <div id="sidebar-logo-area" class="h-[64px] border-b border-white/5 flex items-center relative overflow-hidden shrink-0 cursor-pointer" onclick="window.navigateSmoothly('/', 'home')">
+                    <div class="absolute left-[18px] flex items-center gap-3">
                         ${forgenosLogoMark}
-                        <span class="text-2xl font-semibold text-white tracking-wide sidebar-text ml-3">Forgenos</span>
+                        <span class="text-2xl font-semibold text-white tracking-wide sidebar-text">Forgenos</span>
                     </div>
+                    <button onclick="closeSidebar(event)" class="absolute right-4 text-gray-500 hover:text-white opacity-0 transition-opacity hidden p-1 rounded-md bg-white/5" id="close-sidebar-btn">
+                        <i data-lucide="panel-left-close" class="w-4 h-4"></i>
+                    </button>
                 </div>
                 
                 <div id="sidebar-content-area" class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-2 py-4 relative">
@@ -558,60 +559,78 @@
                 </div>
             </div>
 
-            <!-- Fix 2: Full Screen Professional Onboarding Flow -->
-            <div id="onboarding-modal" class="fixed inset-0 bg-[#0f1113]/90 backdrop-blur-2xl flex flex-col items-center justify-center z-[99998] hidden opacity-0 transition-opacity duration-700" onclick="event.stopPropagation();">
-                <!-- Step 1: Tell Us About Yourself -->
-                <div id="onboarding-step-1" class="w-full max-w-2xl px-6 py-12 flex flex-col items-center animate-fade-up transition-all duration-500">
-                    <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="sparkles" class="w-8 h-8 text-brand-accent"></i></div>
-                    <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Tell us about yourself</h2>
-                    <p class="text-gray-400 text-base md:text-lg text-center mb-10">Help us personalize your Forgenos experience.</p>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-3xl">
-                        <button onclick="window.selectOnboardingRole('Content Creator', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="video" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Content Creator</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Coder / Developer', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="code" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Developer</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Dropshipper', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="shopping-cart" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Dropshipper</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Student', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="graduation-cap" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Student</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Freelancer', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="briefcase" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Freelancer</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Finance / Investor', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="trending-up" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Investor</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Founder / Startup', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="rocket" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Founder</span>
-                        </button>
-                        <button onclick="window.selectOnboardingRole('Other', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="compass" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                            <span class="text-white text-sm font-bold">Other</span>
-                        </button>
-                    </div>
-                    <button onclick="window.finishOnboarding()" id="onboarding-finish-btn" disabled class="w-full max-w-sm py-4 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-2xl transition-all opacity-50 cursor-not-allowed shadow-[0_0_20px_rgba(249,115,22,0.3)] text-lg">Finish Setup &rarr;</button>
+            <!-- Full Screen Premium Onboarding Flow -->
+            <div id="onboarding-modal" class="fixed inset-0 bg-[#0f1113]/90 backdrop-blur-xl flex flex-col items-center justify-center z-[99998] hidden opacity-0 transition-opacity duration-500 overflow-y-auto hide-scroll" onclick="event.stopPropagation();">
+                <div class="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-brand-accent/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse"></div>
+                <div class="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse" style="animation-delay: 2s;"></div>
+
+                <div id="onboarding-splash" class="hidden flex-col items-center justify-center w-full h-full absolute inset-0 z-50 transition-opacity duration-500 opacity-0">
+                    <div class="w-16 h-16 md:w-20 md:h-20 border-[6px] border-white/10 border-t-brand-accent rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(249,115,22,0.4)]"></div>
+                    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-2xl animate-pulse text-center">Welcome to Forgenos 🔥</h2>
                 </div>
 
-                <!-- Step 2: Professional Loading Welcome -->
-                <div id="onboarding-welcome" class="hidden flex-col items-center w-full transition-all duration-700 opacity-0 scale-95">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-1 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-2 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-3 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Welcome to Forgenos</h2>
-                    <p class="text-gray-400 text-base md:text-lg text-center font-medium">Preparing your digital workspace...</p>
+                <div class="w-full max-w-2xl px-6 py-12 flex flex-col items-center animate-fade-up relative z-10" id="onboarding-content-wrapper">
+                   <!-- Step 1 -->
+                   <div id="onboarding-step-1" class="flex flex-col items-center w-full transition-all duration-300">
+                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="sparkles" class="w-8 h-8 text-brand-accent"></i></div>
+                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Help us personalize your experience</h2>
+                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Tell us a bit about yourself so we can tailor Forgenos for you.</p>
+                      
+                      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-3xl">
+                         <button onclick="window.selectOnboardingRole('Content Creator')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="video" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Content Creator</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Coder / Developer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="code" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Developer</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Dropshipper')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="shopping-cart" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Dropshipper</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Student')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="graduation-cap" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Student</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Freelancer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="briefcase" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Freelancer</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Finance / Investor')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="trending-up" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Investor</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Founder / Startup')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="rocket" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Founder</span>
+                         </button>
+                         <button onclick="window.selectOnboardingRole('Other')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="compass" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                             <span class="text-white text-sm font-bold">Other</span>
+                         </button>
+                      </div>
+                      <button onclick="window.nextOnboardingStep()" id="onboarding-next-btn" class="w-full max-w-sm py-4 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-2xl transition-all opacity-50 cursor-not-allowed shadow-[0_0_20px_rgba(249,115,22,0.3)] text-lg">Next Step &rarr;</button>
+                   </div>
+                   
+                   <!-- Step 2 -->
+                   <div id="onboarding-step-2" class="hidden flex-col items-center w-full transition-all duration-300">
+                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="layers" class="w-8 h-8 text-brand-accent"></i></div>
+                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Choose Your Arsenal</h2>
+                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Select the kinds of tools you use the most.</p>
+                      
+                      <div class="flex flex-wrap gap-3 mb-12 justify-center max-w-2xl">
+                         <button onclick="window.toggleOnboardingInterest(this, 'PDF Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">PDF Tools</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Image Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Image Tools</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'AI Writing')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">AI Writing</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Finance Calculators')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Finance Calculators</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Developer Utilities')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Developer Utilities</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Study / Productivity')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Study / Productivity</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Brain Training')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Brain Training</button>
+                         <button onclick="window.toggleOnboardingInterest(this, 'Health Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Health Tools</button>
+                      </div>
+                      <button onclick="window.finishOnboarding()" class="w-full max-w-sm py-4 bg-white text-black hover:bg-gray-200 font-bold rounded-2xl transition-all shadow-xl text-lg flex items-center justify-center gap-2">Initialize System <i data-lucide="power" class="w-5 h-5"></i></button>
+                   </div>
                 </div>
             </div>
 
@@ -647,8 +666,8 @@
 
             <!-- AUTH MODAL -->
             <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'auth-modal') window.closeAuthModal()">
-                <div class="w-full max-w-md mx-4 bg-[#1e1e1e] border border-white/10 rounded-3xl p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-                    <button onclick="window.closeAuthModal()" class="min-w-[44px] min-h-[44px] absolute top-4 right-4 z-50 flex items-center justify-center text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <div class="w-full max-w-md mx-4 bg-[#1e1e1e] border border-white/10 rounded-3xl p-8 relative shadow-2xl">
+                    <button onclick="window.closeAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
                     <div class="text-center mb-6">
                         <h2 class="text-2xl font-black text-white mb-1 tracking-tight">Access Digital Arsenal</h2>
                         <p class="text-gray-400 text-xs">Sign in securely to track system configurations & computing credits.</p>
@@ -682,46 +701,56 @@
 
             <!-- Enhanced Premium Credits Modal -->
             <div id="credits-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'credits-modal') window.closeCreditsModal()">
-                <div class="w-full h-full md:h-auto md:max-w-[500px] bg-[#0d0d0f]/95 backdrop-blur-2xl border border-white/10 md:rounded-3xl relative flex flex-col md:max-h-[90vh] overflow-hidden shadow-2xl">
-                    <div class="sticky top-0 z-50 bg-[#0d0d0f]/95 backdrop-blur-xl px-6 py-5 border-b border-white/5 flex justify-between items-center md:rounded-t-3xl shrink-0">
+                <div class="w-full max-w-4xl mx-4 bg-[#0a0a0c]/80 backdrop-blur-2xl border border-white/10 rounded-3xl relative shadow-2xl flex flex-col max-h-[95dvh] overflow-hidden">
+                    <div class="sticky top-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-xl px-6 py-5 border-b border-white/10 flex justify-between items-center">
                         <div>
-                            <h2 class="text-xl font-black text-white tracking-tight">Upgrade Your Plan</h2>
-                            <p class="text-gray-400 text-xs mt-1">Choose a plan that powers your workflow</p>
-                            <p class="text-brand-accent text-sm font-bold mt-2">Your current balance: <span id="modal-credits-balance">0</span> credits</p>
+                            <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">Refill Computation Credits</h2>
+                            <p class="text-gray-400 text-xs md:text-sm">Acquire processing gas to scale automation across models.</p>
                         </div>
-                        <button onclick="window.closeCreditsModal()" class="min-w-[44px] min-h-[44px] flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-colors absolute top-4 right-4 z-50 text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                        <button onclick="window.closeCreditsModal()" class="text-gray-400 hover:text-white transition p-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10"><i data-lucide="x" class="w-5 h-5"></i></button>
                     </div>
                     
-                    <div class="p-6 flex-1 overflow-y-auto hide-scroll flex flex-col gap-4 pb-20 md:pb-6">
-                        <!-- Starter Row -->
-                        <div class="border border-white/5 bg-[#121214] p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Starter</h3>
-                                <div class="text-2xl font-black text-white my-1">₹999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <p class="text-xs text-gray-400 mt-1">5,000 Credits • Standard Support</p>
+                    <div class="p-6 md:p-8 overflow-y-auto hide-scroll flex-1">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-6 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl flex flex-col justify-between shadow-xl transition-all hover:bg-white/10 hover:-translate-y-1">
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Starter</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-400 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 5,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 1 Credit = ₹0.20 Value</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Standard Support</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl text-sm transition-all">Select Tier</button>
                             </div>
-                            <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all md:w-auto w-full">Select</button>
-                        </div>
-                        
-                        <!-- Pro Creator Row -->
-                        <div class="border border-brand-accent bg-[#161310] p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 relative shadow-[0_0_20px_rgba(249,115,22,0.1)]">
-                            <div class="absolute -top-2.5 left-5 px-3 py-0.5 bg-brand-accent text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Popular Choice</div>
-                            <div class="mt-2 md:mt-0">
-                                <h3 class="text-xs font-bold text-gray-300 uppercase tracking-widest">Pro Creator</h3>
-                                <div class="text-2xl font-black text-white my-1">₹2,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <p class="text-xs text-gray-300 mt-1">20,000 Credits • Priority Node</p>
+                            
+                            <div class="p-6 bg-white/5 backdrop-blur-lg border border-brand-accent/50 rounded-2xl flex flex-col justify-between relative shadow-[0_0_30px_rgba(249,115,22,0.15)] transition-all hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] hover:-translate-y-1 z-10 before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:p-[1px] before:bg-gradient-to-b before:from-brand-accent before:to-transparent before:animate-pulse">
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-accent text-white text-[10px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow-[0_0_15px_rgba(var(--brand-rgb),0.5)]">POPULAR CHOICE</div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-300 uppercase tracking-widest">Pro Creator</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹2,999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-300 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 20,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Server Priority Node</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Premium Tools Access</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-brand-accent hover:bg-opacity-90 text-white font-bold rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(var(--brand-rgb),0.4)]">Select Tier</button>
                             </div>
-                            <button class="bg-brand-accent hover:bg-opacity-90 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(var(--brand-rgb),0.4)] md:w-auto w-full">Select</button>
-                        </div>
-                        
-                        <!-- Enterprise Row -->
-                        <div class="border border-white/5 bg-[#121214] p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Enterprise</h3>
-                                <div class="text-2xl font-black text-white my-1">₹9,999<span class="text-xs text-gray-500 font-normal">/mo</span></div>
-                                <p class="text-xs text-gray-400 mt-1">100,000 Credits • Dedicated Infra</p>
+                            
+                            <div class="p-6 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl flex flex-col justify-between shadow-xl transition-all hover:bg-white/10 hover:-translate-y-1">
+                                <div>
+                                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Enterprise</h3>
+                                    <div class="text-4xl font-black text-white my-4">₹9,999<span class="text-sm text-gray-500 font-normal">/mo</span></div>
+                                    <ul class="text-sm text-gray-400 space-y-3 mb-8">
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> 100,000 Credits</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> API Gateway Deployment</li>
+                                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Dedicated Infrastructure</li>
+                                    </ul>
+                                </div>
+                                <button class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-xl text-sm transition-all">Select Tier</button>
                             </div>
-                            <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all md:w-auto w-full">Select</button>
                         </div>
                     </div>
                 </div>
@@ -741,13 +770,35 @@
         window.lockScroll = function() { document.body.classList.add('scroll-locked'); };
         window.unlockScroll = function() { document.body.classList.remove('scroll-locked'); };
 
-        // Desktop Sidebar Toggle Logic (Fix 1)
+        // Desktop Sidebar Toggle Logic
         let isPopupOpen = false;
         
         window.toggleDesktopSidebar = function() {
-            document.body.classList.toggle('sidebar-expanded');
-            window.renderSidebar(); // Update icon visually
+            if (document.body.classList.contains('sidebar-expanded')) {
+                document.body.classList.remove('sidebar-expanded');
+                updateCloseButton();
+            } else {
+                document.body.classList.add('sidebar-expanded');
+                updateCloseButton();
+            }
         };
+
+        function closeSidebar(e) {
+            if(e) e.stopPropagation();
+            document.body.classList.remove('sidebar-expanded');
+            updateCloseButton();
+        }
+        function updateCloseButton() {
+            const closeBtn = document.getElementById('close-sidebar-btn');
+            if(!closeBtn) return;
+            if (document.body.classList.contains('sidebar-expanded')) {
+                closeBtn.classList.remove('hidden');
+                setTimeout(() => closeBtn.classList.remove('opacity-0'), 50);
+            } else {
+                closeBtn.classList.add('opacity-0');
+                setTimeout(() => closeBtn.classList.add('hidden'), 300);
+            }
+        }
 
         function toggleMobileCategories() {
             const overlay = document.getElementById('mobile-category-overlay');
@@ -797,29 +848,20 @@
             }
         });
 
+        // Bug 3 Fix: Universal Logout Function with robust session cleaning
         window.performLogout = async function() {
-            try {
-                window.authState = { isAuthenticated: false, user: null, session: null };
-                localStorage.removeItem('forgenos_auth_status');
-                localStorage.removeItem('forgenos_onboarded');
-                
-                if(window.supabaseClient) {
-                    await window.supabaseClient.auth.signOut();
-                } else if(window.supabaseAuth && window.supabaseAuth.logout) {
-                    window.supabaseAuth.logout();
-                }
-                
-                window.updateAuthUI();
-                window.showToast("Signed out successfully", "success");
-                setTimeout(() => window.location.reload(), 500);
-            } catch(e) {
-                console.error(e);
-                window.location.reload();
+            if(window.supabaseClient) {
+                await window.supabaseClient.auth.signOut();
+            } else if(window.supabaseAuth && window.supabaseAuth.logout) {
+                await window.supabaseAuth.logout();
             }
+            window.authState = { isAuthenticated: false, user: null, session: null, credits: 0 };
+            window.location.reload();
         };
 
-        // Fix 2: Professional Onboarding Logic
+        // Bug 8 Fix: Onboarding Logic with Splash Screen integration
         let onboardingRole = '';
+        let onboardingInterests = [];
         
         window.showOnboardingModal = function() {
             const m = document.getElementById('onboarding-modal');
@@ -829,7 +871,7 @@
             }
         };
 
-        window.selectOnboardingRole = function(role, btnElement) {
+        window.selectOnboardingRole = function(role) {
             onboardingRole = role;
             document.querySelectorAll('.role-btn').forEach(btn => {
                 btn.classList.remove('border-brand-accent', 'bg-brand-accent/20');
@@ -839,53 +881,89 @@
                 btn.querySelector('i').classList.remove('text-brand-accent');
                 btn.querySelector('i').classList.add('text-gray-400');
             });
+            event.currentTarget.classList.remove('border-white/10', 'bg-[#15171a]');
+            event.currentTarget.classList.add('border-brand-accent', 'bg-brand-accent/20');
+            event.currentTarget.querySelector('div').classList.remove('bg-white/5');
+            event.currentTarget.querySelector('div').classList.add('bg-brand-accent/20');
+            event.currentTarget.querySelector('i').classList.remove('text-gray-400');
+            event.currentTarget.querySelector('i').classList.add('text-brand-accent');
             
-            btnElement.classList.remove('border-white/10', 'bg-[#15171a]');
-            btnElement.classList.add('border-brand-accent', 'bg-brand-accent/20');
-            btnElement.querySelector('div').classList.remove('bg-white/5');
-            btnElement.querySelector('div').classList.add('bg-brand-accent/20');
-            btnElement.querySelector('i').classList.remove('text-gray-400');
-            btnElement.querySelector('i').classList.add('text-brand-accent');
-            
-            const nextBtn = document.getElementById('onboarding-finish-btn');
-            if(nextBtn) { 
-                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed'); 
-                nextBtn.removeAttribute('disabled');
+            const nextBtn = document.getElementById('onboarding-next-btn');
+            if(nextBtn) { nextBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }
+        };
+
+        window.toggleOnboardingInterest = function(btn, interest) {
+            if (onboardingInterests.includes(interest)) {
+                onboardingInterests = onboardingInterests.filter(i => i !== interest);
+                btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
+                btn.classList.add('bg-[#15171a]', 'text-gray-300', 'border-white/20');
+            } else {
+                onboardingInterests.push(interest);
+                btn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
+                btn.classList.remove('bg-[#15171a]', 'text-gray-300', 'border-white/20');
             }
         };
 
-        window.finishOnboarding = function() {
+        window.nextOnboardingStep = function() {
             if (!onboardingRole) return;
+            document.getElementById('onboarding-step-1').classList.add('hidden');
+            document.getElementById('onboarding-step-1').classList.remove('flex');
+            document.getElementById('onboarding-step-2').classList.remove('hidden');
+            document.getElementById('onboarding-step-2').classList.add('flex');
+        };
+
+        window.finishOnboarding = function() {
             localStorage.setItem('forgenos_onboarded', 'true');
-            localStorage.setItem('forgenos_user_profile', JSON.stringify({ role: onboardingRole }));
+            localStorage.setItem('forgenos_user_profile', JSON.stringify({ role: onboardingRole, interests: onboardingInterests }));
             
-            const step1 = document.getElementById('onboarding-step-1');
-            const welcome = document.getElementById('onboarding-welcome');
-            
-            step1.style.opacity = '0';
-            step1.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                step1.classList.add('hidden');
-                step1.classList.remove('flex');
+            const wrapper = document.getElementById('onboarding-content-wrapper');
+            const splash = document.getElementById('onboarding-splash');
+
+            if(wrapper) wrapper.style.display = 'none';
+
+            if(splash) {
+                splash.classList.remove('hidden');
+                splash.classList.add('flex');
+                requestAnimationFrame(() => {
+                    splash.style.opacity = '1';
+                });
                 
-                welcome.classList.remove('hidden');
-                welcome.classList.add('flex');
-                
-                // Trigger reflow for smooth transition
-                void welcome.offsetWidth;
-                welcome.style.opacity = '1';
-                welcome.style.transform = 'scale(1)';
-                
+                // Show Welcome Splash for 2s then proceed to Netflix intro/dashboard
                 setTimeout(() => {
                     const m = document.getElementById('onboarding-modal');
-                    m.style.opacity = '0';
-                    setTimeout(() => { 
-                        m.classList.add('hidden'); 
-                        window.showToast("Profile saved! Welcome 🔥", "success");
-                    }, 700);
+                    if (m) {
+                        m.style.opacity = '0';
+                        setTimeout(() => m.classList.add('hidden'), 500);
+                    }
+
+                    // Netflix style intro sequence
+                    const introScreen = document.getElementById('intro-animation-screen');
+                    const introText = document.getElementById('intro-text');
+                    introScreen.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        introScreen.style.opacity = '1';
+                        document.getElementById('app-main').style.opacity = '0'; 
+                        
+                        setTimeout(() => {
+                            introText.classList.remove('animate-pulse');
+                            introText.textContent = 'WELCOME TO FORGENOS';
+                            introText.style.transition = 'all 1.5s cubic-bezier(0.7, 0, 0.3, 1)';
+                            
+                            setTimeout(() => {
+                                introText.classList.add('netflix-zoom');
+                                document.getElementById('app-main').style.transition = 'opacity 1.5s ease-in';
+                                document.getElementById('app-main').style.opacity = '1';
+                                
+                                setTimeout(() => {
+                                    introScreen.classList.add('hidden');
+                                    window.showToast("Profile saved! Welcome to Forgenos 🔥", "success");
+                                }, 1500);
+                            }, 800);
+                        }, 1500);
+                    }, 100);
                 }, 2000);
-            }, 500);
+            }
         };
 
         function getPersonalizedGreeting(firstName) {
@@ -933,115 +1011,41 @@
             </svg>`;
         }
 
-        // Reusable UI Sync Function (Fix 3 - Persistence support)
-        window.updateAuthUI = function() {
-            const isAuthenticated = window.authState && window.authState.isAuthenticated;
-            const loginBtnDesk = document.getElementById('auth-login-btn');
-            const loginBtnMob = document.getElementById('auth-login-btn-mobile');
-            const userProfileDesk = document.getElementById('auth-user-profile');
-            const userProfileMob = document.getElementById('auth-user-profile-mobile');
-            const creditsContainer = document.getElementById('credits-display-container');
-
-            if (isAuthenticated && window.authState.user) {
-                // Ensure optimisitic state is set for smooth reloads
-                localStorage.setItem('forgenos_auth_status', 'true');
-                document.documentElement.classList.remove('optimistic-auth'); // we manage via DOM now
-
-                if (loginBtnDesk) loginBtnDesk.classList.add('hidden');
-                if (loginBtnMob) loginBtnMob.classList.add('hidden');
-                if (userProfileDesk) userProfileDesk.classList.remove('hidden');
-                if (userProfileMob) userProfileMob.classList.remove('hidden');
-                if (creditsContainer) { creditsContainer.classList.remove('hidden'); creditsContainer.classList.add('flex'); }
-                
-                const creditsDisplay = document.getElementById('credits-display');
-                if (creditsDisplay) creditsDisplay.textContent = window.authState.credits || 50;
-                
-                const modalCredits = document.getElementById('modal-credits-balance');
-                if (modalCredits) modalCredits.textContent = window.authState.credits || 50;
-
-                const ringContainer = document.getElementById('desktop-credit-ring-container');
-                if (ringContainer) ringContainer.innerHTML = renderCreditRing(window.authState.credits || 50);
-
-                const email = window.authState.user.email || '';
-                const metadata = window.authState.user.user_metadata || {};
-                const fullName = metadata.full_name || email.split('@')[0] || 'User';
-
-                const emailDisplay = document.getElementById('user-email-display');
-                if (emailDisplay && emailDisplay.textContent !== fullName) emailDisplay.textContent = fullName;
-                const dropdownEmail = document.getElementById('dropdown-email');
-                if (dropdownEmail && dropdownEmail.textContent !== email) dropdownEmail.textContent = email;
-                const dropdownName = document.getElementById('dropdown-name');
-                if (dropdownName && dropdownName.textContent !== fullName) dropdownName.textContent = fullName;
-
-                const mobDropName = document.getElementById('mobile-dropdown-name');
-                const mobDropEmail = document.getElementById('mobile-dropdown-email');
-                if (mobDropName) mobDropName.textContent = fullName;
-                if (mobDropEmail) mobDropEmail.textContent = email;
-
-                const assignAvatar = (id) => {
-                    const el = document.getElementById(id);
-                    if(el && el.dataset.loadedEmail !== email) {
-                        el.innerHTML = metadata.avatar_url ? `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">` : `<span class="text-white text-[10px] font-black">${email.charAt(0).toUpperCase()}</span>`;
-                        el.dataset.loadedEmail = email;
-                    }
-                };
-                assignAvatar('user-avatar-container'); 
-                assignAvatar('user-avatar-container-mobile');
-                assignAvatar('dropdown-avatar-container');
-
-                const authModal = document.getElementById('auth-modal');
-                if(authModal && !authModal.classList.contains('hidden') && !authModal.dataset.closing) {
-                    authModal.dataset.closing = "true";
-                    const btn = document.getElementById('google-login-action-btn');
-                    if (btn) {
-                        btn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated!</span>`;
-                        btn.classList.remove('bg-white/5', 'border-white/10', 'pointer-events-none'); 
-                        btn.classList.add('bg-green-500/10', 'border-green-500/30');
-                    }
-                    setTimeout(() => {
-                        window.closeAuthModal();
-                        setTimeout(() => { authModal.dataset.closing = ""; }, 500);
-                    }, 800);
-                }
-
-                if (!localStorage.getItem('forgenos_onboarded')) {
-                    const onboardModal = document.getElementById('onboarding-modal');
-                    if (onboardModal && onboardModal.classList.contains('hidden')) {
-                        window.showOnboardingModal();
-                    }
-                }
-            } else {
-                localStorage.removeItem('forgenos_auth_status');
-                document.documentElement.classList.remove('optimistic-auth'); // revert if token invalid
-                
-                if (loginBtnDesk) loginBtnDesk.classList.remove('hidden');
-                if (loginBtnMob) loginBtnMob.classList.remove('hidden');
-                if (userProfileDesk) userProfileDesk.classList.add('hidden');
-                if (userProfileMob) userProfileMob.classList.add('hidden');
-                if (creditsContainer) { creditsContainer.classList.add('hidden'); creditsContainer.classList.remove('flex'); }
-            }
-        };
-
+        // Bug 4 Fix: Auth persistence check on load
         window.addEventListener('DOMContentLoaded', () => {
             const checkSupa = setInterval(() => {
                 if (window.supabaseClient) {
                     clearInterval(checkSupa);
+                    
+                    // NOTE: The initialized supabase client in supabase-auth-init.js MUST include:
+                    // auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+                    
+                    // Automatically restore session if existing
                     window.supabaseClient.auth.getSession().then(({ data: { session } }) => {
                         if (session) {
                             window.authState = { isAuthenticated: true, user: session.user, session: session, credits: 50 };
-                            window.updateAuthUI();
-                        } else {
-                            window.authState = { isAuthenticated: false, user: null, session: null };
-                            window.updateAuthUI();
                         }
                     });
+
                     window.supabaseClient.auth.onAuthStateChange((event, session) => {
                         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
                             window.authState = { isAuthenticated: true, user: session.user, session: session, credits: 50 };
-                            window.updateAuthUI();
+                            
+                            // Visual feedback loop inside the listener
+                            const gBtn = document.getElementById('google-login-action-btn');
+                            if(gBtn && gBtn.innerHTML.includes('Signing in...')) {
+                                gBtn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated ✅</span>`;
+                                gBtn.classList.remove('bg-white/5', 'border-white/10'); gBtn.classList.add('bg-green-500/10', 'border-green-500/30');
+                            }
+
+                            // Bug 1 Fix: Explicitly enforce modal closure on success
+                            const authModal = document.getElementById('auth-modal');
+                            if(authModal && !authModal.classList.contains('hidden')) {
+                                setTimeout(() => window.closeAuthModal(), 800);
+                            }
+
                         } else if (event === 'SIGNED_OUT') {
                             window.authState = { isAuthenticated: false, user: null, session: null };
-                            window.updateAuthUI();
                         }
                     });
                 }
@@ -1366,12 +1370,9 @@
                 { id: 'pdf', icon: 'file-text', label: 'PDF Magic', section: 'cat', color: 'text-cyan-400' },
                 { id: 'image', icon: 'image', label: 'Image Lab', section: 'cat', color: 'text-fuchsia-400' },
                 { id: 'saved', icon: 'bookmark', label: 'My List', section: 'cat', color: 'text-white' },
+                { id: 'toggle-sidebar', icon: 'panel-right-open', label: 'Expand Menu', section: 'bottom', action: 'window.toggleDesktopSidebar()' },
                 { id: 'settings', icon: 'settings', label: 'Settings', section: 'bottom' }
             ];
-
-            // Add toggle button to bottom explicitly
-            const isExpanded = document.body.classList.contains('sidebar-expanded');
-            navItems.push({ id: 'toggle-sidebar', icon: isExpanded ? 'panel-left-close' : 'panel-left-open', label: isExpanded ? 'Collapse Menu' : 'Expand Sidebar', section: 'bottom', action: 'window.toggleDesktopSidebar()' });
 
             const renderDesktopSidebar = () => {
                 const contentArea = document.getElementById('sidebar-content-area');
@@ -1383,7 +1384,7 @@
 
                 navItems.forEach(item => {
                     const isActive = currentView === item.id || (currentView.startsWith('tool-') && typeof toolsData !== 'undefined' && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === item.id);
-                    const actionHtml = item.action ? `onclick="event.stopPropagation(); ${item.action}"` : `onclick="event.stopPropagation(); window.navigateSmoothly('/#${item.id}', '${item.id}')"`;
+                    const actionHtml = item.action ? `onclick="${item.action}"` : `onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')"`;
                     const html = `
                         <a href="javascript:void(0)" ${actionHtml} class="sidebar-item group relative z-10 ${isActive ? 'bg-white/5' : 'hover:bg-white/5'}">
                             <i data-lucide="${item.icon}" class="w-5 h-5 shrink-0 transition-colors ${isActive ? (item.color || 'text-brand-accent') : ('text-white/50 group-hover:' + (item.color || 'text-white'))}"></i>
@@ -2061,216 +2062,267 @@
         window.openCreateProjectModal = function() { 
             selectedToolsForProject = []; document.getElementById('project-name-input').value = ''; document.getElementById('modal-tool-search').value = ''; 
             window.renderToolSelectionGrid(); window.updateSelectedToolsList(); 
-            const modal = document.getElementById('project-modal'); window.lockScroll(); modal.classList.remove('hidden');
-            if(typeof gsap !== 'undefined') gsap.to(modal.querySelector('div'), { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" });
+            const modal = document.getElementById('project-modal'); window.lockScroll(); modal.classList.remove('hidden'); 
+            if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, opacity: 1, duration: 0.4, ease: "expo.out" }); 
         };
-
+        
         window.closeProjectModal = function() { 
-            const modal = document.getElementById('project-modal'); window.unlockScroll();
-            if(typeof gsap !== 'undefined') gsap.to(modal.querySelector('div'), { scale: 0.95, opacity: 0, duration: 0.2, onComplete: () => { modal.classList.add('hidden'); } });
-            else modal.classList.add('hidden');
+            const modal = document.getElementById('project-modal'); window.unlockScroll(); 
+            if(typeof gsap !== 'undefined') { gsap.to(modal.firstElementChild, { scale: 0.95, opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden') }); } 
+            else { modal.classList.add('hidden'); }
         };
 
         window.filterModalTools = function() {
-            const query = document.getElementById('modal-tool-search').value.toLowerCase();
-            window.renderToolSelectionGrid(query);
+            const query = document.getElementById('modal-tool-search').value.toLowerCase().trim();
+            const filteredTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => t.title.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.tags.some(tag => tag.toLowerCase().includes(query))) : [];
+            document.getElementById('tool-selection-grid').innerHTML = filteredTools.map(tool => window.createCard(tool, true)).join(''); window.tryCreateIcons(); 
         };
 
-        window.renderToolSelectionGrid = function(query = '') {
-            const grid = document.getElementById('tool-selection-grid');
-            if(!grid) return;
-            const filtered = typeof toolsData !== 'undefined' ? toolsData.filter(t => t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.category.toLowerCase().includes(query)) : [];
-            grid.innerHTML = filtered.map(t => window.createCard(t, true)).join('');
-            window.tryCreateIcons();
-        };
+        window.renderToolSelectionGrid = function() { document.getElementById('tool-selection-grid').innerHTML = typeof toolsData !== 'undefined' ? toolsData.map(tool => window.createCard(tool, true)).join('') : ''; window.tryCreateIcons(); };
 
         window.toggleToolSelection = function(id) {
-            if(selectedToolsForProject.includes(id)) {
-                selectedToolsForProject = selectedToolsForProject.filter(i => i !== id);
-            } else {
-                selectedToolsForProject.push(id);
-            }
-            window.updateSelectedToolsList();
-            window.renderToolSelectionGrid(document.getElementById('modal-tool-search').value.toLowerCase());
+            const tool = typeof toolsData !== 'undefined' ? toolsData.find(t => t.id === id) : null; if (tool && tool.disabled) return;
+            if(selectedToolsForProject.includes(id)) selectedToolsForProject = selectedToolsForProject.filter(tid => tid !== id); else selectedToolsForProject.push(id);
+            window.filterModalTools(); window.updateSelectedToolsList();
         };
 
         window.updateSelectedToolsList = function() {
+            document.getElementById('selected-count').innerText = selectedToolsForProject.length;
             const list = document.getElementById('selected-tools-list');
-            const count = document.getElementById('selected-count');
-            if(!list || !count) return;
-            
-            count.innerText = selectedToolsForProject.length;
-            if(selectedToolsForProject.length === 0) {
-                list.innerHTML = '<p class="text-gray-400 text-xs italic text-center py-4">Tap tools in the grid to add them.</p>';
-                return;
-            }
-            
-            const tools = typeof toolsData !== 'undefined' ? toolsData.filter(t => selectedToolsForProject.includes(t.id)) : [];
-            list.innerHTML = tools.map(t => `
-                <div class="flex items-center justify-between bg-white/5 border border-white/10 p-2.5 rounded-lg mb-2">
-                    <div class="flex items-center gap-2 truncate">
-                        <span class="truncate text-xs font-bold text-white">${t.title}</span>
-                    </div>
-                    <button onclick="window.toggleToolSelection(${t.id})" class="text-gray-400 hover:text-red-400 transition-colors shrink-0 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
-                </div>
-            `).join('');
+            if(selectedToolsForProject.length === 0) { list.innerHTML = '<p class="text-gray-400 text-xs italic text-center py-6">Tap tools in the grid to add them.</p>'; } 
+            else { const selected = typeof toolsData !== 'undefined' ? toolsData.filter(t => selectedToolsForProject.includes(t.id)) : []; list.innerHTML = selected.map(t => `<div class="flex items-center gap-3 bg-black p-3 rounded-xl border border-white/5 animate-fade-up shrink-0"><span class="text-xs font-bold text-white truncate flex-1">${t.title}</span><button aria-label="Remove Tool" onclick="window.toggleToolSelection(${t.id})" class="text-gray-500 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button></div>`).join(''); }
             window.tryCreateIcons();
         };
 
         window.saveProject = function() {
             const name = document.getElementById('project-name-input').value.trim();
-            if(!name) { window.showToast('Please enter a toolkit name.', 'alert'); return; }
-            if(selectedToolsForProject.length === 0) { window.showToast('Please select at least one tool.', 'alert'); return; }
-            
-            const newProj = { id: Date.now(), name: name, toolIds: [...selectedToolsForProject] };
-            myProjects.push(newProj);
+            if(!name) { window.showToast("Please enter a name", "alert"); return; }
+            if(selectedToolsForProject.length === 0) { window.showToast("Please select tools", "alert"); return; }
+            myProjects.push({ id: Date.now(), name, toolIds: [...selectedToolsForProject] });
             localStorage.setItem('forgenos_projects', JSON.stringify(myProjects));
-            
-            window.showToast('Toolkit created successfully!', 'success');
-            window.closeProjectModal();
-            if(currentView === 'projects') window.renderProjectsView();
+            window.closeProjectModal(); window.handleNavClick('projects'); window.showToast("Toolkit Created!", 'success');
         };
 
-        window.triggerDeleteProject = function(event, id) {
-            if(event) { event.preventDefault(); event.stopPropagation(); }
-            projectToDeleteId = id;
-            const modal = document.getElementById('delete-modal');
-            modal.classList.remove('hidden');
-            if(typeof gsap !== 'undefined') gsap.to(document.getElementById('delete-modal-content'), { scale: 1, opacity: 1, duration: 0.3 });
-        };
-
-        window.closeDeleteModal = function() {
-            const modal = document.getElementById('delete-modal');
-            if(typeof gsap !== 'undefined') gsap.to(document.getElementById('delete-modal-content'), { scale: 0.95, opacity: 0, duration: 0.2, onComplete: () => { modal.classList.add('hidden'); projectToDeleteId = null; } });
-            else { modal.classList.add('hidden'); projectToDeleteId = null; }
-        };
-        
-        document.getElementById('confirm-delete-btn')?.addEventListener('click', () => {
-            if(projectToDeleteId) {
-                myProjects = myProjects.filter(p => p.id !== projectToDeleteId);
-                localStorage.setItem('forgenos_projects', JSON.stringify(myProjects));
-                window.showToast('Toolkit deleted.', 'success');
-                window.closeDeleteModal();
-                if(currentOpenProjectId === projectToDeleteId) window.closeInnerProject();
-                if(currentView === 'projects') setTimeout(() => window.renderProjectsView(), 200);
-            }
-        });
-
-        window.resetStorage = function(type) {
-            if (type === 'saved') {
-                savedTools = []; localStorage.setItem('forgenos_saved', JSON.stringify(savedTools));
-                window.showToast('Favorites cleared.', 'success');
-                if(currentView === 'saved') window.renderSavedView();
-            } else if (type === 'projects') {
-                myProjects = []; localStorage.setItem('forgenos_projects', JSON.stringify(myProjects));
-                window.showToast('Toolkits wiped.', 'success');
-                if(currentView === 'projects') window.renderProjectsView();
-            }
-        };
-
+        // --- AUTH & CREDIT MODALS ---
         window.openAuthModal = function() {
-            const m = document.getElementById('auth-modal');
-            if (!m) return;
-            m.classList.remove('hidden');
-            window.lockScroll();
-            requestAnimationFrame(() => { m.style.opacity = '1'; });
+            const modal = document.getElementById('auth-modal'); if (!modal) return;
+            modal.classList.remove('hidden'); requestAnimationFrame(() => { modal.style.transition = 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)'; modal.style.opacity = '1'; if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, duration: 0.3, ease: "power2.out" }); });
         };
-
         window.closeAuthModal = function() {
-            const m = document.getElementById('auth-modal');
-            if (!m) return;
-            m.style.opacity = '0';
-            window.unlockScroll();
-            setTimeout(() => m.classList.add('hidden'), 300);
-            // Reset Google button state
-            const btn = document.getElementById('google-login-action-btn');
-            if (btn) btn.innerHTML = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> <span>Continue with Google</span>`;
+            const modal = document.getElementById('auth-modal'); if (!modal) return;
+            modal.style.opacity = '0'; if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 0.95, duration: 0.2 }); setTimeout(() => modal.classList.add('hidden'), 300);
         };
-
         window.openCreditsModal = function() {
-            const m = document.getElementById('credits-modal');
-            if (!m) return;
-            m.classList.remove('hidden');
-            window.lockScroll();
-            requestAnimationFrame(() => { m.style.opacity = '1'; });
+            const modal = document.getElementById('credits-modal'); if (!modal) return;
+            modal.classList.remove('hidden'); requestAnimationFrame(() => { modal.style.transition = 'opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)'; modal.style.opacity = '1'; if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 1, duration: 0.3, ease: "power2.out" }); });
         };
-
         window.closeCreditsModal = function() {
-            const m = document.getElementById('credits-modal');
-            if (!m) return;
-            m.style.opacity = '0';
-            window.unlockScroll();
-            setTimeout(() => m.classList.add('hidden'), 300);
+            const modal = document.getElementById('credits-modal'); if (!modal) return;
+            modal.style.opacity = '0'; if(typeof gsap !== 'undefined') gsap.to(modal.firstElementChild, { scale: 0.95, duration: 0.2 }); setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // Fix 4: Restored Original Professional Dot-Wave Loader for Login
+        // --- GOOGLE LOGIN (Updated logic per Bug 1, 2 & 9) ---
+        let googleInitialized = false; let rawAuthNonce = '';
         window.handleGoogleLoginState = async function(btn) {
-            if(!window.supabaseClient) {
-                window.showToast('Authentication system initializing...', 'alert');
-                return;
+            const e = window.event; if (e) e.preventDefault();
+            const originalHTML = btn.innerHTML; const originalClass = btn.className;
+
+            btn.innerHTML = `<svg class="w-5 h-5 text-gray-300 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 4.93L7.76 7.76" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 16.24L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.93 19.07L7.76 16.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span class="text-gray-300">Signing in...</span>`;
+            btn.classList.add('pointer-events-none'); window._blockReload = true;
+
+            if (typeof google === 'undefined' || !google.accounts) {
+                window.showToast('Security layer loading, please try again.', 'alert');
+                btn.innerHTML = originalHTML; btn.className = originalClass; btn.classList.remove('pointer-events-none'); window._blockReload = false; return;
+            }
+
+            if (!googleInitialized) {
+                const rawBytes = crypto.getRandomValues(new Uint8Array(16));
+                rawAuthNonce = Array.from(rawBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+                const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawAuthNonce));
+                const hashedNonce = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+                google.accounts.id.initialize({
+                    client_id: '903547456598-3i76ma312j9sdrgt78ugccj5vf4te1s1.apps.googleusercontent.com', nonce: hashedNonce, auto_select: false, cancel_on_tap_outside: true,
+                    callback: async (response) => {
+                        window._blockReload = true;
+                        try {
+                            if (!response.credential) throw new Error('No Google credential received');
+                            const supabase = window.supabaseClient; if (!supabase) throw new Error('Supabase client not initialized');
+
+                            const { data, error } = await supabase.auth.signInWithIdToken({ provider: 'google', token: response.credential, nonce: rawAuthNonce });
+                            if (error) throw error;
+
+                            btn.innerHTML = `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-green-500 font-bold">Authenticated ✅</span>`;
+                            btn.classList.remove('bg-white/5', 'border-white/10'); btn.classList.add('bg-green-500/10', 'border-green-500/30');
+
+                            window.authState = window.authState || {}; window.authState.session = data.session; window.authState.user = data.user; window.authState.isAuthenticated = true; window.authState.credits = window.authState.credits || 50;
+                            
+                            // Auth State DOM manipulation
+                            document.getElementById('auth-login-btn')?.classList.add('hidden');
+                            document.getElementById('auth-login-btn-mobile')?.classList.add('hidden');
+                            document.getElementById('auth-user-profile')?.classList.remove('hidden');
+                            document.getElementById('auth-user-profile-mobile')?.classList.remove('hidden');
+                            document.getElementById('credits-display-container')?.classList.remove('hidden');
+                            document.getElementById('credits-display-container')?.classList.add('flex');
+                            
+                            if (document.getElementById('credits-display')) document.getElementById('credits-display').textContent = window.authState.credits;
+
+                            const metadata = data.user.user_metadata || {};
+                            const email = data.user.email || 'user@example.com';
+                            const name = metadata.full_name || email.split('@')[0];
+
+                            document.getElementById('user-email-display').textContent = name;
+                            document.getElementById('dropdown-name').textContent = name;
+                            document.getElementById('dropdown-email').textContent = email;
+                            
+                            document.getElementById('mobile-dropdown-name').textContent = name;
+                            document.getElementById('mobile-dropdown-email').textContent = email;
+
+                            const assignAvatar = (id) => {
+                                const el = document.getElementById(id);
+                                if(el && el.dataset.loadedEmail !== email) {
+                                    el.innerHTML = metadata.avatar_url ? `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">` : `<span class="text-white text-[10px] font-black">${email.charAt(0).toUpperCase()}</span>`;
+                                    el.dataset.loadedEmail = email;
+                                }
+                            };
+                            assignAvatar('user-avatar-container'); 
+                            assignAvatar('user-avatar-container-mobile');
+                            assignAvatar('dropdown-avatar-container');
+
+                            if (localStorage.getItem('forgenos_onboarded') !== 'true') {
+                                setTimeout(() => { window.showOnboardingModal(); }, 1200);
+                            } else {
+                                setTimeout(() => { window.showToast("Welcome back!", "success"); }, 500);
+                                if (currentView === 'home') window.renderHome();
+                            }
+                            
+                            // Explicitly close modal on success (Bug 1 Fix)
+                            setTimeout(() => { window.closeAuthModal(); }, 800);
+
+                        } catch (err) {
+                            console.error('Google Sign-In Error:', err);
+                            window.showToast(err.message || 'Authentication failed', 'alert');
+                            btn.innerHTML = originalHTML; btn.className = originalClass; btn.classList.remove('pointer-events-none');
+                        } finally {
+                            window._blockReload = false;
+                        }
+                    }
+                });
+                googleInitialized = true;
             }
             
-            // Replaced default spinner with the requested original 3-dot animation
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = `<div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-1 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-2 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-3 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div></div> <span class="ml-1">Signing in...</span>`;
-            btn.classList.add('pointer-events-none', 'opacity-80');
-            
-            try {
-                const { data, error } = await window.supabaseClient.auth.signInWithOAuth({ 
-                    provider: 'google', 
-                    options: { redirectTo: window.location.origin } 
+            // Bug 9 Fix: Added fallback configuration to strictly open as popup using native GIS overlay or OAuth popup
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                google.accounts.id.prompt((notification) => {
+                    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                        // Fallback to Supabase OAuth popup if GIS One Tap is blocked
+                        const supabase = window.supabaseClient;
+                        if(supabase) {
+                            supabase.auth.signInWithOAuth({ 
+                                provider: 'google', 
+                                options: { 
+                                    redirectTo: window.location.origin,
+                                    skipBrowserRedirect: false // Ensure it uses the popup/redirect based on browser standard
+                                } 
+                            });
+                        }
+                    }
                 });
-                if (error) throw error;
-            } catch(e) {
-                console.error("Login Error:", e);
-                window.showToast("Failed to initiate sign in", "alert");
-                btn.innerHTML = originalHtml;
-                btn.classList.remove('pointer-events-none', 'opacity-80');
             }
         };
 
+        // --- GLOBAL INITIALIZATION ---
         window.initParticles = function() {
-            const canvas = document.getElementById('particle-canvas');
-            if(!canvas || !appSettings.interactiveBg) return;
+            const canvas = document.getElementById('particle-canvas'); if (!canvas) return;
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            let particles = [];
-            for(let i=0; i<50; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.5, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5
-                });
+            const particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2, speedX: (Math.random() - 0.5) * 0.5, speedY: (Math.random() - 0.5) * 0.5, opacity: Math.random() * 0.5 });
             }
             function animate() {
                 if(!appSettings.interactiveBg) return;
-                requestAnimationFrame(animate);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
                 particles.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                    if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                    ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+                    p.x += p.speedX; p.y += p.speedY;
+                    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1; if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+                    ctx.fillStyle = `rgba(255,255,255,${p.opacity})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
                 });
+                requestAnimationFrame(animate);
             }
             animate();
         };
 
-        window.applyImmediateSettings();
-        
-        if(typeof lenis !== 'undefined') {
-            if (!appSettings.smoothScroll) {
-                 // Lenis disabled by default on mobile or if setting is false
-            } else {
+        // DOM Setup
+        window.addEventListener('DOMContentLoaded', () => {
+            if(window.location.hash) {
+                const view = window.location.hash.substring(1);
+                if(view.startsWith('tool-') || categoriesList.some(c => c.id === view) || view === 'projects' || view === 'saved' || view === 'settings') { currentView = view; }
+            }
+            window.applyImmediateSettings();
+            window.renderSidebar();
+            window.updateMobileDock();
+            window.handleNavClick(currentView, true);
+            window.checkAndShowAnnouncement();
+
+            // Smooth Scroll
+            if(window.innerWidth >= 1024 && typeof Lenis !== 'undefined') {
                 lenisInstance = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', gestureDirection: 'vertical', smooth: true, mouseMultiplier: 1, smoothTouch: false, touchMultiplier: 2, infinite: false });
                 function raf(time) { lenisInstance.raf(time); requestAnimationFrame(raf); }
                 requestAnimationFrame(raf);
             }
-        }
 
-        window.handleNavClick('home', true);
-        window.checkAndShowAnnouncement();
-        
+            // Auth State Polling for UI Updates
+            setInterval(() => {
+                if (window.authState) {
+                    const loginBtnDesk = document.getElementById('auth-login-btn');
+                    const loginBtnMob = document.getElementById('auth-login-btn-mobile');
+                    const userProfileDesk = document.getElementById('auth-user-profile');
+                    const userProfileMob = document.getElementById('auth-user-profile-mobile');
+                    const creditsContainer = document.getElementById('credits-display-container');
+
+                    if (window.authState.isAuthenticated && window.authState.user) {
+                        if (loginBtnDesk) loginBtnDesk.classList.add('hidden');
+                        if (loginBtnMob) loginBtnMob.classList.add('hidden');
+                        if (userProfileDesk) userProfileDesk.classList.remove('hidden');
+                        if (userProfileMob) userProfileMob.classList.remove('hidden');
+                        if (creditsContainer) { creditsContainer.classList.remove('hidden'); creditsContainer.classList.add('flex'); }
+
+                        const email = window.authState.user.email || 'user@example.com';
+                        const metadata = window.authState.user.user_metadata || {};
+                        const name = metadata.full_name || email.split('@')[0];
+
+                        const emailDisplay = document.getElementById('user-email-display');
+                        if(emailDisplay && emailDisplay.textContent !== name) {
+                            emailDisplay.textContent = name;
+                            document.getElementById('dropdown-name').textContent = name;
+                            document.getElementById('dropdown-email').textContent = email;
+                            const mdn = document.getElementById('mobile-dropdown-name'); if(mdn) mdn.textContent = name;
+                            const mde = document.getElementById('mobile-dropdown-email'); if(mde) mde.textContent = email;
+                        }
+
+                        const assignAvatar = (id) => {
+                            const el = document.getElementById(id);
+                            if(el && el.dataset.loadedEmail !== email) {
+                                el.innerHTML = metadata.avatar_url ? `<img src="${metadata.avatar_url}" class="w-full h-full object-cover" referrerpolicy="no-referrer" alt="Avatar">` : `<span class="text-white text-[10px] font-black">${email.charAt(0).toUpperCase()}</span>`;
+                                el.dataset.loadedEmail = email;
+                            }
+                        };
+                        assignAvatar('user-avatar-container'); 
+                        assignAvatar('user-avatar-container-mobile');
+                        assignAvatar('dropdown-avatar-container');
+
+                    } else {
+                        if (loginBtnDesk) loginBtnDesk.classList.remove('hidden');
+                        if (loginBtnMob) loginBtnMob.classList.remove('hidden');
+                        if (userProfileDesk) userProfileDesk.classList.add('hidden');
+                        if (userProfileMob) userProfileMob.classList.add('hidden');
+                        if (creditsContainer) { creditsContainer.classList.add('hidden'); creditsContainer.classList.remove('flex'); }
+                    }
+                }
+            }, 500);
+        });
+
         window.addEventListener('resize', () => { if(appSettings.interactiveBg) window.initParticles(); });
     </script>
 </body>
