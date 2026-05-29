@@ -25,12 +25,17 @@
     <script src="forgenos-config.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- DYNAMIC THEME COLOR INJECTION -->
+    <!-- DYNAMIC THEME COLOR INJECTION & OPTIMISTIC AUTH -->
     <script>
         const configHex = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.brandColor) ? FORGENOS_CONFIG.brandColor : '#f97316';
         let r = parseInt(configHex.slice(1, 3), 16), g = parseInt(configHex.slice(3, 5), 16), b = parseInt(configHex.slice(5, 7), 16);
         document.documentElement.style.setProperty('--brand-color', configHex);
         document.documentElement.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`);
+        
+        // Prevent login button flicker on refresh
+        if (localStorage.getItem('forgenos_auth_status') === 'true') {
+            document.documentElement.classList.add('optimistic-auth');
+        }
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,7 +90,10 @@
     </script>
 
     <style>
-        /* Bug 1 Fix: Mobile Font Sizing */
+        /* Optimistic UI Anti-Flicker */
+        html.optimistic-auth #auth-login-btn,
+        html.optimistic-auth #auth-login-btn-mobile { display: none !important; }
+
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 480px) { html { font-size: 15px; } }
         
@@ -127,7 +135,7 @@
 
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1s ease; display: none; }
 
-        /* Feature 4: Premium Modern UI Redesign */
+        /* Premium Modern UI Redesign */
         .premium-card {
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -198,6 +206,10 @@
         #desktop-sidebar { width: 80px; transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         body.sidebar-expanded #desktop-sidebar { width: 260px; }
 
+        /* Fix 1: Elegant Logo Container */
+        .sidebar-logo-container { width: 40px; transition: all 0.3s ease; overflow: hidden; white-space: nowrap; justify-content: flex-start; display: flex; align-items: center;}
+        body.sidebar-expanded .sidebar-logo-container { width: 160px; }
+
         .sidebar-item { position: relative; display: flex; align-items: center; min-height: 48px; flex-shrink: 0; border-radius: 12px; margin: 0 12px; justify-content: center; transition: all 0.3s ease; }
         body.sidebar-expanded .sidebar-item { justify-content: flex-start; padding-left: 16px; }
 
@@ -233,12 +245,6 @@
         .animate-fade-up { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Netflix Style Zoom Animation */
-        .netflix-zoom { transform: scale(60); opacity: 0; filter: blur(20px); transition: all 1.8s cubic-bezier(0.7, 0, 0.3, 1); pointer-events: none; }
-        .star-bg { background-image: radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 40px 40px; }
-
-        .category-hero-img { mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%); }
-
         #smooth-scroll-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
@@ -286,11 +292,6 @@
         `;
 
         const __UI__ = `
-            <!-- Feature 7: Intro Animation Screen -->
-            <div id="intro-animation-screen" class="fixed inset-0 bg-black z-[99999] flex items-center justify-center hidden opacity-0 transition-opacity duration-300 star-bg">
-                <div id="intro-text" class="text-white font-black text-2xl md:text-5xl tracking-[0.3em] uppercase text-center transform origin-center shimmer-text" style="text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);">LOADING...</div>
-            </div>
-
             <div id="top-loader"></div>
             <div id="toast-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
             
@@ -314,13 +315,10 @@
 
             <!-- 1. DESKTOP SIDEBAR -->
             <aside id="desktop-sidebar" class="fixed left-0 top-0 h-screen bg-[#0f1113]/95 backdrop-blur-3xl border-r border-white/5 z-[60] hidden md:flex flex-col transition-all duration-300">
-                <div id="sidebar-logo-area" class="h-[64px] border-b border-white/5 flex items-center relative overflow-hidden shrink-0">
-                    <button onclick="window.toggleDesktopSidebar()" class="absolute left-4 p-1.5 hover:bg-white/10 rounded-md transition-colors text-gray-400 hover:text-white z-20">
-                        <i data-lucide="panel-left-open" class="w-5 h-5"></i>
-                    </button>
-                    <div class="absolute left-[56px] flex items-center gap-3 cursor-pointer sidebar-text" onclick="window.navigateSmoothly('/', 'home')">
+                <div id="sidebar-logo-area" class="h-[64px] border-b border-white/5 flex items-center justify-center relative overflow-hidden shrink-0 transition-all duration-300">
+                    <div class="flex items-center justify-center cursor-pointer sidebar-logo-container" onclick="window.navigateSmoothly('/', 'home')">
                         ${forgenosLogoMark}
-                        <span class="text-2xl font-semibold text-white tracking-wide">Forgenos</span>
+                        <span class="text-2xl font-semibold text-white tracking-wide sidebar-text ml-3">Forgenos</span>
                     </div>
                 </div>
                 
@@ -560,81 +558,60 @@
                 </div>
             </div>
 
-            <!-- Full Screen Premium Onboarding Flow -->
-            <div id="onboarding-modal" class="fixed inset-0 bg-[#0f1113] flex flex-col items-center justify-center z-[99998] hidden opacity-0 transition-opacity duration-500 overflow-y-auto hide-scroll" onclick="event.stopPropagation();">
-                <div class="w-full max-w-2xl px-6 py-12 flex flex-col items-center animate-fade-up">
-                   <!-- Step 1 -->
-                   <div id="onboarding-step-1" class="flex flex-col items-center w-full transition-all duration-300">
-                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="sparkles" class="w-8 h-8 text-brand-accent"></i></div>
-                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Tell us about yourself</h2>
-                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Help us personalize your Forgenos experience — this takes 30 seconds.</p>
-                      
-                      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-3xl">
-                         <button onclick="window.selectOnboardingRole('Content Creator')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="video" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Content Creator</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Coder / Developer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="code" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Developer</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Dropshipper')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="shopping-cart" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Dropshipper</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Student')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="graduation-cap" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Student</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Freelancer')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="briefcase" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Freelancer</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Finance / Investor')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="trending-up" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Investor</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Founder / Startup')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="rocket" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Founder</span>
-                         </button>
-                         <button onclick="window.selectOnboardingRole('Other')" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
-                             <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="compass" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
-                             <span class="text-white text-sm font-bold">Other</span>
-                         </button>
-                      </div>
-                      <button onclick="window.nextOnboardingStep()" id="onboarding-next-btn" class="w-full max-w-sm py-4 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-2xl transition-all opacity-50 cursor-not-allowed shadow-[0_0_20px_rgba(249,115,22,0.3)] text-lg">Next Step &rarr;</button>
-                   </div>
-                   
-                   <!-- Step 2 -->
-                   <div id="onboarding-step-2" class="hidden flex-col items-center w-full transition-all duration-300">
-                      <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="layers" class="w-8 h-8 text-brand-accent"></i></div>
-                      <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Choose Your Arsenal</h2>
-                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Select the kinds of tools you use the most.</p>
-                      
-                      <div class="flex flex-wrap gap-3 mb-12 justify-center max-w-2xl">
-                         <button onclick="window.toggleOnboardingInterest(this, 'PDF Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">PDF Tools</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Image Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Image Tools</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'AI Writing')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">AI Writing</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Finance Calculators')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Finance Calculators</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Developer Utilities')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Developer Utilities</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Study / Productivity')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Study / Productivity</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Brain Training')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Brain Training</button>
-                         <button onclick="window.toggleOnboardingInterest(this, 'Health Tools')" class="interest-btn px-6 py-3 rounded-full border border-white/20 bg-[#15171a] text-gray-300 text-base font-bold hover:border-brand-accent transition-colors shadow-lg">Health Tools</button>
-                      </div>
-                      <button onclick="window.finishOnboarding()" class="w-full max-w-sm py-4 bg-white text-black hover:bg-gray-200 font-bold rounded-2xl transition-all shadow-xl text-lg flex items-center justify-center gap-2">Initialize System <i data-lucide="power" class="w-5 h-5"></i></button>
-                   </div>
+            <!-- Fix 2: Full Screen Professional Onboarding Flow -->
+            <div id="onboarding-modal" class="fixed inset-0 bg-[#0f1113]/90 backdrop-blur-2xl flex flex-col items-center justify-center z-[99998] hidden opacity-0 transition-opacity duration-700" onclick="event.stopPropagation();">
+                <!-- Step 1: Tell Us About Yourself -->
+                <div id="onboarding-step-1" class="w-full max-w-2xl px-6 py-12 flex flex-col items-center animate-fade-up transition-all duration-500">
+                    <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl"><i data-lucide="sparkles" class="w-8 h-8 text-brand-accent"></i></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Tell us about yourself</h2>
+                    <p class="text-gray-400 text-base md:text-lg text-center mb-10">Help us personalize your Forgenos experience.</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-3xl">
+                        <button onclick="window.selectOnboardingRole('Content Creator', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="video" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Content Creator</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Coder / Developer', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="code" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Developer</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Dropshipper', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="shopping-cart" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Dropshipper</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Student', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="graduation-cap" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Student</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Freelancer', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="briefcase" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Freelancer</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Finance / Investor', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="trending-up" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Investor</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Founder / Startup', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="rocket" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Founder</span>
+                        </button>
+                        <button onclick="window.selectOnboardingRole('Other', this)" class="role-btn p-5 rounded-3xl border border-white/10 bg-[#15171a] hover:border-brand-accent text-center flex flex-col items-center justify-center gap-3 transition-all shadow-xl group">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors"><i data-lucide="compass" class="w-6 h-6 text-gray-400 group-hover:text-brand-accent transition-colors"></i></div>
+                            <span class="text-white text-sm font-bold">Other</span>
+                        </button>
+                    </div>
+                    <button onclick="window.finishOnboarding()" id="onboarding-finish-btn" disabled class="w-full max-w-sm py-4 bg-brand-accent hover:bg-opacity-80 text-white font-bold rounded-2xl transition-all opacity-50 cursor-not-allowed shadow-[0_0_20px_rgba(249,115,22,0.3)] text-lg">Finish Setup &rarr;</button>
+                </div>
 
-                   <!-- Step 2.5 (Loading Sequence) -->
-                   <div id="onboarding-step-2.5" class="hidden flex-col items-center w-full transition-all duration-300">
-                      <h2 class="text-3xl md:text-5xl font-black text-brand-accent mb-2 text-center tracking-tighter">Welcome to Forgenos 🔥</h2>
-                      <p class="text-gray-400 text-base md:text-lg text-center mb-10">Setting up your workspace...</p>
-                      
-                      <div class="w-full max-w-sm h-2 bg-white/10 rounded-full overflow-hidden relative mb-4">
-                          <div id="onboard-progress" class="absolute top-0 left-0 h-full bg-brand-accent w-0" style="transition: width 2s linear;"></div>
-                      </div>
-                      <p class="text-white font-bold text-sm tracking-widest uppercase animate-pulse">LOADING</p>
-                   </div>
+                <!-- Step 2: Professional Loading Welcome -->
+                <div id="onboarding-welcome" class="hidden flex-col items-center w-full transition-all duration-700 opacity-0 scale-95">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-1 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
+                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-2 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
+                        <div class="w-3 h-3 md:w-4 md:h-4 bg-brand-accent rounded-full dot-wave dot-3 shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-2 text-center tracking-tighter">Welcome to Forgenos</h2>
+                    <p class="text-gray-400 text-base md:text-lg text-center font-medium">Preparing your digital workspace...</p>
                 </div>
             </div>
 
@@ -668,7 +645,7 @@
                 </div>
             </div>
 
-            <!-- AUTH MODAL (FIXED) -->
+            <!-- AUTH MODAL -->
             <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'auth-modal') window.closeAuthModal()">
                 <div class="w-full max-w-md mx-4 bg-[#1e1e1e] border border-white/10 rounded-3xl p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
                     <button onclick="window.closeAuthModal()" class="min-w-[44px] min-h-[44px] absolute top-4 right-4 z-50 flex items-center justify-center text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -703,7 +680,7 @@
                 </div>
             </div>
 
-            <!-- Enhanced Premium Credits Modal (Bug 5 Fix) -->
+            <!-- Enhanced Premium Credits Modal -->
             <div id="credits-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[9999] hidden opacity-0" onclick="if(event.target.id === 'credits-modal') window.closeCreditsModal()">
                 <div class="w-full h-full md:h-auto md:max-w-[500px] bg-[#0d0d0f]/95 backdrop-blur-2xl border border-white/10 md:rounded-3xl relative flex flex-col md:max-h-[90vh] overflow-hidden shadow-2xl">
                     <div class="sticky top-0 z-50 bg-[#0d0d0f]/95 backdrop-blur-xl px-6 py-5 border-b border-white/5 flex justify-between items-center md:rounded-t-3xl shrink-0">
@@ -764,15 +741,12 @@
         window.lockScroll = function() { document.body.classList.add('scroll-locked'); };
         window.unlockScroll = function() { document.body.classList.remove('scroll-locked'); };
 
-        // Desktop Sidebar Toggle Logic (Bug 4 Fix)
+        // Desktop Sidebar Toggle Logic (Fix 1)
         let isPopupOpen = false;
         
         window.toggleDesktopSidebar = function() {
-            if (document.body.classList.contains('sidebar-expanded')) {
-                document.body.classList.remove('sidebar-expanded');
-            } else {
-                document.body.classList.add('sidebar-expanded');
-            }
+            document.body.classList.toggle('sidebar-expanded');
+            window.renderSidebar(); // Update icon visually
         };
 
         function toggleMobileCategories() {
@@ -823,16 +797,18 @@
             }
         });
 
-        // Bug 2 Fix: Reliable Universal Logout
         window.performLogout = async function() {
             try {
                 window.authState = { isAuthenticated: false, user: null, session: null };
+                localStorage.removeItem('forgenos_auth_status');
+                localStorage.removeItem('forgenos_onboarded');
+                
                 if(window.supabaseClient) {
                     await window.supabaseClient.auth.signOut();
                 } else if(window.supabaseAuth && window.supabaseAuth.logout) {
                     window.supabaseAuth.logout();
                 }
-                localStorage.removeItem('forgenos_onboarded');
+                
                 window.updateAuthUI();
                 window.showToast("Signed out successfully", "success");
                 setTimeout(() => window.location.reload(), 500);
@@ -842,9 +818,8 @@
             }
         };
 
-        // Onboarding Logic
+        // Fix 2: Professional Onboarding Logic
         let onboardingRole = '';
-        let onboardingInterests = [];
         
         window.showOnboardingModal = function() {
             const m = document.getElementById('onboarding-modal');
@@ -854,7 +829,7 @@
             }
         };
 
-        window.selectOnboardingRole = function(role) {
+        window.selectOnboardingRole = function(role, btnElement) {
             onboardingRole = role;
             document.querySelectorAll('.role-btn').forEach(btn => {
                 btn.classList.remove('border-brand-accent', 'bg-brand-accent/20');
@@ -864,89 +839,53 @@
                 btn.querySelector('i').classList.remove('text-brand-accent');
                 btn.querySelector('i').classList.add('text-gray-400');
             });
-            event.currentTarget.classList.remove('border-white/10', 'bg-[#15171a]');
-            event.currentTarget.classList.add('border-brand-accent', 'bg-brand-accent/20');
-            event.currentTarget.querySelector('div').classList.remove('bg-white/5');
-            event.currentTarget.querySelector('div').classList.add('bg-brand-accent/20');
-            event.currentTarget.querySelector('i').classList.remove('text-gray-400');
-            event.currentTarget.querySelector('i').classList.add('text-brand-accent');
             
-            const nextBtn = document.getElementById('onboarding-next-btn');
-            if(nextBtn) { nextBtn.classList.remove('opacity-50', 'cursor-not-allowed'); }
-        };
-
-        window.toggleOnboardingInterest = function(btn, interest) {
-            if (onboardingInterests.includes(interest)) {
-                onboardingInterests = onboardingInterests.filter(i => i !== interest);
-                btn.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
-                btn.classList.add('bg-[#15171a]', 'text-gray-300', 'border-white/20');
-            } else {
-                onboardingInterests.push(interest);
-                btn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
-                btn.classList.remove('bg-[#15171a]', 'text-gray-300', 'border-white/20');
+            btnElement.classList.remove('border-white/10', 'bg-[#15171a]');
+            btnElement.classList.add('border-brand-accent', 'bg-brand-accent/20');
+            btnElement.querySelector('div').classList.remove('bg-white/5');
+            btnElement.querySelector('div').classList.add('bg-brand-accent/20');
+            btnElement.querySelector('i').classList.remove('text-gray-400');
+            btnElement.querySelector('i').classList.add('text-brand-accent');
+            
+            const nextBtn = document.getElementById('onboarding-finish-btn');
+            if(nextBtn) { 
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed'); 
+                nextBtn.removeAttribute('disabled');
             }
         };
 
-        window.nextOnboardingStep = function() {
-            if (!onboardingRole) return;
-            document.getElementById('onboarding-step-1').classList.add('hidden');
-            document.getElementById('onboarding-step-1').classList.remove('flex');
-            document.getElementById('onboarding-step-2').classList.remove('hidden');
-            document.getElementById('onboarding-step-2').classList.add('flex');
-        };
-
         window.finishOnboarding = function() {
+            if (!onboardingRole) return;
             localStorage.setItem('forgenos_onboarded', 'true');
-            localStorage.setItem('forgenos_user_profile', JSON.stringify({ role: onboardingRole, interests: onboardingInterests }));
+            localStorage.setItem('forgenos_user_profile', JSON.stringify({ role: onboardingRole }));
             
-            // Feature 1: Trigger Step 2.5 (Loading sequence)
-            document.getElementById('onboarding-step-2').classList.add('hidden');
-            document.getElementById('onboarding-step-2').classList.remove('flex');
-            document.getElementById('onboarding-step-2.5').classList.remove('hidden');
-            document.getElementById('onboarding-step-2.5').classList.add('flex');
+            const step1 = document.getElementById('onboarding-step-1');
+            const welcome = document.getElementById('onboarding-welcome');
+            
+            step1.style.opacity = '0';
+            step1.style.transform = 'scale(0.95)';
             
             setTimeout(() => {
-                document.getElementById('onboard-progress').style.width = '100%';
-            }, 50);
-
-            setTimeout(() => {
-                const m = document.getElementById('onboarding-modal');
-                if (m) {
-                    m.style.opacity = '0';
-                    setTimeout(() => m.classList.add('hidden'), 500);
-                }
-
-                // Feature 2: Netflix style intro sequence with CSS animation
-                const introScreen = document.getElementById('intro-animation-screen');
-                const introText = document.getElementById('intro-text');
-                introScreen.classList.remove('hidden');
+                step1.classList.add('hidden');
+                step1.classList.remove('flex');
+                
+                welcome.classList.remove('hidden');
+                welcome.classList.add('flex');
+                
+                // Trigger reflow for smooth transition
+                void welcome.offsetWidth;
+                welcome.style.opacity = '1';
+                welcome.style.transform = 'scale(1)';
                 
                 setTimeout(() => {
-                    introScreen.style.opacity = '1';
-                    document.getElementById('app-main').style.opacity = '0'; 
-                    
-                    setTimeout(() => {
-                        introText.classList.remove('shimmer-text', 'animate-pulse');
-                        introText.textContent = 'WELCOME TO FORGENOS';
-                        introText.style.animation = 'none';
-                        introText.style.opacity = '0';
-                        setTimeout(() => { introText.style.opacity = '1'; }, 50);
-                        introText.style.transition = 'opacity 0.5s ease';
-                        
-                        setTimeout(() => {
-                            introText.classList.add('netflix-zoom');
-                            document.getElementById('app-main').style.transition = 'opacity 1.5s ease-in';
-                            document.getElementById('app-main').style.opacity = '1';
-                            
-                            setTimeout(() => {
-                                introScreen.classList.add('hidden');
-                                introText.classList.remove('netflix-zoom');
-                                window.showToast("Profile saved! Welcome to Forgenos 🔥", "success");
-                            }, 1800);
-                        }, 800);
-                    }, 1200);
-                }, 100);
-            }, 2050);
+                    const m = document.getElementById('onboarding-modal');
+                    m.style.opacity = '0';
+                    setTimeout(() => { 
+                        m.classList.add('hidden'); 
+                        window.showToast("Profile saved! Welcome 🔥", "success");
+                    }, 700);
+                }, 2000);
+            }, 500);
         };
 
         function getPersonalizedGreeting(firstName) {
@@ -994,7 +933,7 @@
             </svg>`;
         }
 
-        // Bug 1 & 3 Fix: Reusable UI Sync Function
+        // Reusable UI Sync Function (Fix 3 - Persistence support)
         window.updateAuthUI = function() {
             const isAuthenticated = window.authState && window.authState.isAuthenticated;
             const loginBtnDesk = document.getElementById('auth-login-btn');
@@ -1004,6 +943,10 @@
             const creditsContainer = document.getElementById('credits-display-container');
 
             if (isAuthenticated && window.authState.user) {
+                // Ensure optimisitic state is set for smooth reloads
+                localStorage.setItem('forgenos_auth_status', 'true');
+                document.documentElement.classList.remove('optimistic-auth'); // we manage via DOM now
+
                 if (loginBtnDesk) loginBtnDesk.classList.add('hidden');
                 if (loginBtnMob) loginBtnMob.classList.add('hidden');
                 if (userProfileDesk) userProfileDesk.classList.remove('hidden');
@@ -1046,7 +989,6 @@
                 assignAvatar('user-avatar-container-mobile');
                 assignAvatar('dropdown-avatar-container');
 
-                // Bug 1: Authenticated badge + auto close logic
                 const authModal = document.getElementById('auth-modal');
                 if(authModal && !authModal.classList.contains('hidden') && !authModal.dataset.closing) {
                     authModal.dataset.closing = "true";
@@ -1062,7 +1004,6 @@
                     }, 800);
                 }
 
-                // Feature 1: Post-login Onboarding Overlay
                 if (!localStorage.getItem('forgenos_onboarded')) {
                     const onboardModal = document.getElementById('onboarding-modal');
                     if (onboardModal && onboardModal.classList.contains('hidden')) {
@@ -1070,6 +1011,9 @@
                     }
                 }
             } else {
+                localStorage.removeItem('forgenos_auth_status');
+                document.documentElement.classList.remove('optimistic-auth'); // revert if token invalid
+                
                 if (loginBtnDesk) loginBtnDesk.classList.remove('hidden');
                 if (loginBtnMob) loginBtnMob.classList.remove('hidden');
                 if (userProfileDesk) userProfileDesk.classList.add('hidden');
@@ -1078,7 +1022,6 @@
             }
         };
 
-        // Bug 3 Fix: Immediate check and UI rendering
         window.addEventListener('DOMContentLoaded', () => {
             const checkSupa = setInterval(() => {
                 if (window.supabaseClient) {
@@ -1086,6 +1029,9 @@
                     window.supabaseClient.auth.getSession().then(({ data: { session } }) => {
                         if (session) {
                             window.authState = { isAuthenticated: true, user: session.user, session: session, credits: 50 };
+                            window.updateAuthUI();
+                        } else {
+                            window.authState = { isAuthenticated: false, user: null, session: null };
                             window.updateAuthUI();
                         }
                     });
@@ -1422,6 +1368,10 @@
                 { id: 'saved', icon: 'bookmark', label: 'My List', section: 'cat', color: 'text-white' },
                 { id: 'settings', icon: 'settings', label: 'Settings', section: 'bottom' }
             ];
+
+            // Add toggle button to bottom explicitly
+            const isExpanded = document.body.classList.contains('sidebar-expanded');
+            navItems.push({ id: 'toggle-sidebar', icon: isExpanded ? 'panel-left-close' : 'panel-left-open', label: isExpanded ? 'Collapse Menu' : 'Expand Sidebar', section: 'bottom', action: 'window.toggleDesktopSidebar()' });
 
             const renderDesktopSidebar = () => {
                 const contentArea = document.getElementById('sidebar-content-area');
@@ -2218,7 +2168,6 @@
             }
         };
 
-        // Fix A: window.openAuthModal and closeAuthModal Must Be Globally Defined
         window.openAuthModal = function() {
             const m = document.getElementById('auth-modal');
             if (!m) return;
@@ -2238,7 +2187,6 @@
             if (btn) btn.innerHTML = `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> <span>Continue with Google</span>`;
         };
 
-        // Fix B: window.openCreditsModal and closeCreditsModal Must Exist
         window.openCreditsModal = function() {
             const m = document.getElementById('credits-modal');
             if (!m) return;
@@ -2255,16 +2203,16 @@
             setTimeout(() => m.classList.add('hidden'), 300);
         };
 
-        // Fix D: window.handleGoogleLoginState Must Show Loading State
+        // Fix 4: Restored Original Professional Dot-Wave Loader for Login
         window.handleGoogleLoginState = async function(btn) {
             if(!window.supabaseClient) {
                 window.showToast('Authentication system initializing...', 'alert');
                 return;
             }
             
-            // Show loading state
+            // Replaced default spinner with the requested original 3-dot animation
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span>Signing in...</span>`;
+            btn.innerHTML = `<div class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-1 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-2 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div><div class="w-1.5 h-1.5 bg-white rounded-full dot-wave dot-3 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div></div> <span class="ml-1">Signing in...</span>`;
             btn.classList.add('pointer-events-none', 'opacity-80');
             
             try {
