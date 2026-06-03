@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
-    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="icon" type="image/png" href="https://forgenos.com/assets/favicon-square.png">
     
     <title>Forgenos – Free Online Tools for Everyone</title>
     
@@ -24,6 +20,7 @@
     <meta name="theme-color" content="#141414">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://forgenos.com/assets/favicon-square.png">
 
     <!-- CONNECTING THE NEW CONFIG FILE -->
     <script src="forgenos-config.js"></script>
@@ -137,6 +134,7 @@
         .rolling-list-inline { margin: 0; padding: 0; list-style: none; will-change: transform; display: flex; flex-direction: column; width: 100%; }
         .rolling-list-inline li { height: 1.1em; display: flex; align-items: center; white-space: nowrap; }
 
+        /* GRID CARDS ONLY */
         .premium-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             background: linear-gradient(145deg, #1c1c1e 0%, #09090b 100%) !important; 
@@ -164,7 +162,7 @@
             .premium-card:not([style*="grayscale"]):hover .card-image { transform: scale(1.06) translateZ(0); transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); } 
         }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; align-items: stretch; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; align-items: stretch; }
         .grid-container > * { height: 100%; }
 
         @media(max-width: 640px) {
@@ -222,6 +220,40 @@
         /* Slider Snap CSS */
         .slider-snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .slider-snap-center { scroll-snap-align: center; }
+
+        /* Additional Premium Home Page Styles */
+        @keyframes speed-glow {
+            0% { transform: translateX(-30%) translateY(-10%) scale(1); opacity: 0.15; }
+            50% { transform: translateX(30%) translateY(5%) scale(1.2); opacity: 0.25; }
+            100% { transform: translateX(-30%) translateY(-10%) scale(1); opacity: 0.15; }
+        }
+        .top-ambient-glow {
+            position: absolute; top: -100px; left: 20%; width: 60vw; max-width: 1200px; height: 400px;
+            background: radial-gradient(ellipse, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0;
+            animation: speed-glow 8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        .fade-overlay-bottom { background: linear-gradient(to top, rgba(15, 17, 19, 1) 0%, rgba(15, 17, 19, 0.7) 40%, rgba(15, 17, 19, 0) 100%); }
+        .fade-overlay-br { background: linear-gradient(to top left, rgba(15, 17, 19, 1) 0%, rgba(15, 17, 19, 0.85) 30%, rgba(15, 17, 19, 0) 80%); }
+
+        .netflix-zoom { transform: scale(50); opacity: 0; filter: blur(10px); pointer-events: none; }
+
+        /* Custom Slider Cards (No fixed flex-direction width conflicts) */
+        .slider-card {
+            background: linear-gradient(145deg, #1a1a1c 0%, #09090b 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        @media (min-width: 1024px) { 
+            .slider-card:hover {
+                transform: translateY(-8px) scale(1.02);
+                border-color: rgba(var(--brand-rgb), 0.4);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(var(--brand-rgb),0.5);
+                z-index: 20;
+            }
+        }
     </style>
 </head>
 <body class="antialiased opacity-0 transition-opacity duration-700 ease-in-out" id="app-root">
@@ -262,7 +294,6 @@
 
         const forgenosLogoMark = `
             <div class="flex items-center group" onclick="if(window.playLogoAnim) window.playLogoAnim(); window.navigateSmoothly('/', 'home')" style="cursor:pointer">
-                <!-- WIDENED LOGO WITH FIXED ANIMATION -->
                 <div class="relative w-10 h-10 md:w-11 md:h-11 shrink-0 flex items-center justify-center bg-transparent z-10 forgenos-logo-container">
                     <svg viewBox="0 0 110 100" class="w-full h-full forgenos-logo-svg" style="overflow:visible; transform: scale(1.15);">
                         <polygon class="forgenos-shape-left" points="22,52 46,40 46,78 22,90" style="fill:#f97316;transform-origin:center"/>
@@ -299,13 +330,32 @@
             <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
             <!-- FIXED TOP HEADER -->
-            <header id="main-header" class="fixed top-0 left-0 w-full z-[100] bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 px-4 md:px-8 py-4 md:py-6 flex items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
+            <header id="main-header" class="fixed top-0 left-0 w-full z-[100] bg-[#141414]/90 backdrop-blur-xl border-b border-white/5 px-3 md:px-5 py-4 md:py-6 flex items-center shadow-[0_5px_30px_rgba(0,0,0,0.8)]">
                 <div class="flex items-center cursor-pointer shrink-0" aria-label="Go to Home">
                     ${forgenosLogoMark}
                 </div>
                 
-                <!-- PILLS NAVIGATION -->
-                <nav id="desktop-nav" class="hidden xl:flex flex-1 items-center overflow-x-auto hide-scroll ml-6 md:ml-auto gap-3 pr-4 justify-end"></nav>
+                <!-- TEXT NAVIGATION (Right Aligned, Mask Fade, Specific Icons, Lite White Hover) -->
+                <div class="hidden xl:flex flex-1 items-center justify-end overflow-hidden ml-8 relative h-full" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%); mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);">
+                    <nav class="flex items-center justify-end gap-5 lg:gap-6 pr-4 pl-10 font-medium text-[13px] text-gray-400 whitespace-nowrap overflow-x-auto hide-scroll w-full max-w-full">
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/', 'home')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="compass" class="w-4 h-4"></i> Explore</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#projects', 'projects')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="folder-heart" class="w-4 h-4"></i> Projects</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#finance', 'finance')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="dollar-sign" class="w-4 h-4"></i> Finance</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#dev', 'dev')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="code-2" class="w-4 h-4"></i> Dev</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#student', 'student')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="graduation-cap" class="w-4 h-4"></i> Study</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#brain', 'brain')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="brain-circuit" class="w-4 h-4"></i> Brain</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#health', 'health')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="heart-pulse" class="w-4 h-4"></i> Health</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#pdf', 'pdf')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="file-text" class="w-4 h-4"></i> PDF</a>
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#image', 'image')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="image" class="w-4 h-4"></i> Image</a>
+                        
+                        <!-- Simple Button for My List -->
+                        <a href="javascript:void(0)" onclick="window.navigateSmoothly('/#saved', 'saved')" class="ml-2 bg-[#1c1c1e] hover:bg-white text-gray-300 hover:text-black font-bold px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 border border-white/10">
+                            <i data-lucide="bookmark" class="w-4 h-4"></i> My List
+                        </a>
+                    </nav>
+                </div>
+                
+                <div class="flex-1 xl:hidden"></div>
                 
                 <!-- MOBILE MENU BUTTON -->
                 <button type="button" aria-label="Toggle Mobile Menu" onclick="window.toggleMobileMenu()" class="xl:hidden ml-auto p-2 text-white/80 hover:text-white transition-colors relative z-[60]">
@@ -331,7 +381,7 @@
                 <!-- MAIN CONTENT WRAPPER -->
                 <main class="flex-1 w-full relative min-h-screen flex flex-col pt-[90px] md:pt-[110px] pb-0" id="main-container">
                     
-                    <!-- YAHAN SARA CONTENT CHANGE HOGA -->
+                    <!-- DYNAMIC VIEW CONTENT -->
                     <div id="view-content" class="flex-1 pb-10 relative w-full h-full"></div>
                     
                     <footer id="main-footer" class="bg-[#111111] border-t border-white/5 py-12 px-6 md:px-10 lg:px-16 w-full shrink-0" style="display: none;">
@@ -674,6 +724,27 @@
         let projectToDeleteId = null;
         let currentOpenProjectId = null;
 
+        // Auto-Scroll Magic
+        window.autoScrollIntervals = {};
+        window.setupAutoScroll = function(containerId) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+            let speed = 1; let direction = 1; let isHovered = false;
+            el.addEventListener('mouseenter', () => isHovered = true);
+            el.addEventListener('mouseleave', () => isHovered = false);
+            el.addEventListener('touchstart', () => isHovered = true);
+            el.addEventListener('touchend', () => { setTimeout(() => isHovered = false, 1000); });
+            
+            if(window.autoScrollIntervals[containerId]) clearInterval(window.autoScrollIntervals[containerId]);
+            window.autoScrollIntervals[containerId] = setInterval(() => {
+                if(!isHovered) {
+                    el.scrollLeft += (speed * direction);
+                    if(el.scrollLeft + el.clientWidth >= el.scrollWidth - 5) direction = -1;
+                    else if(el.scrollLeft <= 0) direction = 1;
+                }
+            }, 25);
+        };
+
         // --- 🌟 THE MAGIC: SUPER FAST SEAMLESS INVISIBLE IFRAME NAVIGATION 🌟 ---
         window.navigateSmoothly = function(url, targetView = null) {
             
@@ -882,7 +953,6 @@
             const renderView = () => {
                 try {
                     if(view === 'home') window.renderHome();
-                    else if(view === 'settings') window.renderSettings();
                     else if(view === 'saved') window.renderSavedView();
                     else if(view === 'projects') window.renderProjectsView();
                     else if(view === 'privacy') { window.location.href = '/privacy-policy'; return; } 
@@ -932,25 +1002,8 @@
                 { id: 'health', icon: 'heart-pulse', label: 'Health' },
                 { id: 'pdf', icon: 'file-text', label: 'PDF' },
                 { id: 'image', icon: 'image', label: 'Image' },
-                { id: 'saved', icon: 'bookmark', label: 'My List' },
-                { id: 'settings', icon: 'settings', label: 'Settings' }
+                { id: 'saved', icon: 'bookmark', label: 'My List' }
             ];
-
-            const navContainer = document.getElementById('desktop-nav');
-            if(navContainer) {
-                navContainer.innerHTML = `<div class="flex items-center gap-2 md:ml-auto">` +
-                navItems.map(item => {
-                    const isActive = currentView === item.id || (currentView.startsWith('tool-') && typeof toolsData !== 'undefined' && toolsData.find(t => t.id === parseInt(currentView.split('-')[1]))?.category === item.id);
-                    const activeColorClass = catColorsMap[item.id] || 'text-brand-accent drop-shadow-[0_0_8px_rgba(var(--brand-rgb),0.8)]';
-                    const activeBgClass = isActive ? 'bg-white/10 text-white border-white/20 shadow-inner' : 'bg-transparent text-gray-400 border-transparent hover:bg-white/5 hover:text-white hover:border-white/10';
-
-                    return `
-                    <div onclick="window.navigateSmoothly('/#${item.id}', '${item.id}')" aria-label="${item.label}" title="${item.label}" class="cursor-pointer flex items-center px-5 py-2.5 rounded-full border transition-all duration-300 group shrink-0 ${activeBgClass}">
-                        <i data-lucide="${item.icon}" class="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? activeColorClass : 'text-gray-400 group-hover:text-white'}"></i>
-                        <span class="ml-2 font-bold text-[15px] whitespace-nowrap transition-colors ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}">${item.label}</span>
-                    </div>`;
-                }).join('') + `</div>`;
-            }
 
             const mobileNavContainer = document.getElementById('mobile-nav');
             if(mobileNavContainer) {
@@ -996,17 +1049,21 @@
             const query = input.value.toLowerCase().trim();
             
             if (query.length > 0) {
-                clearBtn.style.display = 'block';
+                if(clearBtn) clearBtn.style.display = 'block';
                 resultsArea.classList.remove('hidden');
                 if(mainContent) mainContent.classList.add('hidden'); 
                 
                 const filtered = typeof toolsData !== 'undefined' ? toolsData.filter(t => t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.tags.some(tag => tag.toLowerCase().includes(query))) : [];
-                countText.innerText = `${filtered.length} found`;
+                if(countText) countText.innerText = `${filtered.length} found`;
 
                 if(filtered.length === 0) {
-                    resultsGrid.innerHTML = ''; emptyState.style.display = 'flex'; emptyState.classList.remove('hidden');
+                    if(emptyState) {
+                        resultsGrid.innerHTML = ''; emptyState.style.display = 'flex'; emptyState.classList.remove('hidden');
+                    } else {
+                        resultsGrid.innerHTML = '<div class="col-span-full py-10 text-center text-gray-400">No tools found matching your search.</div>';
+                    }
                 } else {
-                    emptyState.style.display = 'none'; emptyState.classList.add('hidden');
+                    if(emptyState) { emptyState.style.display = 'none'; emptyState.classList.add('hidden'); }
                     resultsGrid.innerHTML = filtered.map((t) => `<div>${window.createCard(t)}</div>`).join('');
                     window.tryCreateIcons();
                 }
@@ -1179,7 +1236,7 @@
             }
 
             document.getElementById('view-content').innerHTML = `
-                <div class="px-6 md:px-16 py-8">
+                <div class="px-3 md:px-5 py-8">
                     <div onclick="window.navigateSmoothly('/#${tool.category}', '${tool.category}')" class="cursor-pointer flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6 md:mb-8 text-sm font-bold w-max">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to ${tool.category}
                     </div>
@@ -1286,214 +1343,336 @@
             if(typeof gsap !== 'undefined') gsap.from(".seo-content > *", { opacity: 0, y: 15, duration: 0.8, stagger: 0.15, ease: "power2.out", delay: 0.2 });
         };
 
+        function getPersonalizedGreeting(firstName) {
+            const hour = new Date().getHours();
+            let greetings;
+            if (hour >= 5 && hour < 12) {
+                greetings = [
+                    { main: `Good morning, ${firstName} ☀️`, sub: "What will you forge today?" },
+                    { main: `Rise and forge, ${firstName} 🔥`, sub: "Your tools are ready." },
+                    { main: `Morning, ${firstName} — let's build.`, sub: "The forge is hot." }
+                ];
+            } else if (hour >= 12 && hour < 17) {
+                greetings = [
+                    { main: `Good afternoon, ${firstName} ⚡`, sub: "Keep the momentum going." },
+                    { main: `Hey ${firstName}, ready to forge?`, sub: "Afternoon fuel: unlimited." }
+                ];
+            } else if (hour >= 17 && hour < 21) {
+                greetings = [
+                    { main: `Good evening, ${firstName} 🌆`, sub: "Golden hour for great ideas." },
+                    { main: `Evening, ${firstName} — one more build?`, sub: "The best work happens now." }
+                ];
+            } else {
+                greetings = [
+                    { main: `Working late, ${firstName}? 🌙`, sub: "The forge never sleeps." },
+                    { main: `Night owl mode, ${firstName} 🦉`, sub: "Best builders build in the dark." }
+                ];
+            }
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        }
+
         window.renderHome = function() {
-            // Get data from CMS config
-            const align = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.layout && FORGENOS_CONFIG.layout.alignment) ? FORGENOS_CONFIG.layout.alignment : 'left';
-            const textAlignClass = align === 'center' ? 'text-center mx-auto' : align === 'right' ? 'text-right ml-auto' : 'text-left';
-            const flexJustifyClass = align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : 'justify-start';
-
-            let titleClasses = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.titleSize) ? FORGENOS_CONFIG.hero.titleSize : 'text-4xl md:text-6xl';
-            let effectClass = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.effect) ? FORGENOS_CONFIG.hero.effect : 'animate-fade-up';
-            let words = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.hero && FORGENOS_CONFIG.hero.rollingWords) ? FORGENOS_CONFIG.hero.rollingWords : ['Toolkit', 'Dashboard', 'Partner', 'Resource', 'Experience'];
-
-            let cSliderTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.sliderToolIds) ? FORGENOS_CONFIG.sliderToolIds : [25];
-            let cTrendingTools = (typeof FORGENOS_CONFIG !== 'undefined' && FORGENOS_CONFIG.trendingToolIds) ? FORGENOS_CONFIG.trendingToolIds : [24, 30, 46, 62];
-            
-            let sliderData = typeof toolsData !== 'undefined' ? toolsData.filter(t => cSliderTools.includes(t.id)) : [];
-            if(sliderData.length === 0 && typeof toolsData !== 'undefined') sliderData = toolsData.slice(0, 1);
-
-            let trendingData = typeof toolsData !== 'undefined' ? toolsData.filter(t => cTrendingTools.includes(t.id)) : [];
-            if(trendingData.length === 0 && typeof toolsData !== 'undefined') trendingData = toolsData.slice(0, 4);
+            let heroHtml = '';
+            if (window.authState && window.authState.isAuthenticated) {
+                const firstName = window.authState.user.user_metadata?.full_name?.split(' ')[0] || 'Builder';
+                const greeting = getPersonalizedGreeting(firstName);
+                heroHtml = `
+                    <h1 class="text-[2.2rem] md:text-5xl lg:text-[62px] font-black text-white tracking-tighter leading-[1.1] mb-2">${greeting.main}</h1>
+                    <p class="text-brand-accent text-base md:text-xl font-bold mt-1 mb-3">${greeting.sub}</p>
+                `;
+            } else {
+                heroHtml = `
+                    <h1 class="text-[2.6rem] md:text-6xl lg:text-[70px] font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 tracking-tighter drop-shadow-2xl leading-[1.1] mb-2">
+                        NEXT-GEN AI TOOLS
+                    </h1>
+                    <p class="text-gray-400 text-[15px] md:text-lg mt-3 md:mt-4 font-medium max-w-[600px] leading-relaxed">
+                        The ultimate directory for precision-engineered AI workflows, formatters, and creative engines running directly in your browser.
+                    </p>
+                `;
+            }
 
             let html = `
-                <!-- TOP HERO SECTION (Title, Description, Search) -->
-                <div class="relative z-10 px-6 md:px-16 pt-6 pb-8 max-w-5xl w-full ${textAlignClass}">
-                    <h1 class="${titleClasses} font-black text-white tracking-tighter mb-4 ${effectClass} leading-tight">
-                        The Ultimate All in One&#32;<span class="rolling-wrapper-inline"><ul class="rolling-list-inline text-brand-accent" id="heroRollingList"><li>Toolkit</li><li>Dashboard</li><li>Partner</li><li>Resource</li><li>Experience</li><li aria-hidden="true">Toolkit</li></ul></span>
-                    </h1>
-
-                  <p class="text-gray-400 text-base md:text-lg font-medium max-w-2xl mb-8 ${effectClass} leading-relaxed ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}" style="animation-delay: 0.05s">
-                   The definitive arsenal for your digital productivity. A curated collection of precision engineered tools covering everything from visual processing to technical development optimized for uncompromised performance and security.
-                </p> 
-
-                   <div class="relative max-w-2xl ${effectClass} mt-8 ${align === 'center' ? 'mx-auto text-left' : align === 'right' ? 'ml-auto text-left' : 'text-left'}" style="animation-delay: 0.1s">
-                        <div class="relative group">
-                            <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 group-focus-within:text-brand-accent transition-colors"></i>
-                            <input type="text" id="inline-search-input" aria-label="Search Tools" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#1c1c1e] border border-white/10 hover:border-brand-accent/30 text-white text-base md:text-lg rounded-full py-4 md:py-5 pl-16 pr-6 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-shadow shadow-[0_10px_30px_rgba(0,0,0,0.8)] focus:shadow-[0_0_20px_rgba(var(--brand-rgb),0.2)] placeholder-gray-400" autocomplete="off" oninput="window.performInlineSearch()">
-                            <button onclick="window.closeInlineSearch()" aria-label="Clear Search" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hidden transition-colors" id="inline-search-clear"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
-                        </div>
+                <!-- HERO TITLE & SEARCH BAR -->
+                <div class="w-full text-left md:text-center flex flex-col items-start md:items-center pt-6 md:pt-14 pb-2 px-3 md:px-5">
+                    ${heroHtml}
+                    <!-- Search Box -->
+                    <div class="relative w-full max-w-2xl mt-8 md:mt-10">
+                        <i data-lucide="search" class="absolute left-6 md:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                        <input type="text" id="inline-search-input" placeholder="Search for tools, workflows, or generators..." class="w-full bg-[#15171a] border border-white/10 hover:border-brand-accent/40 rounded-full py-4 pl-14 pr-4 text-white text-sm md:text-base focus:outline-none focus:border-brand-accent transition-colors shadow-[0_10px_30px_rgba(0,0,0,0.5)] placeholder-gray-500" oninput="window.performInlineSearch()">
+                        <button onclick="window.closeInlineSearch()" id="inline-search-clear" class="absolute right-3 md:right-2 top-1/2 -translate-y-1/2 bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors hidden">
+                            <i data-lucide="x" class="w-4 h-4 text-gray-300"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div id="search-results-area" class="hidden relative z-50 px-6 md:px-16 pb-20 w-full animate-fade-up min-h-[50vh]">
+                <!-- SEARCH RESULTS AREA -->
+                <div id="search-results-area" class="hidden relative z-50 px-3 md:px-5 pb-20 w-full animate-fade-up min-h-[50vh] mt-8">
                     <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
                         <h3 class="text-white font-black text-2xl md:text-3xl">Search Results</h3>
-                        <span id="search-results-count" class="text-brand-accent text-xs font-black uppercase tracking-widest bg-brand-accent/10 px-3 py-1.5 rounded-lg border border-brand-accent/20"></span>
                     </div>
                     <div id="search-results-grid" class="grid-container text-left justify-start"></div>
-                    <div id="search-results-empty" class="hidden flex-col items-center justify-center py-24 text-center bg-[#141414] rounded-3xl border border-white/5 shadow-2xl">
-                        <i data-lucide="telescope" class="w-20 h-20 text-gray-600 mb-6"></i>
-                        <h4 class="text-white font-black text-2xl">No tools found</h4>
-                        <p class="text-gray-400 text-base mt-2">Try adjusting your keywords to find what you need.</p>
-                    </div>
                 </div>
 
-                <div id="home-main-content">
+                <div id="home-main-content" class="w-full">
                     
-                    <!-- SHORT CATEGORY PILLS -->
-                    <div class="px-6 md:px-16 pb-8 max-w-5xl w-full ${textAlignClass}">
-                        <div class="flex flex-wrap ${flexJustifyClass} gap-3 ${effectClass}" style="animation-delay: 0.2s">
-                            ${categoriesList.map(cat => `<button aria-label="Category: ${cat.title}" onclick="window.navigateSmoothly('/#${cat.id}', '${cat.id}')" class="cursor-pointer flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-[#1c1c1e] hover:bg-white/10 hover:border-white/20 transition-all text-xs md:text-sm font-bold text-white shadow-md"><i data-lucide="${cat.icon}" class="w-4 h-4 ${cat.color}"></i> ${cat.title}</button>`).join('')}
+                    <!-- TOP PICKS SLIDER -->
+                    <div class="w-full relative px-3 md:px-5 mt-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-white/50 flex items-center gap-2">
+                                <i data-lucide="flame" class="w-4 h-4 text-brand-accent"></i> Top Picks
+                            </h2>
                         </div>
-                    </div>
-
-                    <!-- 🌟 SLIDING HERO BANNER (GSAP carousel with hero-slider + hero-dot) 🌟 -->
-                    <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden mx-6 md:px-0 md:mx-16 rounded-3xl mb-16 border border-white/10 shadow-2xl bg-black" style="animation-delay: 0.3s">
-                        <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
-                            ${heroSlides.map((slide, i) => `
-                            <div class="hero-slide min-w-full h-full relative skeleton-bg">
-                                <img src="${slide.img}" fetchpriority="${i === 0 ? 'high' : 'auto'}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${slide.title.replace(/<[^>]*>?/gm, '')}">
-                                <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
-                                <div class="absolute bottom-10 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-4 md:space-y-6">
-                                    <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(229,9,20,0.4)]">${slide.tag}</span>
-                                    <h1 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h1>
-                                    <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
-                                    <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
-                                    <div class="flex gap-3 md:gap-4 pt-2">
-                                        <button aria-label="Launch ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
-                                        <button aria-label="Details for ${slide.title.replace(/<[^>]*>?/gm, '')}" onclick="window.handleNavClick('tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                        
+                        <div id="top-picks-scroll" class="flex overflow-x-auto hide-scroll snap-x snap-mandatory gap-4 md:gap-5 pb-12 pt-4 px-2 -mx-2 w-full cursor-grab active:cursor-grabbing">
+                            <!-- Slide 1 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#dev', 'dev')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" alt="Generative Art">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5">
+                                        <span class="bg-black/40 backdrop-blur-md border border-white/20 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><span class="w-2 h-2 rounded-full bg-brand-accent"></span> Editor's Choice</span>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Neural Engine</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Generate high-fidelity assets in browser.</p>
                                     </div>
                                 </div>
-                            </div>`).join('')}
-                        </div>
-                        <div class="absolute bottom-6 md:bottom-8 right-6 md:right-10 z-30 flex gap-2">
-                            ${heroSlides.map((_, i) => `<div class="hero-dot w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(229,9,20,0.8)]' : 'bg-white/30'}"></div>`).join('')}
-                        </div>
-                    </section>
-
-                    <!-- PINNED, TRENDING, OVERLAYS -->
-                    <div class="px-6 md:px-16 py-4 md:py-8 text-left">
-            `;
-
-            if (pinnedTools.length > 0) {
-                const pTools = typeof toolsData !== 'undefined' ? toolsData.filter(t => pinnedTools.includes(t.id)) : [];
-                html += `
-                    <section class="animate-fade-up mb-16 md:mb-24">
-                        <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                            <div class="flex items-center gap-4 group cursor-pointer" onclick="window.navigateSmoothly('/', 'home')">
-                                <i data-lucide="pin" class="text-brand-accent w-8 h-8 transition-transform group-hover:scale-110 fill-brand-accent drop-shadow-[0_0_10px_rgba(var(--brand-rgb),0.8)]"></i>
-                                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Pinned Arsenal</h2>
                             </div>
-                        </div>
-                        <div class="grid-container text-left justify-start">
-                            ${pTools.map(t => `<div>${window.createCard(t, false, true)}</div>`).join('')}
-                        </div>
-                    </section>`;
-            }
-
-            // 🔥 DYNAMIC TRENDING TOOLS FROM CMS 🔥
-            if(trendingData.length > 0) {
-                html += `
-                <section class="animate-fade-up mb-16 md:mb-24">
-                    <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                        <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Trending Tools</h2>
-                    </div>
-                    <div class="grid-container text-left justify-start">
-                        ${trendingData.map(t => `<div>${window.createCard(t)}</div>`).join('')}
-                    </div>
-                </section>`;
-            }
-
-            // 🖼️ PREMIUM OVERLAY CATEGORIES 🖼️
-            html += `
-                <section class="animate-fade-up mb-16 md:mb-24">
-                    <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                        <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Explore Categories</h2>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                        ${categoriesList.map(cat => `
-                            <div onclick="window.navigateSmoothly('/#${cat.id}', '${cat.id}')" class="relative overflow-hidden rounded-3xl group cursor-pointer h-[180px] md:h-[220px] shadow-lg border border-white/10 hover:border-white/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:-translate-y-1 transition-all duration-300">
-                                <img src="${cat.img}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-80" loading="lazy" alt="${cat.title}">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                                
-                                <div class="absolute inset-0 p-5 md:p-6 flex flex-col justify-end text-left z-10">
-                                    <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md mb-3 flex items-center justify-center border border-white/20 shadow-inner group-hover:bg-brand-accent/20 transition-colors">
-                                        <i data-lucide="${cat.icon}" class="${cat.color} w-5 h-5 drop-shadow-lg"></i>
+                            <!-- Slide 2 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#dev', 'dev')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-gradient-to-br from-[#0a192f] to-[#0f1113]">
+                                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen transition-transform duration-700 group-hover:scale-110" alt="Code">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5 z-10">
+                                        <span class="bg-cyan-500/20 backdrop-blur-md border border-cyan-500/30 text-cyan-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="cpu" class="w-3 h-3"></i> AI Powered</span>
                                     </div>
-                                    <h3 class="text-white font-black text-xl mb-1 group-hover:text-brand-accent transition-colors">${cat.title}</h3>
-                                    <p class="text-gray-300 text-xs font-medium line-clamp-1">${cat.desc}</p>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Dev Assist Pro</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Format, validate & debug with AI.</p>
+                                    </div>
                                 </div>
                             </div>
-                        `).join('')}
+                            <!-- Slide 3 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#finance', 'finance')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 transition-transform duration-700 group-hover:scale-110" alt="Finance">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5 z-10">
+                                        <span class="bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="trending-up" class="w-3 h-3"></i> Top Tier</span>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">FireCalc AI</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Predictive financial independence modeling.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 4 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#pdf', 'pdf')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
+                                    <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="PDF">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5 z-10">
+                                        <span class="bg-cyan-500/20 backdrop-blur-md border border-cyan-500/30 text-cyan-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="file-text" class="w-3 h-3"></i> Essential</span>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">PDF Magic</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Merge, split & secure locally in seconds.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 5 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#image', 'image')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
+                                    <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="Image Lab">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5 z-10">
+                                        <span class="bg-fuchsia-500/20 backdrop-blur-md border border-fuchsia-500/30 text-fuchsia-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="image" class="w-3 h-3"></i> Creator Tools</span>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Image Lab</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Format converters, compressors & extractors.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 6 -->
+                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#brain', 'brain')">
+                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
+                                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="Brain Training">
+                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
+                                    <div class="absolute top-5 left-5 z-10">
+                                        <span class="bg-purple-500/20 backdrop-blur-md border border-purple-500/30 text-purple-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="brain-circuit" class="w-3 h-3"></i> Focus</span>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 right-6 z-10">
+                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Brain Focus</h3>
+                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Cognitive testing & simulators.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </section>
-            `;
 
-            html += `
-                <section class="animate-fade-up mt-10 mb-10 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-accent/20 to-[#141414] border border-brand-accent/30 p-10 md:p-16 text-center flex flex-col items-center shadow-[0_20px_50px_rgba(var(--brand-rgb),0.15)]">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
-                    
-                    <i data-lucide="zap" class="w-12 h-12 text-brand-accent mb-6"></i>
-                    <h2 class="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Level Up Your Workflow</h2>
-                    <p class="text-gray-300 text-base md:text-lg max-w-2xl mb-8 leading-relaxed">No signups. No subscriptions. Just pure performance. FORGENOS gives you the elite tools you need to build, manage, and optimize faster than ever.</p>
-                    <button onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('inline-search-input').focus();" class="bg-brand-accent hover:bg-opacity-80 text-white font-black px-8 py-4 rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-sm md:text-base uppercase tracking-wider">Start Exploring</button>
-                </section>
-            `;
+                    <!-- BENTO GRID -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5 mt-4 px-3 md:px-5 w-full">
+                        <div class="lg:col-span-5 flex flex-col gap-2">
+                            <h2 class="text-sm font-black uppercase tracking-widest text-white/50 mb-1 px-2 hidden lg:block text-right">Master Command</h2>
+                            <div class="premium-card rounded-[24px] relative overflow-hidden h-[340px] md:h-full flex flex-col group cursor-pointer border-brand-accent/20" onclick="window.navigateSmoothly('/#projects', 'projects')">
+                                <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700" alt="Tech">
+                                <div class="absolute inset-0 fade-overlay-br z-10"></div>
+                                <div class="relative z-20 p-6 md:p-8 h-full flex flex-col">
+                                    <div class="flex items-center gap-2 mb-6">
+                                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#22d3ee]"></span>
+                                        <span class="text-cyan-400 text-[11px] font-black uppercase tracking-widest">System Core Active</span>
+                                    </div>
+                                    <h2 class="text-4xl md:text-[50px] font-black text-white uppercase tracking-tighter leading-none mb-4 drop-shadow-xl">Command<br>Center</h2>
+                                    <p class="text-gray-300 text-sm font-medium max-w-[280px] leading-relaxed drop-shadow-md">Access your saved tools, automations, and projects in one centralized dashboard.</p>
+                                    <div class="mt-auto flex items-center justify-between">
+                                        <button class="bg-white text-black font-black px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm">
+                                            Open Core <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            html += `</div></div>`;
+                        <div class="lg:col-span-7 flex flex-col gap-2 mt-4 md:mt-0">
+                            <h2 class="text-sm font-black uppercase tracking-widest text-white/50 mb-1 px-2">Core Modules</h2>
+                            <div class="grid grid-cols-2 gap-3 md:gap-4 h-full">
+                                <div class="premium-card rounded-[20px] md:rounded-[24px] p-4 md:p-6 flex flex-col justify-between min-h-[160px] md:min-h-[220px] cursor-pointer group relative overflow-hidden bg-[#141414]" onclick="window.navigateSmoothly('/#dev', 'dev')">
+                                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500 z-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-0"></div>
+                                    <div class="flex justify-between items-start mb-4 relative z-10">
+                                        <div class="w-10 h-10 md:w-12 md:h-12 bg-[#1b1d22]/90 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-white/10 shadow-inner group-hover:border-blue-500/50 transition-colors"><i data-lucide="code-2" class="w-5 h-5 md:w-6 md:h-6 text-blue-400"></i></div>
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <div class="relative z-10 mt-auto">
+                                        <h3 class="text-sm md:text-xl font-black text-white leading-tight mb-1 truncate">Dev Engine</h3>
+                                        <p class="text-gray-400 text-[11px] md:text-sm leading-snug line-clamp-2">Advanced formatters & utilities.</p>
+                                    </div>
+                                </div>
+                                <div class="premium-card rounded-[20px] md:rounded-[24px] p-4 md:p-6 flex flex-col justify-between min-h-[160px] md:min-h-[220px] cursor-pointer group relative overflow-hidden bg-[#141414]" onclick="window.navigateSmoothly('/#finance', 'finance')">
+                                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500 z-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-0"></div>
+                                    <div class="flex justify-between items-start mb-4 relative z-10">
+                                        <div class="w-10 h-10 md:w-12 md:h-12 bg-[#1b1d22]/90 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-white/10 shadow-inner group-hover:border-green-500/50 transition-colors"><i data-lucide="dollar-sign" class="w-5 h-5 md:w-6 md:h-6 text-green-500"></i></div>
+                                        <span class="bg-green-500/20 text-green-400 border border-green-500/30 text-[9px] px-2 py-1 rounded font-black uppercase backdrop-blur-sm shadow-lg">Trending</span>
+                                    </div>
+                                    <div class="relative z-10 mt-auto">
+                                        <h3 class="text-sm md:text-xl font-black text-white leading-tight mb-1 truncate">Finance Suite</h3>
+                                        <p class="text-gray-400 text-[11px] md:text-sm leading-snug line-clamp-2">Track wealth & FIRE goals.</p>
+                                    </div>
+                                </div>
+                                <div class="premium-card rounded-[20px] md:rounded-[24px] p-4 md:p-6 flex flex-col justify-between min-h-[160px] md:min-h-[220px] cursor-pointer group relative overflow-hidden bg-[#141414]" onclick="window.navigateSmoothly('/#brain', 'brain')">
+                                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500 z-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-0"></div>
+                                    <div class="flex justify-between items-start mb-4 relative z-10">
+                                        <div class="w-10 h-10 md:w-12 md:h-12 bg-[#1b1d22]/90 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-white/10 shadow-inner group-hover:border-purple-500/50 transition-colors"><i data-lucide="brain-circuit" class="w-5 h-5 md:w-6 md:h-6 text-purple-400"></i></div>
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <div class="relative z-10 mt-auto">
+                                        <h3 class="text-sm md:text-xl font-black text-white leading-tight mb-1 truncate">Brain Training</h3>
+                                        <p class="text-gray-400 text-[11px] md:text-sm leading-snug line-clamp-2">Cognitive tests & memory limits.</p>
+                                    </div>
+                                </div>
+                                <div class="premium-card rounded-[20px] md:rounded-[24px] p-4 md:p-6 flex flex-col justify-between min-h-[160px] md:min-h-[220px] cursor-pointer group relative overflow-hidden bg-[#141414]" onclick="window.navigateSmoothly('/#pdf', 'pdf')">
+                                    <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500 z-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent z-0"></div>
+                                    <div class="flex justify-between items-start mb-4 relative z-10">
+                                        <div class="w-10 h-10 md:w-12 md:h-12 bg-[#1b1d22]/90 backdrop-blur-md rounded-[14px] flex items-center justify-center border border-white/10 shadow-inner group-hover:border-cyan-500/50 transition-colors"><i data-lucide="file-text" class="w-5 h-5 md:w-6 md:h-6 text-cyan-400"></i></div>
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4 md:w-5 md:h-5 text-gray-500 group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <div class="relative z-10 mt-auto">
+                                        <h3 class="text-sm md:text-xl font-black text-white leading-tight mb-1 truncate">PDF Magic</h3>
+                                        <p class="text-gray-400 text-[11px] md:text-sm leading-snug line-clamp-2">Merge, split & secure locally.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FULL WIDTH BANNERS -->
+                    <div class="w-full flex flex-col gap-6 md:gap-8 mx-3 md:mx-5 mt-4 md:mt-6 w-[calc(100%-24px)] md:w-[calc(100%-40px)]">
+                        <div class="w-full h-[250px] md:h-[400px] rounded-[24px] md:rounded-[40px] overflow-hidden relative premium-card group cursor-pointer" onclick="window.navigateSmoothly('/#image', 'image')">
+                            <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt="Cinematic AI">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0f1113] via-[#0f1113]/60 to-transparent"></div>
+                            <div class="relative z-10 h-full flex flex-col justify-center p-8 md:p-16 w-full md:w-2/3 text-left">
+                                <h2 class="text-4xl md:text-7xl font-black text-white tracking-tighter mb-2 drop-shadow-2xl font-serif italic">MORK</h2>
+                                <p class="text-brand-accent text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-6 drop-shadow-md">The Tale of AI Genesis</p>
+                                <div><button class="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black text-white px-6 py-2.5 rounded-lg text-sm md:text-base font-bold flex items-center gap-2 transition-all shadow-xl w-max"><i data-lucide="play" class="w-4 h-4 fill-current"></i> Watch Trailer</button></div>
+                            </div>
+                            <div class="absolute bottom-6 right-8 text-right hidden md:block z-10">
+                                <p class="text-white text-sm font-bold drop-shadow-md">Available on <span class="text-brand-accent">FORGENOS ORIGINALS</span></p>
+                                <p class="text-gray-300 text-xs drop-shadow-md">First ever AI series streaming platform.</p>
+                            </div>
+                        </div>
+
+                        <div class="w-full h-[250px] md:h-[350px] rounded-[24px] md:rounded-[40px] overflow-hidden relative premium-card group cursor-pointer bg-[#0f1113]" onclick="window.navigateSmoothly('/#image', 'image')">
+                            <div class="absolute top-[-30%] left-[-10%] w-[60%] h-[150%] bg-gradient-to-br from-purple-600/30 via-indigo-500/20 to-transparent blur-[80px] pointer-events-none"></div>
+                            <div class="absolute bottom-[-30%] right-[-10%] w-[70%] h-[150%] bg-gradient-to-tl from-brand-accent/30 via-orange-500/10 to-transparent blur-[90px] pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-[#0f1113]/40"></div> 
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" class="absolute right-[5%] md:right-[20%] top-[10%] w-[120px] md:w-[220px] rounded-2xl transform rotate-12 opacity-90 shadow-2xl group-hover:rotate-6 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" class="absolute right-[-5%] md:right-[5%] bottom-[5%] w-[140px] md:w-[240px] rounded-2xl transform -rotate-6 opacity-95 shadow-2xl group-hover:rotate-0 transition-transform duration-500 z-10">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0f1113] via-[#0f1113]/80 to-transparent"></div>
+                            <div class="relative z-20 h-full flex flex-col justify-center p-8 md:p-16">
+                                <span class="bg-brand-accent text-white text-[10px] md:text-xs font-black italic px-3 py-1 w-max rounded-sm mb-4 uppercase tracking-wider shadow-lg">Photodump AI</span>
+                                <h2 class="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase leading-[1.1] mb-2 drop-shadow-xl max-w-sm">Different Scenes<br>Same Star</h2>
+                                <p class="text-gray-300 text-xs md:text-sm mb-6 drop-shadow-md">Build your character. One click does the rest.</p>
+                                <button class="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-xl text-sm font-bold w-max transition-colors shadow-lg">Try Photodump</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EXPLAINING CARD -->
+                    <div class="w-[calc(100%-24px)] md:w-[calc(100%-40px)] mx-3 md:mx-5 mt-8 md:mt-12 mb-4 relative rounded-[32px] md:rounded-[40px] bg-gradient-to-br from-[#1a1c22] to-[#121417] p-8 md:p-14 border border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)] group hover:border-brand-accent/40 transition-colors duration-500 text-left">
+                        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-accent/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+                        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                            <div class="max-w-2xl">
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-brand-accent text-xs font-black uppercase tracking-widest mb-6"><i data-lucide="zap" class="w-3.5 h-3.5"></i> Platform Overview</div>
+                                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter leading-[1.1] drop-shadow-md">Engineered for the <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">Modern Workforce</span></h2>
+                                <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8 font-medium">Forgenos is a unified directory where Content Creators, Students, Dropshippers, and Coders find tailored, high-performance tools. Filter by specific use-cases and seamlessly add the tools you need directly to your personal toolkit.</p>
+                                <button onclick="window.scrollTo({top:0, behavior:'smooth'}); document.getElementById('inline-search-input').focus();" class="bg-white text-black font-black px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-gray-200 transition-colors shadow-lg text-sm w-max">Explore Directory <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                            </div>
+                            <div class="flex flex-col gap-3 shrink-0 w-full lg:w-auto">
+                                <div class="bg-[#15171a]/80 backdrop-blur-md border border-white/10 px-5 py-4 rounded-2xl flex items-center gap-4 hover:bg-[#1b1d22] transition-colors shadow-lg cursor-pointer" onclick="window.navigateSmoothly('/#image', 'image')"><div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center border border-purple-500/20"><i data-lucide="video" class="w-4 h-4 text-purple-400"></i></div><div><p class="text-white font-bold text-sm">Content Creators</p><p class="text-gray-500 text-xs mt-0.5">Edit, convert & compress media.</p></div></div>
+                                <div class="bg-[#15171a]/80 backdrop-blur-md border border-white/10 px-5 py-4 rounded-2xl flex items-center gap-4 hover:bg-[#1b1d22] transition-colors shadow-lg cursor-pointer" onclick="window.navigateSmoothly('/#finance', 'finance')"><div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center border border-green-500/20"><i data-lucide="shopping-cart" class="w-4 h-4 text-green-400"></i></div><div><p class="text-white font-bold text-sm">Dropshippers</p><p class="text-gray-500 text-xs mt-0.5">Calculate profit margins instantly.</p></div></div>
+                                <div class="bg-[#15171a]/80 backdrop-blur-md border border-white/10 px-5 py-4 rounded-2xl flex items-center gap-4 hover:bg-[#1b1d22] transition-colors shadow-lg cursor-pointer" onclick="window.navigateSmoothly('/#dev', 'dev')"><div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20"><i data-lucide="code" class="w-4 h-4 text-blue-400"></i></div><div><p class="text-white font-bold text-sm">Developers</p><p class="text-gray-500 text-xs mt-0.5">Format JSON and test RegEx.</p></div></div>
+                                <div class="bg-[#15171a]/80 backdrop-blur-md border border-white/10 px-5 py-4 rounded-2xl flex items-center gap-4 hover:bg-[#1b1d22] transition-colors shadow-lg cursor-pointer" onclick="window.navigateSmoothly('/#student', 'student')"><div class="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20"><i data-lucide="book-open" class="w-4 h-4 text-yellow-400"></i></div><div><p class="text-white font-bold text-sm">Students</p><p class="text-gray-500 text-xs mt-0.5">Pomodoro timers & study tools.</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTTOM MASSIVE BANNER -->
+                    <div class="w-[calc(100%-24px)] md:w-[calc(100%-40px)] mx-3 md:mx-5 relative rounded-[24px] md:rounded-[40px] bg-[#111316] pt-12 pb-14 md:pt-20 md:pb-24 px-4 overflow-hidden flex flex-col items-center justify-center border border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-center mb-10 mt-10">
+                        <div class="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-brand-accent/30 blur-[100px] md:blur-[140px] rounded-full pointer-events-none"></div>
+                        <div class="absolute bottom-[-20%] right-[-10%] w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-white/10 blur-[100px] md:blur-[120px] rounded-full pointer-events-none"></div>
+                        <div class="absolute top-[10%] right-[-5%] w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-accent/20 blur-[100px] md:blur-[140px] rounded-full pointer-events-none mix-blend-screen"></div>
+                        <div class="relative z-10 w-full flex flex-col items-center">
+                            <span class="text-brand-accent/80 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-6 drop-shadow-md">Forgenos Infrastructure</span>
+                            <div class="flex justify-center gap-1.5 md:gap-3 mb-6 relative z-10">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-[#0f1113] border border-white/10 rounded-[14px] md:rounded-[20px] shadow-2xl flex items-center justify-center transform -rotate-6"><i data-lucide="cpu" class="w-5 h-5 md:w-6 md:h-6 text-white/80"></i></div>
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-[#0f1113] border border-white/10 rounded-[14px] md:rounded-[20px] shadow-2xl flex items-center justify-center transform -rotate-3"><i data-lucide="bot" class="w-5 h-5 md:w-6 md:h-6 text-blue-400"></i></div>
+                                <div class="w-14 h-14 md:w-20 md:h-20 bg-[#0f1113] border border-brand-accent/30 rounded-[16px] md:rounded-[24px] shadow-[0_0_30px_rgba(var(--brand-rgb),0.4)] flex items-center justify-center scale-110 z-10"><i data-lucide="zap" class="w-6 h-6 md:w-8 md:h-8 text-brand-accent"></i></div>
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-[#0f1113] border border-white/10 rounded-[14px] md:rounded-[20px] shadow-2xl flex items-center justify-center transform rotate-3"><i data-lucide="code" class="w-5 h-5 md:w-6 md:h-6 text-purple-400"></i></div>
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-[#0f1113] border border-white/10 rounded-[14px] md:rounded-[20px] shadow-2xl flex items-center justify-center transform rotate-6"><i data-lucide="layers" class="w-5 h-5 md:w-6 md:h-6 text-green-400"></i></div>
+                            </div>
+                            <h1 class="text-4xl md:text-6xl lg:text-[72px] font-black text-white mb-4 tracking-tighter drop-shadow-2xl leading-none">Workspace Hub</h1>
+                            <p class="text-gray-400 text-sm md:text-lg font-medium mb-10 max-w-[280px] md:max-w-[500px] drop-shadow-md">A unified environment to execute workflows, track progress, and manage projects locally.</p>
+                            <div class="bg-black/60 border border-white/10 rounded-full p-1.5 md:p-2 pl-5 md:pl-6 flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl w-full max-w-[340px] md:max-w-[500px]">
+                                <span class="text-white/60 text-xs md:text-sm font-medium flex-1 text-left truncate pr-2">Scan competitors every Monday...</span>
+                                <button onclick="window.navigateSmoothly('/#projects', 'projects')" class="bg-white text-black font-black px-5 md:px-8 py-2.5 md:py-3 rounded-full flex items-center gap-1.5 md:gap-2 hover:bg-gray-200 transition-colors shrink-0 shadow-lg text-[11px] md:text-sm"><i data-lucide="sparkles" class="w-3 h-3 md:w-4 md:h-4 text-brand-accent"></i> Run It</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
             document.getElementById('view-content').innerHTML = html;
             window.tryCreateIcons();
 
-            if(typeof gsap !== 'undefined') {
-                gsap.utils.toArray('.category-row').forEach(row => { 
-                    gsap.to(row, { scrollTrigger: { trigger: row, start: "top 90%" }, opacity: 1, y: 0, duration: 1 }); 
-                });
-            }
-            window.startHeroCarousel(); 
-            window.startHeroTextRolling();
-        };
-
-        window.startHeroCarousel = function() {
-            if (heroInterval) clearInterval(heroInterval);
-            currentHeroIndex = 0;
-            const slider = document.getElementById('hero-slider');
-            const dots = document.querySelectorAll('.hero-dot');
-            heroInterval = setInterval(() => {
-                currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
-                if(typeof gsap !== 'undefined') gsap.to(slider, { xPercent: -100 * currentHeroIndex, duration: 1, ease: "expo.inOut" });
-                dots.forEach((dot, i) => {
-                    if(i === currentHeroIndex) { dot.classList.add('w-8', 'bg-brand-accent'); dot.classList.remove('w-2', 'bg-white/30'); }
-                    else { dot.classList.add('w-2', 'bg-white/30'); dot.classList.remove('w-8', 'bg-brand-accent'); }
-                });
-            }, 6000);
-        };
-
-        window.startHeroTextRolling = function() {
-            const list = document.getElementById('heroRollingList');
-            if (!list) return;
-            const items = list.querySelectorAll('li');
-            if (!items.length) return;
-
-            let currentIndex = 0;
-            clearInterval(heroTextInterval);
-            list.style.transition = 'none';
-            list.style.transform = 'translateY(0px)';
-
-            heroTextInterval = setInterval(() => {
-                currentIndex++;
-                const itemHeight = items[0].getBoundingClientRect().height;
-                list.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-                list.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
-                if (currentIndex === items.length - 1) {
-                    setTimeout(() => {
-                        list.style.transition = 'none';
-                        currentIndex = 0;
-                        list.style.transform = 'translateY(0px)';
-                    }, 500);
-                }
-            }, 2000);
+            // Setup smooth infinite auto-scroll logic for rows
+            setTimeout(() => {
+                window.setupAutoScroll('top-picks-scroll');
+                window.setupAutoScroll('essential-workflows-scroll');
+            }, 500);
         };
 
         window.renderCategoryPage = function(catId) {
@@ -1527,57 +1706,6 @@
             `;
             if(typeof gsap !== 'undefined') gsap.fromTo('.category-hero-img', { scale: 1.1 }, { scale: 1, duration: 1.5, ease: "power2.out" });
             window.tryCreateIcons();
-        };
-
-        window.renderSettings = function() { 
-            const isPC = window.innerWidth >= 1024;
-            document.getElementById('view-content').innerHTML = `
-                <div class="pt-16 md:pt-20 pb-20 px-6 md:px-16 max-w-5xl mx-auto text-left">
-                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">Settings</h1>
-                    <p class="text-gray-400 mb-12 md:mb-16 text-lg">Personalize your FORGENOS experience.</p>
-                    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="monitor" class="text-brand-accent"></i> Interface</h2>
-                            ${window.createToggle('Space Background', 'Enable dynamic space and meteor effects.', 'interactiveBg')}
-                            ${isPC ? window.createToggle('Smooth Scrolling', 'Enable buttery smooth scroll (PC only).', 'smoothScroll') : ''}
-                            ${window.createToggle('Compact Mode', 'Dense grid layout for experts.', 'compactMode')}
-                            ${window.createToggle('Reduced Motion', 'Disable intensive animations.', 'reduceMotion')}
-                        </div>
-                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="shield-check" class="text-brand-accent"></i> Privacy</h2>
-                            ${window.createToggle('Privacy Blur', 'Blur site when tab is inactive.', 'privacyBlur')}
-                        </div>
-                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="bell" class="text-brand-accent"></i> Notifications</h2>
-                            ${window.createToggle('Push Notifications', 'Alerts for new tool drops.', 'notifications')}
-                        </div>
-                        <div class="bg-[#0f0f0f] border border-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8 shadow-xl">
-                            <h2 class="text-xl font-bold text-white flex items-center gap-3"><i data-lucide="database" class="text-brand-accent"></i> Storage</h2>
-                            <div class="flex items-center justify-between">
-                                <div><h3 class="font-bold text-white">Clear Favorites</h3><p class="text-xs text-gray-400">Delete all saved items.</p></div>
-                                <button aria-label="Clear Saved Favorites" onclick="window.resetStorage('saved')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Clear</button>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div><h3 class="font-bold text-white">Wipe Toolkits</h3><p class="text-xs text-gray-400">Delete all custom projects.</p></div>
-                                <button aria-label="Wipe Custom Toolkits" onclick="window.resetStorage('projects')" class="text-[10px] font-black uppercase text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all">Wipe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            window.tryCreateIcons();
-        };
-
-        window.createToggle = function(title, desc, key) { 
-            const isChecked = appSettings[key];
-            const idValue = `toggle-${key}`;
-            return `
-                <div class="flex items-center justify-between group">
-                    <div><h3 class="font-bold text-white" id="${idValue}-label">${title}</h3><p class="text-xs text-gray-400">${desc}</p></div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="${idValue}" aria-labelledby="${idValue}-label" class="sr-only peer" ${isChecked ? 'checked' : ''} onchange="window.toggleSetting('${key}')">
-                        <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-accent"></div>
-                    </label>
-                </div>`;
         };
 
         window.renderProjectsView = function() { 
@@ -1811,7 +1939,8 @@
             if (confirm("Are you sure? This cannot be undone.")) {
                 if (type === 'saved') { savedTools = []; localStorage.removeItem('forgenos_saved'); } 
                 else { myProjects = []; localStorage.removeItem('forgenos_projects'); }
-                window.renderSettings(); window.showToast("Data Wiped", "alert");
+                window.showToast("Data Wiped", "alert");
+                if (currentView === 'saved') window.renderSavedView(); else if (currentView === 'projects') window.renderProjectsView();
             }
         };
 
@@ -1892,7 +2021,7 @@
                     return; 
                 }
                 
-                const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'pdf', 'image', 'saved', 'settings'];
+                const validViews = ['home', 'projects', 'trending', 'finance', 'dev', 'student', 'brain', 'health', 'pdf', 'image', 'saved'];
                 if (validViews.includes(hashView) || hashView.startsWith('tool-')) {
                     initialView = hashView;
                 }
@@ -1911,10 +2040,12 @@
             window.applyImmediateSettings(); 
             
             if(initialView === 'home') window.renderHome();
-            else if(initialView === 'settings') window.renderSettings();
             else if(initialView === 'saved') window.renderSavedView();
             else if(initialView === 'projects') window.renderProjectsView();
-            else if(['privacy','terms','about','contact','disclaimer'].includes(initialView)) { const redirectMap = {'privacy':'/privacy-policy','terms':'/terms-of-service','about':'/about','contact':'/contact','disclaimer':'/disclaimer'}; window.location.href = redirectMap[initialView] || '/'; }
+            else if(['privacy','terms','about','contact','disclaimer'].includes(initialView)) { 
+                const redirectMap = {'privacy':'/privacy-policy','terms':'/terms-of-service','about':'/about','contact':'/contact','disclaimer':'/disclaimer'}; 
+                window.location.href = redirectMap[initialView] || '/'; 
+            }
             else if(initialView.startsWith('tool-')) window.renderToolDetailPage(parseInt(initialView.split('-')[1]));
             else window.renderCategoryPage(initialView);
 
