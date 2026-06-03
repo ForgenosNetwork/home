@@ -193,7 +193,7 @@
             width: 24px;
             height: 24px;
             border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--brand-color);
+            border-top: 3px solid #ffffff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -777,8 +777,8 @@
             // Inject rotating half circle spinner
             loaderOverlay.innerHTML = `
                 <div class="flex flex-col items-center justify-center gap-4">
-                    <div class="half-circle-spinner shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
-                    <p class="text-white/90 font-black text-sm md:text-base tracking-[0.3em] uppercase animate-pulse transition-all">Loading workspace...</p>
+                    <p class="text-white/90 font-bold text-sm md:text-base tracking-wide animate-pulse transition-all">Loading workspace...</p>
+                    <div class="half-circle-spinner"></div>
                 </div>
             `;
             
