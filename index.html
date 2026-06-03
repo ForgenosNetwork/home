@@ -187,16 +187,17 @@
             animation: loaderFlow 1s linear infinite; pointer-events: none;
         }
         @keyframes loaderFlow { 0% { background-position: 100% 0; } 100% { background-position: -200% 0; } }
-        
-        /* 🌊 PREMIUM SMOOTH WAVE ANIMATION 🌊 */
-        @keyframes waveDots {
-            0%, 100% { transform: translateY(0); opacity: 0.3; }
-            50% { transform: translateY(-10px); opacity: 1; }
+
+        /* 🔄 NEW HALF CIRCLE LOADING SPINNER 🔄 */
+        .half-circle-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--brand-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        .dot-wave { animation: waveDots 1.2s infinite ease-in-out; }
-        .dot-1 { animation-delay: 0s; }
-        .dot-2 { animation-delay: 0.2s; }
-        .dot-3 { animation-delay: 0.4s; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         body.privacy-blur { filter: blur(15px); }
 
@@ -286,8 +287,8 @@
             delaySeconds: 6,
             image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop',
             category: 'New Update',
-            title: 'NeuralForge AI Beta',
-            description: 'Experience the next generation of decentralized AI processing directly in your browser.',
+            title: 'Forgenos Engine Beta',
+            description: 'Experience the next generation of decentralized processing directly in your browser.',
             buttonText: 'Open Tool',
             buttonLink: 'https://forgenos.com/tool-page'
         };
@@ -335,7 +336,7 @@
                     ${forgenosLogoMark}
                 </div>
                 
-                <!-- TEXT NAVIGATION (Right Aligned, Mask Fade, Specific Icons, Lite White Hover) -->
+                <!-- TEXT NAVIGATION -->
                 <div class="hidden xl:flex flex-1 items-center justify-end overflow-hidden ml-8 relative h-full" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%); mask-image: linear-gradient(to right, transparent 0%, black 5%, black 100%);">
                     <nav class="flex items-center justify-end gap-5 lg:gap-6 pr-4 pl-10 font-medium text-[13px] text-gray-400 whitespace-nowrap overflow-x-auto hide-scroll w-full max-w-full">
                         <a href="javascript:void(0)" onclick="window.navigateSmoothly('/', 'home')" class="hover:text-white focus:text-white transition-colors flex items-center gap-1.5"><i data-lucide="compass" class="w-4 h-4"></i> Explore</a>
@@ -437,7 +438,7 @@
                         <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-white/5 bg-[#1a1a1c] flex flex-col shrink-0 md:h-full h-[35vh]">
                             <div class="flex-1 overflow-y-auto p-5 md:p-8 hide-scroll" data-lenis-prevent>
                                 <label for="project-name-input" class="block text-gray-400 text-[10px] font-black tracking-[0.2em] mb-2 uppercase">Toolkit Name</label>
-                                <input type="text" id="project-name-input" aria-label="Enter Toolkit Name" placeholder="e.g. AI Workflow" class="w-full bg-[#111113] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent transition-colors mb-6 placeholder-gray-500 text-sm">
+                                <input type="text" id="project-name-input" aria-label="Enter Toolkit Name" placeholder="e.g. Creator Workflow" class="w-full bg-[#111113] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand-accent transition-colors mb-6 placeholder-gray-500 text-sm">
                                 
                                 <div class="flex justify-between items-center mb-3">
                                     <label class="block text-gray-400 text-[10px] font-black tracking-[0.2em] uppercase">Selection</label>
@@ -705,7 +706,7 @@
 
         const heroSlides = [
             { id: 25, tag: "New", title: 'Fire<span class="text-brand-accent">Calc</span> ', subtitle: "Calculate your financial independence timeline and safe withdrawal rates.", desc: "Plan your early retirement with precision using our secure, free calculator.", img: "https://forgenos.com/finance/img/tool_5.webp" },
-            { id: 16, tag: "Health", title: 'Circadia<span class="text-brand-accent">Synic</span> ', subtitle: "Optimize your sleep cycles for peak energy and focus.", desc: "Calibrate your internal clock for maximum productivity and recovery.", img: "https://forgenos.com/health/img/tool_1.jpg" },
+            { id: 16, tag: "Health", title: 'Circadia<span class="text-brand-accent">Sync</span> ', subtitle: "Optimize your sleep cycles for peak energy and focus.", desc: "Calibrate your internal clock for maximum productivity and recovery.", img: "https://forgenos.com/health/img/tool_1.jpg" },
             { id: 23, tag: "PDF", title: 'PDF<span class="text-brand-accent">Protect</span>', subtitle: "Add or remove passwords from your PDF files securely.", desc: "Keep your sensitive documents safe. Everything happens directly in your browser.", img: "https://forgenos.com/pdfmagic/img/tool_1.webp" }
         ];
 
@@ -770,16 +771,16 @@
                 loaderOverlay.id = 'full-page-loader';
                 // Lighter blur to avoid rendering lag on mobile
                 loaderOverlay.className = 'fixed inset-0 z-[999999] bg-[#141414]/60 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-150 pointer-events-none opacity-0';
-                loaderOverlay.innerHTML = `
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full dot-wave dot-1 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full dot-wave dot-2 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                        <div class="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full dot-wave dot-3 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                    </div>
-                    <p class="text-white/90 font-black text-sm md:text-base tracking-[0.3em] uppercase animate-pulse transition-all">Loading workspace...</p>
-                `;
                 document.body.appendChild(loaderOverlay);
             }
+            
+            // Inject rotating half circle spinner
+            loaderOverlay.innerHTML = `
+                <div class="flex flex-col items-center justify-center gap-4">
+                    <div class="half-circle-spinner shadow-[0_0_10px_rgba(var(--brand-rgb),0.5)]"></div>
+                    <p class="text-white/90 font-black text-sm md:text-base tracking-[0.3em] uppercase animate-pulse transition-all">Loading workspace...</p>
+                </div>
+            `;
             
             // Force show instantly
             loaderOverlay.style.opacity = '1';
@@ -796,6 +797,10 @@
             
             const iframe = document.getElementById('seamless-tool-frame');
             
+            // Hide footer only while within seamless iframe, but persist otherwise
+            const footer = document.getElementById('main-footer');
+            if(footer) footer.style.display = 'none';
+
             // ⚡ THE SUPER-FAST INJECTION TRICK ⚡
             // Ye CSS ko iframe render hote hi inject kar dega, bina images load hone ka wait kiye!
             let isLoaded = false;
@@ -889,9 +894,6 @@
                 window.renderSidebar();
                 
                 document.body.style.overflow = 'hidden';
-                
-                const footer = document.getElementById('main-footer');
-                if(footer) footer.style.display = 'none';
             };
         };
 
@@ -940,7 +942,7 @@
             container.classList.remove('flex', 'flex-col');
             
             const footer = document.getElementById('main-footer');
-            if(footer) footer.style.display = (view === 'home') ? 'block' : 'none';
+            if(footer) footer.style.display = 'block'; // Always visible on internal views!
             
             window.triggerPageLoader();
             currentView = view;
@@ -1371,6 +1373,22 @@
             return greetings[Math.floor(Math.random() * greetings.length)];
         }
 
+        window.startHeroCarousel = function() {
+            if (heroInterval) clearInterval(heroInterval);
+            currentHeroIndex = 0;
+            const slider = document.getElementById('hero-slider');
+            const dots = document.querySelectorAll('.hero-dot');
+            if(!slider) return;
+            heroInterval = setInterval(() => {
+                currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+                if(typeof gsap !== 'undefined') gsap.to(slider, { xPercent: -100 * currentHeroIndex, duration: 1, ease: "expo.inOut" });
+                dots.forEach((dot, i) => {
+                    if(i === currentHeroIndex) { dot.classList.add('w-8', 'bg-brand-accent'); dot.classList.remove('w-2', 'bg-white/30'); }
+                    else { dot.classList.add('w-2', 'bg-white/30'); dot.classList.remove('w-8', 'bg-brand-accent'); }
+                });
+            }, 6000);
+        };
+
         window.renderHome = function() {
             let heroHtml = '';
             if (window.authState && window.authState.isAuthenticated) {
@@ -1383,10 +1401,10 @@
             } else {
                 heroHtml = `
                     <h1 class="text-[2.6rem] md:text-6xl lg:text-[70px] font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 tracking-tighter drop-shadow-2xl leading-[1.1] mb-2">
-                        NEXT-GEN AI TOOLS
+                        ESSENTIAL WEB TOOLS
                     </h1>
                     <p class="text-gray-400 text-[15px] md:text-lg mt-3 md:mt-4 font-medium max-w-[600px] leading-relaxed">
-                        The ultimate directory for precision-engineered AI workflows, formatters, and creative engines running directly in your browser.
+                        A comprehensive collection of powerful utilities designed for productivity, creativity, and everyday tasks directly in your browser.
                     </p>
                 `;
             }
@@ -1398,7 +1416,7 @@
                     <!-- Search Box -->
                     <div class="relative w-full max-w-2xl mt-8 md:mt-10">
                         <i data-lucide="search" class="absolute left-6 md:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
-                        <input type="text" id="inline-search-input" placeholder="Search for tools, workflows, or generators..." class="w-full bg-[#15171a] border border-white/10 hover:border-brand-accent/40 rounded-full py-4 pl-14 pr-4 text-white text-sm md:text-base focus:outline-none focus:border-brand-accent transition-colors shadow-[0_10px_30px_rgba(0,0,0,0.5)] placeholder-gray-500" oninput="window.performInlineSearch()">
+                        <input type="text" id="inline-search-input" placeholder="Search premium tools, categories, or keywords..." class="w-full bg-[#15171a] border border-white/10 hover:border-brand-accent/40 rounded-full py-4 pl-14 pr-4 text-white text-sm md:text-base focus:outline-none focus:border-brand-accent transition-colors shadow-[0_10px_30px_rgba(0,0,0,0.5)] placeholder-gray-500" oninput="window.performInlineSearch()">
                         <button onclick="window.closeInlineSearch()" id="inline-search-clear" class="absolute right-3 md:right-2 top-1/2 -translate-y-1/2 bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors hidden">
                             <i data-lucide="x" class="w-4 h-4 text-gray-300"></i>
                         </button>
@@ -1415,100 +1433,31 @@
 
                 <div id="home-main-content" class="w-full">
                     
-                    <!-- TOP PICKS SLIDER -->
-                    <div class="w-full relative px-3 md:px-5 mt-10">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-white/50 flex items-center gap-2">
-                                <i data-lucide="flame" class="w-4 h-4 text-brand-accent"></i> Top Picks
-                            </h2>
-                        </div>
-                        
-                        <div id="top-picks-scroll" class="flex overflow-x-auto hide-scroll snap-x snap-mandatory gap-4 md:gap-5 pb-12 pt-4 px-2 -mx-2 w-full cursor-grab active:cursor-grabbing">
-                            <!-- Slide 1 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#dev', 'dev')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative">
-                                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" alt="Generative Art">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5">
-                                        <span class="bg-black/40 backdrop-blur-md border border-white/20 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><span class="w-2 h-2 rounded-full bg-brand-accent"></span> Editor's Choice</span>
+                    <!-- HERO SLIDER SECTION -->
+                    <div class="w-full relative px-3 md:px-5 mt-10 mb-8">
+                        <section class="animate-fade-up relative z-10 h-[45vh] md:h-[55vh] overflow-hidden rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black" style="animation-delay: 0.1s">
+                            <div id="hero-slider" class="absolute inset-0 w-full h-full flex">
+                                ${heroSlides.map((slide, i) => `
+                                <div class="hero-slide min-w-full h-full relative skeleton-bg">
+                                    <img src="${slide.img}" fetchpriority="${i === 0 ? 'high' : 'auto'}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" onload="this.classList.remove('opacity-0'); this.parentElement.classList.remove('skeleton-bg'); this.parentElement.classList.add('img-loaded'); this.parentElement.style.animation = 'none';" class="absolute inset-0 w-full h-full object-cover opacity-0" style="transition: opacity 0.5s ease;" alt="${slide.title.replace(/<[^>]*>?/gm, '')}">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/70 to-transparent z-10"></div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10"></div>
+                                    <div class="absolute bottom-8 md:bottom-16 left-6 md:left-16 max-w-2xl z-20 space-y-3 md:space-y-6 text-left">
+                                        <span class="inline-block px-3 py-1 bg-brand-accent/20 border border-brand-accent/30 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-accent backdrop-blur-md shadow-[0_0_15px_rgba(var(--brand-rgb),0.4)]">${slide.tag}</span>
+                                        <h2 class="text-4xl md:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tighter">${slide.title}</h2>
+                                        <p class="text-sm md:text-base text-gray-300 font-medium mb-1 mt-2">${slide.subtitle}</p>
+                                        <p class="text-sm md:text-lg text-gray-400 font-medium leading-relaxed max-w-lg hidden md:block">${slide.desc}</p>
+                                        <div class="flex gap-3 md:gap-4 pt-2">
+                                            <button aria-label="Launch tool" onclick="window.navigateSmoothly('/#tool-${slide.id}', 'tool-${slide.id}')" class="bg-white text-black px-6 md:px-8 py-3 rounded-xl font-black text-xs md:text-sm hover:scale-105 transition-transform shadow-xl">Launch Now</button>
+                                            <button aria-label="Details" onclick="window.navigateSmoothly('/#tool-${slide.id}', 'tool-${slide.id}')" class="bg-white/10 backdrop-blur-xl text-white px-5 md:px-6 py-3 rounded-xl font-bold border border-white/10 hover:bg-white/20 transition-all text-xs md:text-sm">Details</button>
+                                        </div>
                                     </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Neural Engine</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Generate high-fidelity assets in browser.</p>
-                                    </div>
-                                </div>
+                                </div>`).join('')}
                             </div>
-                            <!-- Slide 2 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#dev', 'dev')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-gradient-to-br from-[#0a192f] to-[#0f1113]">
-                                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen transition-transform duration-700 group-hover:scale-110" alt="Code">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5 z-10">
-                                        <span class="bg-cyan-500/20 backdrop-blur-md border border-cyan-500/30 text-cyan-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="cpu" class="w-3 h-3"></i> AI Powered</span>
-                                    </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Dev Assist Pro</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Format, validate & debug with AI.</p>
-                                    </div>
-                                </div>
+                            <div class="absolute bottom-6 md:bottom-8 right-6 md:right-10 z-30 flex gap-2">
+                                ${heroSlides.map((_, i) => `<div class="hero-dot w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(var(--brand-rgb),0.8)]' : 'bg-white/30'}"></div>`).join('')}
                             </div>
-                            <!-- Slide 3 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#finance', 'finance')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 transition-transform duration-700 group-hover:scale-110" alt="Finance">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5 z-10">
-                                        <span class="bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="trending-up" class="w-3 h-3"></i> Top Tier</span>
-                                    </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">FireCalc AI</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Predictive financial independence modeling.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Slide 4 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#pdf', 'pdf')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
-                                    <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="PDF">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5 z-10">
-                                        <span class="bg-cyan-500/20 backdrop-blur-md border border-cyan-500/30 text-cyan-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="file-text" class="w-3 h-3"></i> Essential</span>
-                                    </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">PDF Magic</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Merge, split & secure locally in seconds.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Slide 5 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#image', 'image')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
-                                    <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="Image Lab">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5 z-10">
-                                        <span class="bg-fuchsia-500/20 backdrop-blur-md border border-fuchsia-500/30 text-fuchsia-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="image" class="w-3 h-3"></i> Creator Tools</span>
-                                    </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Image Lab</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Format converters, compressors & extractors.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Slide 6 -->
-                            <div class="snap-start shrink-0 w-[85vw] sm:w-[400px] md:w-[500px] flex flex-col group cursor-pointer" onclick="window.navigateSmoothly('/#brain', 'brain')">
-                                <div class="slider-card w-full h-[220px] md:h-[300px] rounded-[24px] overflow-hidden relative bg-[#09090b]">
-                                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110" alt="Brain Training">
-                                    <div class="absolute inset-0 fade-overlay-bottom"></div>
-                                    <div class="absolute top-5 left-5 z-10">
-                                        <span class="bg-purple-500/20 backdrop-blur-md border border-purple-500/30 text-purple-300 text-[10px] font-black uppercase px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg"><i data-lucide="brain-circuit" class="w-3 h-3"></i> Focus</span>
-                                    </div>
-                                    <div class="absolute bottom-6 left-6 right-6 z-10">
-                                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-2 drop-shadow-xl">Brain Focus</h3>
-                                        <p class="text-xs md:text-sm text-gray-400 font-medium line-clamp-1">Cognitive testing & simulators.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </section>
                     </div>
 
                     <!-- BENTO GRID -->
@@ -1591,20 +1540,6 @@
 
                     <!-- FULL WIDTH BANNERS -->
                     <div class="w-full flex flex-col gap-6 md:gap-8 mx-3 md:mx-5 mt-4 md:mt-6 w-[calc(100%-24px)] md:w-[calc(100%-40px)]">
-                        <div class="w-full h-[250px] md:h-[400px] rounded-[24px] md:rounded-[40px] overflow-hidden relative premium-card group cursor-pointer" onclick="window.navigateSmoothly('/#image', 'image')">
-                            <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt="Cinematic AI">
-                            <div class="absolute inset-0 bg-gradient-to-r from-[#0f1113] via-[#0f1113]/60 to-transparent"></div>
-                            <div class="relative z-10 h-full flex flex-col justify-center p-8 md:p-16 w-full md:w-2/3 text-left">
-                                <h2 class="text-4xl md:text-7xl font-black text-white tracking-tighter mb-2 drop-shadow-2xl font-serif italic">MORK</h2>
-                                <p class="text-brand-accent text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-6 drop-shadow-md">The Tale of AI Genesis</p>
-                                <div><button class="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black text-white px-6 py-2.5 rounded-lg text-sm md:text-base font-bold flex items-center gap-2 transition-all shadow-xl w-max"><i data-lucide="play" class="w-4 h-4 fill-current"></i> Watch Trailer</button></div>
-                            </div>
-                            <div class="absolute bottom-6 right-8 text-right hidden md:block z-10">
-                                <p class="text-white text-sm font-bold drop-shadow-md">Available on <span class="text-brand-accent">FORGENOS ORIGINALS</span></p>
-                                <p class="text-gray-300 text-xs drop-shadow-md">First ever AI series streaming platform.</p>
-                            </div>
-                        </div>
-
                         <div class="w-full h-[250px] md:h-[350px] rounded-[24px] md:rounded-[40px] overflow-hidden relative premium-card group cursor-pointer bg-[#0f1113]" onclick="window.navigateSmoothly('/#image', 'image')">
                             <div class="absolute top-[-30%] left-[-10%] w-[60%] h-[150%] bg-gradient-to-br from-purple-600/30 via-indigo-500/20 to-transparent blur-[80px] pointer-events-none"></div>
                             <div class="absolute bottom-[-30%] right-[-10%] w-[70%] h-[150%] bg-gradient-to-tl from-brand-accent/30 via-orange-500/10 to-transparent blur-[90px] pointer-events-none"></div>
@@ -1613,10 +1548,10 @@
                             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" class="absolute right-[-5%] md:right-[5%] bottom-[5%] w-[140px] md:w-[240px] rounded-2xl transform -rotate-6 opacity-95 shadow-2xl group-hover:rotate-0 transition-transform duration-500 z-10">
                             <div class="absolute inset-0 bg-gradient-to-r from-[#0f1113] via-[#0f1113]/80 to-transparent"></div>
                             <div class="relative z-20 h-full flex flex-col justify-center p-8 md:p-16">
-                                <span class="bg-brand-accent text-white text-[10px] md:text-xs font-black italic px-3 py-1 w-max rounded-sm mb-4 uppercase tracking-wider shadow-lg">Photodump AI</span>
+                                <span class="bg-brand-accent text-white text-[10px] md:text-xs font-black italic px-3 py-1 w-max rounded-sm mb-4 uppercase tracking-wider shadow-lg">Photo Batch Engine</span>
                                 <h2 class="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase leading-[1.1] mb-2 drop-shadow-xl max-w-sm">Different Scenes<br>Same Star</h2>
-                                <p class="text-gray-300 text-xs md:text-sm mb-6 drop-shadow-md">Build your character. One click does the rest.</p>
-                                <button class="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-xl text-sm font-bold w-max transition-colors shadow-lg">Try Photodump</button>
+                                <p class="text-gray-300 text-xs md:text-sm mb-6 drop-shadow-md">Batch process your gallery. One click does the rest.</p>
+                                <button class="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-xl text-sm font-bold w-max transition-colors shadow-lg">Try Batch Engine</button>
                             </div>
                         </div>
                     </div>
@@ -1668,10 +1603,13 @@
             document.getElementById('view-content').innerHTML = html;
             window.tryCreateIcons();
 
+            window.startHeroCarousel();
+            
             // Setup smooth infinite auto-scroll logic for rows
             setTimeout(() => {
-                window.setupAutoScroll('top-picks-scroll');
-                window.setupAutoScroll('essential-workflows-scroll');
+                if(document.getElementById('essential-workflows-scroll')) {
+                    window.setupAutoScroll('essential-workflows-scroll');
+                }
             }, 500);
         };
 
@@ -2049,8 +1987,9 @@
             else if(initialView.startsWith('tool-')) window.renderToolDetailPage(parseInt(initialView.split('-')[1]));
             else window.renderCategoryPage(initialView);
 
+            // Force persistence on initial load
             const footer = document.getElementById('main-footer');
-            if(footer) footer.style.display = (initialView === 'home') ? 'block' : 'none';
+            if(footer) footer.style.display = 'block';
 
             window.renderSidebar(); 
             window.tryCreateIcons();
